@@ -1,0 +1,160 @@
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <img src="../../../assets/images/30_0.png" width="70" height="70">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" routerLink="main">Главная <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="news">Новости</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="contact">Связаться с нами</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="about">О нас</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="help">Помощь</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="shop">Q-Shop</a>
+        </li>
+      </ul>
+
+      <div id="auth" class="ml-auto row auth " >
+        <div class="col-2">
+          <a  routerLink="create" style="color: inherit">
+            <i class="fas fa-home fa-plus fa-lg"></i>
+          </a>
+        </div>
+        <div class="col-2"><a routerLink="profile" style="color: inherit"><i class="fas fa-home fa-lg" ></i></a></div>
+        <div class="col-3">
+
+
+
+          <a class="dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span class="badge badge-danger">12</span>
+            <i class="fas fa-bell fa-lg"></i>
+
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary  shadow-lg keep-open p-3  " style="height: 300px" aria-labelledby="navbarDropdownMenuLink-5">
+
+
+            <div class="dropdown-item " style="width:700px;background-color: white">
+              <ul class="nav nav-tabs  ">
+                <li class="nav-item">
+                  <a class="nav-link " [ngClass]="{active: num==1}"  (click)="changeClass(1)">Bakers <span class="badge badge-danger ml-2 ">1</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{active: num==2}" (click)="changeClass(2)">Questions <span class="badge badge-danger ml-2 ">1</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{active: num==3}" (click)="changeClass(3)" >Comments <span class="badge badge-danger ml-2 ">4</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{active: num==4}"  (click)="changeClass(4)">Likes <span class="badge badge-danger ml-2 ">4</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" [ngClass]="{active: num==5}"  (click)="changeClass(5)" >News <span class="badge badge-danger ml-2 ">2</span></a>
+                </li>
+              </ul>
+
+            </div>
+            <div class="mt-2" [ngStyle]="{display: (num==1)?'block':'none' }" id="bakers">
+              New baker!
+            </div>
+            <div class="mt-2" [ngStyle]="{display: (num==2)?'block':'none' }"  id="question">
+              New question!
+
+            </div>
+            <div class="mt-2" [ngStyle]="{display: (num==3)?'block':'none' }" id="comment">
+              New comment!
+              <hr/>
+              Another comment!
+              <hr/>
+              Another comment!
+              <hr/>
+              Another comment!
+
+            </div>
+            <div class="mt-2" [ngStyle]="{display: (num==4)?'block':'none' }" id="like">
+              New like!
+              <hr/>
+              Another like!
+              <hr/>
+              Another like!
+              <hr/>
+              Another like!
+
+            </div>
+            <div class="mt-2" [ngStyle]="{display: (num==5)?'block':'none' }" id="news">
+              News!
+              <hr/>
+              Another news!
+
+            </div>
+
+
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Archet
+            </button>
+            <div class="dropdown-menu  dropdown-secondary shadow-lg keep-open"  aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="Logout()">Logout</a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+
+    </div>
+  </nav>
+
+  <nav class="navbar navbar-light border">
+  <span class="navbar-text">
+            <a class="nav-link" routerLink="category">Category <span class="sr-only">(current)</span></a>
+  </span>
+    <span class="navbar-text">
+            <a class="nav-link" routerLink="category">Category <span class="sr-only">(current)</span></a>
+  </span>
+    <span class="navbar-text">
+            <a class="nav-link" routerLink="category">Category <span class="sr-only">(current)</span></a>
+  </span>
+    <span class="navbar-text">
+            <a class="nav-link" routerLink="category">Category <span class="sr-only">(current)</span></a>
+  </span>
+    <span class="navbar-text">
+            <a class="nav-link" routerLink="category">Category <span class="sr-only">(current)</span></a>
+  </span>
+    <span class="navbar-text">
+            <a class="nav-link" routerLink="category">Category <span class="sr-only">(current)</span></a>
+  </span>
+    <span class="navbar-text">
+            <a class="nav-link" routerLink="category">Category <span class="sr-only">(current)</span></a>
+  </span>
+  </nav>
+
+
+
+    <router-outlet></router-outlet>
+
+
+</div>
+
+
+
+
+
+

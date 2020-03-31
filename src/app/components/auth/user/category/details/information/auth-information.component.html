@@ -1,0 +1,23 @@
+
+<div class="pt-md-4 row justify-content-center sticky-top " style="background-color: white">
+  <div class="col-10 ">
+    <ul class="nav nav-tabs  justify-content-end ">
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{active: num==1}" routerLink="description" (click)="changeClass(1)">Description</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{active: num==2}" routerLink="comments" (click)="changeClass(2)">Comments</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{active: num==3}" routerLink="updates" (click)="changeClass(3)">Updates</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{active: num==4}" routerLink="questions" (click)="changeClass(4)">Questions</a>
+      </li>
+    </ul>
+
+  </div>
+
+</div>
+<router-outlet></router-outlet>
+
