@@ -2,3 +2,11 @@
 /*  box-shadow: 0 0 10px rgba(0,0,0,0.5); !* Параметры тени *!*/
 /*  padding: 10px;*/
 /*}*/
+.bg-sss{
+  background-color: #009E74;
+  color: white;
+}
+.color-sss{
+  color: #009E74;
+
+}

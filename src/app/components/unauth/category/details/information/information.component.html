@@ -1,23 +1,31 @@
 
-<div class="pt-md-4 row justify-content-center sticky-top " style="background-color: white">
-  <div class="col-10 ">
-    <ul class="nav nav-tabs  justify-content-end ">
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{active: num==1}" routerLink="description" (click)="changeClass(1)">Description</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{active: num==2}" routerLink="comments" (click)="changeClass(2)">Comments</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{active: num==3}" routerLink="updates" (click)="changeClass(3)">Updates</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{active: num==4}" routerLink="questions" (click)="changeClass(4)">Questions</a>
-      </li>
-    </ul>
-
+<div class="row justify-content-center">
+  <div class="col-md-10 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body dashboard-tabs p-0">
+        <ul class="nav nav-tabs px-4" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link" id="description-tab" data-toggle="tab"  role="tab" aria-controls="overview" aria-selected="false"routerLink="description" >Description</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="comment-tab" data-toggle="tab"  role="tab" aria-controls="sales" aria-selected="true" routerLink="comments">Comments</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="update-tab" data-toggle="tab"  role="tab" aria-controls="purchases" aria-selected="false" routerLink="updates">Updates</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="question-tab" data-toggle="tab" role="tab" aria-controls="purchases" aria-selected="false" routerLink="questions">Questions</a>
+          </li>
+        </ul>
+        <div class="tab-content  ">
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
-<router-outlet></router-outlet>
-
+<div class="row justify-content-center">
+  <div class="col-md-10 grid-margin pb-md-3 pt-md-3 pb-sm-3 pt-sm-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>

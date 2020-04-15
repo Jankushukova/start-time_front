@@ -17,5 +17,15 @@ export class UnauthComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  changeMenu() {
+    // if (document.getElementById('sidebar').style.display === 'block') {
+    //   document.getElementById('sidebar').style.display = 'none';
+    // } else {
+    //   document.getElementById('sidebar').style.display = 'block';
+    // }
+  }
 
+  show(n: number) {
+    alert(n);
+  }
 }
