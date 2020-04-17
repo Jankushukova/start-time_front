@@ -32,11 +32,10 @@ export class LoginComponent implements OnInit {
     const user: User = this.loginForm.getRawValue();
     // console.log(this.userService.login(user));
     this.userService.login(user).subscribe(perf => {
-      // @ts-ignore
       this.authService.setToken(perf.access_token);
-      // @ts-ignore
+      console.log(perf.access_token);
       this.userService.setUser(perf.user);
-      this.router.navigateByUrl('/user');
+      this.router.navigateByUrl('user');
     }, error => {
       if (error.status === 401) {
         console.log(error);

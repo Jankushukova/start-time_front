@@ -23,10 +23,12 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.builder.group({
       email: ['', [Validators.required]],
       password: ['', Validators.required],
+      password_confirmation: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       phone_number: ['', Validators.required],
     });
+
   }
   onSubmit() {
     const user: User = this.registerForm.getRawValue();

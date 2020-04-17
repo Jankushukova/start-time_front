@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import * as $ from 'jquery';
 import {UserService} from '../../../services/user.service';
 import {AuthService} from '../../../services/auth.service';
+import {User} from '../../../models/user';
 
 @Component({
   selector: 'app-unauth',
@@ -12,6 +13,7 @@ import {AuthService} from '../../../services/auth.service';
 export class AuthComponent implements OnInit {
     num = 1;
     authorized = false;
+    user: User = null;
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -21,19 +23,19 @@ export class AuthComponent implements OnInit {
     if (!this.userService.isAuthorized()) {
       this.router.navigateByUrl('/start/login');
     }
-    jQuery('.dropdown-toggle').on('click', function(e)  {
+    jQuery('.dropdown-toggle').on('click', (e) =>  {
       $(this).next().toggle();
     });
-    jQuery('.dropdown-menu.keep-open').on('click',  function(e)  {
+    jQuery('.dropdown-menu.keep-open').on('click',  (e) =>  {
       e.stopPropagation();
     });
+    this.user =  this.userService.getUser();
   }
-  changeClass(element) {
-    this.num = element;
-  }
+
   Logout() {
     this.userService.logout();
     this.router.navigateByUrl('/');
+
   }
 
 }

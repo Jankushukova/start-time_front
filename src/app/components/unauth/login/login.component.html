@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Вход</h4>
-        <p class="card-description">
+        <p class="card-description text-danger">
           {{answer}}
         </p>
         <form [formGroup]="loginForm" class="forms-sample">
@@ -21,7 +21,6 @@
               <input formControlName="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
             </div>
           </div>
-
           <div class="form-check form-check-flat form-check-primary">
             <label class="form-check-label">
               <input type="checkbox" class="form-check-input">

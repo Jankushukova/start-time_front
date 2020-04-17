@@ -4,6 +4,9 @@
       <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
         <a class="navbar-brand brand-logo"><img src="../../../assets/images/30_0.png" alt="logo"></a>
         <a class="navbar-brand brand-logo-mini" ><img src="../../../assets/images/30_0.png" alt="logo"></a>
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-sort-variant"></span>
+        </button>
       </div>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -33,98 +36,82 @@
           <a class="nav-link " routerLink="shop">Q-Shop</a>
         </li>
       </ul>
-      <div id="auth" class="ml-auto row auth " >
-        <div class="col-2">
-          <a  routerLink="create" style="color: inherit">
+
+      <ul class="navbar-nav navbar-nav-right">
+        <li class="nav-item dropdown mr-1">
+          <a  routerLink="create" class="nav-link d-flex justify-content-center align-items-center">
             <i class="fas fa-home fa-plus fa-lg"></i>
           </a>
-        </div>
-        <div class="col-2"><a routerLink="profile" style="color: inherit"><i class="fas fa-home fa-lg" ></i></a></div>
-        <div class="col-3">
-
-
-
-          <a class="dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span class="badge badge-danger">12</span>
-            <i class="fas fa-bell fa-lg"></i>
-
+        </li>
+        <li class="nav-item dropdown mr-1">
+          <a class="nav-link d-flex justify-content-center align-items-center"routerLink="profile" ><i class="fas fa-home fa-lg" ></i></a>
+        </li>
+        <li class="nav-item dropdown mr-4">
+          <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-toggle="dropdown">
+            <i class="mdi mdi-bell mx-0"></i>
+            <span class="count"></span>
           </a>
-          <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary  shadow-lg keep-open p-3  " style="height: 300px" aria-labelledby="navbarDropdownMenuLink-5">
-
-
-            <div class="dropdown-item " style="width:700px;background-color: white">
-              <ul class="nav nav-tabs  ">
-                <li class="nav-item">
-                  <a class="nav-link " [ngClass]="{active: num==1}"  (click)="changeClass(1)">Bakers <span class="badge badge-danger ml-2 ">1</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" [ngClass]="{active: num==2}" (click)="changeClass(2)">Questions <span class="badge badge-danger ml-2 ">1</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" [ngClass]="{active: num==3}" (click)="changeClass(3)" >Comments <span class="badge badge-danger ml-2 ">4</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" [ngClass]="{active: num==4}"  (click)="changeClass(4)">Likes <span class="badge badge-danger ml-2 ">4</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" [ngClass]="{active: num==5}"  (click)="changeClass(5)" >News <span class="badge badge-danger ml-2 ">2</span></a>
-                </li>
-              </ul>
-
-            </div>
-            <div class="mt-2" [ngStyle]="{display: (num==1)?'block':'none' }" id="bakers">
-              New baker!
-            </div>
-            <div class="mt-2" [ngStyle]="{display: (num==2)?'block':'none' }"  id="question">
-              New question!
-
-            </div>
-            <div class="mt-2" [ngStyle]="{display: (num==3)?'block':'none' }" id="comment">
-              New comment!
-              <hr/>
-              Another comment!
-              <hr/>
-              Another comment!
-              <hr/>
-              Another comment!
-
-            </div>
-            <div class="mt-2" [ngStyle]="{display: (num==4)?'block':'none' }" id="like">
-              New like!
-              <hr/>
-              Another like!
-              <hr/>
-              Another like!
-              <hr/>
-              Another like!
-
-            </div>
-            <div class="mt-2" [ngStyle]="{display: (num==5)?'block':'none' }" id="news">
-              News!
-              <hr/>
-              Another news!
-
-            </div>
-
-
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
+            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+            <a class="dropdown-item">
+              <div class="item-thumbnail">
+                <div class="item-icon bg-success">
+                  <i class="mdi mdi-information mx-0"></i>
+                </div>
+              </div>
+              <div class="item-content">
+                <h6 class="font-weight-normal">Application Error</h6>
+                <p class="font-weight-light small-text mb-0 text-muted">
+                  Just now
+                </p>
+              </div>
+            </a>
+            <a class="dropdown-item">
+              <div class="item-thumbnail">
+                <div class="item-icon bg-warning">
+                  <i class="mdi mdi-settings mx-0"></i>
+                </div>
+              </div>
+              <div class="item-content">
+                <h6 class="font-weight-normal">Settings</h6>
+                <p class="font-weight-light small-text mb-0 text-muted">
+                  Private message
+                </p>
+              </div>
+            </a>
+            <a class="dropdown-item">
+              <div class="item-thumbnail">
+                <div class="item-icon bg-info">
+                  <i class="mdi mdi-account-box mx-0"></i>
+                </div>
+              </div>
+              <div class="item-content">
+                <h6 class="font-weight-normal">New user registration</h6>
+                <p class="font-weight-light small-text mb-0 text-muted">
+                  2 days ago
+                </p>
+              </div>
+            </a>
           </div>
-        </div>
-        <div class="col-3">
-          <div class="dropdown">
-            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Archet
-            </button>
-            <div class="dropdown-menu  dropdown-secondary shadow-lg keep-open"  aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" (click)="Logout()">Logout</a>
-            </div>
+        </li>
+        <li class="nav-item nav-profile dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+            <img src="../../../../assets/images/11_0.png" alt="profile">
+            <span class="nav-profile-name">{{user.firstname}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <a class="dropdown-item">
+              <i class="mdi mdi-settings text-primary"></i>
+              Settings
+            </a>
+            <a class="dropdown-item" (click)="Logout()">
+              <i class="mdi mdi-logout text-primary"></i>
+              Logout
+            </a>
           </div>
-        </div>
-
-
-      </div>
-
-
-      <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"  type="button" data-toggle="offcanvas">
+        </li>
+      </ul>
+      <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
         <span class="mdi mdi-menu"></span>
       </button>
     </div>
@@ -228,6 +215,32 @@
       </div>
     </div>
   </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="container-fluid page-body-wrapper">
     <nav    class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">

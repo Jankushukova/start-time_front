@@ -1,181 +1,167 @@
-<div class=" container-fluid  mb-md-5">
-  <div class="row justify-content-center mt-md-5">
-    <div class="col-6 border rounded-lg p-5 shadow">
+<div class="row justify-content-center ">
 
-      <div class="form-row justify-content-center">
-        <div class="input-group mb-3 col-md-6">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+  <div class="col-md-10 ">
+    <p>Please fill all the fields</p>
+    <p>{{answer}}</p>
+  </div>
+    <div class="col-md-10 ">
+
+  <div class="row justify-content-center ">
+    <form [formGroup]="projectForm">
+    <div class="col-md-5 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+          <div class="input-group  ">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-definition">Name</span>
+            </div>
+            <input formControlName="title" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-definition">
           </div>
-          <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-default">
-        </div>
+        </div></div></div>
 
-        <div class="input-group mb-3 col-md-6">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-defaul">Category</span>
+    <div class="col-md-5 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+            <div class="input-group  ">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-sss text-white " id="inputGroup-sizing-defaul">Category</span>
+              </div>
+              <select id="inputState" formControlName="category_id" class="form-control" aria-describedby="inputGroup-sizing-defaul">
+                <option selected>Choose...</option>
+                <option >Choose...</option>
+                <option>...</option>
+              </select>
+            </div>
+        </div></div></div>
+
+    <div class="col-md-10 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+              <label for="exampleFormControlTextarea1">Brief description</label>
+              <textarea formControlName="description" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+        </div></div></div>
+
+    <div class="col-md-5 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-defa">Deadline</span>
+            </div>
+            <input class="form-control" formControlName="deadline" type="datetime-local" value="2011-010-19T13:55:00" id="example-datetime-local-input">
+            <div class="input-group-append">
+              <i class="input-group-text mdi mdi-calendar-clock"></i>
+            </div>
           </div>
-          <select id="inputState" class="form-control" aria-describedby="inputGroup-sizing-defaul">
-            <option selected>Choose...</option>
-            <option>...</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row justify-content-center hr mt-3">
-        <div class="col-md-6 ">
-          <hr class="border"/>
-
-        </div>
-
-      </div>
-
-      <div>
-          <label for="exampleFormControlTextarea1">Brief description</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-      </div>
-
-      <div class="row justify-content-center hr mt-4 mb-4">
-        <div class="col-md-6">
-          <hr class="border"/>
-
-        </div>
-
-      </div>
-
-      <div class="form-row justify-content-center">
-        <div class="input-group mb-3 col-md-6">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-defa">Deadline</span>
-          </div>
-          <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
-        </div>
-        <div class="input-group mb-3 col-md-6">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-def">Sum</span>
-          </div>
-          <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-def">
-        </div>
 
 
-      </div>
+        </div></div></div>
 
-      <div class="row justify-content-center hr mt-4 md-4">
-        <div class="col-md-6">
-          <hr class="border"/>
+    <div class="col-md-5 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+    <div class="input-group  ">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-def">Sum</span>
+              </div>
+              <input type="text" class="form-control" formControlName="goal" aria-label="Name" aria-describedby="inputGroup-sizing-def">
+            </div>
+        </div></div></div>
 
-        </div>
+    <div class="col-md-10 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
 
-      </div>
-
-      <div>
-            <p>Content</p>
-              <textarea id="full-featured-non-premium">
+              <p>Content</p>
+              <textarea formControlName="content" id="full-featured-non-premium">
 
               </textarea>
+        </div></div></div>
 
-        </div>
-
-      <div class="row justify-content-center hr mt-4 mb-4">
-        <div class="col-md-6">
-          <hr class="border"/>
-
-        </div>
-
-      </div>
-
-      <div class="form-row justify-content-center mt-md-3">
-        <div class="input-group mb-3 col ">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-          </div>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile01"
-                   aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
-          </div>
-        </div>
-        <div class="input-group mb-3 col">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-de">Video</span>
-          </div>
-          <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-de">
-        </div>
-
-
-
-      </div>
-
-      <div class="row justify-content-center hr mt-4 mb-4">
-        <div class="col-md-6">
-          <hr class="border"/>
-
-        </div>
-
-      </div>
-
-      <div class="border rounded-lg p-4 shadow">
-        <p>Reward</p>
-        <div class="form-row justify-content-center">
-          <div class="input-group mb-3 col-md-6">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-d">Sum</span>
+    <div class="col-md-5 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+            <div class="input-group ">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-sss text-white" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                       aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
+              </div>
             </div>
-            <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-d">
-          </div>
-          <div class="input-group mb-3 col-md-6">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing">Description</span>
+        </div></div></div>
+
+    <div class="col-md-5 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+    <div class="input-group  ">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-de">Video</span>
+              </div>
+              <input formControlName="video" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-de">
             </div>
-            <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing">
-          </div>
+        </div></div></div>
+
+    <div class="col-md-10 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+              <p>Reward</p>
+              <div class="form-row justify-content-center">
+                <div class="input-group mb-3 col-md-6 grid-margin stretch-card ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-d">Sum</span>
+                  </div>
+                  <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-d">
+                </div>
+                <div class="input-group mb-3 col-md-6 grid-margin stretch-card ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-sss text-white" id="inputGroup-sizing">Description</span>
+                  </div>
+                  <input  type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing">
+                </div>
 
 
-        </div>
+              </div>
 
-        <div class="row justify-content-center">
-          <div class="col-md-9">
-            <table class="table mt-md-3 ">
-              <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Sum</th>
-                <th scope="col">Description</th>
-                <th scope="col">Action</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>50tg</td>
-                <td>Otto</td>
-                <td><i class="fas fa-trash"></i><i class="ml-md-2 fas fa-edit"></i></td>
-              </tr>
+              <div class="row justify-content-center">
+                <div class="col-md-9 grid-margin stretch-card ">
+                  <table class="table mt-md-3 ">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Sum</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>50tg</td>
+                      <td>Otto</td>
+                      <td><i class="fas fa-trash"></i><i class="ml-md-2 fas fa-edit"></i></td>
+                    </tr>
 
-              </tbody>
-            </table>
+                    </tbody>
+                  </table>
 
-          </div>
+                </div>
 
-        </div>
+              </div>
 
+
+        </div></div></div>
+
+    <div class="col-md-10 grid-margin stretch-card ">
+      <div class="text-right  w-100">
+        <button class="btn w-25 btn-lg bg-sss text-light" (click)="onSubmit()">Save</button>
 
       </div>
-
-      <div class="text-right mt-md-5">
-        <button class="btn w-25 btn-lg bg-sss text-light">Save</button>
-      </div>
-
-
-
-
-
-
+    </div>
+  </form>
+  </div>
 
     </div>
-  </div>
 </div>
-
-
-
-
-

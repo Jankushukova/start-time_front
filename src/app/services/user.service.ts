@@ -21,15 +21,17 @@ export class UserService {
   public adminLogin(user: User) {
     return this.http.post(this.adminLoginUrl, user, {responseType: 'json'});
   }
-  public login(user: User) {
+  public login(user: User): Observable<any> {
     return this.http.post(this.loginUrl, user, {responseType: 'json'});
   }
   public logout() {
     localStorage.clear();
     return this.http.post(this.logoutUrl,  {responseType: 'text'});
   }
-  public setUser(u: User) {
-   localStorage.setItem('user', JSON.stringify(u));
+  public setUser(u: any) {
+    const user = new User().deserialize(u);
+    // @ts-ignore
+    localStorage.setItem('user', JSON.stringify(user));
   }
   public getUser() {
     return JSON.parse(localStorage.getItem('user'));
@@ -54,7 +56,7 @@ export class UserService {
   }
   public isAuthorized() {
     if (this.getUser()) {
-      return this.getUser().role_id === 4;
+      return this.getUser().role_id.id === 4;
     }
     return false;
   }

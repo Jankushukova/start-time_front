@@ -83,7 +83,6 @@ import { ModeratorLoginComponent } from './components/auth/moderator-login/moder
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'start', pathMatch: 'full'},
   {path: 'start', component: UnauthComponent,
     children: [
     {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -191,6 +190,7 @@ const routes: Routes = [
   {path: 'director', component: DirectorComponent},
   {path: 'manager', component: ManagerComponent},
   {path: 'start-time/moderator', component: ModeratorLoginComponent},
+  {path: '', redirectTo: 'start', pathMatch: 'full'},
 
 ];
 
