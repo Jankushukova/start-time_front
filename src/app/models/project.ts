@@ -9,7 +9,7 @@ export class Project implements Deserializable{
   deadline: string;
   content: string;
   video: string;
-  reward: string;
+  goal: string;
   gathered: string;
   active: boolean;
   // tslint:disable-next-line:variable-name

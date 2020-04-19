@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { UnauthComponent } from './components/unauth/unauth.component';
 import { AdminComponent } from './components/auth/admin/admin.component';
 import { LoginComponent } from './components/unauth/login/login.component';
@@ -80,7 +80,18 @@ import { AdminShopCategoriesComponent } from './components/auth/admin/admin-shop
 import { AdminBakesComponent } from './components/auth/admin/admin-projects/admin-bakes/admin-bakes.component';
 import { AdminMainComponent } from './components/auth/admin/admin-main/admin-main.component';
 import { ModeratorLoginComponent } from './components/auth/moderator-login/moderator-login.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormField} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MaterialFileInputModule} from 'ngx-material-file-input';
+import {EditorModule} from '@tinymce/tinymce-angular';
+import {TokenInterceptor} from './interceptors/token';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {path: 'start', component: UnauthComponent,
@@ -279,15 +290,33 @@ const routes: Routes = [
     AdminMainComponent,
     ModeratorLoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot(routes),
-    ReactiveFormsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        RouterModule.forRoot(routes),
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatIconModule,
+        MaterialFileInputModule,
+        EditorModule,
+        OverlayModule,
+        MatSnackBarModule
+
+    ],
+  providers: [
+    MatDatepickerModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],  bootstrap: [AppComponent]
 })
 export class AppModule { }

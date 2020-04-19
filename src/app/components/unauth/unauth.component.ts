@@ -28,4 +28,8 @@ export class UnauthComponent implements OnInit {
   show(n: number) {
     alert(n);
   }
+  getDate(){
+    const date:Date = new Date();
+    return date.getFullYear();
+  }
 }

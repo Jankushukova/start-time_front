@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as bootbox from 'bootbox';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -12,7 +11,6 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
   }
   show() {
-   bootbox.alert('hello word');
   }
 
 }

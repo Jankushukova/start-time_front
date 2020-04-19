@@ -37,5 +37,9 @@ export class AuthComponent implements OnInit {
     this.router.navigateByUrl('/');
 
   }
+  getDate(){
+    const date:Date = new Date();
+    return date.getFullYear();
+  }
 
 }

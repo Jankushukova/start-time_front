@@ -32,14 +32,13 @@ export class LoginComponent implements OnInit {
     const user: User = this.loginForm.getRawValue();
     // console.log(this.userService.login(user));
     this.userService.login(user).subscribe(perf => {
-      this.authService.setToken(perf.access_token);
-      console.log(perf.access_token);
+      this.authService.setToken(perf.token);
+      console.log(perf.token);
       this.userService.setUser(perf.user);
       this.router.navigateByUrl('user');
     }, error => {
-      if (error.status === 401) {
-        console.log(error);
-        this.answer = error.error.error;
+      if (error.status === 400) {
+        this.answer = "Invalid credentials";
       }
     });
   }

@@ -9,7 +9,7 @@ import {Role} from '../models/role';
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl = environment.apiUrl + '/api/v1/users';
+  mainUrl = environment.apiUrl + '/api/v1/users';
   loginUrl = environment.apiUrl + '/api/v1/userLogin';
   adminLoginUrl = environment.apiUrl + '/api/v1/adminLogin';
   logoutUrl = environment.apiUrl + '/api/v1/logout';
@@ -33,24 +33,24 @@ export class UserService {
     // @ts-ignore
     localStorage.setItem('user', JSON.stringify(user));
   }
-  public getUser() {
+  public getUser():User {
     return JSON.parse(localStorage.getItem('user'));
   }
   public isAdmin() {
     if (this.getUser()) {
-      return this.getUser().role_id === 1;
+      return this.getUser().role_id.id === 1;
     }
     return false;
   }
   public isDirector() {
     if (this.getUser()) {
-      return this.getUser().role_id === 2;
+      return this.getUser().role_id.id === 2;
     }
     return false;
   }
   public isManager() {
     if (this.getUser()) {
-      return this.getUser().role_id === 3;
+      return this.getUser().role_id.id === 3;
     }
     return false;
   }
@@ -62,7 +62,7 @@ export class UserService {
   }
   public checkRoleUrl() {
     if (this.getUser()) {
-      const role = this.getUser().role_id;
+      const role = this.getUser().role_id.id;
       if ( this.isAdmin()) {
         return '/admin';
       } else if (this.isDirector()) {
@@ -74,5 +74,19 @@ export class UserService {
       }
     }
     return '/start';
+  }
+
+
+  public findById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.mainUrl}/${id}`);
+  }
+
+
+  public update(id: number, user: User): Observable<User> {
+    return this.http.put<User>(`${this.mainUrl}/${id}`, user);
+  }
+
+  public deleteById(id: number) {
+    return this.http.delete(`${this.mainUrl}/${id}`);
   }
 }

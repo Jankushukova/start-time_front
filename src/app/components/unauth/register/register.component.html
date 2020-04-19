@@ -3,7 +3,8 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Регистрация</h4>
-        <p class="card-description">
+        <p class="card-description text-danger">
+          {{answer}}
         </p>
         <form [formGroup]="registerForm" class="forms-sample">
           <div class="form-group row">
@@ -11,6 +12,7 @@
             <div class="col-sm-9">
               <input formControlName="firstname" type="text" class="form-control" id="exampleInputFirstname" placeholder="Firstname">
             </div>
+
           </div>
           <div class="form-group row">
             <label for="exampleInputLastname" class="col-sm-3 col-form-label">Lastname</label>
@@ -51,6 +53,8 @@
           </div>
           <button type="submit" class="btn btn-primary mr-2" (click)="onSubmit()" [disabled]="!registerForm.valid">Submit</button>
         </form>
+
+
       </div>
     </div>
   </div>

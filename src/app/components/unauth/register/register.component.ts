@@ -12,7 +12,7 @@ import {User} from '../../../models/user';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-
+  answer = '';
   constructor(private userService: UserService,
               private router: Router,
               private builder: FormBuilder,
@@ -32,10 +32,19 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit() {
     const user: User = this.registerForm.getRawValue();
+
     this.userService.register(user).subscribe(perf => {
-      console.log(perf);
       this.router.navigateByUrl('/user');
-    });
+    }, error => {
+      if (error.status === 400) {
+        const message = JSON.parse(error.error);
+        if (message.password){
+          this.answer = message.password;
+        }else{
+          this.answer = 'This email has already been taken';
+        }
+      }
+    });;
   }
 
 }
