@@ -13,6 +13,7 @@ export class User implements Deserializable {
   email: string;
   // tslint:disable-next-line:variable-name
   role_id: Role;
+  partner: boolean;
   deserialize(input: any): this {
     Object.assign(this, input);
     this.role_id = new Role().deserialize((input.role_id));
