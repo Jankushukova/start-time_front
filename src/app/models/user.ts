@@ -16,8 +16,7 @@ export class User implements Deserializable {
   partner: boolean;
   deserialize(input: any): this {
     Object.assign(this, input);
-    this.role_id = new Role().deserialize((input.role_id));
-    // Iterate over all cars for our user and map them to a proper `Car` model
+    this.role_id = new Role().deserialize(input.role_id);
     return this;
   }
 

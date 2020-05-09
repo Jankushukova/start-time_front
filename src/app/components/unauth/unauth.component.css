@@ -1,4 +1,8 @@
-
+@media (min-width: 992px) {
+  #sidebar{
+    display: none;
+  }
+}
 
 .nav-link{
   font-size: 18px;

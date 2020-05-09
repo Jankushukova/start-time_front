@@ -28,6 +28,7 @@ export class NewsService {
     );
   }
 //+
+
   public create(news: News): Observable<News> {
     return this.http.post<News>(this.mainUrl, news);
   }

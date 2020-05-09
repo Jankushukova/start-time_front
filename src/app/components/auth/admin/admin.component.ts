@@ -17,13 +17,15 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     if (!this.userService.isAdmin()) {
       this.router.navigateByUrl('/start/login');
+    }else{
+      jQuery('.dropdown-toggle').on('click', function (e) {
+        $(this).next().toggle();
+      });
+      jQuery('.dropdown-menu.keep-open').on('click', function (e) {
+        e.stopPropagation();
+      });
     }
-    jQuery('.dropdown-toggle').on('click', function (e) {
-      $(this).next().toggle();
-    });
-    jQuery('.dropdown-menu.keep-open').on('click', function (e) {
-      e.stopPropagation();
-    });
+
   }
   Logout() {
     this.userService.logout();

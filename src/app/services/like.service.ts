@@ -37,8 +37,8 @@ export class LikeService {
   }
 
   //+
-  public deleteByIdCommentLike(id: number) {
-    return this.http.delete(`${this.commentUrl}/${id}`);
+  public deleteByIdCommentLike(id: number):Observable<any> {
+    return this.http.delete<CommentLike>(`${this.commentUrl}/${id}`);
   }
 
   //project
@@ -55,7 +55,7 @@ export class LikeService {
   }
 
   //+
-  public deleteByIdProjectLike(id: number) {
+  public deleteByIdProjectLike(id: number):Observable<{}> {
     return this.http.delete(`${this.projectUrl}/${id}`);
   }
 

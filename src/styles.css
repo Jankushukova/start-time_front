@@ -16,6 +16,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: orangered;
 }
 .style-error {
-  color: orangered;
-  background-color:white;
+  color: white;
+  background-color: #dd2c00;
 }
+
+
+
+.dates{
+  background: #009E74;
+}
+.bg-sss{
+  background-color: #009E74;
+}
+.border-sss{
+  border-left: solid 10px #009E74;
+
+}
+

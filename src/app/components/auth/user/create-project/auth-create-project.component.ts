@@ -13,6 +13,8 @@ import {DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter} from '@angular/materia
 import {formatDate} from '@angular/common';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {ProjectImage} from '../../../../models/projectImage';
 
 
 
@@ -38,24 +40,26 @@ class PickDateAdapter extends NativeDateAdapter {
 
 
 
-
 @Component({
   selector: 'app-create-project',
   templateUrl: './auth-create-project.component.html',
   styleUrls: ['./auth-create-project.component.css'],
   providers: [
     {provide: DateAdapter, useClass: PickDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS},
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
   ]
+
 })
+
+
 export class AuthCreateProjectComponent implements OnInit {
   projectForm: FormGroup;
-  imageForm: FormGroup;
   error = false ;
   date : any;
   categories: ProjectCategory[] = [];
+  images: ProjectImage[] = [];
   categoryControl = new FormControl('', Validators.required);
-  imageControl = new FormControl('', Validators.required);
   private configSucces: MatSnackBarConfig = {
     panelClass: ['style-succes'],
   };
@@ -82,13 +86,21 @@ export class AuthCreateProjectComponent implements OnInit {
       category_id: ['', Validators.required],
       owner_id: ['', Validators.required],
     });
-    this.imageForm = this.builder.group({
-      project_id: ['', [Validators.required]],
-      image: ['', [Validators.required]],
-    });
+
     this.projectCategoryService.get().subscribe(perf => {
       this.categories = perf;
     });
+  }
+
+  fileEvent(fileInput: Event){
+    // @ts-ignore
+    const files = fileInput.target.files;
+    for(var i = 0; i < files.length;i++){
+      const image: ProjectImage = new ProjectImage();
+      image.image = "../../../../../assets/images/"+files[i].name;
+      this.images.push(image);
+    }
+
   }
   onSubmit() {
     this.projectForm.patchValue({
@@ -96,9 +108,25 @@ export class AuthCreateProjectComponent implements OnInit {
       owner_id: this.userService.getUser().id
     });
     const project: Project = this.projectForm.getRawValue();
+    const deadline = new Date(project.deadline);
+    project.deadline = deadline.getFullYear()+'-' + (deadline.getMonth()+1) + '-'+deadline.getDate();
+
     this.projectService.create(project).subscribe(perf => {
-      console.log(perf);
-        this.openSnackBar('Project was sent to moderator', 'Close', 'style-success');
+        this.images = this.images.map(function(image) {
+          // @ts-ignore
+          image.project_id = perf.id;
+          return image;
+        });
+
+        this.projectService.createProjectImages(this.images).subscribe(perf=>{
+          this.openSnackBar('Project was sent to moderator', 'Close', 'style-success');
+        },
+          error1 => {
+            this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
+          }
+          )
+
+        this.router.navigateByUrl('user/profile');
       }, error => {
       this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
 

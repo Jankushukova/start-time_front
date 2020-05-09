@@ -92,6 +92,11 @@ import {EditorModule} from '@tinymce/tinymce-angular';
 import {TokenInterceptor} from './interceptors/token';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {SlickCarouselModule} from 'ngx-slick-carousel';
+import { AuthCommentEntityComponent } from './components/auth/user/category/details/information/comment/auth-comment-entity/auth-comment-entity.component';
+import { AuthQuestionEntityComponent } from './components/auth/user/category/details/information/question/auth-question-entity/auth-question-entity.component';
+import { AuthUpdateEntityComponent } from './components/auth/user/category/details/information/update/auth-update-entity/auth-update-entity.component';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   {path: 'start', component: UnauthComponent,
@@ -105,7 +110,7 @@ const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'about', component: AboutComponent},
     {path: 'shop', component: ShopComponent},
-    {path: 'category', component: CategoryComponent},
+    {path: 'category/:id', component: CategoryComponent},
     {path: 'productDetail', component: ProductDetailsComponent},
     {path: 'newsDetail', component: NewsDetailsComponent},
     {path: 'partners', component: PartnersComponent},
@@ -137,8 +142,8 @@ const routes: Routes = [
       {path: 'help', component: AuthHelpComponent},
       {path: 'about', component: AuthAboutComponent},
       {path: 'shop', component: AuthShopComponent},
-      {path: 'category', component: AuthCategoryComponent},
-      {path: 'project/details', component: AuthDetailsComponent,
+      {path: 'category/:id', component: AuthCategoryComponent},
+      {path: 'project/details/:id', component: AuthDetailsComponent,
         children: [
           {path: '', redirectTo: 'description', pathMatch: 'full'},
           {path: 'description', component: AuthDescriptionComponent},
@@ -147,14 +152,14 @@ const routes: Routes = [
           {path: 'questions', component: AuthQuestionComponent},
         ]
       },
-      {path: 'partners', component: AuthPartnersComponent},
-      {path: 'userProfile', component: AuthUserProfileComponent,
+      {path: 'partners/:id', component: AuthPartnersComponent},
+      {path: 'userProfile/:id', component: AuthUserProfileComponent,
         children: [
           {path: '', redirectTo: 'projects', pathMatch: 'full'},
           {path: 'projects', component: AuthUserProjectsComponent},
           {path: 'information', component: AuthUserInfromationComponent},
         ]},
-      {path: 'productDetail', component: AuthProductDetailsComponent},
+      {path: 'productDetail/:id', component: AuthProductDetailsComponent},
       {path: 'newsDetail', component: AuthNewsDetailsComponent},
       {path: 'create', component: AuthCreateProjectComponent},
       {path: 'profile', component: UserProfileComponent,
@@ -237,6 +242,7 @@ const routes: Routes = [
     AuthUpdateComponent,
     AuthQuestionComponent,
     AuthDescriptionComponent,
+    AuthCommentComponent,
     AuthContactComponent,
     AuthCreateProjectComponent,
     AuthHelpComponent,
@@ -289,6 +295,9 @@ const routes: Routes = [
     AdminBakesComponent,
     AdminMainComponent,
     ModeratorLoginComponent,
+    AuthCommentEntityComponent,
+    AuthQuestionEntityComponent,
+    AuthUpdateEntityComponent,
   ],
     imports: [
         BrowserModule,
@@ -306,7 +315,10 @@ const routes: Routes = [
         MaterialFileInputModule,
         EditorModule,
         OverlayModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        SlickCarouselModule,
+        MatButtonModule
+
 
     ],
   providers: [

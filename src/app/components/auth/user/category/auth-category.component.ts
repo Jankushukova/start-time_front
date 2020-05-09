@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ProjectService} from '../../../../services/project.service';
+import {Project} from '../../../../models/project';
 
 @Component({
   selector: 'app-category',
@@ -6,10 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth-category.component.css']
 })
 export class AuthCategoryComponent implements OnInit {
+  projects: Project[] = []
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private projectService:ProjectService
+  ) {
+    router.events.subscribe((val) =>{
+      if(val instanceof NavigationEnd){
+        this.changeProjects(route.snapshot.paramMap.get('id'));
+      }
+    })
 
-  constructor() { }
+  }
 
   ngOnInit(): void {
+
+
+  }
+
+  changeProjects(id){
+    this.projectService.getProjectsOfCategory(id).subscribe(perf=>{
+      this.projects = perf;
+    })
   }
 
 }

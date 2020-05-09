@@ -26,6 +26,6 @@
 </div>
 <div class="row justify-content-center">
   <div class="col-md-10 grid-margin pb-md-3 pt-md-3 pb-sm-3 pt-sm-3">
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
   </div>
 </div>

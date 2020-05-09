@@ -8,6 +8,8 @@ import {AuthService} from './auth.service';
 import {ProjectOrder} from '../models/projectOrder';
 import {map} from 'rxjs/operators';
 import {ProjectImage} from '../models/projectImage';
+import {ProjectQuestion} from '../models/projectQuestion';
+import {Product} from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,21 @@ export class ProjectService {
   constructor(public http: HttpClient,
               public authService: AuthService
               ) { }
+
+
+  //+
+  public getStatisticsProject(): Observable<number> {
+    return this.http.get<number>(`${this.customUrl}statistics/project`);
+  }//+
+  public getStatisticsSuccessfulProject(): Observable<number> {
+    return this.http.get<number>(`${this.customUrl}statistics/project/successful`);
+  }
+
+  //+
+  public getStatisticsBackers(): Observable<number> {
+    return this.http.get<number>(`${this.customUrl}statistics/project/bakers`);
+  }
+
 
 
   //+
@@ -45,11 +62,17 @@ export class ProjectService {
       map(data => data.map(data => new Project().deserialize(data)))
     );
   }
+  //+
+  public getMostPopular(): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}/popular`).pipe(
+      map(data => data.map(data => new Project().deserialize(data)))
+    );
+  }
 
 
 //+
-  public createProjectImages(images: ProjectImage): Observable<ProjectImage> {
-    return this.http.post<ProjectImage>( `${this.mainUrl}/create/images`, images);
+  public createProjectImages(images: ProjectImage[]): Observable<ProjectImage[]> {
+    return this.http.post<ProjectImage[]>( `${this.mainUrl}/create/images`, images);
   }
   //+
   public getImagesOfProject(id: number): Observable<ProjectImage[]> {
@@ -58,13 +81,23 @@ export class ProjectService {
     );
   }
 
+  //+
+  public getQuestionsOfProject(id: number): Observable<ProjectQuestion[]> {
+    return this.http.get<ProjectQuestion[]>( `${this.mainUrl }/questions/${id}`).pipe(
+      map(data => data.map(data => new ProjectQuestion().deserialize(data)))
+    );
+  }
+
+
 //+
   public create(project: Project): Observable<Project> {
     return this.http.post<Project>(this.mainUrl, project);
   }
 //+
   public findById(id: number): Observable<Project> {
-    return this.http.get<Project>(`${this.mainUrl}/${id}`);
+    return this.http.get<Project>(`${this.mainUrl}/${id}`).pipe(
+      map(data => {
+          return new Project().deserialize(data)}));
   }
 //+
   public update(id: number, project: Project): Observable<Project> {

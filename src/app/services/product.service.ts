@@ -18,6 +18,15 @@ export class ProductService {
   constructor(public http: HttpClient) {
   }
 
+
+
+  //+
+  public getMostPopular(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.mainUrl}/popular`).pipe(
+      map(data => data.map(data => new Product().deserialize(data)))
+    );
+  }
+
   //+
   public getProductCategories(): Observable<ProductCategory[]> {
     return this.http.get<ProductCategory[]>(`${this.mainUrl}/category`).pipe(

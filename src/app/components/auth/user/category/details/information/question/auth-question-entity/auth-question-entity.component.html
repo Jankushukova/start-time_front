@@ -1,0 +1,8 @@
+  <div class="card   text-left border-sss ">
+    <div class="card-body">
+      <p [routerLink]="['/user/userProfile',question.user.id]" class="paddingDiv">Author: {{question.user.getFullName()}}</p>
+      <hr class="bg-sss"/>
+      <p> {{question.question}}</p>
+    </div>
+  </div>
+

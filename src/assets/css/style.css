@@ -9690,9 +9690,6 @@ pre code {
 }
 
 @media (min-width: 992px) {
-  #sidebar{
-    display: none;
-  }
    #s1{
      color:red;
    }

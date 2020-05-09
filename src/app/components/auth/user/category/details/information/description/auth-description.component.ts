@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Project} from '../../../../../../../models/project';
 
 @Component({
   selector: 'app-description',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth-description.component.css']
 })
 export class AuthDescriptionComponent implements OnInit {
+  project:Project;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  someFunction(data){
+   this.project = data;
+
   }
 
 }

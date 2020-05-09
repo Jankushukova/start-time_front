@@ -18,12 +18,17 @@ export class CommentService {
   constructor(public http: HttpClient) { }
 
   //comment for project
-
   public getCommentsOfProject(id: number): Observable<ProjectComment[]> {
+    return this.http.get<ProjectComment[]>( `${this.projectUrl }s/${id}`).pipe(
+      map(data => data.map(data => new ProjectComment().deserialize(data)))
+    );
+  }
+  public getCommentsOfProjectAuth(id: number): Observable<ProjectComment[]> {
     return this.http.get<ProjectComment[]>( `${this.projectUrl }/${id}`).pipe(
       map(data => data.map(data => new ProjectComment().deserialize(data)))
     );
   }
+
   //+
   public createProjectComment(comment: ProjectComment): Observable<ProjectComment> {
     return this.http.post<ProjectComment>(this.projectUrl, comment);

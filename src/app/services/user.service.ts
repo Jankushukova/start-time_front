@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../models/user';
 import {Observable} from 'rxjs';
 import {Role} from '../models/role';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,7 @@ export class UserService {
       return this.getUser().role_id.id === 3;
     }
     return false;
+
   }
   public isAuthorized() {
     if (this.getUser()) {
@@ -89,4 +91,12 @@ export class UserService {
   public deleteById(id: number) {
     return this.http.delete(`${this.mainUrl}/${id}`);
   }
+
+
+  public getPartners(): Observable<User[]> {
+    return this.http.get<User[]>( `${this.mainUrl }/partners`).pipe(
+      map(data => data.map(data => new User().deserialize(data)))
+    );
+  }
+//+
 }
