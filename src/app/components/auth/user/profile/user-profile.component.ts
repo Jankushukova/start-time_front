@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../../models/user';
-import {UserService} from '../../../../services/user.service';
-import {Project} from '../../../../models/project';
-import {Follower} from '../../../../models/follower';
-import {ProjectOrder} from '../../../../models/projectOrder';
-import {ProjectService} from '../../../../services/project.service';
-import {FollowerService} from '../../../../services/follower.service';
-import {ProjectOrderService} from '../../../../services/project-order.service';
+import {User} from '../../../../models/user/user';
+import {UserService} from '../../../../services/user/user.service';
+import {Project} from '../../../../models/project/project';
+import {Follower} from '../../../../models/user/follower';
+import {ProjectOrder} from '../../../../models/project/projectOrder';
+import {ProjectService} from '../../../../services/project/project.service';
+import {FollowerService} from '../../../../services/user/follower.service';
+import {ProjectOrderService} from '../../../../services/project/project-order.service';
 
 @Component({
   selector: 'app-profile',

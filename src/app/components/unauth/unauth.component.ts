@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../services/user/user.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import * as $ from 'jquery';
 import {SlickCarouselComponent} from 'ngx-slick-carousel';
-import {ProjectCategory} from '../../models/projectCategory';
-import {ProjectCategoryService} from '../../services/project-category.service';
+import {ProjectCategory} from '../../models/project/projectCategory';
+import {ProjectCategoryService} from '../../services/project/project-category.service';
 
 @Component({
   selector: 'app-unauth',

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from './services/data.service';
 import {Router} from '@angular/router';
-import {UserService} from './services/user.service';
-import {Role} from './models/role';
+import {UserService} from './services/user/user.service';
+import {Role} from './models/user/role';
 
 @Component({
   selector: 'app-root',

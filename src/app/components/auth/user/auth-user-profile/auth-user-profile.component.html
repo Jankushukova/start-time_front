@@ -1,3 +1,5 @@
+<ng-container *ngIf="user && user.projects && user.followers">
+
 <div class=" container-fluid  mb-md-5">
   <div class="row justify-content-center p-md-5">
     <div class="col-md-10">
@@ -8,22 +10,22 @@
 
             <div class="col-md-10">
               <div class="text-right mt-2">
-                <span>Anonym</span>
-                <p>Anonymous</p>
+                <span>{{user.firstname}}</span>
+                <p>{{user.lastname}}</p>
               </div>
               <hr/>
               <div class="row">
                 <div class="col-2 text-center paddingDiv" routerLink="projects">
                   <button class="btn btn-light p-2" >
                     <img src="../../../../../assets/images/31_0.png" width="80%" height="80%">
-                    <h5>255</h5>
+                    <h5 class="display-5">{{user.projects.length}}</h5>
                     Проектов</button>
                 </div>
                 <div class="col-2 text-center">
                   <button class="btn btn-light p-2" routerLink="followers">
 
                     <img src="../../../../../assets/images/25_0.png" width="80%" height="80%">
-                    <h5>330</h5>
+                    <h5 class="display-5">{{user.followers.length}}</h5>
                     Подписчиков
                   </button>
                 </div>
@@ -31,7 +33,7 @@
                   <button class="btn btn-light p-2" routerLink="information">
 
                     <img src="../../../../../assets/images/15_0.png" width="80%" height="80%">
-                    <h5>Данные</h5>
+                    <h5 class="display-5">Данные</h5>
                     Пользователя
                   </button>
                 </div>
@@ -41,7 +43,8 @@
 
             </div>
             <div class="col-md-2 pt-5 pb-5 ">
-              <img src="../../../../../assets/images/11_0.png"  class="border rounded-circle " width="100%" height="80%">
+              <img *ngIf="!user.image" src="../../../../../assets/images/11_0.png"  class="border rounded-circle " width="100%" height="80%">
+              <img *ngIf="user.image" [src]="user.image"  class="border rounded-circle " width="100%" height="80%">
 
             </div>
           </div>
@@ -52,7 +55,7 @@
 
       <div class="row justify-content-center mt-md-5 ">
         <div class="col-md-12">
-          <router-outlet></router-outlet>
+          <router-outlet (activate)="onActivate($event)"></router-outlet>
 
 
 
@@ -63,3 +66,4 @@
     </div>
   </div>
 </div>
+</ng-container>

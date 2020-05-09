@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Project} from '../../../../../../../models/project';
-import {Update} from '../../../../../../../models/update';
-import {UpdateService} from '../../../../../../../services/update.service';
+import {Project} from '../../../../../../../models/project/project';
+import {Update} from '../../../../../../../models/project/update';
+import {UpdateService} from '../../../../../../../services/project/update.service';
 
 @Component({
   selector: 'app-update',

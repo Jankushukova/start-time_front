@@ -97,7 +97,8 @@ import { AuthCommentEntityComponent } from './components/auth/user/category/deta
 import { AuthQuestionEntityComponent } from './components/auth/user/category/details/information/question/auth-question-entity/auth-question-entity.component';
 import { AuthUpdateEntityComponent } from './components/auth/user/category/details/information/update/auth-update-entity/auth-update-entity.component';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatDialogModule} from "@angular/material/dialog";
+import { AuthUserProjectEntityComponent } from './components/auth/user/auth-user-profile/auth-user-projects/auth-user-project-entity/auth-user-project-entity.component';
 const routes: Routes = [
   {path: 'start', component: UnauthComponent,
     children: [
@@ -298,29 +299,33 @@ const routes: Routes = [
     AuthCommentEntityComponent,
     AuthQuestionEntityComponent,
     AuthUpdateEntityComponent,
+    AuthUserProjectsComponent,
+    AuthUserInfromationComponent,
+    AuthUserProjectEntityComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        RouterModule.forRoot(routes),
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatIconModule,
-        MaterialFileInputModule,
-        EditorModule,
-        OverlayModule,
-        MatSnackBarModule,
-        SlickCarouselModule,
-        MatButtonModule
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatIconModule,
+    MaterialFileInputModule,
+    EditorModule,
+    OverlayModule,
+    MatSnackBarModule,
+    SlickCarouselModule,
+    MatButtonModule,
+    MatDialogModule,
 
 
-    ],
+  ],
   providers: [
     MatDatepickerModule,
     {

@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../../../services/user.service';
+import {UserService} from '../../../../services/user/user.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../../services/auth.service';
-import {User} from '../../../../models/user';
-import {Project} from '../../../../models/project';
-import {ProjectService} from '../../../../services/project.service';
+import {User} from '../../../../models/user/user';
+import {Project} from '../../../../models/project/project';
+import {ProjectService} from '../../../../services/project/project.service';
 import {MatSelectModule} from '@angular/material/select';
-import {ProjectCategory} from '../../../../models/projectCategory';
-import {ProjectCategoryService} from '../../../../services/project-category.service';
+import {ProjectCategory} from '../../../../models/project/projectCategory';
+import {ProjectCategoryService} from '../../../../services/project/project-category.service';
 import {DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter} from '@angular/material/core';
 import {formatDate} from '@angular/common';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {ProjectImage} from '../../../../models/projectImage';
+import {ProjectImage} from '../../../../models/project/projectImage';
 
 
 

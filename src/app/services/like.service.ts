@@ -3,11 +3,11 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {CommentLike} from '../models/commentLike';
-import {ProjectLike} from '../models/projectLike';
-import {NewsLike} from '../models/newsLike';
-import {ProjectImage} from '../models/projectImage';
+import {ProjectLike} from '../models/project/projectLike';
+import {NewsLike} from '../models/news/newsLike';
+import {ProjectImage} from '../models/project/projectImage';
 import {map} from 'rxjs/operators';
-import {News} from '../models/news';
+import {News} from '../models/news/news';
 
 @Injectable({
   providedIn: 'root'

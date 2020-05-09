@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Project} from '../../../../../../../models/project';
-import {ProjectComment} from '../../../../../../../models/projectComment';
-import {ProjectService} from '../../../../../../../services/project.service';
+import {Project} from '../../../../../../../models/project/project';
+import {ProjectComment} from '../../../../../../../models/project/projectComment';
+import {ProjectService} from '../../../../../../../services/project/project.service';
 import {CommentService} from '../../../../../../../services/comment.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../../../../../../services/user.service';
+import {UserService} from '../../../../../../../services/user/user.service';
 
 @Component({
   selector: 'app-comment',
@@ -40,9 +40,10 @@ export class AuthCommentComponent implements OnInit {
     comment.user_id = this.userService.getUser().id;
     comment.project_id = this.project.id;
     this.commentService.createProjectComment(comment).subscribe(perf=>{
+      this.comments = [...this.comments, perf];
+      this.comments.sort().reverse();
+      this.commentForm.reset();
 
-      this.comments.push(new ProjectComment().deserialize(perf));
-      console.log(this.comments);
     })
   }
 

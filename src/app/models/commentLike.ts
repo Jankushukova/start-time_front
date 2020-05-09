@@ -1,9 +1,9 @@
-import {Role} from './role';
+import {Role} from './user/role';
 import {Deserializable} from './deserializable.model';
-import {ProjectCategory} from './projectCategory';
-import {User} from './user';
-import {ProjectComment} from './projectComment';
-import {NewsComment} from './newsComment';
+import {ProjectCategory} from './project/projectCategory';
+import {User} from './user/user';
+import {ProjectComment} from './project/projectComment';
+import {NewsComment} from './news/newsComment';
 
 export class CommentLike implements Deserializable{
   id: number;

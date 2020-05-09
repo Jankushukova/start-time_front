@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import * as $ from 'jquery';
-import {UserService} from '../../../services/user.service';
+import {UserService} from '../../../services/user/user.service';
 import {AuthService} from '../../../services/auth.service';
-import {User} from '../../../models/user';
-import {ProjectCategory} from '../../../models/projectCategory';
-import {ProjectCategoryService} from '../../../services/project-category.service';
+import {User} from '../../../models/user/user';
+import {ProjectCategory} from '../../../models/project/projectCategory';
+import {ProjectCategoryService} from '../../../services/project/project-category.service';
 import {SlickCarouselComponent} from 'ngx-slick-carousel';
 
 @Component({

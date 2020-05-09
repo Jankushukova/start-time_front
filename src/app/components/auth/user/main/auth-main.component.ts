@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ProjectService} from '../../../../services/project.service';
-import {Project} from '../../../../models/project';
-import {User} from '../../../../models/user';
-import {UserService} from '../../../../services/user.service';
+import {ProjectService} from '../../../../services/project/project.service';
+import {Project} from '../../../../models/project/project';
+import {User} from '../../../../models/user/user';
+import {UserService} from '../../../../services/user/user.service';
 import {SlickCarouselComponent} from 'ngx-slick-carousel';
-import {Product} from '../../../../models/product';
-import {ProductService} from '../../../../services/product.service';
+import {Product} from '../../../../models/product/product';
+import {ProductService} from '../../../../services/product/product.service';
 
 @Component({
   selector: 'app-main',

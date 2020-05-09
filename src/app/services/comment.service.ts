@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {ProjectComment} from '../models/projectComment';
-import {NewsComment} from '../models/newsComment';
+import {ProjectComment} from '../models/project/projectComment';
+import {NewsComment} from '../models/news/newsComment';
 import {Payment} from '../models/payment';
 import {map} from 'rxjs/operators';
-import {News} from '../models/news';
+import {News} from '../models/news/news';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,8 @@ export class CommentService {
 
   //+
   public createProjectComment(comment: ProjectComment): Observable<ProjectComment> {
-    return this.http.post<ProjectComment>(this.projectUrl, comment);
+    return this.http.post<ProjectComment>(this.projectUrl, comment).pipe(
+      map(data => new ProjectComment().deserialize(data)));
   }
 
   //+

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ProjectQuestion} from '../../../../../../../../models/projectQuestion';
+import {ProjectQuestion} from '../../../../../../../../models/project/projectQuestion';
 
 @Component({
   selector: 'app-auth-question-entity',

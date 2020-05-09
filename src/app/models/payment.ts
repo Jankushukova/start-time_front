@@ -1,6 +1,6 @@
 import {Deserializable} from './deserializable.model';
-import {User} from './user';
-import {Project} from './project';
+import {User} from './user/user';
+import {Project} from './project/project';
 import {PaymentType} from './paymentType';
 
 export class Payment implements Deserializable{

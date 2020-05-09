@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Project} from '../../../../../../models/project';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {Project} from '../../../../../../models/project/project';
+import {ProjectService} from "../../../../../../services/project/project.service";
 
 @Component({
   selector: 'app-auth-information',
@@ -11,9 +12,13 @@ export class AuthInformationComponent implements OnInit {
   num = 1;
   @Input() project:Project;
 
-  constructor(private router: Router) { }
+  constructor( private router: Router,
+               private route: ActivatedRoute,){
+
+  }
 
   ngOnInit(): void {
+
   }
   changeClass(element) {
     this.num = element;

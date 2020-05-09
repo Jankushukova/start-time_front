@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Project} from '../../../../../../../../models/project';
-import {ProjectComment} from '../../../../../../../../models/projectComment';
+import {Project} from '../../../../../../../../models/project/project';
+import {ProjectComment} from '../../../../../../../../models/project/projectComment';
 import {LikeService} from '../../../../../../../../services/like.service';
 import {CommentLike} from '../../../../../../../../models/commentLike';
-import {UserService} from '../../../../../../../../services/user.service';
-import {ProjectLike} from '../../../../../../../../models/projectLike';
+import {UserService} from '../../../../../../../../services/user/user.service';
+import {ProjectLike} from '../../../../../../../../models/project/projectLike';
 
 @Component({
   selector: 'app-auth-comment-entity',
@@ -19,7 +19,6 @@ export class AuthCommentEntityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.comment.liked);
   }
 
 

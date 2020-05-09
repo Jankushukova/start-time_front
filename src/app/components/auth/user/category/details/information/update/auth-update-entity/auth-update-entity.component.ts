@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Update} from '../../../../../../../../models/update';
+import {Update} from '../../../../../../../../models/project/update';
 
 @Component({
   selector: 'app-auth-update-entity',
