@@ -62,13 +62,17 @@
   <div class="col-md-4 col-lg-4 col-sm-4 col-4 d-flex align-items-stretch">
     <div class="row w-100">
       <div class=" col-sm-12 grid-margin stretch-card  paddingDiv" [routerLink]="['/user/project/details',mostPopularProjects[3].id]">
-        <ng-container *ngIf="mostPopularProjects[3].images[0]">
 
         <div class="card  shadow-lg ">
           <div class="card-body p-0">
 
             <div class="little-img-wrap">
+              <ng-container *ngIf="mostPopularProjects[3].images[0]">
+
+
               <img [src]="mostPopularProjects[3].images[0].image" height="100%" alt="Forth project"/>
+              </ng-container>
+
 
             </div>
             <div class="text-dark text-center d-none d-md-block">
@@ -77,27 +81,30 @@
             </div>
           </div>
         </div>
-        </ng-container>
 
       </div>
       <div [routerLink]="['/user/project/details',mostPopularProjects[4].id]" class="col-sm-12 grid-margin stretch-card  paddingDiv">
-        <ng-container *ngIf="mostPopularProjects[4].images[0]">
 
         <div class="card  shadow-lg">
           <div class="card-body p-0">
             <div class="little-img-wrap">
+              <ng-container *ngIf="mostPopularProjects[4].images[0]">
+
               <img [src]="mostPopularProjects[4].images[0].image" height="100%" alt="Fifth project" />
+              </ng-container>
+
             </div>
             <div class="text-dark text-center d-none d-md-block">
               <h1 class="display">{{mostPopularProjects[4].title}}</h1>
               <small class="text-muted">{{mostPopularProjects[4].description}}</small>
             </div>
           </div>
+
         </div>
-        </ng-container>
       </div>
     </div>
   </div>
+
 
 
   <div class="col-md-7 col-lg-7 col-sm-7 col-7 grid-margin stretch-card">

@@ -30,6 +30,8 @@ export class Project implements Deserializable{
   likes: ProjectLike[];
   updates: Update[];
   questions: ProjectQuestion[];
+  views:number;
+  liked:boolean
 
   deserialize(input: any): this {
     Object.assign(this, input);

@@ -14,7 +14,7 @@ import {News} from '../models/news/news';
 })
 export class LikeService {
   commentUrl = environment.apiUrl + "/api/v1/comment/like";
-  projectUrl = environment.apiUrl + "/api/v1/like/like";
+  projectUrl = environment.apiUrl + "/api/v1/project/like";
   newsUrl = environment.apiUrl + "/api/v1/news/like";
 
   constructor(public http: HttpClient) {

@@ -10,8 +10,8 @@
 
             <div class="col-md-10">
               <div class="text-right mt-2">
-                <span>{{user.firstname}}</span>
-                <p>{{user.lastname}}</p>
+                <span class="display-5">{{user.firstname}}</span>
+                <p class="display-5">{{user.lastname}}</p>
               </div>
               <hr/>
               <div class="row">
@@ -22,12 +22,13 @@
                     Проектов</button>
                 </div>
                 <div class="col-2 text-center">
-                  <button class="btn btn-light p-2" routerLink="followers">
+                  <button class="btn btn-light p-2" routerLink="followers" (click)="showFollowers()">
 
                     <img src="../../../../../assets/images/25_0.png" width="80%" height="80%">
                     <h5 class="display-5">{{user.followers.length}}</h5>
                     Подписчиков
                   </button>
+
                 </div>
                 <div class="col-2 text-center">
                   <button class="btn btn-light p-2" routerLink="information">

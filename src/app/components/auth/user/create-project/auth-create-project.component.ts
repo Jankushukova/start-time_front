@@ -97,7 +97,7 @@ export class AuthCreateProjectComponent implements OnInit {
     const files = fileInput.target.files;
     for(var i = 0; i < files.length;i++){
       const image: ProjectImage = new ProjectImage();
-      image.image = "../../../../../assets/images/"+files[i].name;
+      image.image = files[i];
       this.images.push(image);
     }
 
@@ -107,6 +107,7 @@ export class AuthCreateProjectComponent implements OnInit {
       category_id: this.categoryControl.value,
       owner_id: this.userService.getUser().id
     });
+    console.log(this.images);
     const project: Project = this.projectForm.getRawValue();
     const deadline = new Date(project.deadline);
     project.deadline = deadline.getFullYear()+'-' + (deadline.getMonth()+1) + '-'+deadline.getDate();

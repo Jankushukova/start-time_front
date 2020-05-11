@@ -4,7 +4,7 @@ import {Project} from './project';
 
 export class ProjectImage implements Deserializable {
   id: number;
-  image: string;
+  image: File;
   project_id: Project;
 
   deserialize(input: any): this {

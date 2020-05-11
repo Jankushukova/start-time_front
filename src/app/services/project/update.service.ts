@@ -43,4 +43,11 @@ export class UpdateService {
   public deleteById(id: number) {
     return this.http.delete(`${this.mainUrl}/${id}`);
   }
+
+  //+
+  public findById(id: number): Observable<Update> {
+    return this.http.get<Update>(`${this.mainUrl}/${id}`).pipe(
+      map(data => {
+        return new Update().deserialize(data)}));
+  }
 }

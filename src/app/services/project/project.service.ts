@@ -104,6 +104,11 @@ export class ProjectService {
   public create(project: Project): Observable<Project> {
     return this.http.post<Project>(this.mainUrl, project);
   }
+
+  //+
+  public addView(id: number): Observable<any> {
+    return this.http.post<any>(`${this.mainUrl}/view/add`, {"project_id":id});
+  }
 //+
   public findById(id: number): Observable<Project> {
     return this.http.get<Project>(`${this.mainUrl}/${id}`).pipe(

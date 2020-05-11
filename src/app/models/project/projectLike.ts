@@ -6,11 +6,16 @@ import {User} from '../user/user';
 export class ProjectLike implements Deserializable {
   id: number;
   viewed: boolean;
-  project_id: Project;
-  user_id: User;
+  project_id: number;
+  project:Project
+  user_id: number;
+  user:User;
 
   deserialize(input: any): this {
-    return Object.assign(this, input);
+    Object.assign(this, input);
+    if(input.user)this.user = new User().deserialize(input.user);
+    if(input.project)this.project = new Project().deserialize(input.project)
+    return this;
   }
 
 

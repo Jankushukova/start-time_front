@@ -99,6 +99,7 @@ import { AuthUpdateEntityComponent } from './components/auth/user/category/detai
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AuthUserProjectEntityComponent } from './components/auth/user/auth-user-profile/auth-user-projects/auth-user-project-entity/auth-user-project-entity.component';
+import { AuthUpdateDetailsComponent } from './components/auth/user/category/details/information/update/auth-update-details/auth-update-details.component';
 const routes: Routes = [
   {path: 'start', component: UnauthComponent,
     children: [
@@ -150,6 +151,7 @@ const routes: Routes = [
           {path: 'description', component: AuthDescriptionComponent},
           {path: 'comments', component: AuthCommentComponent},
           {path: 'updates', component: AuthUpdateComponent},
+          {path: 'updates/details/:id', component: AuthUpdateDetailsComponent},
           {path: 'questions', component: AuthQuestionComponent},
         ]
       },
@@ -301,7 +303,8 @@ const routes: Routes = [
     AuthUpdateEntityComponent,
     AuthUserProjectsComponent,
     AuthUserInfromationComponent,
-    AuthUserProjectEntityComponent
+    AuthUserProjectEntityComponent,
+    AuthUpdateDetailsComponent
   ],
   imports: [
     BrowserModule,

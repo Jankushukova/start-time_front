@@ -3,20 +3,22 @@
   <div class="col-10 grid-margin stretch-card ">
     <div class="card">
       <div class="card-body">
-        <h2 class="display-5">{{project.title}}</h2>
+        <h2 class="display-5">{{update.title}}</h2>
+
         <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
-          <div ngxSlickItem *ngFor="let image of project.images" class="slide ">
-            <img class="m-auto" [src]="[image.image]" alt="" width="50%" height="400px">
+          <div ngxSlickItem *ngFor="let image of update.images" class="slide ">
+                  <img class="m-auto" [src]="[image.image]" alt="" width="50%" height="400px">
 
 
           </div>
 
         </ngx-slick-carousel>
-        <p>{{project.description}}</p>
-        <div [innerHTML]="project.content"> </div>
+        <p>{{update.description}}</p>
+
+      </div>
+
       </div></div>
   </div>
-</div>
 
 

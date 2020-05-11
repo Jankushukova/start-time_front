@@ -5,7 +5,6 @@ import {Project} from '../../../../../models/project/project';
 import {User} from '../../../../../models/user/user';
 import { DomSanitizer } from '@angular/platform-browser';
 import swal from 'sweetalert';
-import bootbox = require('bootbox');
 
 @Component({
   selector: 'app-details',
@@ -26,18 +25,21 @@ export class AuthDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     let id:number = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.projectService.addView(id).subscribe(perf=>{
+      console.log("view +1");
+    })
     this.projectService.findById(id).subscribe(perf=>{
       this.project = perf;
       this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.project.video);
 
       this.progress = (this.project.gathered/this.project.goal)*100;
     })
+
   }
   async show() {
-    // @ts-ignore
     bootbox.prompt({
       title: "This is a prompt with a set of radio inputs!",
-      message: '<p>Please select an option below:</p>',
+      // message: '<p>Please select an option below:</p>',
       inputType: 'radio',
       inputOptions: [
         {
