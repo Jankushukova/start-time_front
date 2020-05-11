@@ -2,14 +2,30 @@
   <div class="row justify-content-center mt-md-5 ">
     <div *ngFor="let project of projects" class="col-md-2 ">
       <div class="card" >
-        <img class="card-img-top" src="..." alt="Card image cap">
+        <ng-container *ngIf="project.images">
+
+        <img class="card-img-top" *ngIf="project.images[0]" [src]="project.images[0].image" width="80px" height="100px" alt="Card image cap">
+        <img class="card-img-top" *ngIf="!project.images[0]" src="../../../../../../../assets/images/32_0.png" width="70px" height="160px" alt="Card image cap">
+        </ng-container>
         <div class="card-body">
-          <h5 class="card-title"><a [routerLink]="['/user/project/details', project.id]" >{{project.title}}</a></h5>
-          <p class="card-text">{{project.description}}</p>
+          <h5 class="card-title text-center"><a style="color: inherit" [routerLink]="['/user/project/details', project.id]" >{{project.title}}</a></h5>
           <hr/>
           <div class="row">
-            <i class="far fa-eye col "></i>
-            <i class="far fa-heart col text-right"></i>
+            <div class="col d-flex ">
+              <button mat-icon-button aria-label="Example icon button with an eye icon">
+
+                <mat-icon>remove_red_eye</mat-icon>
+                <span>{{project.views}}</span>
+              </button>
+            </div>
+            <div class="col d-flex ">
+              <button mat-icon-button aria-label="Example icon button with a heart icon">
+                <mat-icon *ngIf="!project.liked" (click)="like(project)">favorite_border</mat-icon>
+                <mat-icon *ngIf="project.liked" (click)="unlike(project)">favorite</mat-icon>
+                <span>{{project.likes.length}}</span>
+              </button>
+
+            </div>
           </div>
           <div class="progress">
             <div class="progress-bar bg-secondary" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
