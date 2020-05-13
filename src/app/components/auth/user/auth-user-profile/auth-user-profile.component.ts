@@ -26,38 +26,46 @@ export class AuthUserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
+
 
 
   onActivate(componentReference){
     componentReference.someFunction(this.user);
   }
 
-  async showFollowers() {
-    // @ts-ignore
-    bootbox.prompt({
-      title: "This is a prompt with a set of radio inputs!",
-      message: '<p>Please select an option below:</p>',
-      inputType: 'radio',
-      inputOptions: [
-        {
-          text: 'Choice One',
-          value: '1',
-        },
-        {
-          text: 'Choice Two',
-          value: '2',
-        },
-        {
-          text: 'Choice Three',
-          value: '3',
-        }
 
-      ],
-      callback: function (result) {
-        console.log(result);
-      }
+
+  async showFollowers(followers:User[]) {
+    console.log(followers);
+
+    bootbox.alert({
+      title:"<p class='display-5'>Followers</p>",
+      message: function(){
+        let followerslist = "<table class=\"table table-striped\">\n" +
+          "                      <tbody>\n";
+        for (let follower of followers){
+          followerslist +=        "                        <tr>\n" +
+            "                          <td>\n" +
+            "                            <div >\n" +
+            "      <p class='display-5' [routerLink]='[\"/user/userProfile\", "+follower.id+"]' >"+ follower.getFullName() +"</p>\n"+
+            "                            </div>\n" +
+            "                          </td>\n" +
+            "                        </tr>\n"
+
+        }
+        followerslist+=   "                      </tbody>\n" +
+          "                    </table>";
+
+        return followerslist;
+      },
+      size: 'large',
+      centerVertical:true,
     });
+  }
+  navigateToUserProfile(){
+    alert('ddd');
   }
 
 

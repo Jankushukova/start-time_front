@@ -5,6 +5,8 @@ import {Project} from '../../../../../models/project/project';
 import {User} from '../../../../../models/user/user';
 import { DomSanitizer } from '@angular/platform-browser';
 import swal from 'sweetalert';
+// @ts-ignore
+import bootbox = require('bootbox');
 
 @Component({
   selector: 'app-details',
@@ -37,28 +39,11 @@ export class AuthDetailsComponent implements OnInit {
 
   }
   async show() {
-    bootbox.prompt({
-      title: "This is a prompt with a set of radio inputs!",
-      // message: '<p>Please select an option below:</p>',
-      inputType: 'radio',
-      inputOptions: [
-        {
-          text: 'Choice One',
-          value: '1',
-        },
-        {
-          text: 'Choice Two',
-          value: '2',
-        },
-        {
-          text: 'Choice Three',
-          value: '3',
-        }
-      ],
-      callback: function (result) {
-        console.log(result);
-      }
-    });
+    bootbox.alert({
+      title: "Baking gifts",
+      message: "This is the large alert!",
+      size: 'large',
+      centerVertical:true,
+    })
   }
-
 }

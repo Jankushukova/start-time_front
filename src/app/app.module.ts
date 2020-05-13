@@ -100,6 +100,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AuthUserProjectEntityComponent } from './components/auth/user/auth-user-profile/auth-user-projects/auth-user-project-entity/auth-user-project-entity.component';
 import { AuthUpdateDetailsComponent } from './components/auth/user/category/details/information/update/auth-update-details/auth-update-details.component';
+import {MatListModule} from "@angular/material/list";
 const routes: Routes = [
   {path: 'start', component: UnauthComponent,
     children: [
@@ -217,6 +218,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+
     AppComponent,
     // unauthorized
     UnauthComponent,
@@ -235,6 +237,7 @@ const routes: Routes = [
     UpdateComponent,
     QuestionComponent,
     InformationComponent,
+
     // authorized
     AuthComponent,
     // user
@@ -306,29 +309,30 @@ const routes: Routes = [
     AuthUserProjectEntityComponent,
     AuthUpdateDetailsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot(routes),
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatIconModule,
-    MaterialFileInputModule,
-    EditorModule,
-    OverlayModule,
-    MatSnackBarModule,
-    SlickCarouselModule,
-    MatButtonModule,
-    MatDialogModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        RouterModule.forRoot(routes),
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatIconModule,
+        MaterialFileInputModule,
+        EditorModule,
+        OverlayModule,
+        MatSnackBarModule,
+        SlickCarouselModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatListModule,
 
 
-  ],
+    ],
   providers: [
     MatDatepickerModule,
     {

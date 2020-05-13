@@ -22,7 +22,7 @@
                     Проектов</button>
                 </div>
                 <div class="col-2 text-center">
-                  <button class="btn btn-light p-2" routerLink="followers" (click)="showFollowers()">
+                  <button class="btn btn-light p-2"  (click)="showFollowers(user.followers)">
 
                     <img src="../../../../../assets/images/25_0.png" width="80%" height="80%">
                     <h5 class="display-5">{{user.followers.length}}</h5>

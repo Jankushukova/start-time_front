@@ -18,11 +18,11 @@ export class User implements Deserializable {
   role_id: Role;
   partner: boolean;
   projects: Project[];
-  followers: Follower[];
+  followers: User[];
   deserialize(input: any): this {
     Object.assign(this, input);
     this.role_id = new Role().deserialize(input.role_id);
-    if(input.followers)this.followers = input.followers.map(data => new Follower().deserialize((data)));
+    if(input.followers)this.followers = input.followers.map(data => new User().deserialize((data)));
     if(input.projects)this.projects = input.projects.map(data => new Project().deserialize((data)));
 
     return this;
