@@ -29,15 +29,6 @@ import { UserBakersComponent } from './components/auth/user/profile/bakers/user-
 import { UserBakedComponent } from './components/auth/user/profile/baked/user-baked.component';
 import { UserFollowersComponent } from './components/auth/user/profile/followers/user-followers.component';
 import { RecommendationComponent } from './components/auth/user/profile/recommendation/recommendation.component';
-import { UserProjectLikesComponent } from './components/auth/user/profile/projects/likes/user-project-likes.component';
-import { UserProjectViewsComponent } from './components/auth/user/profile/projects/views/user-project-views.component';
-import { UserProjectDetailsComponent } from './components/auth/user/profile/projects/project-details/user-project-details.component';
-import { UserProjectBakersComponent } from './components/auth/user/profile/projects/project-bakers/user-project-bakers.component';
-import { UserProjectInformationComponent } from './components/auth/user/profile/projects/project-details/project-information/user-project-information.component';
-import { UserProjectUpdateComponent } from './components/auth/user/profile/projects/project-details/project-information/project-update/user-project-update.component';
-import { UserProjectCommentComponent } from './components/auth/user/profile/projects/project-details/project-information/project-comment/user-project-comment.component';
-import { UserProjectQuestionComponent } from './components/auth/user/profile/projects/project-details/project-information/project-question/user-project-question.component';
-import { UserProjectDescriptionComponent } from './components/auth/user/profile/projects/project-details/project-information/project-description/user-project-description.component';
 import { NewsDetailsComponent } from './components/unauth/news/news-details/news-details.component';
 import { ProductDetailsComponent } from './components/unauth/shop/product-details/product-details.component';
 import {AuthComponent} from './components/auth/user/auth.component';
@@ -170,25 +161,14 @@ const routes: Routes = [
       {path: 'create', component: AuthCreateProjectComponent},
       {path: 'profile', component: UserProfileComponent,
         children: [
-          {path: '', redirectTo: 'recommendation', pathMatch: 'full'},
-          {path: 'recommendation', component: RecommendationComponent},
-          {path: 'projects', component: UserProjectsComponent},
+          {path: '', redirectTo: 'information', pathMatch: 'full'},
+          {path: 'recommendation/:id', component: RecommendationComponent},
+          {path: 'projects/:id', component: UserProjectsComponent},
           {path: 'bakers', component: UserBakersComponent},
           {path: 'baked', component: UserBakedComponent},
           {path: 'information', component: UserInformationComponent},
           {path: 'followers', component: UserFollowersComponent},
-          {path: 'projectDetails', component: UserProjectDetailsComponent,
-            children: [
-              {path: '', redirectTo: 'description', pathMatch: 'full'},
-              {path: 'description', component: UserProjectDescriptionComponent},
-              {path: 'comments', component: UserProjectCommentComponent},
-              {path: 'updates', component: UserProjectUpdateComponent},
-              {path: 'questions', component: UserProjectQuestionComponent},
-            ]
-          },
-          {path: 'projectLikes', component: UserProjectLikesComponent},
-          {path: 'projectViews', component: UserProjectViewsComponent},
-          {path: 'projectBakers', component: UserProjectBakersComponent},
+
         ]
       }
     ]
@@ -265,15 +245,6 @@ const routes: Routes = [
     UserBakedComponent,
     UserFollowersComponent,
     RecommendationComponent,
-    UserProjectLikesComponent,
-    UserProjectViewsComponent,
-    UserProjectDetailsComponent,
-    UserProjectBakersComponent,
-    UserProjectInformationComponent,
-    UserProjectUpdateComponent,
-    UserProjectCommentComponent,
-    UserProjectQuestionComponent,
-    UserProjectDescriptionComponent,
     NewsDetailsComponent,
     ProductDetailsComponent,
     PartnersComponent,

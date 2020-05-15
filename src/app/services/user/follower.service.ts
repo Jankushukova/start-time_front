@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Follower} from '../../models/user/follower';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
+import {User} from "../../models/user/user";
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +19,16 @@ export class FollowerService {
 
 
 //+
-  public getFollowersOfUser(id: number): Observable<Follower[]> {
-    return this.http.get<Follower[]>(`${this.customUrl }/followers/${id}`).pipe(
-      map(data => data.map(data => new Follower().deserialize(data)))
+  public getFollowersOfUser(id: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.customUrl }followers/${id}`).pipe(
+      map(data => data.map(data => new User().deserialize(data)))
     );
   }
 
 //+
-  public getFollowedOfUser(id: number): Observable<Follower[]> {
-    return this.http.get<Follower[]>(`${this.customUrl}/followings/${id}`).pipe(
-      map(data => data.map(data => new Follower().deserialize(data)))
+  public getFollowedOfUser(id: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.customUrl}followings/${id}`).pipe(
+      map(data => data.map(data => new User().deserialize(data)))
     );
   }
 

@@ -13,6 +13,7 @@ import {User} from '../../models/user/user';
 })
 export class ProjectOrderService {
   mainUrl = environment.apiUrl + '/api/v1/project/orders';
+  customUrl = environment.apiUrl + '/api/v1';
 
   constructor(public http: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class ProjectOrderService {
 
 
   public getBakersOfUser(id: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.mainUrl}/user/bakers/${id}`).pipe(
+    return this.http.get<User[]>(`${this.customUrl}/user/bakers/${id}`).pipe(
       map(data => data.map(data => new User().deserialize(data)))
     );
   }

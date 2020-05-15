@@ -45,6 +45,7 @@ export class AuthCategoryComponent implements OnInit {
     like.project_id = project.id;
 
     this.likeService.createProjectLike(like).subscribe(perf=>{
+      // @ts-ignore
       project.likes.push(perf);
       project.liked = true;
     })
@@ -52,7 +53,6 @@ export class AuthCategoryComponent implements OnInit {
 
   unlike(project:Project){
     this.likeService.deleteByIdProjectLike(project.id).subscribe(perf=>{
-      console.log(perf);
       // @ts-ignore
       project.likes = project.likes.filter(like => like.id!=perf.id);
       project.liked = false;

@@ -28,7 +28,6 @@ export class AuthDetailsComponent implements OnInit {
   ngOnInit(): void {
     let id:number = parseInt(this.route.snapshot.paramMap.get('id'));
     this.projectService.addView(id).subscribe(perf=>{
-      console.log("view +1");
     })
     this.projectService.findById(id).subscribe(perf=>{
       this.project = perf;

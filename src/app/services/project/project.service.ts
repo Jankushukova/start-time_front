@@ -47,13 +47,13 @@ export class ProjectService {
   }
 //+
   public getBakedProjectsOfUser(id: number): Observable<Project[]> {
-    return this.http.get<Project[]>( `${this.mainUrl }/user/baked/${id}`).pipe(
+    return this.http.get<Project[]>( `${this.mainUrl }s/user/baked/${id}`).pipe(
       map(data => data.map(data => new Project().deserialize(data)))
     );
   }
 //+
   public getProjectsOfUser(id: number): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.customUrl}/user/projects/${id}`).pipe(
+    return this.http.get<Project[]>(`${this.customUrl}user/projects/${id}`).pipe(
       map(data => data.map(data => new Project().deserialize(data)))
     );
   }

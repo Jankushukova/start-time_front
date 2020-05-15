@@ -17,14 +17,16 @@ export class User implements Deserializable {
   // tslint:disable-next-line:variable-name
   role_id: Role;
   partner: boolean;
-  projects: Project[];
+  projects: any;
   followers: User[];
+  followedCount: any;
+  followersCount: any;
+  bakersCount: any;
+  bakedCount: any;
+  projectsCount: any;
   deserialize(input: any): this {
     Object.assign(this, input);
     this.role_id = new Role().deserialize(input.role_id);
-    if(input.followers)this.followers = input.followers.map(data => new User().deserialize((data)));
-    if(input.projects)this.projects = input.projects.map(data => new Project().deserialize((data)));
-
     return this;
   }
 

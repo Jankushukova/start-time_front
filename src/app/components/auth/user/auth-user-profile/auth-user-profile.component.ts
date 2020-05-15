@@ -21,6 +21,7 @@ export class AuthUserProfileComponent implements OnInit {
       if (val instanceof NavigationEnd) {
         this.userService.findById(parseInt(route.snapshot.paramMap.get('id'))).subscribe(perf => {
           this.user = perf;
+
         });
       }
     })
@@ -37,8 +38,6 @@ export class AuthUserProfileComponent implements OnInit {
 
 
   async showFollowers(followers: User[]) {
-    console.log(followers);
-
     bootbox.alert({
       title: "<p class='display-5'>Followers</p>",
       message: function () {
@@ -49,7 +48,7 @@ export class AuthUserProfileComponent implements OnInit {
             followerslist += "                        <tr>\n" +
               "                          <td>\n" +
               "                            <div >\n" +
-              "      <p class='display-5'><a style='color:inherit' href='/user/userProfile/" + follower.id + "' >" + follower.getFullName() + "</a></p>\n" +
+              "      <p class='display-5'><a style='color:inherit' href='/user/userProfile/" + follower.id + "' >" + follower.firstname+ " " + follower.lastname + "</a></p>\n" +
               "                            </div>\n" +
               "                          </td>\n" +
               "                        </tr>\n"

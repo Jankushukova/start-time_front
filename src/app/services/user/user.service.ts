@@ -78,6 +78,10 @@ export class UserService {
     }
     return '/start';
   }
+  public getProfileInformation(): Observable<User> {
+    return this.http.get<User>(`${this.mainUrl}/profile/information`).pipe(
+      map(data => new User().deserialize(data)));;
+  }
 
 
   public findById(id: number): Observable<User> {

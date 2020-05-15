@@ -1,62 +1,72 @@
+<ng-container *ngIf="user">
+
 <div class=" container-fluid  mb-md-5">
   <div class="row justify-content-center p-md-5">
     <div class="col-md-10">
 
-      <div class="card"><div class="card-body">
       <div class="row justify-content-end ">
 
 
         <div class="col-md-10">
 
           <div class="text-right mt-2">
-            <span>{{user.firstname}}</span>
-            <p>{{user.lastname}}</p>
+            <h3 class="display-4">{{user.lastname}}</h3>
+
+            <h2 class="display-4">{{user.firstname}}</h2>
           </div>
           <hr/>
           <div class="row">
-            <div class="col-2 text-center">
-              <button class="btn btn-light p-2" routerLink="projects">
+            <div class="col-1  text-center">
+              <button class="btn btn-light p-2" [routerLink]="['projects',user.id]">
              <img src="../../../../../assets/images/31_0.png" width="80%" height="80%">
-              <h5>255</h5>
+              <h5 class="display-5">{{user.projectsCount}}</h5>
                 Проектов</button>
             </div>
-            <div class="col-2 text-center">
-              <button class="btn btn-light p-2" routerLink="baked">
+            <div class="col-1 ml-5 mr-5 text-center">
+              <button class="btn btn-light p-2" (click)="showBaked()" >
 
               <img src="../../../../../assets/images/21_0.png" width="80%" height="80%">
-              <h5>444</h5>
+              <h5 class="display-5">{{user.bakedCount}}</h5>
               Вкладов
               </button>
             </div>
-            <div class="col-2 text-center">
-              <button class="btn btn-light p-2" routerLink="bakers">
+            <div class="col-1  text-center">
+              <button class="btn btn-light p-2" (click)="showBakers()">
 
               <img src="../../../../../assets/images/6_0.png" width="80%" height="80%">
-              <h5>123</h5>
+              <h5 class="display-5">{{user.bakersCount}}</h5>
               Вкладчиков
               </button>
 
             </div>
-            <div class="col-2 text-center">
-              <button class="btn btn-light p-2" routerLink="followers">
+            <div class="col-1 ml-5 mr-5 text-center">
+              <button class="btn btn-light p-2" (click)="showFollowers()">
 
               <img src="../../../../../assets/images/25_0.png" width="80%" height="80%">
-              <h5>330</h5>
+              <h5 class="display-5">{{user.followersCount}}</h5>
               Подписчиков
               </button>
             </div>
-            <div class="col-2 text-center">
-              <button class="btn btn-light p-2" routerLink="recommendation">
+            <div class="col-1   text-center">
+              <button class="btn btn-light p-2" (click)="showFollowed()" >
+
+                <img src="../../../../../assets/images/25_0.png" width="80%" height="80%">
+                <h5 class="display-5">{{user.followedCount}}</h5>
+                Подписок
+              </button>
+            </div>
+            <div class="col-1  ml-5 mr-5 text-center">
+              <button class="btn btn-light p-2" [routerLink]="['recommendation',user.id]" >
               <img src="../../../../../assets/images/27_0.png" width="80%" height="80%">
-                <h5>120</h5>
+                <h5 class="display-5">120</h5>
                 Рекомендаций
               </button>
             </div>
-            <div class="col-2 text-center">
-              <button class="btn btn-light p-2" routerLink="information">
+            <div class="col-1   text-center">
+              <button class="btn btn-light" routerLink="information">
                 <img src="../../../../../assets/images/13_0.png" width="80%" height="80%">
-                <h5>Мои</h5>
-                Данные
+                <h6 class="display-5">Данные</h6>
+
               </button>
             </div>
 
@@ -79,5 +89,4 @@
 
       </div>
     </div>
-  </div>
-</div>
+</ng-container>
