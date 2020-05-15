@@ -2,7 +2,7 @@
 
 <div class="card   text-left border-sss ">
   <div class="card-body">
-    <p routerLink="/user/userProfile" class="paddingDiv">Author: {{comment.user.getFullName()}}</p>
+    <p [routerLink]="['/user/userProfile',comment.user.id]" class="paddingDiv">Author: {{comment.user.getFullName()}}</p>
     <p> {{comment.text}}</p>
     <hr class="bg-sss"/>
     <button mat-icon-button aria-label="Example icon button with a heart icon">

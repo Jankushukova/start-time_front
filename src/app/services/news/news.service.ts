@@ -15,8 +15,13 @@ export class NewsService {
   constructor(public http: HttpClient) {
   }
 
+  //+
+  public addView(id: number): Observable<any> {
+    return this.http.post<any>(`${this.mainUrl}/view/add`, {"news_id":id});
+  }
+
 //+
-  public getNews(id: number): Observable<News[]> {
+  public getNews(): Observable<News[]> {
     return this.http.get<News[]>( this.mainUrl ).pipe(
       map(data => data.map(data => new News().deserialize(data)))
     );

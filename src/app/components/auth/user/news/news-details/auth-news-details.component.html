@@ -1,13 +1,50 @@
+<ng-container *ngIf="news">
+
 <div class="row justify-content-center">
-  <div class="col-md-11 grid-margin stretch-card">
+  <div class="col-md-8 grid-margin stretch-card">
     <div class="card shadow-lg">
       <div class="card-body">
-        <h3>Title</h3>
+        <h2 class="display-5" >{{news.title}}</h2>
         <hr/>
-        <p>Description</p>
-        <img>
+        <h3>{{news.description}}</h3>
+        <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+
+          <div ngxSlickItem *ngFor="let image of news.images" class="slide ">
+            <img class="m-auto" [src]="[image.image]" alt="" width="50%" height="400px">
+
+
+          </div>
+
+        </ngx-slick-carousel>
+        <div>{{news.content}}</div>
       </div>
+
 
     </div>
   </div>
 </div>
+  <div class=" row justify-content-center">
+    <div class="col-8 grid-margin stretch-card ">
+      <div class="card">
+        <div class="card-body">
+
+          <form [formGroup]="commentForm"  class="forms-sample">
+            <div class="form-group">
+              <textarea formControlName="description" class="form-control" id="exampleTextarea1" rows="4" placeholder="Leave a comment"></textarea>
+            </div>
+            <div class="text-right">
+              <button type="submit" class="btn btn-inverse-dark btn-fw " (click)="addComment()">Add</button>
+
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+
+  <app-auth-news-comment class="col-8 grid-margin stretch-card " *ngFor="let comment of comments" [comment]="comment"></app-auth-news-comment>
+  </div>
+
+
+</ng-container>

@@ -101,6 +101,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { AuthUserProjectEntityComponent } from './components/auth/user/auth-user-profile/auth-user-projects/auth-user-project-entity/auth-user-project-entity.component';
 import { AuthUpdateDetailsComponent } from './components/auth/user/category/details/information/update/auth-update-details/auth-update-details.component';
 import {MatListModule} from "@angular/material/list";
+import { AuthNewsEntityComponent } from './components/auth/user/news/auth-news-entity/auth-news-entity.component';
+import { AuthNewsCommentComponent } from './components/auth/user/news/news-details/auth-news-comment/auth-news-comment.component';
 const routes: Routes = [
   {path: 'start', component: UnauthComponent,
     children: [
@@ -164,7 +166,7 @@ const routes: Routes = [
           {path: 'information', component: AuthUserInfromationComponent},
         ]},
       {path: 'productDetail/:id', component: AuthProductDetailsComponent},
-      {path: 'newsDetail', component: AuthNewsDetailsComponent},
+      {path: 'newsDetail/:id', component: AuthNewsDetailsComponent},
       {path: 'create', component: AuthCreateProjectComponent},
       {path: 'profile', component: UserProfileComponent,
         children: [
@@ -307,7 +309,9 @@ const routes: Routes = [
     AuthUserProjectsComponent,
     AuthUserInfromationComponent,
     AuthUserProjectEntityComponent,
-    AuthUpdateDetailsComponent
+    AuthUpdateDetailsComponent,
+    AuthNewsEntityComponent,
+    AuthNewsCommentComponent
   ],
     imports: [
         BrowserModule,

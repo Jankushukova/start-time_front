@@ -10,17 +10,18 @@ import {User} from "../../../../models/user/user";
   styleUrls: ['./auth-user-profile.component.css']
 })
 export class AuthUserProfileComponent implements OnInit {
-  user:User;
+  user: User;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService
   ) {
-    router.events.subscribe((val) =>{
-      if(val instanceof NavigationEnd){
-         this.userService.findById(parseInt(route.snapshot.paramMap.get('id'))).subscribe(perf =>{
-            this.user = perf;
-         });
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.userService.findById(parseInt(route.snapshot.paramMap.get('id'))).subscribe(perf => {
+          this.user = perf;
+        });
       }
     })
   }
@@ -30,42 +31,41 @@ export class AuthUserProfileComponent implements OnInit {
   }
 
 
-
-  onActivate(componentReference){
+  onActivate(componentReference) {
     componentReference.someFunction(this.user);
   }
 
 
-
-  async showFollowers(followers:User[]) {
+  async showFollowers(followers: User[]) {
     console.log(followers);
 
     bootbox.alert({
-      title:"<p class='display-5'>Followers</p>",
-      message: function(){
-        let followerslist = "<table class=\"table table-striped\">\n" +
-          "                      <tbody>\n";
-        for (let follower of followers){
-          followerslist +=        "                        <tr>\n" +
-            "                          <td>\n" +
-            "                            <div >\n" +
-            "      <p class='display-5' [routerLink]='[\"/user/userProfile\", "+follower.id+"]' >"+ follower.getFullName() +"</p>\n"+
-            "                            </div>\n" +
-            "                          </td>\n" +
-            "                        </tr>\n"
+      title: "<p class='display-5'>Followers</p>",
+      message: function () {
+        if (followers.length > 0) {
+          let followerslist = "<table class=\"table table-striped\">\n" +
+            "                      <tbody>\n";
+          for (let follower of followers) {
+            followerslist += "                        <tr>\n" +
+              "                          <td>\n" +
+              "                            <div >\n" +
+              "      <p class='display-5'><a style='color:inherit' href='/user/userProfile/" + follower.id + "' >" + follower.getFullName() + "</a></p>\n" +
+              "                            </div>\n" +
+              "                          </td>\n" +
+              "                        </tr>\n"
 
+          }
+          followerslist += "                      </tbody>\n" +
+            "                    </table>";
+
+          return followerslist;
         }
-        followerslist+=   "                      </tbody>\n" +
-          "                    </table>";
+        return "This user does not have followers yet ";
 
-        return followerslist;
       },
       size: 'large',
-      centerVertical:true,
+      centerVertical: true,
     });
-  }
-  navigateToUserProfile(){
-    alert('ddd');
   }
 
 

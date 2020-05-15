@@ -8,6 +8,7 @@ import {NewsLike} from '../models/news/newsLike';
 import {ProjectImage} from '../models/project/projectImage';
 import {map} from 'rxjs/operators';
 import {News} from '../models/news/news';
+import {ProductLike} from "../models/product/productLike";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class LikeService {
   commentUrl = environment.apiUrl + "/api/v1/comment/like";
   projectUrl = environment.apiUrl + "/api/v1/project/like";
   newsUrl = environment.apiUrl + "/api/v1/news/like";
+  productUrl = environment.apiUrl + "/api/v1/product/like";
 
   constructor(public http: HttpClient) {
   }
@@ -75,5 +77,23 @@ export class LikeService {
   //+
   public deleteByIdNewsLike(id: number) {
     return this.http.delete(`${this.newsUrl}/${id}`);
+  }
+
+  //product
+
+  public getLikesOfProduct(id: number): Observable<ProductLike[]> {
+    return this.http.get<ProductLike[]>( `${this.productUrl }/${id}`).pipe(
+      map(data => data.map(data => new ProductLike().deserialize(data)))
+    );
+  }
+
+  //+
+  public createProductLike(like: ProductLike): Observable<ProductLike> {
+    return this.http.post<ProductLike>(this.productUrl, like);
+  }
+
+  //+
+  public deleteByIdProductLike(id: number) {
+    return this.http.delete(`${this.productUrl}/${id}`);
   }
 }

@@ -4,9 +4,10 @@
       <div class="card" >
         <ng-container *ngIf="project.images">
 
-        <img class="card-img-top" *ngIf="project.images[0]" [src]="project.images[0].image" width="80px" height="100px" alt="Card image cap">
-        <img class="card-img-top" *ngIf="!project.images[0]" src="../../../../../../../assets/images/32_0.png" width="70px" height="160px" alt="Card image cap">
+        <img class="card-img-top m-auto" *ngIf="project.images[0]" [src]="project.images[0].image" width="80px" height="100px" alt="Card image cap">
         </ng-container>
+
+        <img class="card-img-top m-auto" *ngIf="!project.images[0]" src="../../../../../assets/images/32_0.png" width="80px" height="100px" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title text-center"><a style="color: inherit" [routerLink]="['/user/project/details', project.id]" >{{project.title}}</a></h5>
           <hr/>
@@ -20,7 +21,7 @@
               </button>
             </div>
             <div class="col d-flex ">
-              <button mat-icon-button aria-label="Example icon button with a heart icon">
+              <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
                 <mat-icon *ngIf="!project.liked" (click)="like(project)">favorite_border</mat-icon>
                 <mat-icon *ngIf="project.liked" (click)="unlike(project)">favorite</mat-icon>
                 <span>{{project.likes.length}}</span>

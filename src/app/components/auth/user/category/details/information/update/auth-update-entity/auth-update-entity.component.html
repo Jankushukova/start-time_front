@@ -1,11 +1,12 @@
 
 <div class="card">
-  <div class="card-body">
-    <ng-container *ngIf="update.images">
+  <ng-container *ngIf="update.images">
 
-    <img class="card-img-top" *ngIf="update.images[0]" [src]="update.images[0].image" alt="Card image cap">
-    </ng-container>
-    <img class="card-img-top" *ngIf="!update.images" src="../../../../../../../assets/images/32_0.png" width="50px" height="200px" alt="Card image cap">
+    <img class="card-img-top m-auto" *ngIf="update.images[0]" [src]="update.images[0].image" width="150px" height="150px" alt="Card image cap">
+  </ng-container>
+  <img class="card-img-top m-auto" *ngIf="!update.images" src="../../../../../../../../../assets/images/32_0.png" width="150px" height="150px" alt="Card image cap">
+
+  <div class="card-body">
 
 
 

@@ -5,7 +5,6 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Project} from '../../models/project/project';
 import {map} from 'rxjs/operators';
-import {ProductCategory} from '../../models/product/productCategory';
 import {ProjectImage} from '../../models/project/projectImage';
 import {ProductImage} from '../../models/product/productImage';
 
@@ -18,7 +17,10 @@ export class ProductService {
   constructor(public http: HttpClient) {
   }
 
-
+  //+
+  public addView(id: number): Observable<any> {
+    return this.http.post<any>(`${this.mainUrl}/view/add`, {"product_id":id});
+  }
 
   //+
   public getMostPopular(): Observable<Product[]> {
@@ -27,18 +29,12 @@ export class ProductService {
     );
   }
 
-  //+
-  public getProductCategories(): Observable<ProductCategory[]> {
-    return this.http.get<ProductCategory[]>(`${this.mainUrl}/category`).pipe(
-      map(data => data.map(data => new ProductCategory().deserialize(data)))
-    );
-  }
 
 
   //+
-  public getProductsOfCategory(id: number): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.mainUrl}/category/${id}`).pipe(
-      map(data => data.map(data => new Project().deserialize(data)))
+  public getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.mainUrl}`).pipe(
+      map(data => data.map(data => new Product().deserialize(data)))
     );
   }
 

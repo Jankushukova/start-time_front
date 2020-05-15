@@ -6,8 +6,10 @@ import {News} from './news';
 export class NewsLike implements Deserializable{
   id: number;
   viewed: boolean;
-  news_id: News;
-  user_id: User;
+  news_id: number;
+  news: News;
+  user: User;
+  user_id: number;
 
   deserialize(input: any): this {
     Object.assign(this, input);

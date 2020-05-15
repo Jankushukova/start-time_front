@@ -55,7 +55,8 @@ export class CommentService {
     );
   }
   public create(comment: NewsComment): Observable<NewsComment> {
-    return this.http.post<NewsComment>(this.newsUrl, comment);
+    return this.http.post<NewsComment>(this.newsUrl, comment).pipe(
+      map(data => new NewsComment().deserialize(data)));;
   }
 
 //+

@@ -6,6 +6,10 @@ import {UserService} from '../../../../services/user/user.service';
 import {SlickCarouselComponent} from 'ngx-slick-carousel';
 import {Product} from '../../../../models/product/product';
 import {ProductService} from '../../../../services/product/product.service';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SubscriberService} from "../../../../services/user/subscriber.service";
+import {Subscription} from "../../../../models/user/subscription";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-main',
@@ -20,10 +24,17 @@ export class AuthMainComponent implements OnInit {
   projectNum = 0;
   sucProjNum = 0;
   projectBakNum = 0;
+  subscribeForm: FormGroup;
+
   constructor(
     private projectService: ProjectService,
     private productService: ProductService,
     private userService: UserService,
+    private subscriberService: SubscriberService,
+    private builder: FormBuilder,
+    private _snackBar: MatSnackBar,
+
+
   ) { }
 
 
@@ -60,6 +71,9 @@ export class AuthMainComponent implements OnInit {
         }
       });
     });
+
+    this.subscribeForm = this.builder.group({
+      email: ['', [Validators.required]],});
   }
 
   title = 'ngSlick';
@@ -88,4 +102,23 @@ export class AuthMainComponent implements OnInit {
     this.slickModal.slickPrev();
   }
 
+  onSubmit(){
+    const subscription: Subscription = this.subscribeForm.getRawValue();
+    this.subscriberService.create(subscription).subscribe(perf=>{
+      console.log("success");
+      this.openSnackBar('Successfully subscribed', 'Close', 'style-success');
+
+    }, error => {
+      this.openSnackBar('Some error occurred', 'Close', 'style-error');
+    })
+
+    this.subscribeForm.reset();
+  }
+  openSnackBar(message: string, action: string, style: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+      panelClass: style,
+      horizontalPosition:'right',
+    });
+  }
 }
