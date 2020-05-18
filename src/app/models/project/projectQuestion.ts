@@ -11,6 +11,7 @@ export class ProjectQuestion implements Deserializable {
   user_id:number;
   project: Project;
   project_id: number;
+  answer: string;
   deserialize(input: any): this {
     Object.assign(this, input);
     if(input.user) this.user = new User().deserialize(input.user);

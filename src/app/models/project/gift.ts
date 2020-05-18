@@ -8,7 +8,8 @@ export class Gift implements Deserializable{
   id: number;
   description: string;
   sum: number;
-  project_id: Project;
+  project_id: number;
+  project: any;
 
   deserialize(input: any): this {
     Object.assign(this, input);

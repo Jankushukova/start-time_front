@@ -1,8 +1,11 @@
   <div class="card   text-left border-sss ">
     <div class="card-body">
-      <p [routerLink]="['/user/userProfile',question.user.id]" class="paddingDiv">Author: {{question.user.getFullName()}}</p>
-      <hr class="bg-sss"/>
+      <p [routerLink]="['/user/userProfile',question.user.id]" class="paddingDiv text-right">Author: {{question.user.getFullName()}}</p>
       <p> {{question.question}}</p>
+      <hr class="bg-sss"/>
+      <p *ngIf="question.answer"> {{question.answer}}</p>
+      <p *ngIf="!question.answer"> Author did not answer yet</p>
+
     </div>
   </div>
 

@@ -15,6 +15,8 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {ProjectImage} from '../../../../models/project/projectImage';
+import {Gift} from "../../../../models/project/gift";
+import {GiftService} from "../../../../services/project/gift.service";
 
 
 
@@ -55,10 +57,12 @@ class PickDateAdapter extends NativeDateAdapter {
 
 export class AuthCreateProjectComponent implements OnInit {
   projectForm: FormGroup;
+  rewardForm: FormGroup;
   error = false ;
   date : any;
   categories: ProjectCategory[] = [];
   images: ProjectImage[] = [];
+  rewardsList:Gift[] = [];
   categoryControl = new FormControl('', Validators.required);
   private configSucces: MatSnackBarConfig = {
     panelClass: ['style-succes'],
@@ -73,6 +77,7 @@ export class AuthCreateProjectComponent implements OnInit {
               private projectService: ProjectService,
               private projectCategoryService: ProjectCategoryService,
               private _snackBar: MatSnackBar,
+              private giftService:GiftService
               ){ }
 
   ngOnInit(): void {
@@ -90,6 +95,11 @@ export class AuthCreateProjectComponent implements OnInit {
     this.projectCategoryService.get().subscribe(perf => {
       this.categories = perf;
     });
+
+    this.rewardForm = this.builder.group({
+      sum:['',[Validators.required]],
+      description:['',[Validators.required]]
+    })
   }
 
   fileEvent(fileInput: Event){
@@ -99,6 +109,7 @@ export class AuthCreateProjectComponent implements OnInit {
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
       this.images.push(image);
+      console.log(this.images);
     }
 
   }
@@ -113,21 +124,40 @@ export class AuthCreateProjectComponent implements OnInit {
     project.deadline = deadline.getFullYear()+'-' + (deadline.getMonth()+1) + '-'+deadline.getDate();
 
     this.projectService.create(project).subscribe(perf => {
+
+        //assign project id to images
         this.images = this.images.map(function(image) {
           // @ts-ignore
-          image.project_id = perf.id;
           return image;
         });
 
-        this.projectService.createProjectImages(this.images).subscribe(perf=>{
-          this.openSnackBar('Project was sent to moderator', 'Close', 'style-success');
-        },
+        //assign project id to rewards list
+        this.rewardsList = this.rewardsList.map(function (gift) {
+          gift.project_id = perf.id;
+          return gift;
+        })
+        var myFormData = new FormData();
+        myFormData.append('image', this.images[0].image);
+        myFormData.append('project_id', '2');
+        console.log(this.images[0]);
+        console.log(this.images[0].image);
+        //create project images
+        this.projectService.createProjectImages(myFormData).subscribe(perf=>{
+            //creates project rewards
+            this.giftService.create(this.rewardsList).subscribe(perf=>{
+              this.openSnackBar('Project was sent to moderator', 'Close', 'style-success');
+              // this.router.navigateByUrl('user/profile');
+
+            },error1 => {
+              this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
+            })
+          },
           error1 => {
             this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
-          }
-          )
+        })
 
-        this.router.navigateByUrl('user/profile');
+
+
       }, error => {
       this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
 
@@ -139,6 +169,19 @@ export class AuthCreateProjectComponent implements OnInit {
       panelClass: style,
       horizontalPosition:'right',
     });
+  }
+
+
+  addReward(event){
+    if (event.keyCode === 13) {
+      const gift: Gift = this.rewardForm.getRawValue();
+      this.rewardsList.push(gift);
+      console.log(this.rewardsList);
+      this.rewardForm.reset();
+    }
+  }
+  deleteReward(i){
+    this.rewardsList.splice(i,1);
   }
 
 

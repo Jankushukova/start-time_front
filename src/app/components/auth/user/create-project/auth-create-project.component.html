@@ -108,22 +108,24 @@
       <div class="card">
         <div class="card-body">
               <p>Reward</p>
+          <form [formGroup]="rewardForm" (keydown)="addReward($event)">
               <div class="form-row justify-content-center">
                 <div class="input-group mb-3 col-md-6 grid-margin stretch-card ">
                   <div class="input-group-prepend">
                     <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-d">Sum</span>
                   </div>
-                  <input type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-d">
+                  <input formControlName="sum" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-d">
                 </div>
                 <div class="input-group mb-3 col-md-6 grid-margin stretch-card ">
                   <div class="input-group-prepend">
                     <span class="input-group-text bg-sss text-white" id="inputGroup-sizing">Description</span>
                   </div>
-                  <input  type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing">
+                  <input  formControlName="description" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing">
                 </div>
 
 
               </div>
+          </form>
 
               <div class="row justify-content-center">
                 <div class="col-md-9 grid-margin stretch-card ">
@@ -137,11 +139,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr *ngFor="let gift of rewardsList; index as i">
                       <th scope="row">1</th>
-                      <td>50tg</td>
-                      <td>Otto</td>
-                      <td><i class="fas fa-trash"></i><i class="ml-md-2 fas fa-edit"></i></td>
+                      <td>{{gift.sum}}</td>
+                      <td>{{gift.description}}</td>
+                      <td>
+                        <div class="row mt-md-2 text-center">
+                          <div class=" d-flex ">
+                            <button (click)="deleteReward(i)" mat-icon-button aria-label="Example icon button with a heart icon">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+
+                          </div>
+
+                        </div>
                     </tr>
 
                     </tbody>

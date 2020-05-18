@@ -72,8 +72,8 @@ export class ProjectService {
 
 
 //+
-  public createProjectImages(images: ProjectImage[]): Observable<ProjectImage[]> {
-    return this.http.post<ProjectImage[]>( `${this.mainUrl}/create/images`, images);
+  public createProjectImages(images: any): Observable<ProjectImage> {
+    return this.http.post<ProjectImage>( `${this.mainUrl}/create/images`, images);
   }
   //+
   public getImagesOfProject(id: number): Observable<ProjectImage[]> {

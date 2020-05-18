@@ -24,8 +24,8 @@ export class GiftService {
   }
 
 //+
-  public create(gifts: Gift): Observable<Gift> {
-    return this.http.post<Gift>(this.mainUrl, gifts);
+  public create(gifts: Gift[]): Observable<any> {
+    return this.http.post<any>(this.mainUrl, gifts);
   }
 //+
   public findById(id: number): Observable<Gift> {
