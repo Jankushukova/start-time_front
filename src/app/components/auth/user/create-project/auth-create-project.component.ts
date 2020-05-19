@@ -61,7 +61,7 @@ export class AuthCreateProjectComponent implements OnInit {
   error = false ;
   date : any;
   categories: ProjectCategory[] = [];
-  images: ProjectImage[] = [];
+  images: FormData = new FormData();
   rewardsList:Gift[] = [];
   categoryControl = new FormControl('', Validators.required);
   private configSucces: MatSnackBarConfig = {
@@ -108,7 +108,7 @@ export class AuthCreateProjectComponent implements OnInit {
     for(var i = 0; i < files.length;i++){
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
-      this.images.push(image);
+      this.images.append('image'+(i+1), image.image);
       console.log(this.images);
     }
 
@@ -125,28 +125,21 @@ export class AuthCreateProjectComponent implements OnInit {
 
     this.projectService.create(project).subscribe(perf => {
 
-        //assign project id to images
-        this.images = this.images.map(function(image) {
-          // @ts-ignore
-          return image;
-        });
-
         //assign project id to rewards list
         this.rewardsList = this.rewardsList.map(function (gift) {
           gift.project_id = perf.id;
           return gift;
         })
-        var myFormData = new FormData();
-        myFormData.append('image', this.images[0].image);
-        myFormData.append('project_id', '2');
-        console.log(this.images[0]);
-        console.log(this.images[0].image);
-        //create project images
-        this.projectService.createProjectImages(myFormData).subscribe(perf=>{
+        this.images.append('project_id', perf.id.toString())
+        // for (var pair of this.images.entries()) {
+        //   console.log(pair[0]+ ', ' + pair[1]);
+        // }
+
+        this.projectService.createProjectImages(this.images).subscribe(perf=>{
             //creates project rewards
             this.giftService.create(this.rewardsList).subscribe(perf=>{
               this.openSnackBar('Project was sent to moderator', 'Close', 'style-success');
-              // this.router.navigateByUrl('user/profile');
+              this.router.navigateByUrl('user/profile');
 
             },error1 => {
               this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');

@@ -31,7 +31,13 @@ export class AuthDetailsComponent implements OnInit {
     })
     this.projectService.findById(id).subscribe(perf=>{
       this.project = perf;
-      this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.project.video);
+      try{
+        this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.project.video);
+
+      }catch (e) {
+        alert('Could not load video');
+      }
+
 
       this.progress = (this.project.gathered/this.project.goal)*100;
     })
@@ -44,5 +50,12 @@ export class AuthDetailsComponent implements OnInit {
       size: 'large',
       centerVertical:true,
     })
+  }
+
+  checkYouTubeUrl(){
+    $.getJSON(this.safeURL,function(data,status,xhr){
+      alert(data.data.title);
+      return true;
+    });
   }
 }

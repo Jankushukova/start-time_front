@@ -7,7 +7,7 @@
         <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
           <div ngxSlickItem *ngFor="let image of project.images" class="slide ">
-            <img class="m-auto" [src]="[image.image]" alt="" width="50%" height="400px">
+            <img class="m-auto" src="{{image.image}}" alt="" width="50%" height="400px">
 
 
           </div>
