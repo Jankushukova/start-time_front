@@ -1,0 +1,14 @@
+<app-spinner filterBy="user/projects"></app-spinner>
+
+<ng-container *ngIf="projects">
+<div class="row justify-content-center mt-md-5 mb-md-5">
+  <app-auth-user-project-entity  *ngFor="let project of projects" [project]="project" class="col-md-2 grid-margin stretch-card ">
+  </app-auth-user-project-entity>
+
+
+</div>
+</ng-container>
+<div>
+  <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalProjectsCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+</div>

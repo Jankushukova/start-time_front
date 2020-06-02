@@ -5,7 +5,7 @@ import {User} from './user';
 export class Follower implements Deserializable{
   id: number;
   viewed: boolean;
-  follower_id: number;
+  followed_id: number;
   following_id: number;
 
   deserialize(input: any): this {

@@ -1,0 +1,100 @@
+<app-spinner filterBy="bakers/all"></app-spinner>
+<ng-container *ngIf="bakeInformation">
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Projects bakers</h4>
+        <div class="text-right">
+          <button type="button" class="btn btn-inverse-danger btn-icon">
+            <i class="mdi mdi-download"></i>
+          </button>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose filter</button>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 46px, 0px);">
+                      <a class="dropdown-item" href="#">User</a>
+                      <a class="dropdown-item" href="#">Project name</a>
+                      <a class="dropdown-item" href="#">Transaction id</a>
+                    </div>
+                  </div>
+                  <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                </div>
+              </div>
+            </div>
+          <div class="col-md-6">
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Choose bank</button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item">Bank 1</a>
+                <a class="dropdown-item">Bank 2</a>
+                <a class="dropdown-item">Bank 3</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="table-responsive table-hover">
+          <div id="recent-purchases-listing_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="recent-purchases-listing" class="table dataTable no-footer" role="grid">
+            <thead>
+            <tr role="row">
+              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 105.4px;">User</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 105.4px;">Email</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 80.4px;">Phone</th>
+              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Status report: activate to sort column ascending" style="width: 139px;">Project</th>
+              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 93.4px;">Bank</th>
+              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 50.4px;">Price</th>
+              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 67px;">Date</th>
+              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Gross amount: activate to sort column ascending" style="width: 103.8px;">Gift</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+
+
+
+
+
+
+            <tr role="row" class="odd" *ngFor="let bake of bakeInformation">
+              <td class="sorting_1">
+                <a *ngIf="bake.order.user" style="color:inherit" target="_blank" class="paddingDiv" [routerLink]="['/userProfile',bake.order.user_id]">{{bake.order.first_name + ' ' + bake.order.last_name}}</a>
+              </td>
+              <td>
+                <p *ngIf="bake.order.email">{{bake.order.email}}</p>
+                <p *ngIf="!bake.order.email">User didn't provide email</p>
+              </td>
+              <td >
+                <p *ngIf="bake.order.phone_number">{{bake.order.phone_number}}</p>
+                <p *ngIf="!bake.order.phone_number">User didn't provide phone</p>
+              </td>
+              <td><a style="color:inherit" target="_blank" [routerLink]="['/project/details', bake.order.project.id]">
+                {{bake.order.project.title_rus}}
+              </a></td>
+              <td>{{bake.bank.name}}</td>
+              <td>{{bake.sum}}</td>
+              <td>{{bake.created_at}}</td>
+              <td>
+                <p *ngIf="bake.order.gift.description">{{bake.order.gift.description}}</p>
+                <p *ngIf="!bake.order.gift.description">No gifts provided</p>
+              </td>
+            </tr>
+        </tbody>
+          </table></div></div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>
+<div>
+  <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalBakersCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+</div>

@@ -24,14 +24,15 @@ export class User implements Deserializable {
   bakersCount: any;
   bakedCount: any;
   projectsCount: any;
+  recommendationCount: any;
   deserialize(input: any): this {
     Object.assign(this, input);
     this.role_id = new Role().deserialize(input.role_id);
     return this;
   }
 
-  getFullName(){
-    return this.firstname + " " + this.lastname;
+  getFullName() {
+    return this.firstname + ' ' + this.lastname;
   }
 
 

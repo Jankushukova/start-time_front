@@ -1,0 +1,66 @@
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+
+<ul class="nav">
+            <li class="nav-item">
+              <div class="nav-link">
+                <i class="mdi mdi-home menu-icon "></i>
+                <span class="menu-title">ГЛАВНАЯ</span>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#projects" aria-expanded="false" aria-controls="projects">
+                <i class="mdi mdi-poll-box menu-icon"></i>
+                <span class="menu-title">Проекты</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="projects">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" routerLink="projects">Управление</a></li>
+                  <li class="nav-item"> <a class="nav-link" routerLink="project/bakes">Вклады</a></li>
+                  <li class="nav-item"> <a class="nav-link" routerLink="project/category">Категории</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link collapsed" data-toggle="collapse" href="#shop" aria-expanded="false" aria-controls="shop">
+                <i class="mdi mdi-shopping menu-icon"></i>
+                <span class="menu-title">Магазин</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="shop" style="">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" routerLink="shop" > Товары </a></li>
+                  <li class="nav-item"> <a class="nav-link" routerLink="shop/orders"> Заказы </a></li>
+                  <li class="nav-item"> <a class="nav-link" routerLink="shop/category"> Категории товаров </a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item ">
+              <div class="nav-link paddingDiv" routerLink="subscribes">
+                <i class="mdi mdi-message-text menu-icon "></i>
+                <span class="menu-title">Подписки</span>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div  class="nav-link paddingDiv " routerLink="partners">
+                <i class="mdi mdi-account-multiple menu-icon "></i>
+                <span class="menu-title">Партнеры</span>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div  class="nav-link paddingDiv" routerLink="files">
+                <i class="mdi mdi-folder-multiple-image menu-icon "></i>
+                <span class="menu-title">Файлы</span>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div  class="nav-link paddingDiv" routerLink="users">
+                <i class="mdi mdi-account-circle menu-icon "></i>
+                <span class="menu-title">Пользователи</span>
+              </div>
+            </li>
+
+          </ul>
+
+</nav>

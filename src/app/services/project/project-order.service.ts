@@ -22,21 +22,21 @@ export class ProjectOrderService {
 
   public getBakersOfUser(id: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.customUrl}/user/bakers/${id}`).pipe(
-      map(data => data.map(data => new User().deserialize(data)))
+      map(data => data.map(entryData => new User().deserialize(entryData)))
     );
   }
 
   public getBakersOfProject(id: number): Observable<ProjectOrder[]> {
     return this.http.get<ProjectOrder[]>(`${this.mainUrl}/project/bakers/${id}`).pipe(
-      map(data => data.map(data => new ProjectOrder().deserialize(data)))
+      map(data => data.map(entryData => new ProjectOrder().deserialize(entryData)))
     );
   }
   public findById(id: number): Observable<ProjectOrder> {
     return this.http.get<ProjectOrder>(`${this.mainUrl}/${id}`);
   }
 
-  public create(order: ProjectOrder): Observable<ProjectOrder> {
-    return this.http.post<ProjectOrder>(this.mainUrl, order);
+  public create(order: ProjectOrder): Observable<any> {
+    return this.http.post(this.mainUrl, order, {responseType: 'json'});
   }
 
   public update(id: number, order: ProjectOrder): Observable<ProjectOrder> {

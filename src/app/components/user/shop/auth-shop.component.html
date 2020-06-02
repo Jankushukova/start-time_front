@@ -1,0 +1,60 @@
+
+<div class="container-fluid mb-md-5">
+  <app-spinner filterBy="products"></app-spinner>
+  <ng-container *ngIf="products">
+  <div class="row justify-content-center mt-md-5">
+    <div class="col-10">
+      <h2>
+        <small class="text-muted">Приобретай эксклюзивную казахстанскую продукцию по доступным ценам. Здесь представлены лучшие товары краудфандинг-проектов StartTime. Покупая здесь - ты поддерживаешь казахстанских стартапов, помогаешь себе и своей стране!</small>
+      </h2>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-md-5 mb-md-5">
+    <div class="col-md-2 grid-margin stretch-card" *ngFor="let product of products">
+      <div class="card bg-light shadow"  >
+        <ng-container *ngIf="product.images">
+
+          <img class="card-img-top m-auto" *ngIf="product.images[0]" [src]="product.images[0].url" width="100%" height="150px" alt="Card image cap">
+        </ng-container>
+
+        <img class="card-img-top m-auto" *ngIf="!product.images[0]" src="../../../../assets/images/5_0.png" width="100%" height="150px" alt="Card image cap">
+
+        <div class="card-body">
+          <h5 class="card-title text-center"><a style="cursor: pointer" (click)="openDialog(product)" >{{product.title}} </a></h5>
+          <p class="card-text  text-center">Cost: {{product.cost}} </p>
+          <hr/>
+          <div class="row">
+            <div class="col d-flex ">
+              <button mat-icon-button aria-label="Example icon button with an eye icon">
+
+
+                <mat-icon>remove_red_eye</mat-icon>
+                <span>{{product.views}}</span>
+              </button>
+            </div>
+            <div class="col d-flex ">
+              <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                <mat-icon *ngIf="!product.liked" (click)="like(product)">favorite_border</mat-icon>
+                <mat-icon *ngIf="product.liked" (click)="unlike(product)">favorite</mat-icon>
+                <span>{{product.likes.length}}</span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</ng-container>
+
+<div>
+    <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalProductsCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+  </div>
+
+
+</div>

@@ -10852,6 +10852,42 @@ fieldset:disabled a.btn {
   pointer-events: none;
 }
 
+
+.btn-start-time {
+  color: #fff;
+  background-color: #009E74;
+  border-color: #168E74;
+}
+.btn-start-time:hover {
+  color: #fff;
+  background-color: #009E74;
+  border-color: #168E74;
+}
+
+.btn-start-time:focus, .btn-start-time.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 159, 113, 1);
+}
+
+.btn-start-time.disabled, .btn-start-time:disabled {
+  color: #fff;
+  background-color: #009E74;
+  border-color: #168E74;
+}
+
+.btn-start-time:not(:disabled):not(.disabled):active, .btn-start-time:not(:disabled):not(.disabled).active,
+.show > .btn-start-time.dropdown-toggle {
+  color: #fff;
+  background-color: #009E74;
+  border-color: #168E74;
+}
+
+.btn-start-time:not(:disabled):not(.disabled):active:focus, .btn-start-time:not(:disabled):not(.disabled).active:focus,
+.show > .btn-start-time.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 159, 113, 1);
+}
+
+
+
 .btn-primary {
   color: #fff;
   background-color: #4d83ff;
@@ -19910,7 +19946,7 @@ code {
 
 .card .card-title {
   color: #4a4a4a;
-  margin-bottom: 1.5rem;
+  /*margin-bottom: 1.5rem;*/
   text-transform: uppercase;
   font-size: .875rem;
   font-weight: bold;

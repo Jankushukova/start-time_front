@@ -1,0 +1,22 @@
+
+<div class="card">
+  <ng-container *ngIf="update.images">
+
+    <img class="card-img-top m-auto" *ngIf="update.images[0]" [src]="update.images[0].image" width="150px" height="150px" alt="Card image cap">
+  </ng-container>
+  <img class="card-img-top m-auto" *ngIf="!update.images" src="../../../../../../../../assets/images/32_0.png" width="150px" height="150px" alt="Card image cap">
+
+  <div class="card-body">
+
+
+
+    <hr/>
+    <div class="text-center">
+      <h5 class="card-title"><a [routerLink]="['details', update.id]">{{update.title}}</a></h5>
+      <p class="card-text">{{update.description}}</p>
+    </div>
+
+
+  </div>
+</div>
+

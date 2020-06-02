@@ -6,9 +6,14 @@ import {Product} from './product';
 
 export class OrdersProduct implements Deserializable{
   id: number;
-  product_id: Product;
-  order_id: ProductOrder;
-
+  // tslint:disable-next-line:variable-name
+  product_id: number;
+  // tslint:disable-next-line:variable-name
+  order_id: number;
+  count: number;
+  product: Product;
+  order: ProductOrder;
+  sum: number;
   deserialize(input: any): this {
     Object.assign(this, input);
     return this;

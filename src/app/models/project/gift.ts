@@ -8,6 +8,7 @@ export class Gift implements Deserializable{
   id: number;
   description: string;
   sum: number;
+  // tslint:disable-next-line:variable-name
   project_id: number;
   project: any;
 

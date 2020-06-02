@@ -1,15 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-
+.cdk-overlay-container {
+  z-index: 9999 !important;
+}
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke:  #009E74!important;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.style-success .mat-simple-snackbar-action  {
+  color: white;
+}
 .style-success {
   color: white;
   background-color: #009E74;
 
 }
-
-.style-success .mat-simple-snackbar-action  {
+.style-warn .mat-simple-snackbar-action  {
   color: white;
+}
+.style-warn {
+  color: white;
+  background-color: darkorange;
+
 }
 
 .style-error .mat-simple-snackbar-action {
@@ -36,3 +48,32 @@ a{
   color:inherit;
 }
 
+.display-4 {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.display-4 {
+  font-size: 1.875rem;
+}
+
+@media (max-width: 991px) {
+  .display-4 {
+    font-size: 1.5rem;
+  }
+}
+.display-5 {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 991px) {
+  .display-5 {
+    font-size: 1rem;
+  }
+}
+.display-5 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}

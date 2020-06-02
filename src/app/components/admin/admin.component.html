@@ -1,0 +1,116 @@
+ <ng-container *ngIf="privelegedUser">
+
+  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="navbar-brand-wrapper d-flex justify-content-center">
+      <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+        <a class="navbar-brand brand-logo"><img src="../../../assets/images/30_0.png" alt="logo"></a>
+        <a class="navbar-brand brand-logo-mini" ><img src="../../../assets/images/30_0.png" alt="logo"></a>
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-sort-variant"></span>
+        </button>
+      </div>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+      <ul class="navbar-nav mr-lg-4 w-100">
+        <li class="nav-item nav-search d-none d-lg-block w-100">
+
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-nav-right">
+
+        <li class="nav-item dropdown mr-1">
+          {{'lang' | translate}}
+          <mat-select   class="lang" #langSelect (selectionChange)="this.translate.use(langSelect.value)">
+            <mat-option
+              *ngFor="let lang of translate.getLangs()"
+              [value]="lang"
+            >
+              {{ lang }}
+            </mat-option>
+          </mat-select>
+        </li>
+        <li class="nav-item nav-profile dropdown">
+          <a [matMenuTriggerFor]="logout" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+            <img src="../../../assets/images/11_0.png" alt="profile">
+            <span class="nav-profile-name">{{privelegedUser.firstname}}</span>
+          </a>
+          <mat-menu #logout="matMenu" xPosition="before">
+            <button mat-menu-item (click)="Logout()"> <i class="mdi mdi-logout text-primary"></i>
+              Logout</button>
+          </mat-menu>
+
+        </li>
+      </ul>
+      <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+        <span class="mdi mdi-menu"></span>
+      </button>
+    </div>
+  </nav>
+  <div class="container-fluid page-body-wrapper">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="main">
+            <i class="mdi mdi-home menu-icon"></i>
+            <span class="menu-title">Main</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed"   href="#ui-basic"  data-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">
+            <i class="mdi mdi-circle-outline menu-icon"></i>
+            <span class="menu-title" >Project</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="ui-basic" >
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" routerLink="projects">Manage projects</a></li>
+              <li class="nav-item"> <a class="nav-link" routerLink="project/bakes">Bakers</a></li>
+              <li class="nav-item"> <a class="nav-link active" routerLink="project/category">Categories</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed"  href="#ui-basicc" data-toggle="collapse" aria-expanded="false" aria-controls="ui-basicc">
+            <i class="mdi mdi-circle-outline menu-icon"></i>
+            <span class="menu-title"  >Shop</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" id="ui-basicc" style="">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item"> <a class="nav-link" routerLink="shop">Manage products</a></li>
+              <li class="nav-item"> <a class="nav-link" routerLink="shop/orders">Orders</a></li>
+              <li class="nav-item"> <a class="nav-link active" routerLink="shop/category">Categories</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="subscribes">
+            <i class="mdi mdi-view-headline menu-icon"></i>
+            <span class="menu-title">Subscribers</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="users">
+            <i class="mdi mdi-view-headline menu-icon"></i>
+            <span class="menu-title">Users</span>
+          </a>
+        </li>
+
+
+      </ul>
+    </nav>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+
+      </div>
+      <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+          <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Start time © {{getDate()}}. All rights reserved.</span>
+          <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i class="mdi mdi-heart text-danger"></i></span>
+        </div>
+      </footer>
+    </div>
+  </div>
+ </ng-container>

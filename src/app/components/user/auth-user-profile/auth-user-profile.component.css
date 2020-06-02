@@ -1,0 +1,26 @@
+.display-5 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+.display-5 {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 991px) {
+  .display-5 {
+    font-size: 1rem;
+  }
+}
+.options-image{
+  height:80px;
+  width: auto;
+}
+.profile-image{
+  width: 100%;
+  height: 100%;
+}
+
+.bg-start-time{
+  background-color: #009E74;
+}

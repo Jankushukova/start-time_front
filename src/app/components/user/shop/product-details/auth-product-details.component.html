@@ -1,0 +1,65 @@
+
+  <app-spinner filterBy="product/"></app-spinner>
+<mat-dialog-content>
+  <ng-container *ngIf="product">
+<div class="container-fluid mb-md-5">
+
+
+  <div class="row justify-content-center ">
+    <div class="col-md-6  ">
+      <div class="card">
+        <div class="card-body">
+              <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+
+                <div ngxSlickItem *ngFor="let image of product.images" class="slide ">
+                  <img class="m-auto" [src]="[image.url]" alt="" width="90%" height="90%">
+
+
+                </div>
+
+              </ngx-slick-carousel>
+              <img class="m-auto" *ngIf="product.images.length===0" src="../../../../../assets/images/5_0.png" width="100%" height="100%">
+
+              <hr class="bg-sss"/>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <div class="card border-0 h-100">
+        <div class="card-body">
+          <div class="row justify-content-center">
+            <div class="col-md-12  ">
+
+          <h3>{{product.title}}</h3>
+          <hr/>
+          <p>{{product.description}}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</ng-container>
+</mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="row justify-content-center" >
+      <div class="col-md-6 text-right border-right">
+        <h2 class="display-5"> Sum: <span>{{sum}}tg</span></h2>
+        <button (click)="changeCount(true)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        {{count}}
+        <button (click)="changeCount(false)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+      <div class="col-md-6"> <button class="btn btn-outline-dark btn-lg" mat-dialog-close  (click)="intoTheBasket()">Order</button></div>
+    </div>
+  </mat-dialog-actions>

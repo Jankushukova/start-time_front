@@ -1,0 +1,88 @@
+<app-spinner filterBy="project"></app-spinner>
+
+<ng-container *ngIf="project">
+  <h2><small class="text-muted">Please fill out form below</small></h2>
+  <h3><i class="fas fa-exclamation text-danger"></i><small class="text-muted">  You can choose gifted sum,  or provide your own</small></h3>
+<mat-dialog-content>
+  <mat-horizontal-stepper [linear]="true" #stepper >
+    <mat-step [stepControl]="giftedSumForm"  [optional]="true">
+      <form [formGroup]="giftedSumForm">
+        <ng-template matStepLabel>Gifted sum</ng-template>
+        <mat-form-field class="w-100">
+          <mat-label>Choose one of the gifted sum</mat-label>
+          <mat-select formControlName="sum"  (selectionChange)="giftSelected($event)">
+            <mat-option *ngFor="let gift of project.gifts;index as i" [value]="i">
+              <h2><small class="text-muted">{{gift.sum}} {{gift.description}}</small></h2>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="customSumForm">
+      <form [formGroup]="customSumForm">
+        <ng-template matStepLabel>Custom sum</ng-template>
+        <mat-form-field class="w-100">
+          <mat-label>Provide your own sum</mat-label>
+          <input matInput placeholder="500" type="number" formControlName="sum" >
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="infoForm">
+      <form [formGroup]="infoForm">
+        <ng-template matStepLabel>Info</ng-template>
+        <mat-form-field class="w-100">
+          <mat-label>First name</mat-label>
+          <input matInput placeholder="First name" formControlName="first_name" required>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Last name</mat-label>
+          <input matInput placeholder="Last name" formControlName="last_name" required>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Phone</mat-label>
+          <input matInput placeholder="Phone number" formControlName="phone_number" required>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" formControlName="email" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="paymentType">
+      <form [formGroup]="paymentType">
+        <ng-template matStepLabel>Payment type</ng-template>
+        <mat-radio-group aria-label="Select an option" formControlName="type">
+          <mat-radio-button value="1"><img src="../../../../../../assets/images/kaspi.png"></mat-radio-button>
+          <mat-radio-button value="2" class="ml-2"><img src="../../../../../../assets/images/cloudpayments.jpg"></mat-radio-button>
+
+        </mat-radio-group>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <button class="btn btn-start-time btn-lg" (click)="onSubmit()" mat-dialog-close>order</button>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+
+
+</mat-dialog-content>
+
+</ng-container>

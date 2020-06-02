@@ -1,28 +1,23 @@
 import {Injectable} from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
-  HttpResponse
-} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {AuthService} from '../services/auth.service';
+import {SimpleAuthService} from '../services/auth.service';
 import {environment} from '../../environments/environment';
-import {catchError, map, retry} from "rxjs/operators";
-import {UserService} from "../services/user/user.service";
-import {Router} from "@angular/router";
+import {catchError, finalize, retry} from 'rxjs/operators';
+import {UserService} from '../services/user/user.service';
+import {Router} from '@angular/router';
+import {HttpStateService} from '../services/HttpStateService.service';
+import {HttpProgressState} from '../enum/http-progress-state.enum';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
 
-  constructor(private authService: AuthService,
+  constructor(private authService: SimpleAuthService,
               private userService: UserService,
               private router: Router,
+              private httpStateService: HttpStateService
   ) {
-    this.authService = authService;
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -34,27 +29,24 @@ export class TokenInterceptor implements HttpInterceptor {
         }
       });
     }
-
-    // @ts-ignore
+    this.httpStateService.state.next({
+      url: request.url,
+      state: HttpProgressState.start
+    });
     return next.handle(request)
       .pipe(
         retry(1),
-        catchError((error: HttpErrorResponse)=>{
-          let errorMessage = '';
-          if (error.error instanceof ErrorEvent) {
-            // client-side error
-            errorMessage = `Error: ${error.error.message}`;
-          } else {
-            // server-side error
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        catchError((error: HttpErrorResponse) => {
+          if ( error.status === 401 ) {
+            this.userService.logout();
           }
-         if(error.status===400){
-           this.userService.logout();
-           this.router.navigateByUrl('/');
-
-         }
-          return throwError(errorMessage);
-        })
-      );
+          return throwError(error);
+        }),
+      finalize(() => {
+          this.httpStateService.state.next({
+            url: request.url,
+            state: HttpProgressState.end
+          });
+    }));
   }
 }

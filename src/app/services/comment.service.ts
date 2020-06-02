@@ -20,15 +20,9 @@ export class CommentService {
   //comment for project
   public getCommentsOfProject(id: number): Observable<ProjectComment[]> {
     return this.http.get<ProjectComment[]>( `${this.projectUrl }s/${id}`).pipe(
-      map(data => data.map(data => new ProjectComment().deserialize(data)))
+      map(data => data.map(entryData => new ProjectComment().deserialize(entryData)))
     );
   }
-  public getCommentsOfProjectAuth(id: number): Observable<ProjectComment[]> {
-    return this.http.get<ProjectComment[]>( `${this.projectUrl }/${id}`).pipe(
-      map(data => data.map(data => new ProjectComment().deserialize(data)))
-    );
-  }
-
   //+
   public createProjectComment(comment: ProjectComment): Observable<ProjectComment> {
     return this.http.post<ProjectComment>(this.projectUrl, comment).pipe(

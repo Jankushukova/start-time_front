@@ -5,29 +5,52 @@ import {User} from '../../models/user/user';
 import {Observable} from 'rxjs';
 import {Role} from '../../models/user/role';
 import {map} from 'rxjs/operators';
-import {ProjectQuestion} from "../../models/project/projectQuestion";
+import {ProjectQuestion} from '../../models/project/projectQuestion';
+import {SimpleAuthService} from '../auth.service';
+import {Router} from '@angular/router';
+import {SocialUser} from 'angularx-social-login';
+import {Project} from '../../models/project/project';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   mainUrl = environment.apiUrl + '/api/v1/users';
+  customUrl = environment.apiUrl + '/api/v1';
   loginUrl = environment.apiUrl + '/api/v1/userLogin';
   adminLoginUrl = environment.apiUrl + '/api/v1/adminLogin';
   logoutUrl = environment.apiUrl + '/api/v1/logout';
   registerUrl = environment.apiUrl + '/api/v1/register';
-  constructor(public http: HttpClient) { }
-  public register(user: User): Observable<User> {
+  constructor(public http: HttpClient,
+              private authService: SimpleAuthService,
+              private router: Router
+              ) { }
+  public register(user: User): Observable<any> {
     return this.http.post<User>(this.registerUrl, user);
   }
-  public adminLogin(user: User) {
+  public adminLogin(user: User): Observable<any> {
     return this.http.post(this.adminLoginUrl, user, {responseType: 'json'});
   }
+
   public login(user: User): Observable<any> {
     return this.http.post(this.loginUrl, user, {responseType: 'json'});
   }
+
+  public facebookAuth(user: SocialUser): Observable<any> {
+    return this.http.post(`${this.customUrl}/auth/facebook`, user, {responseType: 'json'});
+  }
+  public sendResetPasswordLink(userEmail: string): Observable<any> {
+    return this.http.post(`${this.customUrl}/send/reset/password/link`, { email: userEmail}
+  );
+  }
+  public changePassword(data: any): Observable<any> {
+      return this.http.post<any>(`${this.customUrl}/change/password`, data);
+  }
   public logout() {
+    this.authService.removeToken();
     localStorage.clear();
+    this.authService.changeAuthorized(false);
+    this.router.navigateByUrl(this.checkRoleUrl());
     return this.http.post(this.logoutUrl,  {responseType: 'text'});
   }
   public setUser(u: any) {
@@ -35,58 +58,57 @@ export class UserService {
     // @ts-ignore
     localStorage.setItem('user', JSON.stringify(user));
   }
-  public getUser():User {
+  public getUser(): User {
     return JSON.parse(localStorage.getItem('user'));
   }
   public isAdmin() {
-    if (this.getUser()) {
+    if (this.authService.loggedIn(false)) {
       return this.getUser().role_id.id === 1;
     }
     return false;
   }
   public isDirector() {
-    if (this.getUser()) {
+    if (this.authService.loggedIn(false)) {
       return this.getUser().role_id.id === 2;
     }
     return false;
   }
   public isManager() {
-    if (this.getUser()) {
+    if (this.authService.loggedIn(false)) {
       return this.getUser().role_id.id === 3;
     }
     return false;
-
   }
   public isAuthorized() {
-    if (this.getUser()) {
+    if (this.authService.loggedIn(false)) {
       return this.getUser().role_id.id === 4;
     }
     return false;
   }
   public checkRoleUrl() {
+    console.log('here');
     if (this.getUser()) {
-      const role = this.getUser().role_id.id;
+      console.log('if');
       if ( this.isAdmin()) {
         return '/admin';
-      } else if (this.isDirector()) {
-        return'/director';
-      } else if (this.isManager()) {
-        return'/manager';
       } else if (this.isAuthorized()) {
         return'/user';
       }
+    } else {
+      if (this.isAdmin()) {
+        return '/start-time/moderator';
+      }
     }
-    return '/start';
   }
   public getProfileInformation(): Observable<User> {
     return this.http.get<User>(`${this.mainUrl}/profile/information`).pipe(
-      map(data => new User().deserialize(data)));;
+      map(data => new User().deserialize(data)));
   }
 
 
   public findById(id: number): Observable<User> {
     return this.http.get<User>(`${this.mainUrl}/${id}`).pipe(
-      map(data => new User().deserialize(data)));;
+      map(data => new User().deserialize(data)));
   }
 
 
@@ -101,8 +123,18 @@ export class UserService {
 
   public getPartners(): Observable<User[]> {
     return this.http.get<User[]>( `${this.mainUrl }/partners`).pipe(
-      map(data => data.map(data => new User().deserialize(data)))
+      // tslint:disable-next-line:no-shadowed-variable
+      map(data => data.map( data => new User().deserialize(data)))
     );
   }
-//+
+  // +
+  public getRecommendationsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}/recommendations`, {
+      // @ts-ignore
+      params: {
+        perPage: perPageCount,
+        page: pageNumber
+      }
+    });
+  }
 }

@@ -1,0 +1,14 @@
+@media (min-width: 992px) {
+  #sidebar{
+    display: none;
+  }
+}
+
+.page-body-wrapper {
+  padding-top: 120px;
+}
+
+.nav-link{
+  font-size: 18px;
+  color: black;
+}

@@ -5,7 +5,7 @@ import {News} from './news';
 
 export class NewsImage implements Deserializable{
   id: number;
-  image:string;
+  image: string;
   news_id: number;
   news: News;
   deserialize(input: any): this {

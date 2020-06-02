@@ -1,0 +1,13 @@
+
+
+<ng-container *ngIf="success">
+  <h1>Success!</h1>
+</ng-container>
+<ng-container *ngIf="!success">
+
+<h1 mat-dialog-title>Successful registration! </h1>
+<div mat-dialog-content>Please verify your email. Message was sent to your email</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>OK</button>
+</div>
+</ng-container>

@@ -1,12 +1,33 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
+import {BehaviorSubject} from 'rxjs';
+import {Route, Router} from '@angular/router';
+// @ts-ignore
+import bootbox = require('bootbox');
+import {OrdersProduct} from "../models/product/ordersProduct";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class SimpleAuthService {
+  private iss = {
+    userLogin: environment.apiUrl + '/api/v1/userLogin',
+    adminLogin: environment.apiUrl + '/api/v1/adminLogin',
+    register: environment.apiUrl + '/api/v1/register',
+    emailVerify: environment.apiUrl + '/api/v1/email/verify',
+  };
+  private authorized = new BehaviorSubject(this.loggedIn(false));
+  authorized$ = this.authorized.asObservable();
 
-  constructor() { }
+  changeAuthorized(data: boolean) {
+    this.authorized.next(data);
+  }
+  constructor(
+    private router: Router
+  ) { }
+  handle(token) {
+    this.setToken(token);
+  }
   public setToken(token: string) {
     localStorage.setItem(environment.tokenKey, token);
   }
@@ -14,10 +35,35 @@ export class AuthService {
     return localStorage.getItem(environment.tokenKey);
   }
   public removeToken() {
-    localStorage.setItem(environment.tokenKey, '');
+    localStorage.removeItem('token');
+  }
+  isValid() {
+    const token = this.getToken();
+    if (token) {
+     return true;
+    }
   }
   checkAvailability(): boolean {
     const auth = this.getToken();
     return !!auth;
+  }
+  loggedIn(redirect: boolean) {
+    if ( !this.isValid()) {
+      if (redirect) {
+        this.router.navigateByUrl('/login');
+        this.show();
+      }
+      else return false;
+    }
+
+    return true;
+  }
+  async show() {
+    bootbox.alert({
+      title: 'Baking gifts',
+      message: 'Please authorize firstly!',
+      size: 'large',
+      centerVertical: true,
+    });
   }
 }

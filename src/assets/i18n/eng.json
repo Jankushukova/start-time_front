@@ -1,0 +1,14 @@
+{
+  "lang": "lang",
+  "navigation":
+  {
+    "main": "Main",
+    "contact": "Contact",
+    "about": "About",
+    "help": "Help",
+    "news": "News"
+  },
+  "create-project": {
+    "title-control-name": "title_eng"
+  }
+}

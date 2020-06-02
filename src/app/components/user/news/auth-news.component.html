@@ -1,0 +1,17 @@
+<app-spinner filterBy="news/all"></app-spinner>
+
+<ng-container *ngIf="news">
+
+<div class="container-fluid mb-md-5">
+
+
+  <div class="row mt-md-5 justify-content-center ">
+    <app-auth-news-entity *ngFor="let News of news" class="col-md-2 grid-margin stretch-card " [news]="News"></app-auth-news-entity>
+
+  </div>
+  <div>
+    <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalNewsCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+  </div>
+</div>
+</ng-container>

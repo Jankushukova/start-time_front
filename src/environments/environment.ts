@@ -6,7 +6,12 @@ export const environment = {
   production: false,
   tokenPrefix: 'Bearer ',
   apiUrl: 'http://localhost:8000',
-  tokenKey: 'token'
+  tokenKey: 'token',
+  pusher: {
+    key: '171ff90acf88b95a905d',
+    cluster: 'ap2',
+  },
+  facebookAppId: '273693090676071'
 };
 
 /*

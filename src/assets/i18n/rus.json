@@ -1,0 +1,14 @@
+{
+  "lang": "язык",
+  "navigation":
+    {
+      "main": "Главная",
+      "contact": "Связаться с нами",
+      "about": "О нас",
+      "help": "Помощ",
+      "news": "Новости"
+    },
+  "create-project": {
+    "title-control-name": "title_rus"
+  }
+}

@@ -5,74 +5,47 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { UnauthComponent } from './components/unauth/unauth.component';
-import { AdminComponent } from './components/auth/admin/admin.component';
-import { LoginComponent } from './components/unauth/login/login.component';
-import { RegisterComponent } from './components/unauth/register/register.component';
-import { MainComponent } from './components/unauth/main/main.component';
-import { NewsComponent } from './components/unauth/news/news.component';
-import { ContactComponent } from './components/unauth/contact/contact.component';
-import { AboutComponent } from './components/unauth/about/about.component';
-import { HelpComponent } from './components/unauth/help/help.component';
-import { ShopComponent } from './components/unauth/shop/shop.component';
-import { UserProfileComponent } from './components/auth/user/profile/user-profile.component';
-import { UserProjectsComponent } from './components/auth/user/profile/projects/user-projects.component';
-import { CategoryComponent } from './components/unauth/category/category.component';
-import { DetailsComponent } from './components/unauth/category/details/details.component';
-import { DescriptionComponent } from './components/unauth/category/details/information/description/description.component';
-import { CommentComponent } from './components/unauth/category/details/information/comment/comment.component';
-import { UpdateComponent } from './components/unauth/category/details/information/update/update.component';
-import { QuestionComponent } from './components/unauth/category/details/information/question/question.component';
-import { InformationComponent } from './components/unauth/category/details/information/information.component';
-import { AuthCreateProjectComponent } from './components/auth/user/create-project/auth-create-project.component';
-import { UserBakersComponent } from './components/auth/user/profile/bakers/user-bakers.component';
-import { UserBakedComponent } from './components/auth/user/profile/baked/user-baked.component';
-import { UserFollowersComponent } from './components/auth/user/profile/followers/user-followers.component';
-import { RecommendationComponent } from './components/auth/user/profile/recommendation/recommendation.component';
-import { NewsDetailsComponent } from './components/unauth/news/news-details/news-details.component';
-import { ProductDetailsComponent } from './components/unauth/shop/product-details/product-details.component';
-import {AuthComponent} from './components/auth/user/auth.component';
-import {AuthAboutComponent} from './components/auth/user/about/auth-about.component';
-import {AuthCategoryComponent} from './components/auth/user/category/auth-category.component';
-import {AuthDetailsComponent} from './components/auth/user/category/details/auth-details.component';
-import {AuthInformationComponent} from './components/auth/user/category/details/information/auth-information.component';
-import {AuthUpdateComponent} from './components/auth/user/category/details/information/update/auth-update.component';
-import {AuthQuestionComponent} from './components/auth/user/category/details/information/question/auth-question.component';
-import {AuthDescriptionComponent} from './components/auth/user/category/details/information/description/auth-description.component';
-import {AuthContactComponent} from './components/auth/user/contact/auth-contact.component';
-import {AuthHelpComponent} from './components/auth/user/help/auth-help.component';
-import {AuthMainComponent} from './components/auth/user/main/auth-main.component';
-import {AuthNewsComponent} from './components/auth/user/news/auth-news.component';
-import {AuthNewsDetailsComponent} from './components/auth/user/news/news-details/auth-news-details.component';
-import {AuthShopComponent} from './components/auth/user/shop/auth-shop.component';
-import {AuthProductDetailsComponent} from './components/auth/user/shop/product-details/auth-product-details.component';
-import {AuthCommentComponent} from './components/auth/user/category/details/information/comment/auth-comment.component';
-import { DirectorComponent } from './components/auth/director/director.component';
-import { ManagerComponent } from './components/auth/manager/manager.component';
-import { PartnersComponent } from './components/unauth/partners/partners.component';
-import { ProfileComponent } from './components/unauth/profile/profile.component';
-import { ProjectsComponent } from './components/unauth/profile/projects/projects.component';
-import { AuthPartnersComponent } from './components/auth/user/auth-partners/auth-partners.component';
-import {AuthUserProfileComponent} from './components/auth/user/auth-user-profile/auth-user-profile.component';
-import {AuthUserProjectsComponent} from './components/auth/user/auth-user-profile/auth-user-projects/auth-user-projects.component';
-import { UserInformationComponent } from './components/auth/user/profile/user-information/user-information.component';
-import { UnauthUserInformationComponent } from './components/unauth/profile/unauth-user-information/unauth-user-information.component';
-import { AuthUserInfromationComponent } from './components/auth/user/auth-user-profile/auth-user-infromation/auth-user-infromation.component';
-import { SidebarComponent } from './components/auth/admin/sidebar/sidebar.component';
-import { AdminProjectsComponent } from './components/auth/admin/admin-projects/admin-projects.component';
-import { AdminShopComponent } from './components/auth/admin/admin-shop/admin-shop.component';
-import { AdminSubscribesComponent } from './components/auth/admin/admin-subscribes/admin-subscribes.component';
-import { AdminPartnersComponent } from './components/auth/admin/admin-partners/admin-partners.component';
-import { AdminFilesComponent } from './components/auth/admin/admin-files/admin-files.component';
-import { AdminUsersComponent } from './components/auth/admin/admin-users/admin-users.component';
-import { AdminOrdersComponent } from './components/auth/admin/admin-shop/admin-orders/admin-orders.component';
-import { AdminProjectCategoriesComponent } from './components/auth/admin/admin-projects/admin-project-categories/admin-project-categories.component';
-import { AdminShopCategoriesComponent } from './components/auth/admin/admin-shop/admin-shop-categories/admin-shop-categories.component';
-import { AdminBakesComponent } from './components/auth/admin/admin-projects/admin-bakes/admin-bakes.component';
-import { AdminMainComponent } from './components/auth/admin/admin-main/admin-main.component';
-import { ModeratorLoginComponent } from './components/auth/moderator-login/moderator-login.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { UserProfileComponent } from './components/user/profile/user-profile.component';
+import { UserProjectsComponent } from './components/user/profile/projects/user-projects.component';
+import { AuthCreateProjectComponent } from './components/user/create-project/auth-create-project.component';
+import { UserBakersComponent } from './components/user/profile/bakers/user-bakers.component';
+import { UserBakedComponent } from './components/user/profile/baked/user-baked.component';
+import { UserFollowersComponent } from './components/user/profile/followers/user-followers.component';
+import { RecommendationComponent } from './components/user/profile/recommendation/recommendation.component';
+import {AuthAboutComponent} from './components/user/about/auth-about.component';
+import {AuthCategoryComponent} from './components/user/category/auth-category.component';
+import {AuthDetailsComponent} from './components/user/category/details/auth-details.component';
+import {AuthInformationComponent} from './components/user/category/details/information/auth-information.component';
+import {AuthUpdateComponent} from './components/user/category/details/information/update/auth-update.component';
+import {AuthQuestionComponent} from './components/user/category/details/information/question/auth-question.component';
+import {AuthDescriptionComponent} from './components/user/category/details/information/description/auth-description.component';
+import {AuthContactComponent} from './components/user/contact/auth-contact.component';
+import {AuthHelpComponent} from './components/user/help/auth-help.component';
+import {AuthMainComponent} from './components/user/main/auth-main.component';
+import {AuthNewsComponent} from './components/user/news/auth-news.component';
+import {AuthNewsDetailsComponent} from './components/user/news/news-details/auth-news-details.component';
+import {AuthShopComponent} from './components/user/shop/auth-shop.component';
+import {AuthProductDetailsComponent} from './components/user/shop/product-details/auth-product-details.component';
+import {AuthCommentComponent} from './components/user/category/details/information/comment/auth-comment.component';
+import {AuthUserProfileComponent} from './components/user/auth-user-profile/auth-user-profile.component';
+import {AuthUserProjectsComponent} from './components/user/auth-user-profile/auth-user-projects/auth-user-projects.component';
+import { UserInformationComponent } from './components/user/profile/user-information/user-information.component';
+import { AuthUserInfromationComponent } from './components/user/auth-user-profile/auth-user-infromation/auth-user-infromation.component';
+import { SidebarComponent } from './components/admin/sidebar/sidebar.component';
+import { AdminProjectsComponent } from './components/admin/admin-projects/admin-projects.component';
+import { AdminShopComponent } from './components/admin/admin-shop/admin-shop.component';
+import { AdminSubscribesComponent } from './components/admin/admin-subscribes/admin-subscribes.component';
+import { AdminPartnersComponent } from './components/admin/admin-partners/admin-partners.component';
+import { AdminFilesComponent } from './components/admin/admin-files/admin-files.component';
+import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
+import { AdminOrdersComponent } from './components/admin/admin-shop/admin-orders/admin-orders.component';
+import { AdminProjectCategoriesComponent } from './components/admin/admin-projects/admin-project-categories/admin-project-categories.component';
+import { AdminShopCategoriesComponent } from './components/admin/admin-shop/admin-shop-categories/admin-shop-categories.component';
+import { AdminBakesComponent } from './components/admin/admin-projects/admin-bakes/admin-bakes.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
+import { ModeratorLoginComponent } from './components/moderator-login/moderator-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatFormField} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
@@ -82,55 +55,51 @@ import {MaterialFileInputModule} from 'ngx-material-file-input';
 import {EditorModule} from '@tinymce/tinymce-angular';
 import {TokenInterceptor} from './interceptors/token';
 import {OverlayModule} from '@angular/cdk/overlay';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {SlickCarouselModule} from 'ngx-slick-carousel';
-import { AuthCommentEntityComponent } from './components/auth/user/category/details/information/comment/auth-comment-entity/auth-comment-entity.component';
-import { AuthQuestionEntityComponent } from './components/auth/user/category/details/information/question/auth-question-entity/auth-question-entity.component';
-import { AuthUpdateEntityComponent } from './components/auth/user/category/details/information/update/auth-update-entity/auth-update-entity.component';
+import { AuthCommentEntityComponent } from './components/user/category/details/information/comment/auth-comment-entity/auth-comment-entity.component';
+import { AuthQuestionEntityComponent } from './components/user/category/details/information/question/auth-question-entity/auth-question-entity.component';
+import { AuthUpdateEntityComponent } from './components/user/category/details/information/update/auth-update-entity/auth-update-entity.component';
 import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from "@angular/material/dialog";
-import { AuthUserProjectEntityComponent } from './components/auth/user/auth-user-profile/auth-user-projects/auth-user-project-entity/auth-user-project-entity.component';
-import { AuthUpdateDetailsComponent } from './components/auth/user/category/details/information/update/auth-update-details/auth-update-details.component';
-import {MatListModule} from "@angular/material/list";
-import { AuthNewsEntityComponent } from './components/auth/user/news/auth-news-entity/auth-news-entity.component';
-import { AuthNewsCommentComponent } from './components/auth/user/news/news-details/auth-news-comment/auth-news-comment.component';
-const routes: Routes = [
-  {path: 'start', component: UnauthComponent,
-    children: [
-    {path: '', redirectTo: 'main', pathMatch: 'full'},
-    {path: 'main', component: MainComponent},
-    {path: 'news', component: NewsComponent},
-    {path: 'contact', component: ContactComponent},
-    {path: 'help', component: HelpComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
-    {path: 'about', component: AboutComponent},
-    {path: 'shop', component: ShopComponent},
-    {path: 'category/:id', component: CategoryComponent},
-    {path: 'productDetail', component: ProductDetailsComponent},
-    {path: 'newsDetail', component: NewsDetailsComponent},
-    {path: 'partners', component: PartnersComponent},
-    {path: 'userProfile', component: ProfileComponent,
-      children: [
-        {path: '', redirectTo: 'projects', pathMatch: 'full'},
-        {path: 'projects', component: ProjectsComponent},
-        {path: 'information', component: UnauthUserInformationComponent},
-      ]
-    },
-    {path: 'details', component: DetailsComponent,
-      children: [
-        {path: '', redirectTo: 'description', pathMatch: 'full'},
-        {path: 'description', component: DescriptionComponent},
-        {path: 'comments', component: CommentComponent},
-        {path: 'updates', component: UpdateComponent},
-        {path: 'questions', component: QuestionComponent},
-      ]
-    },
-    ]
+import {MatDialogModule} from '@angular/material/dialog';
+import { AuthUserProjectEntityComponent } from './components/user/auth-user-profile/auth-user-projects/auth-user-project-entity/auth-user-project-entity.component';
+import { AuthUpdateDetailsComponent } from './components/user/category/details/information/update/auth-update-details/auth-update-details.component';
+import {MatListModule} from '@angular/material/list';
+import { AuthNewsEntityComponent } from './components/user/news/auth-news-entity/auth-news-entity.component';
+import { AuthNewsCommentComponent } from './components/user/news/news-details/auth-news-comment/auth-news-comment.component';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { OrderSubmitFormComponent } from './components/order/product/order-submit-form/order-submit-form.component';
+import {NgxMatIntlTelInputModule} from 'ngx-mat-intl-tel-input';
+import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
+import {AuthServiceConfig, FacebookLoginProvider, LoginOpt, SocialLoginModule} from 'angularx-social-login';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../environments/environment';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {LoginComponent} from './components/login/login.component';
+import {ResetPasswordComponent} from './components/login/reset-password/reset-password.component';
+import {RegisterComponent} from './components/register/register.component';
+import { UserComponent } from './components/user/user.component';
+import {MatExpansionModule} from "@angular/material/expansion";
+import { BakeProjectComponent } from './components/user/category/details/bake-project/bake-project.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatStepperModule} from "@angular/material/stepper";
+import { ProjectEditComponent } from './components/admin/admin-projects/project-edit/project-edit.component';
 
-  },
-  {path: 'user', component: AuthComponent,
+const routes: Routes = [
+  {path: '', component: UserComponent,
     children: [
+      {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegisterComponent},
+      {path: 'reset/password', component: ResetPasswordComponent},
       {path: '', redirectTo: 'main', pathMatch: 'full'},
       {path: 'main', component: AuthMainComponent},
       {path: 'news', component: AuthNewsComponent},
@@ -149,7 +118,6 @@ const routes: Routes = [
           {path: 'questions', component: AuthQuestionComponent},
         ]
       },
-      {path: 'partners/:id', component: AuthPartnersComponent},
       {path: 'userProfile/:id', component: AuthUserProfileComponent,
         children: [
           {path: '', redirectTo: 'projects', pathMatch: 'full'},
@@ -159,7 +127,7 @@ const routes: Routes = [
       {path: 'productDetail/:id', component: AuthProductDetailsComponent},
       {path: 'newsDetail/:id', component: AuthNewsDetailsComponent},
       {path: 'create', component: AuthCreateProjectComponent},
-      {path: 'profile', component: UserProfileComponent,
+      {path: 'home', component: UserProfileComponent,
         children: [
           {path: '', redirectTo: 'information', pathMatch: 'full'},
           {path: 'recommendation/:id', component: RecommendationComponent},
@@ -170,7 +138,9 @@ const routes: Routes = [
           {path: 'followers', component: UserFollowersComponent},
 
         ]
-      }
+      },
+      {path: 'order/product', component: OrderSubmitFormComponent},
+
     ]
   },
   {path: 'admin', component: AdminComponent,
@@ -189,39 +159,42 @@ const routes: Routes = [
       {path: 'shop/category', component: AdminShopCategoriesComponent},
     ]
   },
-  {path: 'director', component: DirectorComponent},
-  {path: 'manager', component: ManagerComponent},
   {path: 'start-time/moderator', component: ModeratorLoginComponent},
-  {path: '', redirectTo: 'start', pathMatch: 'full'},
+  // {path: '', redirectTo: 'start', pathMatch: 'full'},
+  {path: 'verify-email', component: EmailConfirmationComponent},
 
 ];
 
+const fbLoginOptions: LoginOpt = {
+  scope: 'email,public_profile',
+  return_scopes: true,
+  enable_profile_selector: true
+};
 
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider(environment.facebookAppId, fbLoginOptions)
+  }
+
+]);
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
 
     AppComponent,
     // unauthorized
-    UnauthComponent,
     LoginComponent,
     RegisterComponent,
-    MainComponent,
-    NewsComponent,
-    ContactComponent,
-    AboutComponent,
-    HelpComponent,
-    ShopComponent,
-    CategoryComponent,
-    DetailsComponent,
-    DescriptionComponent,
-    CommentComponent,
-    UpdateComponent,
-    QuestionComponent,
-    InformationComponent,
-
     // authorized
-    AuthComponent,
     // user
     AuthAboutComponent,
     AuthCategoryComponent,
@@ -245,20 +218,10 @@ const routes: Routes = [
     UserBakedComponent,
     UserFollowersComponent,
     RecommendationComponent,
-    NewsDetailsComponent,
-    ProductDetailsComponent,
-    PartnersComponent,
-    ProfileComponent,
-    ProjectsComponent,
-    AuthPartnersComponent,
     AuthUserProfileComponent,
     UserInformationComponent,
-    UnauthUserInformationComponent,
     AuthUserInfromationComponent,
     // director
-    DirectorComponent,
-    // manager
-    ManagerComponent,
     // admin
     AdminComponent,
     SidebarComponent,
@@ -282,12 +245,26 @@ const routes: Routes = [
     AuthUserProjectEntityComponent,
     AuthUpdateDetailsComponent,
     AuthNewsEntityComponent,
-    AuthNewsCommentComponent
+    AuthNewsCommentComponent,
+    SpinnerComponent,
+    OrderSubmitFormComponent,
+    EmailConfirmationComponent,
+    ResetPasswordComponent,
+    UserComponent,
+    BakeProjectComponent,
+    ProjectEditComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
         FormsModule,
         RouterModule.forRoot(routes),
         ReactiveFormsModule,
@@ -305,7 +282,19 @@ const routes: Routes = [
         MatButtonModule,
         MatDialogModule,
         MatListModule,
-
+        NgbPaginationModule,
+        MatProgressSpinnerModule,
+        MatBadgeModule,
+        MatMenuModule,
+        MatCheckboxModule,
+        NgxMatIntlTelInputModule,
+        SocialLoginModule,
+        MatTooltipModule,
+        MatExpansionModule,
+        MatTabsModule,
+        MatButtonToggleModule,
+        MatRadioModule,
+        MatStepperModule
 
     ],
   providers: [
@@ -315,7 +304,11 @@ const routes: Routes = [
       useClass: TokenInterceptor,
       multi: true
     },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],  bootstrap: [AppComponent]
 })
 export class AppModule { }

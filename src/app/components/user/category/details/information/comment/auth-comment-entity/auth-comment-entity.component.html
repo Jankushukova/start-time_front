@@ -1,0 +1,14 @@
+
+
+<div class="card   text-left border-sss ">
+  <div class="card-body">
+    <p [routerLink]="['/userProfile',comment.user.id]" class="paddingDiv">Author: {{comment.user.getFullName()}}</p>
+    <p> {{comment.text}}</p>
+    <hr class="bg-sss"/>
+    <button mat-icon-button aria-label="Example icon button with a heart icon">
+      <mat-icon *ngIf="!comment.liked" (click)="like()">favorite_border</mat-icon>
+      <mat-icon *ngIf="comment.liked" (click)="unLike()">favorite</mat-icon>
+    </button> {{comment.likes.length}}
+  </div>
+</div>
+
