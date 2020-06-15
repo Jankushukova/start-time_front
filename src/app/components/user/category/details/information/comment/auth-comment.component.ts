@@ -6,6 +6,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../../../../services/user/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SimpleAuthService} from '../../../../../../services/auth.service';
+import {ProjectService} from "../../../../../../services/project/project.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-comment',
@@ -14,7 +16,7 @@ import {SimpleAuthService} from '../../../../../../services/auth.service';
 })
 export class AuthCommentComponent implements OnInit {
   authorized = false;
-  project: Project;
+  @Input() project: Project;
   comments: ProjectComment[] = [];
   commentForm: FormGroup;
 
@@ -22,14 +24,21 @@ export class AuthCommentComponent implements OnInit {
     private commentService: CommentService,
     private builder: FormBuilder,
     private userService: UserService,
+    private projectService: ProjectService,
     private authService: SimpleAuthService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
 
   ) { }
 
   ngOnInit(): void {
+    console.log(this.project);
     this.commentFormInit();
+    this.projectService.comments$.subscribe(perf => this.comments = perf);
+    this.commentService.getCommentsOfProject(this.project.id).subscribe(perf => {
+      this.projectService.changeComments(perf);
+    });
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
     });
@@ -37,12 +46,6 @@ export class AuthCommentComponent implements OnInit {
   commentFormInit() {
     this.commentForm = this.builder.group({
       text: ['', [Validators.required]],
-    });
-  }
-  someFunction(data) {
-    this.project = data;
-    this.commentService.getCommentsOfProject(this.project.id).subscribe(perf => {
-      this.comments = perf;
     });
   }
 
@@ -54,11 +57,14 @@ export class AuthCommentComponent implements OnInit {
       this.commentService.createProjectComment(comment).subscribe(perf => {
         this.comments = [...this.comments, perf];
         this.comments.sort().reverse();
+        this.projectService.changeComments(this.comments);
         this.commentForm.reset();
 
       });
     } else {
-      this.openSnackBar('Only authorized users can leave a comment', 'Close', 'style-warn');
+      this.translator.get('project.comment.warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
   openSnackBar(message: string, action: string, style: string) {

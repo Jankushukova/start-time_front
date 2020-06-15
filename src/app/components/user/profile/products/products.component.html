@@ -1,0 +1,102 @@
+<mat-tab-group mat-align-tabs="end" [selectedIndex]="selected.value"
+               (selectedIndexChange)="changed($event)">
+  <mat-tab label="{{'user_profile.active' | translate}}" >
+    <app-spinner filterBy="active"></app-spinner>
+
+    <ng-container *ngIf="activeProducts">
+      <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
+        <div *ngFor="let product of activeProducts" class="col-md-2 stretch-card grid-margin ">
+          <div class="card bg-light shadow" (click)="openDialog(product, false)" >
+            <ng-container *ngIf="product.images">
+
+              <img class="card-img-top m-auto" *ngIf="product.images[0]" [src]="product.images[0].url" width="100%" height="150px" alt="Card image cap">
+            </ng-container>
+
+            <img class="card-img-top m-auto" *ngIf="!product.images[0]" src="../../../../assets/images/5_0.png" width="100%" height="150px" alt="Card image cap">
+
+            <div class="card-body">
+              <h5 class="card-title text-center"><a style="cursor: pointer"  >
+                {{(translate.currentLang=='eng')?product.title_eng:(translate.currentLang=='rus')?product.title_rus:product.title_kz}} </a></h5>
+              <p class="card-text  text-center">Cost: {{product.cost}} </p>
+              <hr/>
+              <div class="row">
+                <div class="col d-flex ">
+                  <button mat-icon-button aria-label="Example icon button with an eye icon">
+
+
+                    <mat-icon>remove_red_eye</mat-icon>
+                    <span>{{product.views}}</span>
+                  </button>
+                </div>
+                <div class="col d-flex ">
+                  <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                    <mat-icon *ngIf="!product.liked" (click)="like(product)">favorite_border</mat-icon>
+                    <mat-icon *ngIf="product.liked" (click)="unlike(product)">favorite</mat-icon>
+                    <span>{{product.likes.length}}</span>
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+      <div>
+        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageActiveProducts($event)" [ellipses]="true"  [collectionSize]="totalActiveProductCount" maxSize="5" [(page)]="activeProductpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+      </div>
+    </ng-container>
+
+  </mat-tab>
+  <mat-tab label="{{'user_profile.unactive' | translate}}">
+    <app-spinner filterBy="unactive"></app-spinner>
+
+    <ng-container *ngIf="unactiveProducts">
+      <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
+        <div *ngFor="let product of unactiveProducts; index as i" class="col-md-2 stretch-card grid-margin ">
+          <div class="card bg-light shadow"  >
+            <ng-container *ngIf="product.images">
+              <img class="card-img-top m-auto" (click)="openDialog(product, true)" *ngIf="product.images[0]" [src]="product.images[0].url" width="100%" height="150px" alt="Card image cap">
+            </ng-container>
+
+            <img class="card-img-top m-auto" (click)="openDialog(product, true)" *ngIf="!product.images[0]" src="../../../../assets/images/5_0.png" width="100%" height="150px" alt="Card image cap">
+
+            <div class="card-body">
+              <h5 class="card-title text-center"><a style="cursor: pointer"  >
+                {{(translate.currentLang=='eng')?product.title_eng:(translate.currentLang=='rus')?product.title_rus:product.title_kz}} </a></h5>
+              <p class="card-text  text-center">Cost: {{product.cost}} </p>
+              <hr/>
+              <div class="row">
+                <div class="col-6 d-flex ">
+                  <span class="text-danger">{{'user_profile.unactive' | translate}}</span>
+                </div>
+                <div class="col-6 d-flex ">
+                  <button mat-icon-button aria-label="Example icon button with an eye icon" class="ml-auto" (click)="deleteUnActiveProduct(product, i)">
+
+
+                    <mat-icon>delete</mat-icon>
+                    <span></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+      <div>
+        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageUnActiveProducts($event)" [ellipses]="true"  [collectionSize]="totalUnActiveProductCount" maxSize="5" [(page)]="unactiveProductpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+      </div>
+    </ng-container>
+
+
+  </mat-tab>
+</mat-tab-group>

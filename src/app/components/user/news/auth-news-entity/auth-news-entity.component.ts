@@ -5,6 +5,7 @@ import {UserService} from '../../../../services/user/user.service';
 import {LikeService} from '../../../../services/like.service';
 import {SimpleAuthService} from '../../../../services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-auth-news-entity',
@@ -14,15 +15,18 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class AuthNewsEntityComponent implements OnInit {
   @Input() news: News;
   authorized = false;
+  translate;
   constructor(
     private userService: UserService,
     private likeService: LikeService,
     private authService: SimpleAuthService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
   ) { }
 
   ngOnInit(): void {
+    this.translate = this.translator;
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
       console.log(perf);
@@ -39,7 +43,9 @@ export class AuthNewsEntityComponent implements OnInit {
         this.news.liked = true;
       });
     } else {
-      this.openSnackBar('Only authorized users can like', 'Close', 'style-warn');
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
 
@@ -51,8 +57,9 @@ export class AuthNewsEntityComponent implements OnInit {
         this.news.liked = false;
       });
     } else {
-      this.openSnackBar('Only authorized users can like', 'Close', 'style-warn');
-    }
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });    }
   }
   openSnackBar(message: string, action: string, style: string) {
     this._snackBar.open(message, action, {

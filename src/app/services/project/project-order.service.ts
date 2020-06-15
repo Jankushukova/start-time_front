@@ -35,8 +35,14 @@ export class ProjectOrderService {
     return this.http.get<ProjectOrder>(`${this.mainUrl}/${id}`);
   }
 
+  public createEpay(order: ProjectOrder): Observable<any> {
+    return this.http.post(this.mainUrl + '/epay/create', order, {responseType: 'json'});
+  }
   public create(order: ProjectOrder): Observable<any> {
-    return this.http.post(this.mainUrl, order, {responseType: 'json'});
+    return this.http.post(this.mainUrl + '/create', order, {responseType: 'json'});
+  }
+  public cloudSuccess(order): Observable<any> {
+    return this.http.post(this.mainUrl + '/cloud/success', order, {responseType: 'json'});
   }
 
   public update(id: number, order: ProjectOrder): Observable<ProjectOrder> {

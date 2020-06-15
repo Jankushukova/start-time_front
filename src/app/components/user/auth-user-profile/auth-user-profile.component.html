@@ -7,8 +7,8 @@
   <div class="row justify-content-center p-md-5">
     <div class="col-md-10">
       <div class="card">
-        <div class="card-body">
-          <div class="row justify-content-end p-md-5 ">
+        <div class="card-body p-2 ">
+          <div class="row justify-content-end ">
 
 
             <div class="col-md-10 col-8">
@@ -18,37 +18,40 @@
               </div>
               <hr/>
               <div class="row">
-                <div class="col-md-2 col-4 text-center paddingDiv" routerLink="projects">
-                  <button class="btn btn-light p-2" >
-                    <img class="options-image" src="../../../../assets/images/31_0.png">
+                <div class="col-md-2 col-4 p-0 info-card text-center paddingDiv" routerLink="projects">
+                    <img style="max-width: 100%; max-height: 100%" class="options-image" src="../../../../assets/images/31_0.png">
                     <h5 class="display-5">{{user.projects.length}}</h5>
-                    Проектов</button>
+                    <span class="text-muted">{{'user_profile.projects' | translate}}</span>
                 </div>
-                <div class="col-md-2 col-4  text-center">
-                  <button class="btn btn-light p-2"  (click)="showFollowers(user.followers)">
+                <div class="col-md-2 col-4 p-0 text-center  info-card" (click)="showFollowers(user.followers)">
 
-                    <img class="options-image" src="../../../../assets/images/25_0.png" >
+                    <img style="max-width: 100%; max-height: 100%" class="options-image" src="../../../../assets/images/25_0.png" >
                     <h5 class="display-5">{{user.followers.length}}</h5>
-                    Подписчиков
-                  </button>
+                    <span class="text-muted">{{'user_profile.followers' | translate}}</span>
 
                 </div>
-                <div class="col-md-2 col-4 text-center">
-                  <button class="btn btn-light p-2" routerLink="information">
-                    <img class="options-image" src="../../../../assets/images/15_0.png">
-                    <h5 class="display-5">Данные</h5>
-                  </button>
+                <div class="col-md-2 col-4 p-0 text-center info-card hover-cursor" routerLink="information">
+                    <img style="max-width: 100%; max-height: 100%" class="options-image" src="../../../../assets/images/15_0.png">
+                    <h5 class="display-5"><span class="text-muted">{{'user_profile.info' | translate}}</span></h5>
                 </div>
 
 
               </div>
 
             </div>
-            <div class="col-md-2 col-4 pt-5 pb-5 ">
+            <div class="col-md-2 col-4 pt-5  ">
               <img *ngIf="!user.image" class="profile-image" src="../../../../assets/images/11_0.png"   >
               <img *ngIf="user.image" class="profile-image" [src]="user.image"   >
-              <button *ngIf="!following" type="button" class="btn btn-lg bg-start-time text-light" (click)="follow()">Follow</button>
-              <button *ngIf="following" type="button" class="btn btn-lg bg-light" (click)="follow()">Unfollow</button>
+              <div class="desc-button">
+                <button *ngIf="!following" type="button" class="btn btn-lg bg-start-time text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
+                <button *ngIf="following" type="button" class="btn btn-lg bg-light" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
+
+              </div>
+              <div class="mob-button">
+                <button *ngIf="!following" type="button" class="btn btn-sm bg-start-time text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
+                <button *ngIf="following" type="button" class="btn btn-sm bg-light" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
+
+              </div>
             </div>
           </div>
 
@@ -56,7 +59,7 @@
       </div>
 
 
-      <div class="row justify-content-center mt-md-5 ">
+      <div class="row justify-content-center mt-3 ">
         <div class="col-md-12">
           <router-outlet (activate)="onActivate($event)"></router-outlet>
         </div>

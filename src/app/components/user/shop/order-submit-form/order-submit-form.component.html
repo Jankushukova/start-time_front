@@ -1,0 +1,123 @@
+
+
+
+<div class="row justify-content-center ">
+
+  <div class="col-md-10 ">
+    <h2 *ngIf="!orderProducts.length" class="text-center">
+        <small class="text-muted">Your basket is empty!</small>
+      </h2>
+    <ng-container *ngIf="orderProducts.length">
+    <form [formGroup]="orderProductForm">
+
+      <div class="form-row justify-content-center ">
+        <div class="col-md-10 grid-margin stretch-card ">
+          <div class="card">
+            <div class="card-body">
+              <p>Products in basket</p>
+
+              <div class="row justify-content-center">
+                <div class="col-md-9 grid-margin stretch-card ">
+                  <table class="table mt-md-3 ">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Count</th>
+                      <th scope="col">Sum</th>
+                      <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let product of orderProducts; index as i">
+                      <th scope="row">{{i + 1}}</th>
+                      <td>{{product.product.title}}</td>
+                      <td>  <button (click)="changeCount(true, product, i)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+
+                        <mat-icon>keyboard_arrow_left</mat-icon>
+                      </button>
+                        {{product.count}}
+                        <button (click)="changeCount(false, product, i)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+
+                          <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button></td>
+                      <td>{{product.sum}}</td>
+                      <td>
+
+                        <div class="row mt-md-2 text-center">
+                          <div class=" col d-flex ">
+                            <button (click)="deleteProduct(i)" mat-icon-button aria-label="Example icon button with a heart icon">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </div>
+                            <div class="col d-flex ">
+
+                            <button (click)="openDialog(product.product)" mat-icon-button aria-label="Example icon button with an eye icon">
+                              <mat-icon>remove_red_eye</mat-icon>
+                            </button>
+
+                          </div>
+
+                        </div>
+                    </tr>
+
+                    </tbody>
+                  </table>
+
+
+                </div>
+
+              </div>
+              <h2 class="display-5 w-100 text-right"> Sum: <span>{{totalSum}}tg</span></h2>
+
+
+            </div></div></div>
+        <div class="col-md-10 grid-margin stretch-card">
+            <div class="row justify-content-center">
+              <div class="col-md-6 grid-margin stretch-card ">
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Firstname</mat-label>
+                  <input formControlName="first_name" matInput>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card ">
+                <mat-form-field class="w-100" appearance="fill">
+                  <mat-label>Lastname</mat-label>
+                  <input formControlName="last_name" matInput>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card ">
+                <mat-form-field  class="w-100" appearance="fill">
+                  <mat-label>email</mat-label>
+                  <input formControlName="email" matInput>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card ">
+
+                <mat-form-field   class="w-100" appearance="fill">
+                  <mat-label>email</mat-label>
+                  <input formControlName="phone_number" matInput>
+                </mat-form-field>
+              </div>
+            </div>
+        </div>
+        <mat-radio-group aria-label="Select an option" formControlName="type">
+          <mat-radio-button value="1"><img src="../../../../../assets/images/kaspi.png"></mat-radio-button>
+          <mat-radio-button value="3" class="ml-2"><img src="../../../../../assets/images/cloudpayments.jpg"></mat-radio-button>
+          <mat-radio-button value="2" class="ml-2">Epay</mat-radio-button>
+
+        </mat-radio-group>
+
+
+        <div class="col-md-10 grid-margin stretch-card ">
+          <div class="text-right  w-100">
+            <button class="btn w-25 btn-lg bg-sss text-light" (click)="onSubmit()" [disabled]="!orderProductForm.valid">Save</button>
+
+          </div>
+        </div>
+      </div>
+    </form>
+    </ng-container>
+  </div>
+
+</div>

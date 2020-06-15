@@ -1,17 +1,28 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {News} from '../../models/news/news';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {NewsImage} from '../../models/news/newsImage';
+import {Project} from "../../models/project/project";
+import {UpdateImage} from "../../models/project/updateImage";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
   mainUrl = environment.apiUrl + '/api/v1/news';
-
+  private editNews = new BehaviorSubject(false);
+  editNews$ = this.editNews.asObservable();
+  private news = new BehaviorSubject([]);
+  news$ = this.news.asObservable();
+  changeNews(data: News[]) {
+    this.news.next(data);
+  }
+  changeEditNews(data: boolean) {
+    this.editNews.next(data);
+  }
   constructor(public http: HttpClient) {
   }
 
@@ -40,6 +51,11 @@ export class NewsService {
 
   public create(news: News): Observable<News> {
     return this.http.post<News>(this.mainUrl, news);
+  }
+
+  // +
+  public createNewsImages(images: any): Observable<NewsImage> {
+    return this.http.post<NewsImage>( `${this.mainUrl}/create/images`, images);
   }
 // +
   public findById(id: number): Observable<News> {

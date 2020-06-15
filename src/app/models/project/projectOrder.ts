@@ -17,6 +17,8 @@ export class ProjectOrder implements Deserializable{
   user_id: User;
   gift_id: number;
   gift: Gift;
+  confirmed: number;
+  paymentType: number;
   deserialize(input: any): this {
     Object.assign(this, input);
     if(input.gift) this.gift = new Gift().deserialize(input.gift);

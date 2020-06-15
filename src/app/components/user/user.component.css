@@ -12,3 +12,19 @@
   font-size: 18px;
   color: black;
 }
+.content-wrapper{
+  background: #fafbfe;
+}
+.footer{
+  background: white;
+}
+
+@media (max-width: 991px) {
+  .a {
+    font-size: xx-small;
+  }
+
+  .small{
+    font-size: x-small;
+  }
+}

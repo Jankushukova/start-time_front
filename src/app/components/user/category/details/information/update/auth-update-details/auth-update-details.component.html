@@ -4,19 +4,21 @@
 
   <div class="col-10 grid-margin stretch-card ">
     <div class="card">
-      <div class="card-body">
-        <h2 class="display-5">{{update.title}}</h2>
+      <div class="card-body p-3">
+        <h2 class="display-5">
+          {{(translate.currentLang == 'rus') ? update.title_rus : (translate.currentLang == 'eng') ? update.title_eng : update.title_kz}}
+        </h2>
 
         <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
           <div ngxSlickItem *ngFor="let image of update.images" class="slide ">
-                  <img class="m-auto" [src]="[image.image]" alt="" width="50%" height="400px">
-
+                  <img class="m-auto" [src]="[image.image]" alt="" style="max-width: 80%; max-height: 80%">
 
           </div>
 
         </ngx-slick-carousel>
-        <p>{{update.description}}</p>
+        <p
+          innerHTML="{{(translate.currentLang == 'rus') ? update.description_rus : (translate.currentLang == 'eng') ? update.description_eng : update.description_kz}}"></p>
 
       </div>
 

@@ -1,32 +1,17 @@
 
 <div class="row justify-content-center">
   <div class="col-md-10 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body dashboard-tabs p-0">
-        <ul class="nav nav-tabs px-4" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link "  routerLinkActive="active" id="description" data-toggle="tab"  role="tab" aria-controls="overview" aria-selected="false"routerLink="description" >Description</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link "  routerLinkActive="active"  id="comments" data-toggle="tab"  role="tab" aria-controls="sales" aria-selected="true" routerLink="comments">Comments</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  routerLinkActive="active"  id="updates" data-toggle="tab"  role="tab" aria-controls="purchases" aria-selected="false" routerLink="updates">Updates</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" id="questions" data-toggle="tab" role="tab" aria-controls="purchases" aria-selected="false" routerLink="questions">Questions</a>
-          </li>
+    <mat-tab-group class="w-100">
 
-        </ul>
-        <div class="tab-content  ">
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-<div class="row justify-content-center">
-  <div class="col-md-10 grid-margin pb-md-3 pt-md-3 pb-sm-3 pt-sm-3">
-    <router-outlet (activate)="onActivate($event)"></router-outlet>
+      <mat-tab label="{{'project.description' |translate}}"> <app-description [project] = "project"></app-description></mat-tab>
+      <mat-tab label="{{'project.comments' |translate}}"> <app-comment [project] = "project"></app-comment></mat-tab>
+      <mat-tab label="{{'project.updates' |translate}}"><app-update [project] = "project"></app-update></mat-tab>
+      <mat-tab label="{{'project.questions' |translate}}"> <app-question [project] = "project"></app-question></mat-tab>
+    </mat-tab-group>
   </div>
 </div>
+<!--<div class="row justify-content-center">-->
+<!--  <div class="col-md-10 grid-margin pb-md-3 pt-md-3 pb-sm-3 pt-sm-3">-->
+<!--    <router-outlet (activate)="onActivate($event)"></router-outlet>-->
+<!--  </div>-->
+<!--</div>-->

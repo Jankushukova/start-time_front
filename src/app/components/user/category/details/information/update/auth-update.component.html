@@ -1,7 +1,19 @@
-<div class="row justify-content-center mt-md-5 mb-md-5">
+
+<div class="text-right mt-3" *ngIf="isOwnerOfProject">
+  <button [matMenuTriggerFor]="addLang" mat-icon-button  matTooltip="{{'project.update.edit'}}"
+          aria-label="Button that displays a tooltip when focused or hovered over">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-menu #addLang="matMenu" xPosition="before">
+    <button mat-menu-item (click)="addUpdate()">{{'project.update.add' | translate}}</button>
+    <button mat-menu-item (click)="deleteUpdate()">{{'project.update.delete' | translate}}</button>
+  </mat-menu>
+</div>
+<div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
 
 
-    <app-auth-update-entity class="col-md-4 grid-margin stretch-card" *ngFor="let update of updates" [update] = "update"></app-auth-update-entity>
+
+    <app-auth-update-entity class="col-md-2 grid-margin " *ngFor="let update of updates" [update] = "update"></app-auth-update-entity>
 
 
 </div>

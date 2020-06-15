@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../../models/user/user';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Role} from '../../models/user/role';
 import {map} from 'rxjs/operators';
 import {ProjectQuestion} from '../../models/project/projectQuestion';
@@ -21,6 +21,11 @@ export class UserService {
   adminLoginUrl = environment.apiUrl + '/api/v1/adminLogin';
   logoutUrl = environment.apiUrl + '/api/v1/logout';
   registerUrl = environment.apiUrl + '/api/v1/register';
+  private users = new BehaviorSubject([]);
+  users$ = this.users.asObservable();
+  changeUsers(data: User[]) {
+    this.users.next(data);
+  }
   constructor(public http: HttpClient,
               private authService: SimpleAuthService,
               private router: Router
@@ -63,25 +68,25 @@ export class UserService {
   }
   public isAdmin() {
     if (this.authService.loggedIn(false)) {
-      return this.getUser().role_id.id === 1;
+      return this.getUser().role.id === 1;
     }
     return false;
   }
   public isDirector() {
     if (this.authService.loggedIn(false)) {
-      return this.getUser().role_id.id === 2;
+      return this.getUser().role.id === 2;
     }
     return false;
   }
   public isManager() {
     if (this.authService.loggedIn(false)) {
-      return this.getUser().role_id.id === 3;
+      return this.getUser().role.id === 3;
     }
     return false;
   }
   public isAuthorized() {
     if (this.authService.loggedIn(false)) {
-      return this.getUser().role_id.id === 4;
+      return this.getUser().role.id === 4;
     }
     return false;
   }
@@ -112,8 +117,11 @@ export class UserService {
   }
 
 
-  public update(id: number, user: User): Observable<User> {
-    return this.http.put<User>(`${this.mainUrl}/${id}`, user);
+  public update(user: User): Observable<User> {
+    return this.http.put<User>(`${this.mainUrl}/update`, user);
+  }
+  public adminUpdate(user: User): Observable<User> {
+    return this.http.put<User>(`${this.mainUrl}/update/admin`, user);
   }
 
   public deleteById(id: number) {
@@ -127,6 +135,17 @@ export class UserService {
       map(data => data.map( data => new User().deserialize(data)))
     );
   }
+
+  public getAll(perPageCount: number, pageCount: number): Observable<User[]> {
+    return this.http.get<User[]>( `${this.mainUrl }/all`,
+      {
+        // @ts-ignore
+        params: {
+          perPage: perPageCount,
+          page: pageCount
+        }
+      });
+  }
   // +
   public getRecommendationsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.mainUrl}/recommendations`, {
@@ -134,6 +153,19 @@ export class UserService {
       params: {
         perPage: perPageCount,
         page: pageNumber
+      }
+    });
+  }
+
+  // +
+  public filterUsers(attributeName: string, text: string, perPageCount: number, pageCount: number): Observable<any[]> {
+    return this.http.get<User[]>(`${this.mainUrl}/filter`, {
+      // @ts-ignore
+      params: {
+        searchText: text,
+        attribute: attributeName,
+        perPage: perPageCount,
+        page: pageCount
       }
     });
   }

@@ -6,11 +6,15 @@ import {UpdateImage} from "./updateImage";
 
 export class Update implements Deserializable {
   id: number;
-  title: string;
-  description: string;
+  title_eng: string;
+  title_rus: string;
+  title_kz: string;
+  description_eng: string;
+  description_kz: string;
+  description_rus: string;
   project_id: number;
-  project:Project;
-  images:UpdateImage[];
+  project: Project;
+  images: UpdateImage[];
 
   deserialize(input: any): this {
     Object.assign(this, input);

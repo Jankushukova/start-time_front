@@ -12,7 +12,7 @@
         <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
           <div ngxSlickItem *ngFor="let image of news.images" class="slide ">
-            <img class="m-auto" [src]="[image.image]" alt="" width="50%" height="400px">
+            <img class="m-auto" [src]="[image.image]" alt="" style="max-width: 80%;max-height: 80%;">
 
 
           </div>
@@ -26,17 +26,17 @@
   </div>
 </div>
   <div class=" row justify-content-center">
-    <div class="col-8 grid-margin stretch-card ">
+    <div class="col-11 col-md-8 grid-margin stretch-card ">
       <div class="card">
         <div class="card-body">
 
           <form [formGroup]="commentForm"  class="forms-sample">
-            <div class="form-group">
-              <textarea formControlName="description" class="form-control" id="exampleTextarea1" rows="4" placeholder="Leave a comment"></textarea>
-            </div>
+            <mat-form-field class="example-full-width w-100">
+              <mat-label>{{'project.comment.text' | translate}}</mat-label>
+              <textarea formControlName="description" matInput ></textarea>
+            </mat-form-field>
             <div class="text-right">
-              <button type="submit" class="btn btn-inverse-dark btn-fw " (click)="addComment()">Add</button>
-
+              <button type="submit" class="btn btn-outline-google " (click)="addComment()">{{'project.comment.add' | translate}}</button>
             </div>
           </form>
 
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-  <app-auth-news-comment class="col-8 grid-margin stretch-card " *ngFor="let comment of comments" [comment]="comment"></app-auth-news-comment>
+  <app-auth-news-comment class="col-12 col-md-8 grid-margin stretch-card " *ngFor="let comment of comments" [comment]="comment"></app-auth-news-comment>
   </div>
 
 

@@ -5,6 +5,7 @@ import {UserService} from '../../services/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SimpleAuthService} from '../../services/auth.service';
 import {AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser} from 'angularx-social-login';
+import {TranslateService} from "@ngx-translate/core";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
               private builder: FormBuilder,
               private authService: SimpleAuthService,
               private route: ActivatedRoute,
-              private socialAuthService: AuthService
+              private socialAuthService: AuthService,
+              private translate: TranslateService
               ) {}
   ngOnInit(): void {
     this.initLoginForm();
@@ -31,10 +33,16 @@ export class LoginComponent implements OnInit {
   handleEmailVerification() {
     this.route.queryParams.subscribe(params => {
       if (params.emailConfirmed) {
-        this.answer = 'Email successfully verified. Sign in';
+        this.translate.get('authorization.password_reset.success_email')
+          .subscribe(perf => {
+            this.answer = perf;
+          });
       }
       if (params.passwordReset) {
-        this.answer = 'Password successfully reset. Sign in';
+        this.translate.get('authorization.password_reset.success_password')
+          .subscribe(perf => {
+            this.answer = perf;
+          });
       }
     });
   }
@@ -52,7 +60,10 @@ export class LoginComponent implements OnInit {
     }, error => {
       if (error.status === 400) {
         this.loading = false;
-        this.answer = 'Invalid credentials';
+        this.translate.get('authorization.login.invalid_credentials')
+          .subscribe(perf => {
+            this.answer = perf;
+          });
       }
     });
   }

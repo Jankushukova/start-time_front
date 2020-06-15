@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Project} from '../../../../../../models/project/project';
 import {SlickCarouselComponent} from 'ngx-slick-carousel';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-description',
@@ -8,9 +9,9 @@ import {SlickCarouselComponent} from 'ngx-slick-carousel';
   styleUrls: ['./auth-description.component.css']
 })
 export class AuthDescriptionComponent implements OnInit {
-  project: Project;
+  @Input() project: Project;
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
-
+  translate;
 
   slideConfig = {
     slidesToShow: 1,
@@ -21,14 +22,12 @@ export class AuthDescriptionComponent implements OnInit {
     infinite: false
   };
 
-  constructor() { }
+  constructor(
+    private translator: TranslateService
+  ) { }
 
   ngOnInit(): void {
-  }
-
-  someFunction(data) {
-   this.project = data;
-
+    this.translate = this.translator;
   }
 
 }

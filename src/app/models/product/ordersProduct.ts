@@ -11,11 +11,14 @@ export class OrdersProduct implements Deserializable{
   // tslint:disable-next-line:variable-name
   order_id: number;
   count: number;
-  product: Product;
-  order: ProductOrder;
+  product: any;
+  order: any;
   sum: number;
   deserialize(input: any): this {
     Object.assign(this, input);
+    if (input.product) {
+      this.product = new Product().deserialize(input.product);
+    }
     return this;
   }
 

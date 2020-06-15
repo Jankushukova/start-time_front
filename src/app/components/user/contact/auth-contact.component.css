@@ -1,0 +1,11 @@
+agm-map {
+  height: 500px;
+}
+@media (max-width: 991px) {
+  agm-map{
+    height: 250px;
+  }
+}
+.text-start-time{
+  color: #009E74;
+}

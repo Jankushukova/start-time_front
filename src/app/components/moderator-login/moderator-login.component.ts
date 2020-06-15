@@ -29,6 +29,7 @@ export class ModeratorLoginComponent implements OnInit {
   onSubmit() {
     const user: User = this.loginForm.getRawValue();
     this.userService.adminLogin(user).subscribe(perf => {
+      console.log('logged');
       this.authService.setToken(perf.token);
       this.userService.setUser(perf.user);
       this.authService.changeAuthorized(true);

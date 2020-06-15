@@ -35,7 +35,9 @@
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "./node_modules/bootbox/bootbox.js",
-              "./node_modules/pusher-js/dist/web/pusher.min.js"
+              "./node_modules/pusher-js/dist/web/pusher.min.js",
+              "./src/assets/js/cloud.js"
+
             ]
           },
           "configurations": {
@@ -107,7 +109,9 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootbox/bootbox.js",
-              "./node_modules/pusher-js/dist/web/pusher.min.js"
+              "./node_modules/pusher-js/dist/web/pusher.min.js",
+              "./src/assets/js/cloud.js"
+
 
             ]
           }

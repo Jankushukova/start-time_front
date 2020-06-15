@@ -1,23 +1,27 @@
 
 
 
-<div class=" row justify-content-center">
+<div class=" row justify-content-center mt-3">
 
   <div class="col-10 grid-margin stretch-card ">
     <div class="card">
-      <div class="card-body">
-        <h2 class="display-5">{{project.title_rus}}</h2>
+      <div class="card-body p-2 p-md-4">
+        <h2 class="display-5">
+          {{(translate.currentLang == 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng : project.title_kz}}</h2>
         <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
           <div ngxSlickItem *ngFor="let image of project.images" class="slide ">
-            <img class="m-auto" src="{{image.image}}" alt="" width="50%" height="400px">
+            <img class="m-auto" src="{{image.image}}" alt="" style="max-width: 80%;max-height: 80%">
 
 
           </div>
 
         </ngx-slick-carousel>
-        <p>{{project.description_rus}}</p>
-        <div [innerHTML]="project.content_rus"> </div>
+        <p>
+          {{(translate.currentLang == 'rus') ? project.description_rus : (translate.currentLang == 'eng') ? project.description_eng : project.description_kz}}
+          </p>
+        <div
+          innerHTML="{{(translate.currentLang == 'rus') ? project.content_rus : (translate.currentLang == 'eng') ? project.content_eng : project.content_kz}}"> </div>
       </div></div>
   </div>
 </div>

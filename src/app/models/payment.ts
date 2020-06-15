@@ -14,7 +14,7 @@ export class Payment implements Deserializable{
   bank: PaymentType;
   deserialize(input: any): this {
     Object.assign(this, input);
-    if(input.bank)this.bank = new PaymentType().deserialize(input.bank);
+    if (input.bank)this.bank = new PaymentType().deserialize(input.bank);
     return this;
   }
 

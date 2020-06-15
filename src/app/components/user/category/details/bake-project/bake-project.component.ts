@@ -12,7 +12,9 @@ import {User} from '../../../../../models/user/user';
 import {UserService} from '../../../../../services/user/user.service';
 import {ProjectOrder} from '../../../../../models/project/projectOrder';
 import {ProjectOrderService} from '../../../../../services/project/project-order.service';
-
+import {TranslateService} from '@ngx-translate/core';
+import {Gift} from "../../../../../models/project/gift";
+import {environment} from "../../../../../../environments/environment";
 @Component({
   selector: 'app-bake-project',
   templateUrl: './bake-project.component.html',
@@ -25,7 +27,7 @@ export class BakeProjectComponent implements OnInit {
   giftedSumForm: FormGroup;
   authorizedUser;
   paymentType: FormGroup;
-  gift = null;
+  gift: Gift = null;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
@@ -36,6 +38,7 @@ export class BakeProjectComponent implements OnInit {
     private orderProductsService: OrderProductsService,
     private builder: FormBuilder,
     private projectOrderService: ProjectOrderService,
+    private translator: TranslateService
 
   ) {
     projectService.findById(data.projectId).subscribe(perf => {
@@ -49,8 +52,8 @@ export class BakeProjectComponent implements OnInit {
   initBakeForm() {
     this.infoForm = this.builder.group({
       email: [(this.authorizedUser) ? this.authorizedUser.email : '', [ Validators.required, Validators.email]],
-      first_name: [(this.authorizedUser) ? this.authorizedUser.firstname : '', Validators.required],
-      last_name: [(this.authorizedUser) ? this.authorizedUser.lastname : '', Validators.required],
+      firstname: [(this.authorizedUser) ? this.authorizedUser.firstname : '', Validators.required],
+      lastname: [(this.authorizedUser) ? this.authorizedUser.lastname : '', Validators.required],
       phone_number: [(this.authorizedUser) ? this.authorizedUser.phone_number : '', Validators.required],
     });
     this.customSumForm = this.builder.group({
@@ -64,12 +67,10 @@ export class BakeProjectComponent implements OnInit {
     });
   }
   giftSelected(event) {
-    console.log(this.project.gifts);
-    console.log(this.project.gifts[0]);
     this.customSumForm.patchValue({
       sum: this.project.gifts[event.value].sum
     });
-    this.gift = this.project.gifts[event.value].id;
+    this.gift = this.project.gifts[event.value];
   }
   onSubmit() {
     const customSum = this.customSumForm.controls.sum.value;
@@ -79,7 +80,7 @@ export class BakeProjectComponent implements OnInit {
     this.infoForm.addControl('user_id', this.builder.control((this.authorizedUser) ? this.authorizedUser.id : '', Validators.required));
     this.infoForm.addControl('sum', this.builder.control( customSum, Validators.required));
     this.infoForm.addControl('paymentType', this.builder.control(this.paymentType.controls.type.value, Validators.required));
-    this.infoForm.addControl('gift_id', this.builder.control(this.gift, Validators.required));
+    this.infoForm.addControl('gift_id', this.builder.control((this.gift) ? this.gift.id : null, Validators.required));
     console.log(giftedSum);
     if (this.project.gifts[giftedSum]) {
       this.giftedSumForm.patchValue({
@@ -92,14 +93,23 @@ export class BakeProjectComponent implements OnInit {
       });
     }
     const projectOrder: ProjectOrder = this.infoForm.getRawValue();
-    this.projectOrderService.create(projectOrder).subscribe(perf => {
+    if ( this.infoForm.controls.paymentType.value === '3') {
+      this.orderCloudPayments(projectOrder);
+    } else {
+    this.projectOrderService.createEpay(projectOrder).subscribe(perf => {
       window.location.href = perf.url;
-      this.openSnackBar('You will be redirected to another page', 'Close', 'style-success');
+      this.translator.get('project.bake.redirect').subscribe(perf2 => {
+        this.openSnackBar(perf2, 'Close', 'style-success');
+      });
 
     }, error => {
-      this.openSnackBar('Error with the connection to server', 'Close', 'style-error');
+      this.translator.get('project.bake.error').subscribe(perf2 => {
+        this.openSnackBar(perf2, 'Close', 'style-error');
+      });
 
     });
+    }
+
   }
   hasGift() {
     return this.customSumForm.controls.sum.value === this.giftedSumForm.controls.sum.value;
@@ -109,6 +119,43 @@ export class BakeProjectComponent implements OnInit {
       duration: 2000,
       panelClass: style,
       horizontalPosition: 'right',
+    });
+  }
+  orderCloudPayments(order: ProjectOrder) {
+    console.log(order);
+    const projectName = (this.translator.currentLang === 'rus') ? this.project.title_rus : (this.translator.currentLang === 'eng') ? this.project.title_eng : this.project.title_kz;
+    const giftName = (this.gift && this.hasGift()) ? this.gift.description : (this.translator.currentLang === 'rus') ? 'Вознаграждения нет' : (this.translator.currentLang === 'eng') ? 'No reward' : 'Сыйақы жоқ';
+    const amount = order.sum;
+    const email = order.email;
+    // @ts-ignore
+    const widget = new cp.CloudPayments();
+    console.log(widget);
+    this.projectOrderService.create(order).subscribe(perf => {
+      order.id = perf.id;
+      order.confirmed = perf.confirmed;
+      console.log(order);
+      widget.charge({ // options
+          publicId: environment.cloudPaymentsPublicId,  // id из личного кабинета
+          description: projectName + ', ' + giftName, // назначение
+          amount: amount, // сумма
+          currency: 'KZT', // валюта
+          email: email,
+          invoiceId: order.id,
+          skin: 'modern', // дизайн виджета
+          data: {
+            myProp: 'myProp value' // произвольный набор параметров
+          }
+        },
+        (options) => { // success
+          this.projectOrderService.cloudSuccess(order).subscribe(perf2 => {
+            console.log(perf2);
+          });
+
+        },
+        (reason, options) => { // fail
+          console.log('failure');
+          console.log(options);
+        });
     });
   }
 }

@@ -1,10 +1,51 @@
   <div class="card   text-left border-sss ">
-    <div class="card-body">
-      <p [routerLink]="['/user/userProfile',question.user.id]" class="paddingDiv text-right">Author: {{question.user.getFullName()}}</p>
-      <p> {{question.question}}</p>
+    <div class="card-body p-2">
+      <div class="text-right" *ngIf="isOwnerOfProject || isOwnerOfQuestion">
+        <button [matMenuTriggerFor]="changeAnswer" mat-icon-button  matTooltip="Edit comment"
+                >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #changeAnswer="matMenu" xPosition="before">
+          <button mat-menu-item (click)="changeOldAnswer()" *ngIf="isOwnerOfProject">{{'project.question.change_answer' | translate}}</button>
+          <button mat-menu-item (click)="this.isQuestion = true" *ngIf="isOwnerOfQuestion && !question.answer">{{'project.question.change_question' | translate}}</button>
+          <button mat-menu-item (click)="deleteQuestion()" *ngIf="isOwnerOfQuestion || isAdmin">{{'project.question.delete_question' | translate}}</button>
+        </mat-menu>
+      </div>
+
+      <ng-container *ngIf="!isQuestion">
+        <p> {{question.question}}</p>
+      </ng-container>
+      <ng-container *ngIf="isQuestion">
+        <mat-form-field class="example-full-width">
+          <mat-label>{{'project.question.question' | translate}}</mat-label>
+          <input [formControl]="questionControl" matInput >
+        </mat-form-field>
+      </ng-container>
       <hr class="bg-sss"/>
-      <p *ngIf="question.answer"> {{question.answer}}</p>
-      <p *ngIf="!question.answer"> Author did not answer yet</p>
+      <div class="row">
+        <div class="col text-left">
+          <ng-container *ngIf="!isAnswer">
+            <p *ngIf="question.answer"> <span class="text-muted">{{question.answer}}</span></p>
+            <p *ngIf="!question.answer"> <span class="text-muted"> {{'project.question.no_answer'|translate}} </span></p>
+          </ng-container>
+          <ng-container *ngIf="isAnswer">
+            <mat-form-field class="example-full-width">
+              <mat-label>{{'project.question.answer' | translate}}</mat-label>
+              <input [formControl]="answerControl" matInput  >
+            </mat-form-field>
+          </ng-container>
+
+
+        </div>
+        <div class="col text-right" *ngIf="isOwnerOfProject && !question.answer">
+          <button class="btn btn-start-time" *ngIf="!isAnswer" (click)="this.isAnswer = true">{{'project.question.answer' | translate}}</button>
+          <button class="btn btn-warning text-white" *ngIf="isAnswer" (click)="saveAnswer()">{{'save' | translate}}</button>
+        </div>
+        <div class="col text-right" *ngIf="isOwnerOfQuestion">
+          <button class="btn btn-warning text-white" *ngIf="isQuestion" (click)="saveQuestion()">{{'save' |translate}}</button>
+        </div>
+      </div>
+      <h4 [routerLink]="['/userProfile',question.user.id]" class="paddingDiv"><small class="text-muted">{{'author' | translate}}: {{question.user.getFullName()}}</small></h4>
 
     </div>
   </div>

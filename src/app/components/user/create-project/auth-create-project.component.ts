@@ -73,6 +73,7 @@ export class AuthCreateProjectComponent implements OnInit {
   images: FormData = new FormData();
   rewardsList: Gift[] = [];
   categoryControl = new FormControl('', Validators.required);
+  translate;
   constructor(private userService: UserService,
               private router: Router,
               private builder: FormBuilder,
@@ -81,12 +82,13 @@ export class AuthCreateProjectComponent implements OnInit {
               // tslint:disable-next-line:variable-name
               private _snackBar: MatSnackBar,
               private giftService: GiftService,
-              public translate: TranslateService,
+              public translator: TranslateService,
               private authService: SimpleAuthService
 
   ) { }
 
   ngOnInit(): void {
+    this.translate = this.translator;
     console.log(this.authService.loggedIn(true));
     this.authService.loggedIn(true);
     this.checkUserData();
@@ -97,8 +99,8 @@ export class AuthCreateProjectComponent implements OnInit {
     // this.authorized = false;
   }
   checkUserData() {
-    if (this.userService.getUser().email === null || this.userService.getUser().phone_number === null
-      || (this.userService.getUser().email === null && this.userService.getUser().phone_number === null )) {
+    console.log(this.userService.getUser().email);
+    if (this.userService.getUser().email === '' || this.userService.getUser().email === null) {
         this.show();
         this.router.navigateByUrl('/main');
         }
@@ -108,6 +110,8 @@ export class AuthCreateProjectComponent implements OnInit {
     this.descriptionLangs.push(this.currentLang);
     this.contentLangs.push(this.currentLang);
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.descriptionLangs = [];
+      this.descriptionLangs.push(this.translator.currentLang);
     });
   }
   getCategories() {
@@ -202,21 +206,27 @@ export class AuthCreateProjectComponent implements OnInit {
           // creates project rewards
           // tslint:disable-next-line:no-shadowed-variable
           this.giftService.create(this.rewardsList).subscribe(perf => {
-            this.openSnackBar('Project was sent to moderator', 'Close', 'style-success');
-            this.router.navigateByUrl('user/profile');
+            this.translator.get('create.success').subscribe(perf2 => {
+              this.openSnackBar(perf2, 'Close', 'style-success');
+            });
+            this.router.navigate(['/home/projects'], {queryParams: {unactive: 1}});
           }, error1 => {
-            this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
+            this.translator.get('create.error').subscribe(perf2 => {
+              this.openSnackBar(perf2, 'Close', 'style-error');
+            });
           });
         },
         error1 => {
-          this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
-        });
+          this.translator.get('create.error').subscribe(perf2 => {
+            this.openSnackBar(perf2, 'Close', 'style-error');
+          });        });
 
 
 
     }, error => {
-      this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
-
+      this.translator.get('create.error').subscribe(perf2 => {
+        this.openSnackBar(perf2, 'Close', 'style-error');
+      });
     });
   }
   openSnackBar(message: string, action: string, style: string) {
@@ -227,12 +237,18 @@ export class AuthCreateProjectComponent implements OnInit {
     });
   }
   async show() {
-    bootbox.alert({
-      title: 'Baking gifts',
-      message: 'Your contact information isn\'t complete! To create your project, please, provide both email and phone_number',
-      size: 'large',
-      centerVertical: true,
-    });
+    let message;
+    let title;
+    this.translator.get('create.no_contact_info_warning').subscribe(perf => message = perf);
+    this.translator.get('create.no_contact_info_title').subscribe(perf => title = perf);
+    if (title && message) {
+      bootbox.alert({
+        title: title,
+        message: message,
+        size: 'large',
+        centerVertical: true,
+      });
+    }
   }
 
 }

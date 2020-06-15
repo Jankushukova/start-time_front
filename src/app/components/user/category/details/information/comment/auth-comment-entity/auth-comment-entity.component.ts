@@ -5,6 +5,9 @@ import {CommentLike} from '../../../../../../../models/commentLike';
 import {UserService} from '../../../../../../../services/user/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SimpleAuthService} from '../../../../../../../services/auth.service';
+import {ProjectService} from "../../../../../../../services/project/project.service";
+import {CommentService} from "../../../../../../../services/comment.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-auth-comment-entity',
@@ -14,15 +17,24 @@ import {SimpleAuthService} from '../../../../../../../services/auth.service';
 export class AuthCommentEntityComponent implements OnInit {
   @Input() comment: ProjectComment;
   authorized = false;
+  isOwnerOfComment = false;
+  isAdmin = false;
   constructor(
     private likeService: LikeService,
     private userService: UserService,
     private authService: SimpleAuthService,
+    private projectService: ProjectService,
+    private commentService: CommentService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
   ) { }
 
   ngOnInit(): void {
+    if (this.userService.getUser()) {
+      this.isAdmin = this.userService.isAdmin();
+      this.isOwnerOfComment = this.comment.user.id === this.userService.getUser().id;
+    }
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
     });
@@ -40,7 +52,9 @@ export class AuthCommentEntityComponent implements OnInit {
         this.comment.likes.push((new CommentLike().deserialize(perf)).id);
       });
     } else {
-      this.openSnackBar('Only authorized users can like', 'Close', 'style-warn');
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
   unLike() {
@@ -51,8 +65,9 @@ export class AuthCommentEntityComponent implements OnInit {
       }, error => {
       });
     } else {
-      this.openSnackBar('Only authorized users can unlike', 'Close', 'style-warn');
-    }
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });    }
   }
   openSnackBar(message: string, action: string, style: string) {
     this._snackBar.open(message, action, {
@@ -60,5 +75,18 @@ export class AuthCommentEntityComponent implements OnInit {
       panelClass: style,
       horizontalPosition: 'right',
     });
+  }
+
+  deleteComment() {
+    this.commentService.deleteByIdProjectComment(this.comment.id).subscribe(perf => {
+      console.log('deleted');
+    });
+    let comments: ProjectComment[] = [];
+    this.projectService.comments$.subscribe(perf => comments = perf);
+    comments = comments.filter(data => {
+      return data.id !== this.comment.id;
+    });
+    console.log(comments);
+    this.projectService.changeComments(comments);
   }
 }

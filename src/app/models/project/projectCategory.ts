@@ -4,7 +4,9 @@ import {Project} from "./project";
 
 export class ProjectCategory implements Deserializable {
   id: number;
-  name: string;
+  name_rus: string;
+  name_kz: string;
+  name_eng: string;
   projects: Project[];
 
   deserialize(input: any): this {

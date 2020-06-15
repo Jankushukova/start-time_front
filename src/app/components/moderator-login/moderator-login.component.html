@@ -10,7 +10,7 @@
 
             <form class="pt-3" [formGroup]="loginForm">
               <div class="form-group">
-                <input type="email" formControlName="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" >
+                <input formControlName="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" >
               </div>
               <div class="form-group">
                 <input type="password" formControlName="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
@@ -19,13 +19,13 @@
                 <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" (click)="onSubmit()" [disabled]="!loginForm.valid">ВХОД</button>
               </div>
               <div class="my-2 d-flex justify-content-between align-items-center">
-                <div class="form-check">
-                  <label class="form-check-label text-muted">
-                    <input type="checkbox" class="form-check-input">
-                    Запомнить меня
-                    <i class="input-helper"></i></label>
-                </div>
-                <a href="#" class="auth-link text-black">Забыли пароль?</a>
+<!--                <div class="form-check">-->
+<!--                  <label class="form-check-label text-muted">-->
+<!--                    <input type="checkbox" class="form-check-input">-->
+<!--                    Запомнить меня-->
+<!--                    <i class="input-helper"></i></label>-->
+<!--                </div>-->
+<!--                <a href="#" class="auth-link text-black">Забыли пароль?</a>-->
               </div>
             </form>
           </div>

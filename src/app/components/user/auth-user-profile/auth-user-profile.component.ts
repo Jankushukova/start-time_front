@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {FollowerService} from '../../../services/user/follower.service';
 import {Follower} from '../../../models/user/follower';
 import {SimpleAuthService} from '../../../services/auth.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-auth-user-profile',
@@ -26,7 +27,8 @@ export class AuthUserProfileComponent implements OnInit {
     private authService: SimpleAuthService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
-    private followerService: FollowerService
+    private followerService: FollowerService,
+    private translate: TranslateService
   ) {
   }
   ngOnInit(): void {
@@ -54,34 +56,41 @@ export class AuthUserProfileComponent implements OnInit {
 
 
   async showFollowers(followers: User[]) {
-    bootbox.alert({
-      title: '<p class=\'display-5\'>Followers</p>',
-      message() {
-        if (followers.length > 0) {
-          let followerslist = '<table class="table table-striped">\n' +
-            '                      <tbody>\n';
-          for (const follower of followers) {
-            followerslist += '                        <tr>\n' +
-              '                          <td>\n' +
-              '                            <div >\n' +
-              // tslint:disable-next-line:max-line-length
-              '      <p class=\'display-5\'><a style=\'color:inherit\' href=\'/user/userProfile/' + follower.id + '\' >' + follower.firstname + ' ' + follower.lastname + '</a></p>\n' +
-              '                            </div>\n' +
-              '                          </td>\n' +
-              '                        </tr>\n';
+    let text;
+    let noFollower;
+    this.translate.get('user_profile.followers').subscribe(perf => text = perf);
+    this.translate.get('user_profile.no_follower_guest').subscribe(perf => noFollower = perf);
+    if (text && noFollower) {
+      bootbox.alert({
+        title: '<p class=\'display-5\'>' + text + '</p>',
+        message() {
+          if (followers.length > 0) {
+            let followerslist = '<table class="table table-striped">\n' +
+              '                      <tbody>\n';
+            for (const follower of followers) {
+              followerslist += '                        <tr>\n' +
+                '                          <td>\n' +
+                '                            <div >\n' +
+                // tslint:disable-next-line:max-line-length
+                '      <p class=\'display-5\'><a style=\'color:inherit\' href=\'/user/userProfile/' + follower.id + '\' >' + follower.firstname + ' ' + follower.lastname + '</a></p>\n' +
+                '                            </div>\n' +
+                '                          </td>\n' +
+                '                        </tr>\n';
 
+            }
+            followerslist += '                      </tbody>\n' +
+              '                    </table>';
+
+            return followerslist;
           }
-          followerslist += '                      </tbody>\n' +
-            '                    </table>';
+          return noFollower;
 
-          return followerslist;
-        }
-        return 'This user does not have followers yet ';
+        },
+        size: 'large',
+        centerVertical: true,
+      });
 
-      },
-      size: 'large',
-      centerVertical: true,
-    });
+    }
   }
 
   follow() {
@@ -91,8 +100,9 @@ export class AuthUserProfileComponent implements OnInit {
         follower.followed_id = this.user.id;
         follower.following_id = this.userService.getUser().id;
         this.followerService.create(follower).subscribe(perf => {
-          console.log(perf);
-          this.openSnackBar('Successfully followed', 'Close', 'style-success');
+          this.translate.get('user_profile.follow_success').subscribe(perf2 => {
+            this.openSnackBar(perf2, 'Close', 'style-success');
+          });
           this.following = true;
           this.user.followers.push(new User().deserialize(perf));
         });
@@ -104,7 +114,9 @@ export class AuthUserProfileComponent implements OnInit {
         });
       }
     } else {
-      this.openSnackBar('Only authorized users can follow', 'Close', 'style-warn');
+      this.translate.get('user_profile.follow_authorized_warning').subscribe(perf2 => {
+        this.openSnackBar(perf2, 'Close', 'style-warn');
+      });
     }
   }
   openSnackBar(message: string, action: string, style: string) {

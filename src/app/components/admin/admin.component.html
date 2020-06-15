@@ -13,22 +13,9 @@
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
       <ul class="navbar-nav mr-lg-4 w-100">
         <li class="nav-item nav-search d-none d-lg-block w-100">
-
         </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
-
-        <li class="nav-item dropdown mr-1">
-          {{'lang' | translate}}
-          <mat-select   class="lang" #langSelect (selectionChange)="this.translate.use(langSelect.value)">
-            <mat-option
-              *ngFor="let lang of translate.getLangs()"
-              [value]="lang"
-            >
-              {{ lang }}
-            </mat-option>
-          </mat-select>
-        </li>
         <li class="nav-item nav-profile dropdown">
           <a [matMenuTriggerFor]="logout" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
             <img src="../../../assets/images/11_0.png" alt="profile">
@@ -50,14 +37,8 @@
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link" routerLink="main">
-            <i class="mdi mdi-home menu-icon"></i>
-            <span class="menu-title">Main</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link collapsed"   href="#ui-basic"  data-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">
-            <i class="mdi mdi-circle-outline menu-icon"></i>
+            <i class="mdi mdi-poll-box menu-icon"></i>
             <span class="menu-title" >Project</span>
             <i class="menu-arrow"></i>
           </a>
@@ -72,7 +53,7 @@
 
         <li class="nav-item">
           <a class="nav-link collapsed"  href="#ui-basicc" data-toggle="collapse" aria-expanded="false" aria-controls="ui-basicc">
-            <i class="mdi mdi-circle-outline menu-icon"></i>
+            <i class="mdi mdi-shopping  menu-icon"></i>
             <span class="menu-title"  >Shop</span>
             <i class="menu-arrow"></i>
           </a>
@@ -80,19 +61,24 @@
             <ul class="nav flex-column sub-menu">
               <li class="nav-item"> <a class="nav-link" routerLink="shop">Manage products</a></li>
               <li class="nav-item"> <a class="nav-link" routerLink="shop/orders">Orders</a></li>
-              <li class="nav-item"> <a class="nav-link active" routerLink="shop/category">Categories</a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="subscribes">
-            <i class="mdi mdi-view-headline menu-icon"></i>
+            <i class="mdi mdi-message-text menu-icon"></i>
             <span class="menu-title">Subscribers</span>
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" routerLink="news">
+            <i class="mdi mdi-newspaper menu-icon"></i>
+            <span class="menu-title">News</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" routerLink="users">
-            <i class="mdi mdi-view-headline menu-icon"></i>
+            <i class="mdi mdi-account-circle menu-icon"></i>
             <span class="menu-title">Users</span>
           </a>
         </li>

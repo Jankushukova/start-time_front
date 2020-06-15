@@ -7,6 +7,7 @@ import {ProjectImage} from "../project/projectImage";
 
 export class User implements Deserializable {
   id: number;
+  fullname: string;
   firstname: string;
   lastname: string;
   // tslint:disable-next-line:variable-name
@@ -15,7 +16,8 @@ export class User implements Deserializable {
   biography: string;
   email: string;
   // tslint:disable-next-line:variable-name
-  role_id: Role;
+  role: Role;
+  role_id: number;
   partner: boolean;
   projects: any;
   followers: User[];
@@ -27,12 +29,12 @@ export class User implements Deserializable {
   recommendationCount: any;
   deserialize(input: any): this {
     Object.assign(this, input);
-    this.role_id = new Role().deserialize(input.role_id);
+    this.role = new Role().deserialize(input.role_id);
     return this;
   }
 
   getFullName() {
-    return this.firstname + ' ' + this.lastname;
+    return this.fullname;
   }
 
 

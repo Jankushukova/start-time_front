@@ -7,7 +7,7 @@ import {OrderProductsService} from '../../services/product/order-products.servic
 import {ProjectCategoryService} from '../../services/project/project-category.service';
 import {Router} from '@angular/router';
 import {AuthService} from 'angularx-social-login';
-import {TranslateService} from '@ngx-translate/core';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +16,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class UserComponent implements OnInit {
   slideConfig = {
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     dots: true,
     nextArrow: '<div class=\'nav-btn next-slide\'> </div>',
@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
   categories: ProjectCategory[] = [];
   productCount = 0;
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
+
   constructor(
     private userService: UserService,
     private authService: SimpleAuthService,
@@ -40,14 +41,19 @@ export class UserComponent implements OnInit {
   ) {
     this.langInit();
   }
+
   langInit() {
     this.translate.addLangs(['eng', 'rus', 'kz']);
     this.translate.setDefaultLang('rus');
-    const  browserLang = this.translate.getBrowserLang();
+    const browserLang = this.translate.getBrowserLang();
     this.translate.use(browserLang.match(/en|rus/) ? browserLang : 'rus');
   }
 
   ngOnInit(): void {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      // do something
+      console.log('changed');
+    });
     console.log(this.authService.getToken());
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
@@ -57,6 +63,21 @@ export class UserComponent implements OnInit {
     });
     this.categoriesInit();
     this.shopBasketInit();
+    $(document).ready(() => {
+      const ua = navigator.userAgent;
+
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+        $('a.mobile-other').show();
+        console.log('mobile');
+        this.slideConfig.slidesToShow = 3;
+      } else if (/Chrome/i.test(ua)) {
+        $('a.chrome').show();
+        this.slideConfig.slidesToShow = 5;
+        console.log('desktop');
+      } else {
+        $('a.desktop-other').show();
+      }
+    });
     // jQuery('.dropdown-toggle').on('click', (e) =>  {
     //   $(this).next().toggle();
     // });
@@ -64,25 +85,29 @@ export class UserComponent implements OnInit {
     //   e.stopPropagation();
     // });
   }
+
   handleUser() {
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
       if (!user) {
-        this.user =  this.userService.getUser();
+        this.user = this.userService.getUser();
       }
     });
   }
+
   shopBasketInit() {
     this.orderProductsService.data$.subscribe(res => {
       this.productCount = 0;
       res.map(data => this.productCount += data.count);
     });
   }
+
   categoriesInit() {
     this.projectCategory.get().subscribe(perf => {
       this.categories = perf;
     });
   }
+
   Logout() {
     console.log('logout');
     this.socialAuthService.authState.subscribe(user => {
@@ -94,9 +119,11 @@ export class UserComponent implements OnInit {
     this.router.navigateByUrl('/login');
 
   }
+
   signOutFB(): void {
     this.socialAuthService.signOut();
   }
+
   getDate() {
     const date: Date = new Date();
     return date.getFullYear();
@@ -121,4 +148,5 @@ export class UserComponent implements OnInit {
   prev() {
     this.slickModal.slickPrev();
   }
+
 }

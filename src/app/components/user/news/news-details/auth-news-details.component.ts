@@ -8,6 +8,7 @@ import {UserService} from '../../../../services/user/user.service';
 import {CommentService} from '../../../../services/comment.service';
 import {SimpleAuthService} from '../../../../services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-news-details',
@@ -29,6 +30,7 @@ export class AuthNewsDetailsComponent implements OnInit {
     private authService: SimpleAuthService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
   ) { }
   slideConfig = {
     slidesToShow: 1,
@@ -74,7 +76,9 @@ export class AuthNewsDetailsComponent implements OnInit {
         this.commentForm.reset();
       });
     } else {
-      this.openSnackBar('Only authorized users can leave a comment', 'Close', 'style-warn');
+      this.translator.get('project.comment.warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
   openSnackBar(message: string, action: string, style: string) {

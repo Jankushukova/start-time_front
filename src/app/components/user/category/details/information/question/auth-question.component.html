@@ -1,24 +1,24 @@
 
-<div class=" row justify-content-center">
+<div class=" row justify-content-center mt-3">
 
-  <div class="col-10 grid-margin stretch-card ">
+  <div class="col-12 col-md-10 grid-margin stretch-card " *ngIf="!isOwnerOfProject">
     <div class="card">
       <div class="card-body">
 
         <form class="forms-sample" [formGroup] = "questionForm">
-          <div class="form-group">
-            <textarea formControlName="question" class="form-control" id="exampleTextarea1" rows="4" placeholder="Ask a question"></textarea>
-          </div>
+          <mat-form-field class="example-full-width w-100">
+            <mat-label>{{'project.question.text' | translate }}</mat-label>
+            <textarea formControlName="question" matInput placeholder="{{'project.question.text' | translate }}"></textarea>
+          </mat-form-field>
           <div class="text-right">
-            <button type="submit" class="btn btn-inverse-dark btn-fw " (click)="addQuestion()">Send</button>
-
+            <button type="submit" class="btn btn-outline-google " (click)="addQuestion()">{{'project.question.add' | translate }}</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 
-    <app-auth-question-entity class="col-10 grid-margin stretch-card " *ngFor="let question of questions" [question]="question"></app-auth-question-entity>
+    <app-auth-question-entity class="col-12 col-md-10 grid-margin stretch-card " *ngFor="let question of questions" [question]="question"></app-auth-question-entity>
 
 
 

@@ -6,6 +6,7 @@ import {SimpleAuthService} from '../../services/auth.service';
 import {User} from '../../models/user/user';
 import {MatDialog} from '@angular/material/dialog';
 import {EmailConfirmationComponent} from '../email-confirmation/email-confirmation.component';
+import {TranslateService} from "@ngx-translate/core";
 
 export const passwordMatchValidator: ValidatorFn = (registerForm: FormGroup): ValidationErrors | null => {
   if (registerForm.get('password').value === registerForm.get('password_confirmation').value)
@@ -27,7 +28,8 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private builder: FormBuilder,
               private authService: SimpleAuthService,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              private translate: TranslateService
               ) {}
 
 
@@ -65,10 +67,12 @@ export class RegisterComponent implements OnInit {
       if (error.status === 400) {
         const message = JSON.parse(error.error);
         if (message.password) {
-          console.log(message);
           this.answer = message.password;
         } else {
-          this.answer = 'This email has already been taken';
+          this.translate.get('authorization.register.invalid_credentials')
+            .subscribe(perf => {
+              this.answer = perf;
+            });
         }
       }
     });

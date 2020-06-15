@@ -5,11 +5,13 @@
 @media (min-width: 992px) {
   .carousel-img-wrap{
     width:100%;
-    height: 450px;
+    /*height: 500px;*/
+  }
+  .carousel-inner{
+    height: 500px;
   }
   .little-img-wrap{
     width:100%;
-    height: 124px;
   }
   .img-wrap{
     width:100%;
@@ -18,10 +20,11 @@
   .img-wrap >img{
     width: 50%;
   }
+  .project-card {
+    height: 150px;
+  }
 }
-.project-card {
-  height: 150px;
-}
+
 .bg-start-time{
   background-color: #009E74;
   color: white;
@@ -41,10 +44,28 @@
 
 @media (max-width: 991px) {
   .display {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 }
 
+
+
+.display-4 {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+.display-4 {
+  font-size: 1.875rem;
+}
+@media (max-width: 991px) {
+  .display-4 {
+    font-size: 0.7rem;
+  }
+  .carousel-inner{
+    height: 120px;
+  }
+}
 .display-3 {
   font-size: 4.5rem;
   font-weight: 300;
@@ -58,6 +79,11 @@
 @media (max-width: 991px) {
   .display-3 {
     font-size: 2rem;
+  }
+  p{
+    font-size: 0.355rem;
+    margin-bottom: .5rem;
+    line-height: 0.6rem;
   }
 }
 
@@ -99,3 +125,12 @@
 .next-slide:hover {
   background-position: -24px -53px;
 }
+
+h4, .h4 {
+  font-size: 1.25rem;
+}
+h5, .h5 {
+  font-size: 0.7rem;
+}
+
+

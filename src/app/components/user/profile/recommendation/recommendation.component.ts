@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../../../../services/project/project.service";
 import {UserService} from "../../../../services/user/user.service";
 import {LikeService} from "../../../../services/like.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-recommendation',
@@ -17,15 +18,18 @@ export class RecommendationComponent implements OnInit {
   perPageCount = 5;
   totalProjectsCount: number;
   newLike: ProjectLike;
+  translate;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService,
     private userService: UserService,
     private likeService: LikeService,
+    private translator: TranslateService
   ) {
   }
   ngOnInit(): void {
+    this.translate = this.translator;
     this.changeProjects();
   }
   changeProjects() {

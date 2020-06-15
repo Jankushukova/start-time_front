@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product</th>
+    <th scope="col">Count</th>
+    <th scope="col">Cost</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of order; index as i">
+    <th scope="row">{{i + 1}}</th>
+    <td> <a (click)="openDialog(product.product)">{{product.product.title_rus}}</a></td>
+    <td>{{product.count}}</td>
+    <td>{{product.count*product.product.cost}}</td>
+  </tr>
+  </tbody>
+</table>

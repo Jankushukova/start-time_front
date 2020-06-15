@@ -1,13 +1,13 @@
 
 
 <ng-container *ngIf="success">
-  <h1>Success!</h1>
+  <h1>{{'authorization.email_confirmation.text' | translate}}!</h1>
 </ng-container>
 <ng-container *ngIf="!success">
 
-<h1 mat-dialog-title>Successful registration! </h1>
-<div mat-dialog-content>Please verify your email. Message was sent to your email</div>
+<h1 mat-dialog-title>{{'authorization.email_confirmation.success_registration' | translate}}! </h1>
+<div mat-dialog-content>{{'authorization.email_confirmation.verify_email' | translate}}</div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>OK</button>
+  <button mat-button mat-dialog-close>{{'ok' | translate}}</button>
 </div>
 </ng-container>

@@ -1,0 +1,61 @@
+<app-spinner filterBy="news/"></app-spinner>
+
+<mat-dialog-content style="background: #fafbfe;">
+  <div class="row justify-content-center ">
+
+
+    <div class="col-md-12 ">
+      <form [formGroup]="newsForm" >
+
+        <div class="form-row justify-content-center ">
+          <div class="col-md-12 grid-margin stretch-card ">
+
+            <div class="card">
+              <div class="card-body">
+                <mat-form-field class="example-full-width w-100">
+                  <mat-label>News title</mat-label>
+                  <input matInput formControlName="title" >
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 grid-margin stretch-card ">
+
+            <div class="card">
+              <div class="card-body">
+                <mat-form-field class="example-full-width w-100">
+                  <mat-label>News description</mat-label>
+                  <input matInput formControlName="description">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 grid-margin stretch-card ">
+
+            <div class="card">
+              <div class="card-body">
+                <mat-form-field class="example-full-width w-100">
+                  <mat-label>News content</mat-label>
+                  <input matInput formControlName="content">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 grid-margin stretch-card ">
+            <div class="card">
+              <div class="card-body">
+                <mat-form-field class="w-100">
+                  <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="Upload Images" multiple></ngx-mat-file-input>
+                  <mat-icon matSuffix>image</mat-icon>
+                </mat-form-field>
+              </div></div></div>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn w-25 btn-lg bg-sss text-light" type="submit" mat-dialog-close (click)="onSubmitNewsForm()" [disabled]="!newsForm.valid">Save</button>
+</mat-dialog-actions>

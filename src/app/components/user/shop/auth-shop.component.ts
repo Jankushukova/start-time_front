@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthProductDetailsComponent} from './product-details/auth-product-details.component';
 import {SimpleAuthService} from '../../../services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-shop',
@@ -20,6 +21,7 @@ export class AuthShopComponent implements OnInit {
   page = 1;
   perPageCount = 12;
   totalProductsCount: number;
+  translate;
   constructor(
     private productService: ProductService,
     private userService: UserService,
@@ -28,9 +30,11 @@ export class AuthShopComponent implements OnInit {
     public dialog: MatDialog,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
   ) { }
 
   ngOnInit(): void {
+    this.translate = this.translator;
     this.authorized = this.authService.loggedIn(false);
     this.changeProducts();
   }
@@ -59,7 +63,9 @@ export class AuthShopComponent implements OnInit {
         product.liked = true;
       });
     } else {
-      this.openSnackBar('Only authorized users can like', 'Close', 'style-warn');
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
 
@@ -70,7 +76,9 @@ export class AuthShopComponent implements OnInit {
         product.liked = false;
       });
     } else {
-      this.openSnackBar('Only authorized users can like', 'Close', 'style-warn');
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
 

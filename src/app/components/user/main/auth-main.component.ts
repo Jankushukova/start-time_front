@@ -12,6 +12,7 @@ import {Subscription} from '../../../models/user/subscription';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthProductDetailsComponent} from '../shop/product-details/auth-product-details.component';
 import {MatDialog} from '@angular/material/dialog';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main',
@@ -29,6 +30,7 @@ export class AuthMainComponent implements OnInit {
     private dialog: MatDialog,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
 
 
   ) { }
@@ -40,10 +42,10 @@ export class AuthMainComponent implements OnInit {
   sucProjNum = 0;
   projectBakNum = 0;
   subscribeForm: FormGroup;
-
+  translate;
 
   slideConfig = {
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 1,
     nextArrow: '<div class=\'nav-btn next-slide\'></div>',
     prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
@@ -55,6 +57,7 @@ export class AuthMainComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.translate = this.translator;
     this.getPopularProjects();
     this.getPopularProducts();
     this.getPartners();
@@ -101,9 +104,13 @@ export class AuthMainComponent implements OnInit {
   onSubmit() {
     const subscription: Subscription = this.subscribeForm.getRawValue();
     this.subscriberService.create(subscription).subscribe(perf => {
-      this.openSnackBar('Successfully subscribed', 'Close', 'style-success');
+      this.translator.get('main.subscribe_success').subscribe( perf2 => {
+        this.openSnackBar(perf2, 'Close', 'style-success');
+      });
     }, error => {
-      this.openSnackBar('Some error occurred', 'Close', 'style-error');
+      this.translator.get('main.subscribe_error').subscribe(perf2 => {
+        this.openSnackBar(perf2, 'Close', 'style-error');
+      });
     });
     this.subscribeForm.reset();
   }

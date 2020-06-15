@@ -19,7 +19,7 @@ export class Project implements Deserializable{
   video: string;
   goal: number;
   gathered: number;
-  active: boolean;
+  active: number;
   backers: number;
   // tslint:disable-next-line:variable-name
   owner_id: number;

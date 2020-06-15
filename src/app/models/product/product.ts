@@ -8,17 +8,23 @@ import {Project} from "../project/project";
 
 export class Product implements Deserializable {
   id: number;
-  title: string;
-  description: string;
+  title_eng: string;
+  title_rus: string;
+  title_kz: string;
+  description_eng: string;
+  description_rus: string;
+  description_kz: string;
   cost: number;
   images: ProductImage[];
   likes: ProductLike[];
   user: User;
+  owner_id: number;
   project: Project;
+  project_id: number;
   created_at: string;
   views: number;
   liked: boolean;
-  active: boolean;
+  active: number;
 
   deserialize(input: any): this {
     Object.assign(this, input);

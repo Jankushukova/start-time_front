@@ -9,9 +9,6 @@ import { AdminComponent } from './components/admin/admin.component';
 import { UserProfileComponent } from './components/user/profile/user-profile.component';
 import { UserProjectsComponent } from './components/user/profile/projects/user-projects.component';
 import { AuthCreateProjectComponent } from './components/user/create-project/auth-create-project.component';
-import { UserBakersComponent } from './components/user/profile/bakers/user-bakers.component';
-import { UserBakedComponent } from './components/user/profile/baked/user-baked.component';
-import { UserFollowersComponent } from './components/user/profile/followers/user-followers.component';
 import { RecommendationComponent } from './components/user/profile/recommendation/recommendation.component';
 import {AuthAboutComponent} from './components/user/about/auth-about.component';
 import {AuthCategoryComponent} from './components/user/category/auth-category.component';
@@ -41,7 +38,6 @@ import { AdminFilesComponent } from './components/admin/admin-files/admin-files.
 import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 import { AdminOrdersComponent } from './components/admin/admin-shop/admin-orders/admin-orders.component';
 import { AdminProjectCategoriesComponent } from './components/admin/admin-projects/admin-project-categories/admin-project-categories.component';
-import { AdminShopCategoriesComponent } from './components/admin/admin-shop/admin-shop-categories/admin-shop-categories.component';
 import { AdminBakesComponent } from './components/admin/admin-projects/admin-bakes/admin-bakes.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { ModeratorLoginComponent } from './components/moderator-login/moderator-login.component';
@@ -73,7 +69,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { OrderSubmitFormComponent } from './components/order/product/order-submit-form/order-submit-form.component';
+import { OrderSubmitFormComponent } from './components/user/shop/order-submit-form/order-submit-form.component';
 import {NgxMatIntlTelInputModule} from 'ngx-mat-intl-tel-input';
 import { EmailConfirmationComponent } from './components/email-confirmation/email-confirmation.component';
 import {AuthServiceConfig, FacebookLoginProvider, LoginOpt, SocialLoginModule} from 'angularx-social-login';
@@ -93,7 +89,23 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatStepperModule} from "@angular/material/stepper";
 import { ProjectEditComponent } from './components/admin/admin-projects/project-edit/project-edit.component';
-
+import { EditUnactiveProjectComponent } from './components/user/profile/projects/edit-unactive-project/edit-unactive-project.component';
+import { CreateUpdateComponent } from './components/user/category/details/information/update/create-update/create-update.component';
+import { CreateCategoryComponent } from './components/admin/admin-projects/admin-project-categories/create-category/create-category.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { AdminEditUserComponent } from './components/admin/admin-users/admin-edit-user/admin-edit-user.component';
+import { AdminNewsComponent } from './components/admin/admin-news/admin-news.component';
+import { CreateNewsComponent } from './components/admin/admin-news/create-news/create-news.component';
+import { FilterPipe } from './pipe/filter.pipe';
+import {MatChipsModule} from "@angular/material/chips";
+import { AgmCoreModule } from '@agm/core';
+import {GoogleMapsModule} from "@angular/google-maps";
+import { AddProductToFinishedProjectComponent } from './components/user/profile/projects/add-product-to-finished-project/add-product-to-finished-project.component';
+import { ProductsComponent } from './components/user/profile/products/products.component';
+import { EditProductComponent } from './components/admin/admin-shop/edit-product/edit-product.component';
+import { ProductsViewComponent } from './components/admin/admin-shop/admin-orders/products-view/products-view.component';
 const routes: Routes = [
   {path: '', component: UserComponent,
     children: [
@@ -114,10 +126,10 @@ const routes: Routes = [
           {path: 'description', component: AuthDescriptionComponent},
           {path: 'comments', component: AuthCommentComponent},
           {path: 'updates', component: AuthUpdateComponent},
-          {path: 'updates/details/:id', component: AuthUpdateDetailsComponent},
           {path: 'questions', component: AuthQuestionComponent},
         ]
       },
+      {path: 'updates/details/:id', component: AuthUpdateDetailsComponent},
       {path: 'userProfile/:id', component: AuthUserProfileComponent,
         children: [
           {path: '', redirectTo: 'projects', pathMatch: 'full'},
@@ -130,12 +142,10 @@ const routes: Routes = [
       {path: 'home', component: UserProfileComponent,
         children: [
           {path: '', redirectTo: 'information', pathMatch: 'full'},
-          {path: 'recommendation/:id', component: RecommendationComponent},
-          {path: 'projects/:id', component: UserProjectsComponent},
-          {path: 'bakers', component: UserBakersComponent},
-          {path: 'baked', component: UserBakedComponent},
+          {path: 'recommendation', component: RecommendationComponent},
+          {path: 'projects', component: UserProjectsComponent},
+          {path: 'products', component: ProductsComponent},
           {path: 'information', component: UserInformationComponent},
-          {path: 'followers', component: UserFollowersComponent},
 
         ]
       },
@@ -145,18 +155,17 @@ const routes: Routes = [
   },
   {path: 'admin', component: AdminComponent,
     children: [
-      {path: '', redirectTo: 'main', pathMatch: 'full'},
-      {path: 'main', component: AdminMainComponent},
+      {path: '', redirectTo: 'projects', pathMatch: 'full'},
       {path: 'projects', component: AdminProjectsComponent},
       {path: 'shop', component: AdminShopComponent},
       {path: 'subscribes', component: AdminSubscribesComponent},
       {path: 'partners', component: AdminPartnersComponent},
       {path: 'users', component: AdminUsersComponent},
+      {path: 'news', component: AdminNewsComponent},
       {path: 'files', component: AdminFilesComponent},
       {path: 'project/bakes', component: AdminBakesComponent},
       {path: 'project/category', component: AdminProjectCategoriesComponent},
       {path: 'shop/orders', component: AdminOrdersComponent},
-      {path: 'shop/category', component: AdminShopCategoriesComponent},
     ]
   },
   {path: 'start-time/moderator', component: ModeratorLoginComponent},
@@ -189,7 +198,6 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-
     AppComponent,
     // unauthorized
     LoginComponent,
@@ -214,9 +222,6 @@ export function provideConfig() {
     AuthProductDetailsComponent,
     UserProfileComponent,
     UserProjectsComponent,
-    UserBakersComponent,
-    UserBakedComponent,
-    UserFollowersComponent,
     RecommendationComponent,
     AuthUserProfileComponent,
     UserInformationComponent,
@@ -233,7 +238,6 @@ export function provideConfig() {
     AdminUsersComponent,
     AdminOrdersComponent,
     AdminProjectCategoriesComponent,
-    AdminShopCategoriesComponent,
     AdminBakesComponent,
     AdminMainComponent,
     ModeratorLoginComponent,
@@ -252,10 +256,25 @@ export function provideConfig() {
     ResetPasswordComponent,
     UserComponent,
     BakeProjectComponent,
-    ProjectEditComponent
+    ProjectEditComponent,
+    EditUnactiveProjectComponent,
+    CreateUpdateComponent,
+    CreateCategoryComponent,
+    AdminEditUserComponent,
+    AdminNewsComponent,
+    CreateNewsComponent,
+    FilterPipe,
+    AddProductToFinishedProjectComponent,
+    ProductsComponent,
+    EditProductComponent,
+    ProductsViewComponent,
   ],
     imports: [
         BrowserModule,
+      AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyD5eN7n2C1-JjTOixhhBavbFJeAQAo5AyI'
+      }),
+      GoogleMapsModule,
         AppRoutingModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -294,7 +313,11 @@ export function provideConfig() {
         MatTabsModule,
         MatButtonToggleModule,
         MatRadioModule,
-        MatStepperModule
+        MatStepperModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatChipsModule
 
     ],
   providers: [

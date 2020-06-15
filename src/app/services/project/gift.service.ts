@@ -32,8 +32,8 @@ export class GiftService {
     return this.http.get<Gift>(`${this.mainUrl}/${id}`);
   }
 //+
-  public update(id: number, gifts: Gift): Observable<Gift> {
-    return this.http.put<Gift>(`${this.mainUrl}/${id}`, gifts);
+  public update(gifts: Gift[]): Observable<Gift> {
+    return this.http.put<Gift>(`${this.mainUrl}`, gifts);
   }
 //+
   public deleteById(id: number) {

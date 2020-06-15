@@ -20,9 +20,7 @@ export class EmailConfirmationComponent implements OnInit {
                ) { }
 
   ngOnInit(): void {
-    console.log('Email verification');
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       this.confirmationUrl = params.queryURL;
       this.http.get(this.confirmationUrl).subscribe((perf: any) => {
         this.router.navigate(['/login'], {queryParams: {emailConfirmed: true}});

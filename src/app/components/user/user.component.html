@@ -1,13 +1,13 @@
 
 
   <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-    <div class="navbar-brand-wrapper d-flex justify-content-center">
+    <div class="navbar-brand-wrapper d-flex justify-content-center" style="background: #fafbfe;">
       <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
         <a class="navbar-brand brand-logo"><img src="../../../assets/images/30_0.png" alt="logo"></a>
         <a class="navbar-brand brand-logo-mini" ><img src="../../../../assets/images/30_0.png" alt="logo"></a>
       </div>
     </div>
-    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end" style="background: #fafbfe;">
       <ul class="navbar-nav mr-lg-4 w-100">
         <li class="nav-item  d-none d-lg-block ">
           <a class="nav-link" routerLink="/main">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
@@ -30,8 +30,8 @@
       </ul>
       <ul class="navbar-nav navbar-nav-right">
 
-        <li class="nav-item dropdown mr-1">
-          {{'lang' | translate}}
+        <li class="nav-item dropdown mr-0">
+          <i class="fas fa-language"></i>
           <mat-select   class="lang" #langSelect (selectionChange)="this.translate.use(langSelect.value)">
             <mat-option
               *ngFor="let lang of translate.getLangs()"
@@ -43,29 +43,29 @@
         </li>
         <ng-container *ngIf="authorized && user">
 
-          <li class="nav-item dropdown mr-1">
+          <li class="nav-item dropdown mr-0 ">
             <a  routerLink="/create" class="nav-link d-flex justify-content-center align-items-center">
               <i class="fas fa-home fa-plus fa-lg"></i>
             </a>
           </li>
-          <li class="nav-item dropdown mr-1">
+          <li class="nav-item dropdown mr-0">
             <a class="nav-link d-flex justify-content-center align-items-center"routerLink="/home" ><i class="fas fa-home fa-lg" ></i></a>
           </li>
-          <li class="nav-item ">
-            <!--          <a mat-icon-button matBadge="8" matBadgeSize="small" matBadgeColor="warn">-->
-            <mat-icon [matMenuTriggerFor]="beforeMenu" style="cursor: pointer" matBadge="9" matBadgeSize="small" matBadgeColor="warn">notifications</mat-icon>
-            <mat-menu #beforeMenu="matMenu" xPosition="before">
-              <button mat-menu-item>Item 1</button>
-              <button mat-menu-item>Item 2</button>
-            </mat-menu>
-            <!--          </a>-->
+<!--          <li class="nav-item ">-->
+<!--            &lt;!&ndash;          <a mat-icon-button matBadge="8" matBadgeSize="small" matBadgeColor="warn">&ndash;&gt;-->
+<!--            <mat-icon [matMenuTriggerFor]="beforeMenu" style="cursor: pointer" matBadge="9" matBadgeSize="small" matBadgeColor="warn">notifications</mat-icon>-->
+<!--            <mat-menu #beforeMenu="matMenu" xPosition="before">-->
+<!--              <button mat-menu-item>Item 1</button>-->
+<!--              <button mat-menu-item>Item 2</button>-->
+<!--            </mat-menu>-->
+<!--            &lt;!&ndash;          </a>&ndash;&gt;-->
 
-          </li>
-          <li class="nav-item ">
+<!--          </li>-->
+          <li class="nav-item mr-0">
 
             <a routerLink="/order/product"  matBadge="{{productCount}}" matBadgeSize="small" matBadgeColor="warn"> <i class="fas fa-shopping-cart fa-lg"></i></a>
           </li>
-          <li class="nav-item nav-profile dropdown">
+          <li class="nav-item nav-profile dropdown mr-0">
             <a [matMenuTriggerFor]="logout" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img *ngIf="!user.image" src="../../../assets/images/11_0.png" alt="profile">
               <img *ngIf="user.image" [src]="user.image" alt="profile">
@@ -74,21 +74,25 @@
             <mat-menu #logout="matMenu" xPosition="before">
               <button mat-menu-item (click)="Logout()"> <i class="mdi mdi-logout text-primary"></i>
                 Logout</button>
+              <button mat-menu-item routerLink="/home/information"> <i class="mdi mdi-settings text-primary"></i>
+                Settings
+
+                </button>
             </mat-menu>
 
           </li>
         </ng-container>
         <ng-container *ngIf="!authorized">
-          <li class="nav-item ">
+          <li class="nav-item mr-0">
 
             <a routerLink="/order/product"  matBadge="{{productCount}}" matBadgeSize="small" matBadgeColor="warn"> <i class="fas fa-shopping-cart fa-lg"></i></a>
 
           </li>
-          <li class="nav-item dropdown mr-1">
-            <a style="color: inherit" routerLink="/login">Логин</a>
+          <li class="nav-item dropdown mr-1 small mr-0">
+            <a style="color: inherit" routerLink="/login">{{'authorization.login.text' | translate}}</a>
           </li>
-          <li class="nav-item nav-profile dropdown">
-            <a style="color: inherit" routerLink="/register">Регистрация</a>
+          <li class="nav-item nav-profile dropdown small mr-0">
+            <a style="color: inherit" routerLink="/register">{{'authorization.register.text' | translate}}</a>
 
           </li>
 
@@ -98,25 +102,23 @@
         <span class="mdi mdi-menu"></span>
       </button>
     </div>
-    <div class="navbar-brand-wrapper d-flex justify-content-center">
-      <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100 border-0">
+<!--    <div class="navbar-brand-wrapper d-flex justify-content-center">-->
+<!--      <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100 border-0">-->
 
-      </div>
-    </div>
+<!--      </div>-->
+<!--    </div>-->
 
-    <div class="navbar-menu-wrapper justify-content-center">
+    <div class="navbar-menu-wrapper justify-content-center w-100">
       <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
                            (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
-
-        <div ngxSlickItem *ngFor="let category of categories" class="slide">
-          <div class="w-100">
+        <div ngxSlickItem *ngFor="let category of categories" class="slide ">
+          <div class="w-auto">
                   <span >
-                              <a class="nav-link" [routerLink]="['/category', category.id]">{{category.name}} <span class="sr-only">(current)</span></a>
+                              <a  class="a nav-link border-right text-center" [routerLink]="['/category', category.id]">
+                                {{(translate.currentLang=='rus') ? category.name_rus : (translate.currentLang === 'eng') ? category.name_eng : category.name_kz }} <span class="sr-only">(current)</span></a>
                     </span>
           </div>
-
         </div>
-
       </ngx-slick-carousel>
     </div>
   </nav>

@@ -1,0 +1,96 @@
+<app-spinner filterBy="project/"></app-spinner>
+
+<mat-dialog-content style="background: #fafbfe;">
+  <ng-container *ngIf="project">
+    <div class="row justify-content-center ">
+
+
+      <div class="col-md-12 ">
+        <form [formGroup]="updateForm" >
+
+          <div class="form-row justify-content-center ">
+            <div class="col-md-12 grid-margin stretch-card ">
+
+              <div class="card">
+                <div class="text-right">
+                  <button [matMenuTriggerFor]="addLangContent" mat-icon-button  matTooltip="Add content on another language"
+                          aria-label="Button that displays a tooltip when focused or hovered over">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <mat-menu #addLangContent="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="addTitle('rus')">Русский</button>
+                    <button mat-menu-item (click)="addTitle('eng')">English</button>
+                    <button mat-menu-item (click)="addTitle('kz')">Қазақша</button>
+                  </mat-menu>
+                </div>
+                <div class="card-body">
+                  <div class="input-group mt-3"  *ngFor="let lang of titleLangs; index as i">
+                    <div class="input-group-prepend">
+
+                      <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-definition">{{'project.update.create_name' | translate}} {{lang}}</span>
+                    </div>
+                    <input required [formControlName]="'title_' + lang" [placeholder]="(lang==='eng') ? 'Update title' : (lang==='rus') ? 'Заголовок обновления' : 'Жаңартпа аты'" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-definition">
+                    <button class="col-1" *ngIf="i > 0" (click)="removeTitle(i)" matSuffix mat-icon-button  matTooltip="Remove content on this language"
+                            aria-label="Button that displays a tooltip when focused or hovered over">
+                      <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 grid-margin stretch-card ">
+              <div class="card">
+                <div class="text-right">
+                  <button [matMenuTriggerFor]="addLangDescription" mat-icon-button  matTooltip="Add description on another language"
+                          aria-label="Button that displays a tooltip when focused or hovered over">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <mat-menu #addLangDescription="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="addDescription('rus')">Русский</button>
+                    <button mat-menu-item (click)="addDescription('eng')">English</button>
+                    <button mat-menu-item (click)="addDescription('kz')">Қазақша</button>
+                  </mat-menu>
+                </div>
+                <div class="card-body">
+                  <p>Content</p>
+                  <div class="row justify-content-start mb-2" *ngFor="let lang of descriptionLangs; index as i">
+                    <editor class="col-11"  formControlName="{{'description_' + lang}}" [required]="i==0"
+                            apiKey="sj3n4ofpyw6lj5xkfeaedah9jf36wvm5wtrge3i8acvowjuy"
+                            [init]="{
+                   menubar: true,
+                   plugins: [
+                     'advlist autolink lists link image charmap print preview anchor ',
+                     'searchreplace visualblocks code fullscreen',
+                     'insertdatetime media table paste code help wordcount image'
+                   ],
+                   toolbar:
+                     'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat image | help'
+                    }"
+                            initialValue="vdava"
+                    ></editor>
+                    <button class="col-1" *ngIf="i > 0" (click)="removeDescription(i)" matSuffix mat-icon-button  matTooltip="Remove content on this language"
+                            aria-label="Button that displays a tooltip when focused or hovered over">
+                      <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                  </div>
+                </div></div></div>
+
+            <div class="col-md-12 grid-margin stretch-card ">
+              <div class="card">
+                <div class="card-body">
+                  <mat-form-field class="w-100">
+                    <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="Upload Images" multiple></ngx-mat-file-input>
+                    <mat-icon matSuffix>image</mat-icon>
+                  </mat-form-field>
+                </div></div></div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn w-25 btn-lg bg-sss text-light" type="submit" mat-dialog-close (click)="onSubmitUpdateForm()" [disabled]="!updateForm.valid">Save</button>
+</mat-dialog-actions>

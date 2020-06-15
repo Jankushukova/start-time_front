@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from 
 import {UserService} from '../../../services/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from "@ngx-translate/core";
 
 export const passwordMatchValidator: ValidatorFn = (registerForm: FormGroup): ValidationErrors | null => {
   if (registerForm.get('password').value === registerForm.get('password_confirmation').value) {
@@ -29,7 +30,8 @@ export class ResetPasswordComponent implements OnInit {
               private route: ActivatedRoute,
               // tslint:disable-next-line:variable-name
               private _snackBar: MatSnackBar,
-              private router: Router
+              private router: Router,
+              private translate: TranslateService
               ) { }
 
   ngOnInit(): void {
@@ -52,11 +54,17 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmitRequest() {
     this.userService.sendResetPasswordLink(this.resetPasswordRequestForm.controls.email.value).subscribe(perf => {
-      this.openSnackBar('Check email, reset link was sent', 'Close', 'style-success');
+      this.translate.get('authorization.password_reset.email_check_message')
+        .subscribe(perf2 => {
+          this.openSnackBar(perf2, 'Close', 'style-success');
+        });
       this.router.navigateByUrl('/login');
     }, error => {
       if (error.status === 404) {
-        this.answer = 'Email wasn\'t found';
+        this.translate.get('authorization.password_reset.invalid_credentials')
+          .subscribe(perf => {
+            this.answer = perf;
+          });
       }
     });
   }
@@ -75,7 +83,10 @@ export class ResetPasswordComponent implements OnInit {
       this.openSnackBar(perf.data, 'Close', 'style-success');
       this.router.navigateByUrl('/login');
     }, error => {
-      this.openSnackBar('Something went wrong', 'Close', 'style-error');
+      this.translate.get('authorization.password_reset.failure_message')
+        .subscribe(perf2 => {
+          this.openSnackBar(perf2, 'Close', 'style-error');
+        });
     });
   }
 

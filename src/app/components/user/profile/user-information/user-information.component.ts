@@ -41,7 +41,9 @@ export class UserInformationComponent implements OnInit {
     this.userForm.controls.firstname.enable();
     this.userForm.controls.lastname.enable();
     this.userForm.controls.phone_number.enable();
-    this.userForm.controls.email.enable();
+    if (this.userForm.controls.email.value === ''){
+      this.userForm.controls.email.enable();
+    }
     this.userForm.controls.biography.enable();
   }
   save() {
@@ -52,7 +54,10 @@ export class UserInformationComponent implements OnInit {
     this.userForm.controls.email.disable();
     this.userForm.controls.biography.disable();
     this.checkForm();
-    this.openSnackBar('Request was sent to moderator', 'Close', 'style-success');
+    const user: User = this.userForm.getRawValue();
+    this.userService.update(user).subscribe(perf => {
+      console.log(perf);
+    });
 
   }
   checkForm() {

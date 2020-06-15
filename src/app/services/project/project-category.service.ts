@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {ProjectCategory} from '../../models/project/projectCategory';
-import {Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {Update} from "../../models/project/update";
+import {Project} from "../../models/project/project";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,11 @@ import {catchError, map} from 'rxjs/operators';
 export class ProjectCategoryService {
   mainUrl = environment.apiUrl + '/api/v1/project/categories';
   customUrl = environment.apiUrl + '/api/v1';
-
+  private categories = new BehaviorSubject([]);
+  categories$ = this.categories.asObservable();
+  changeCategories(data: ProjectCategory[]) {
+    this.categories.next(data);
+  }
   constructor(public http: HttpClient) { }
 // +
   public get(): Observable<ProjectCategory[]> {
@@ -33,15 +39,21 @@ export class ProjectCategoryService {
 
 // +
   public create(category: ProjectCategory): Observable<ProjectCategory> {
-    return this.http.post<ProjectCategory>(this.mainUrl, category);
+    return this.http.post<ProjectCategory>(this.customUrl + '/project/category/create', category);
   }
 // +
   public update(id: number, category: ProjectCategory): Observable<ProjectCategory> {
-    return this.http.put<ProjectCategory>(`${this.mainUrl}/${id}`, category);
+    return this.http.put<ProjectCategory>(`${this.customUrl}/project/category/update/${id}`, category);
   }
 // +
   public deleteById(id: number) {
-    return this.http.delete(`${this.mainUrl}/${id}`);
+    return this.http.delete(`${this.customUrl}/project/category/delete/${id}`);
+  }
+  // +
+  public findById(id: number): Observable<ProjectCategory> {
+    return this.http.get<ProjectCategory>(`${this.customUrl}/project/category/${id}`).pipe(
+      map(data => {
+        return new ProjectCategory().deserialize(data); }));
   }
 
 }

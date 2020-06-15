@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UpdateService} from '../../../../../../../services/project/update.service';
 import {Update} from '../../../../../../../models/project/update';
 import {SlickCarouselComponent} from 'ngx-slick-carousel';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-auth-update-details',
@@ -12,7 +13,7 @@ import {SlickCarouselComponent} from 'ngx-slick-carousel';
 export class AuthUpdateDetailsComponent implements OnInit {
   update: Update;
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
-
+  translate;
 
   slideConfig = {
     slidesToShow: 1,
@@ -27,10 +28,12 @@ export class AuthUpdateDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private updateService: UpdateService
+    private updateService: UpdateService,
+    private translator: TranslateService
   ) { }
 
   ngOnInit(): void {
+    this.translate = this.translator;
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.updateService.findById(id).subscribe(perf => {
       console.log(perf);

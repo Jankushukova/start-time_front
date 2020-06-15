@@ -1,0 +1,38 @@
+<app-spinner filterBy="project/"></app-spinner>
+
+<mat-dialog-content style="background: #fafbfe;">
+    <div class="row justify-content-center ">
+
+
+      <div class="col-md-12 ">
+        <form [formGroup]="categoryForm" >
+
+          <div class="form-row justify-content-center ">
+            <div class="col-md-12 grid-margin stretch-card ">
+
+              <div class="card">
+                <div class="card-body">
+                  <mat-form-field class="example-full-width w-100">
+                    <mat-label>Category name rus</mat-label>
+                    <input matInput formControlName="name_rus" value="Sushi">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width w-100">
+                    <mat-label>Category name kz</mat-label>
+                    <input matInput formControlName="name_kz" value="Sushi">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width w-100">
+                    <mat-label>Category name eng</mat-label>
+                    <input matInput formControlName="name_eng" value="Sushi">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn w-25 btn-lg bg-sss text-light" type="submit" mat-dialog-close (click)="onSubmitCategoryForm()" [disabled]="!categoryForm.valid">Save</button>
+</mat-dialog-actions>

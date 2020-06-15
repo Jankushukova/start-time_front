@@ -59,14 +59,13 @@ export class ProjectEditComponent implements OnInit {
   currentLang: string;
   error = false ;
   date: any;
-  titleLangs = ['rus' , 'eng', 'kz'];
-  descriptionLangs = [];
-  contentLangs = [];
   categories: ProjectCategory[] = [];
   images: FormData = new FormData();
-  rewardsList: Gift[] = [];
-  categoryControl = new FormControl('', Validators.required);
+  categoryControl: FormControl;
   project: Project;
+  titleLangs = ['rus' , 'eng', 'kz'];
+  descriptionLang = [];
+  contentLangs = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
@@ -81,35 +80,42 @@ export class ProjectEditComponent implements OnInit {
     public translate: TranslateService,
     private authService: SimpleAuthService
   ) {
-    console.log(data.projectId);
   }
 
   ngOnInit(): void {
     this.authService.loggedIn(true);
     this.projectService.findById(this.data.projectId).subscribe(perf => {
       this.project = perf;
-      this.checkUserData();
-      this.projectFormInit();
+      this.bindOldProjectValues();
       this.rewardFormInit();
       this.getCategories();
-      this.bindLanguage();
+      this.projectFormInit();
     });
   }
-
-  checkUserData() {
-    if (this.userService.getUser().email === null || this.userService.getUser().phone_number === null
-      || (this.userService.getUser().email === null && this.userService.getUser().phone_number === null )) {
-      this.show();
-      this.router.navigateByUrl('/main');
+  bindOldProjectValues() {
+    for (let i = 0; i < this.project.images.length; i++) {
+      this.images.append('image' + ( i + 1), this.project.images[i].image);
     }
-  }
-  bindLanguage() {
-    this.currentLang = this.translate.currentLang;
-    console.log(this.translate.currentLang);
-    this.descriptionLangs.push(this.currentLang);
-    this.contentLangs.push(this.currentLang);
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-    });
+
+    this.categoryControl = new FormControl(this.project.category_id, Validators.required);
+    if (this.project.description_eng) {
+      this.descriptionLang.push('eng');
+    }
+    if (this.project.description_rus) {
+      this.descriptionLang.push('rus');
+    }
+    if (this.project.description_kz) {
+      this.descriptionLang.push('kz');
+    }
+    if (this.project.content_kz) {
+      this.contentLangs.push('kz');
+    }
+    if (this.project.content_eng) {
+      this.contentLangs.push('eng');
+    }
+    if (this.project.content_rus) {
+      this.contentLangs.push('rus');
+    }
   }
   getCategories() {
     this.projectCategoryService.get().subscribe(perf => {
@@ -128,7 +134,7 @@ export class ProjectEditComponent implements OnInit {
       content_rus: [(this.project.content_rus) ? this.project.content_rus : '', [Validators.required]],
       content_kz: [(this.project.content_kz) ? this.project.content_kz : '', [Validators.required]],
       main_language: [(this.project.main_language) ? this.project.main_language : '', [Validators.required]],
-      deadline: [(this.project.deadline) ? this.project.deadline : '', Validators.required],
+      deadline: [(this.project.deadline) ? new Date(this.project.deadline) : '', Validators.required],
       video: [(this.project.video) ? this.project.video : '', Validators.required],
       goal: [(this.project.goal) ? this.project.goal : '', Validators.required],
       category_id: [(this.project.category_id) ? this.project.category_id : '', Validators.required],
@@ -147,7 +153,7 @@ export class ProjectEditComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
-      this.images.append('image' + ( i + 1), image.image);
+      this.images.append('image' + ( i + 1 + this.project.images.length), image.image);
       console.log(this.images);
     }
 
@@ -155,21 +161,20 @@ export class ProjectEditComponent implements OnInit {
   addReward(event) {
     if (event.keyCode === 13) {
       const gift: Gift = this.rewardForm.getRawValue();
-      this.rewardsList.push(gift);
-      console.log(this.rewardsList);
+      this.project.gifts.push(gift);
       this.rewardForm.reset();
     }
   }
   deleteReward(i) {
-    this.rewardsList.splice(i, 1);
+    this.project.gifts.splice(i, 1);
   }
   addDescription(language) {
-    if (!this.descriptionLangs.includes(language)) {
-      this.descriptionLangs.push(language);
+    if (!this.descriptionLang.includes(language)) {
+      this.descriptionLang.push(language);
     }
   }
   removeDescription(i) {
-    this.descriptionLangs.splice(i, 1);
+    this.descriptionLang.splice(i, 1);
   }
   addContent(language) {
     if (!this.contentLangs.includes(language)) {
@@ -182,29 +187,20 @@ export class ProjectEditComponent implements OnInit {
   onSubmitProjectForm() {
     this.projectForm.patchValue({
       category_id: this.categoryControl.value,
-      owner_id: this.userService.getUser().id,
-      main_language: this.currentLang
+      owner_id: this.project.owner_id,
+      main_language: this.project.main_language
     });
     const project: Project = this.projectForm.getRawValue();
     const deadline = new Date(project.deadline);
     project.deadline = deadline.getFullYear() + '-' + (deadline.getMonth() + 1) + '-' + deadline.getDate();
-    console.log(project);
-
-    this.projectService.create(project).subscribe(perf => {
-      // assign project id to rewards list
-      this.rewardsList = this.rewardsList.map( (gift) => {
-        gift.project_id = perf.id;
-        return gift;
-      });
-      this.images.append('project_id', perf.id.toString());
-
-      // tslint:disable-next-line:no-shadowed-variable
-      this.projectService.createProjectImages(this.images).subscribe( perf => {
-          // creates project rewards
-          // tslint:disable-next-line:no-shadowed-variable
-          this.giftService.create(this.rewardsList).subscribe(perf => {
-            this.openSnackBar('Project was sent to moderator', 'Close', 'style-success');
-            this.router.navigateByUrl('user/profile');
+    this.changeOldProject(project);
+    this.projectService.update(this.project.id, project).subscribe(perf1 => {
+      this.images.append('project_id', this.project.id.toString());
+      this.project.gifts.map(data => data.project_id = this.project.id);
+      this.projectService.createProjectImages(this.images).subscribe( perf2 => {
+          this.giftService.update(this.project.gifts).subscribe(perf3 => {
+            this.addChangedProjectToList();
+            this.openSnackBar('Projects successfully changed', 'Close', 'style-success');
           }, error1 => {
             this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
           });
@@ -213,26 +209,42 @@ export class ProjectEditComponent implements OnInit {
           this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
         });
 
-
-
     }, error => {
       this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');
 
     });
+  }
+  changeOldProject(project) {
+    this.project.title_kz = project.title_kz;
+    this.project.title_rus = project.title_rus;
+    this.project.title_eng = project.title_eng;
+    this.project.content_rus = project.content_rus;
+    this.project.content_kz = project.content_kz;
+    this.project.content_eng = project.content_eng;
+    this.project.description_kz = project.description_kz;
+    this.project.description_rus = project.description_rus;
+    this.project.description_eng = project.description_eng;
+    this.project.deadline = project.deadline;
+    this.project.video = project.video;
+    this.project.goal = project.goal;
+    this.project.category_id = project.category_id;
+  }
+  addChangedProjectToList() {
+    let projects: Project[] = [];
+    this.projectService.projects$.subscribe(perf => projects = perf);
+    projects = projects.map(data => {
+      if (data.id === this.project.id) {
+        data = this.project;
+      }
+      return data;
+    });
+    this.projectService.changeProjects(projects);
   }
   openSnackBar(message: string, action: string, style: string) {
     this._snackBar.open(message, action, {
       duration: 2000,
       panelClass: style,
       horizontalPosition: 'right',
-    });
-  }
-  async show() {
-    bootbox.alert({
-      title: 'Baking gifts',
-      message: 'Your contact information isn\'t complete! To create your project, please, provide both email and phone_number',
-      size: 'large',
-      centerVertical: true,
     });
   }
 

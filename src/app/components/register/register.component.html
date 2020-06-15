@@ -7,26 +7,26 @@
       <div class="card-body">
 
         <form [formGroup]="registerForm" class="forms-sample">
-          <h4 class="font-weight-light">Регистрация</h4>
+          <h4 class="font-weight-light">{{'authorization.register.text' | translate}}</h4>
           <p class="card-description text-danger">
             {{answer}}
           </p>
           <div class="form-group row">
             <mat-form-field class="example-full-width w-100">
-              <mat-label>Firtname</mat-label>
-              <input matInput formControlName="firstname" value="Sushi">
+              <mat-label>{{'authorization.register.firstname' | translate}}</mat-label>
+              <input matInput formControlName="firstname" >
             </mat-form-field>
 
           </div>
           <div class="form-group row ">
             <mat-form-field class="example-full-width w-100">
-              <mat-label>Lastname</mat-label>
-              <input matInput formControlName="lastname" value="Sushi">
+              <mat-label>{{'authorization.register.lastname' | translate}}</mat-label>
+              <input matInput formControlName="lastname" >
             </mat-form-field>
           </div>
           <div class="form-group row">
             <mat-form-field class="example-full-width w-100">
-              <mat-label>Telephone</mat-label>
+              <mat-label>{{'authorization.register.phone' | translate}}</mat-label>
               <span matPrefix>+7 &nbsp;</span>
               <input formControlName="phone_number" type="tel" matInput placeholder="777-77-77">
               <mat-icon matSuffix>mode_edit</mat-icon>
@@ -34,37 +34,32 @@
           </div>
           <div class="form-group row">
             <mat-form-field class="example-full-width w-100">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="email" placeholder="Ex. pat@example.com">
+              <mat-label>{{'authorization.email' | translate}}</mat-label>
+              <input matInput formControlName="email" >
               <mat-error *ngIf="registerForm.hasError('email') && !registerForm.hasError('required')">
-                Please enter a valid email address
+                {{'authorization.register.email_error_invalid' | translate}}
               </mat-error>
               <mat-error *ngIf="registerForm.hasError('required')">
-                Email is <strong>required</strong>
+                 <strong>                {{'authorization.register.email_error_required' | translate}}
+                 </strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div class="form-group row">
             <mat-form-field class="w-100">
-              <input matInput type="password" placeholder="Password" formControlName="password" (input)="onPasswordInput()">
-              <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
-              <mat-error *ngIf="password.hasError('minlength')">Password must have at least 8 characters</mat-error>
+              <input matInput type="password" placeholder="{{'authorization.password' | translate}}" formControlName="password" (input)="onPasswordInput()">
+              <mat-error *ngIf="password.hasError('required')">{{'authorization.password_error_required' | translate}}</mat-error>
+              <mat-error *ngIf="password.hasError('minlength')">{{'authorization.password_error_length' | translate}}</mat-error>
             </mat-form-field>
           </div>
           <div class="form-group row">
             <mat-form-field class="w-100">
-              <input matInput type="password" placeholder="Confirm password" formControlName="password_confirmation" (input)="onPasswordInput()">
-              <mat-error *ngIf="password2.hasError('required')">Please confirm your password</mat-error>
-              <mat-error *ngIf="password2.invalid && !password2.hasError('required')">Passwords don't match</mat-error>
+              <input matInput type="password" placeholder="{{'authorization.password_confirmation' | translate}}" formControlName="password_confirmation" (input)="onPasswordInput()">
+              <mat-error *ngIf="password2.hasError('required')">{{'authorization.password_confirmation_text' | translate}}</mat-error>
+              <mat-error *ngIf="password2.invalid && !password2.hasError('required')">{{'authorization.password_confirmation_error' | translate}}</mat-error>
             </mat-form-field>
           </div>
-          <div class="form-check form-check-flat form-check-primary">
-            <label class="form-check-label">
-              <input type="checkbox" class="form-check-input">
-              Remember me
-              <i class="input-helper"></i></label>
-          </div>
-          <button type="submit" class="btn btn-primary mr-2" (click)="onSubmit()" [disabled]="!registerForm.valid">Submit</button>
+          <button type="submit" class="btn btn-primary mr-2" (click)="onSubmit()" [disabled]="!registerForm.valid">{{'authorization.submit' | translate}}</button>
         </form>
 
 

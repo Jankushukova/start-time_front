@@ -7,6 +7,7 @@ import {UserService} from '../../../services/user/user.service';
 import {LikeService} from '../../../services/like.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SimpleAuthService} from '../../../services/auth.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-category',
@@ -21,6 +22,7 @@ export class AuthCategoryComponent implements OnInit {
   perPageCount = 12;
   totalProjectsCount: number;
   newLike: ProjectLike;
+  translate;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,10 +32,12 @@ export class AuthCategoryComponent implements OnInit {
     private likeService: LikeService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
   ) {
   }
 
   ngOnInit(): void {
+    this.translate = this.translator;
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
     });
@@ -65,7 +69,9 @@ export class AuthCategoryComponent implements OnInit {
         project.liked = true;
       });
     } else {
-      this.openSnackBar('Only authorized users can like', 'Close', 'style-warn');
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
   unlike(project: Project) {
@@ -76,8 +82,9 @@ export class AuthCategoryComponent implements OnInit {
         project.liked = false;
       });
     } else {
-      this.openSnackBar('Only authorized users can unlike', 'Close', 'style-warn');
-    }
+      this.translator.get('user_profile.like_authorized_warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });    }
   }
   openSnackBar(message: string, action: string, style: string) {
     this._snackBar.open(message, action, {

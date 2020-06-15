@@ -1,20 +1,32 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Update} from '../../models/project/update';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Project} from '../../models/project/project';
 import {map} from 'rxjs/operators';
 import {UpdateImage} from '../../models/project/updateImage';
+import {ProjectImage} from "../../models/project/projectImage";
+import {ProjectQuestion} from "../../models/project/projectQuestion";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UpdateService {
 
-  mainUrl = environment.apiUrl + "/api/v1/update";
-  customUrl = environment.apiUrl + "/api/v1";
+  mainUrl = environment.apiUrl + '/api/v1/update';
+  customUrl = environment.apiUrl + '/api/v1';
+  private updates = new BehaviorSubject([]);
+  updates$ = this.updates.asObservable();
+  private deleteUpdate = new BehaviorSubject(false);
+  deleteUpdate$ = this.deleteUpdate.asObservable();
 
+  changeUpdates(data: Update[]) {
+    this.updates.next(data);
+  }
+  removeUpdate(data: boolean) {
+    this.deleteUpdate.next(data);
+  }
   constructor(public http: HttpClient) {
   }
 
@@ -33,6 +45,11 @@ export class UpdateService {
     return this.http.get<UpdateImage[]>( `${this.mainUrl }/updates/images/${id}`).pipe(
       map(data => data.map(data => new UpdateImage().deserialize(data)))
     );
+  }
+
+  // +
+  public createUpdateImages(images: any): Observable<UpdateImage> {
+    return this.http.post<UpdateImage>( `${this.mainUrl}/create/images`, images);
   }
 
   //+

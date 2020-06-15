@@ -12,12 +12,12 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class AdminComponent implements OnInit {
   privelegedUser;
+  trans;
   constructor(private userService: UserService,
               private router: Router,
               private authService: SimpleAuthService,
               private translate: TranslateService
               ) { }
-
   ngOnInit(): void {
     if (!this.userService.isAdmin()) {
       this.router.navigateByUrl('/');
@@ -32,6 +32,7 @@ export class AdminComponent implements OnInit {
     this.translate.setDefaultLang('rus');
     const  browserLang = this.translate.getBrowserLang();
     this.translate.use(browserLang.match(/en|rus/) ? browserLang : 'rus');
+    this.trans = this.translate;
   }
   Logout() {
     this.userService.logout();

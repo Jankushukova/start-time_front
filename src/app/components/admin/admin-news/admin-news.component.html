@@ -1,0 +1,70 @@
+<app-spinner filterBy="news/all"></app-spinner>
+
+<ng-container *ngIf="news">
+
+  <div class="container-fluid mb-md-5">
+    <div class="text-right" >
+      <button [matMenuTriggerFor]="editNews" mat-icon-button  matTooltip="Edit updates"
+              aria-label="Button that displays a tooltip when focused or hovered over">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #editNews="matMenu" xPosition="before">
+        <button mat-menu-item (click)="addNews()">Add News</button>
+        <button mat-menu-item (click)="configNews(true)">Delete News</button>
+        <button mat-menu-item (click)="configNews(false)">Edit News</button>
+      </mat-menu>
+    </div>
+
+    <div class="row mt-md-5 justify-content-center ">
+      <div *ngFor="let News of news" class="col-md-2 grid-margin  " >
+        <div class="text-right" >
+          <button  *ngIf="DeleteNews" matSuffix mat-icon-button  matTooltip="Remove news"
+                    aria-label="Button that displays a tooltip when focused or hovered over" (click)="deleteNews(News)">
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+          <button  *ngIf="EditNews" matSuffix mat-icon-button  matTooltip="Edit news"
+                   aria-label="Button that displays a tooltip when focused or hovered over" (click)="updateNews(News)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <div class="card shadow" >
+          <ng-container *ngIf="News.images">
+
+            <img class="card-img-top m-auto" *ngIf="News.images[0]" [src]="News.images[0].image" width="100%" height="150px" alt="Card image cap">
+          </ng-container>
+          <img class="card-img-top m-auto" *ngIf="(News.images.length===0)" src="../../../../assets/images/2_0.png" width="100%" height="150px" alt="Card image cap">
+
+
+          <div class="card-body">
+            <h6 class="card-title text-center" ><a style="color: inherit" [routerLink]="['/newsDetail',News.id]">{{News.title}}</a></h6>
+            <p class="card-text text-center">{{News.description}}</p>
+            <hr/>
+            <div class="row">
+              <div class="col d-flex ">
+                <button mat-icon-button aria-label="Example icon button with an eye icon">
+                  <mat-icon>remove_red_eye</mat-icon>
+                  <span>{{News.views}}</span>
+                </button>
+              </div>
+              <div class="col d-flex ">
+                <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                  <mat-icon >favorite</mat-icon>
+                  <span>{{News.likes.length}}</span>
+                </button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+    <div>
+      <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalNewsCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+    </div>
+  </div>
+</ng-container>

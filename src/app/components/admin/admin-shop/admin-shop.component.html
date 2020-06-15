@@ -1,68 +1,74 @@
-<app-spinner filterBy="product/all"></app-spinner>
-
-<ng-container *ngIf="products">
+<ng-container>
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Shop products</h4>
+        <p class="text-warning">{{message}}</p>
+
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose filter</button>
-                  <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 46px, 0px);">
-                    <a class="dropdown-item" href="#">Name</a>
-                    <a class="dropdown-item" href="#">Status</a>
-                  </div>
+
+                <button [matMenuTriggerFor]="chooseFilter" class="btn bg-sss text-white">
+                  Фильтры
+                </button>
+                <mat-menu #chooseFilter="matMenu">
+                  <button mat-menu-item (click)="changeFilter('title_rus')">Название</button>
+                  <button mat-menu-item (click)="changeFilter('cost')">Сумма</button>
+                  <button mat-menu-item (click)="changeFilter('owner')">Владелец</button>
+                  <button mat-menu-item [matMenuTriggerFor]="chooseState" >Статус</button>
+                </mat-menu>
+                  <mat-menu #chooseState="matMenu">
+                    <button mat-menu-item (click)="filterProducts(0)">Не активные</button>
+                    <button mat-menu-item (click)="filterProducts(1)" >Активные</button>
+
+                  </mat-menu>
                 </div>
-                <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                <input [(ngModel)]="inputText" #input id="input"  type="text" class="form-control" aria-label="Text input with dropdown button">
               </div>
             </div>
 
           </div>
           <div class="col-lg-6 text-right">
-            <button type="button" class="btn btn-inverse-info btn-icon">
-              <i class="mdi mdi-plus"></i>
+            <button (click)="removeFilters()" type="button" class="btn btn-danger btn-rounded btn-icon" matTooltip="Убрать фильтры">
+              <i class="mdi mdi-delete"></i>
             </button>
           </div>
         </div>
-        <div class="table-responsive table-hover">
-          <div id="recent-purchases-listing_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="recent-purchases-listing" class="table dataTable no-footer" role="grid">
-            <thead>
-            <tr role="row">
-              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 105.4px;">Name</th>
-              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 105.4px;">Owner</th>
-              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 80.4px;">Category</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 93.4px;">Views</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 70px;">Price</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 67px;">Created date</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Gross amount: activate to sort column ascending" style="width: 103.8px;">Active</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Gross amount: activate to sort column ascending" style="width: 103.8px;">Action</th>
-            </tr>
-            </thead>
-            <tbody>
+        <app-spinner filterBy="product/all"></app-spinner>
+        <app-spinner filterBy="product/filter"></app-spinner>
+        <table class="table table-hover table-responsive-sm table-responsive-xl" *ngIf="products">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Views</th>
+            <th scope="col">Price</th>
+            <th scope="col">Created date</th>
+            <th scope="col">Active</th>
+            <th scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let product of products;index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td> <a style="color:inherit" target="_blank" class="paddingDiv" (click)="openDialog(product)">
+              {{product.title_rus}}</a></td>
+            <td>{{product.user.getFullName()}}</td>
+            <td>{{product.views}}</td>
+            <td>{{product.cost}}</td>
+            <td>{{product.created_at}}</td>
+            <td><button class="btn btn-light" (click)="changeState(product)">{{product.active}}</button></td>
+            <td> <button (click)="openDialog(product)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
 
-            <tr role="row" class="odd" *ngFor="let product of products">
-              <td class="sorting_1"><a style="color:inherit" target="_blank" class="paddingDiv" routerLink="/start/productDetail">{{product.title}}</a></td>
-              <td>{{product.user.getFullName()}}</td>
-              <td >
-                {{product.project.category.name}}
-              </td>
-              <td>{{product.views}}</td>
-              <td>{{product.cost}}</td>
-              <td>{{product.created_at}}</td>
-              <td >
-                <ng-container  *ngIf="product.active===1"><p class="text-success">active</p></ng-container>
-                <ng-container  *ngIf="product.active===0"><p class="text-danger">unactive</p></ng-container>
-              <td > <i class="fas fa-edit mr-3"></i> <i class="fas fa-trash"></i></td>
-            </tr>
-            </tbody>
-          </table></div></div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"></div></div></div>
-        </div>
-
-
+              <i class="fas fa-edit mr-3" ></i></button></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

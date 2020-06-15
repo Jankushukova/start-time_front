@@ -9,6 +9,7 @@ import {FollowerService} from '../../../services/user/follower.service';
 import {ProjectOrderService} from '../../../services/project/project-order.service';
 import {Router} from '@angular/router';
 import {SimpleAuthService} from '../../../services/auth.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,8 @@ export class UserProfileComponent implements OnInit {
     private followerService: FollowerService,
     private projectOrderService: ProjectOrderService,
     private authService: SimpleAuthService,
-    private router: Router
+    private router: Router,
+    private translator: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -64,39 +66,50 @@ export class UserProfileComponent implements OnInit {
 
   async showFollowers() {
     const list: User[] = this.followers;
-    bootbox.alert({
-      title: '<h1><small class="text-muted">My followers</small></h1>',
-      message: () => {
-        if (list.length > 0) {
-          let followerslist = '<table class=\"table table-striped\">\n' +
-            '                      <tbody>\n';
-          for (const follower of list) {
-            followerslist += '                        <tr>\n' +
-              '                          <td>\n' +
-              '                            <div >\n' +
-              // tslint:disable-next-line:max-line-length
-              '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/userProfile/' + follower.id + '\' >' + follower.getFullName() + '</a></small></h2>\n' +
-              '                            </div>\n' +
-              '                          </td>\n' +
-              '                        </tr>\n';
+    let text;
+    let noFollower;
+    this.translator.get('user_profile.followers').subscribe(perf => text = perf);
+    this.translator.get('user_profile.no_follower').subscribe(perf => noFollower = perf);
+    if (text && noFollower) {
+      bootbox.alert({
+        title: '<h1><small class="text-muted">' + text + '</small></h1>',
+        message: () => {
+          if (list.length > 0) {
+            let followerslist = '<table class=\"table table-striped\">\n' +
+              '                      <tbody>\n';
+            for (const follower of list) {
+              followerslist += '                        <tr>\n' +
+                '                          <td>\n' +
+                '                            <div >\n' +
+                // tslint:disable-next-line:max-line-length
+                '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/userProfile/' + follower.id + '\' >' + follower.getFullName() + '</a></small></h2>\n' +
+                '                            </div>\n' +
+                '                          </td>\n' +
+                '                        </tr>\n';
 
+            }
+            followerslist += '                      </tbody>\n' +
+              '                    </table>';
+
+            return followerslist;
           }
-          followerslist += '                      </tbody>\n' +
-            '                    </table>';
+          return noFollower;
 
-          return followerslist;
-        }
-        return 'This user does not have followers yet ';
-
-      },
-      size: 'large',
-      centerVertical: true,
-    });
+        },
+        size: 'large',
+        centerVertical: true,
+      });
+    }
   }
   async showFollowed() {
     const list: User[] = this.followed;
+    let text;
+    let noFollowing;
+    this.translator.get('user_profile.following').subscribe(perf => text = perf);
+    this.translator.get('user_profile.no_following').subscribe(perf => noFollowing = perf);
+    if(text && noFollowing){
     bootbox.alert({
-      title: '<h1><small class="text-muted">My subscriptions</small></h1>',
+      title: '<h1><small class="text-muted">' + text + '</small></h1>',
       message() {
         if (list.length > 0) {
           let followedlist = '<table class="table table-striped">\n' +
@@ -117,48 +130,64 @@ export class UserProfileComponent implements OnInit {
 
           return followedlist;
         }
-        return 'You does not follow anyone yet ';
+        return noFollowing;
 
       },
       size: 'large',
       centerVertical: true,
     });
+    }
   }
   async showBakers() {
     const list: User[] = this.bakers;
-    bootbox.alert({
-      title: '<h1><small class="text-muted">Users baked my projects</small></h1>',
-      message() {
-        if (list.length > 0) {
-          let userslist = '<table class="table table-striped">\n' +
-            '                      <tbody>\n';
-          for (const user of list) {
-            userslist += '                        <tr>\n' +
-              '                          <td>\n' +
-              '                            <div >\n' +
-              // tslint:disable-next-line:max-line-length
-              '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/userProfile/' + user.id + '\' >' + user.getFullName() + '</a></small></h2>\n' +
-              '                            </div>\n' +
-              '                          </td>\n' +
-              '                        </tr>\n';
+    let text;
+    this.translator.get('user_profile.bakers').subscribe(perf => text = perf);
+    let noBakers;
+    this.translator.get('user_profile.no_bakers').subscribe(perf => noBakers = perf);
+    if(text && noBakers) {
+      bootbox.alert({
+        title: '<h1><small class="text-muted">' + text + '</small></h1>',
+        message() {
+          if (list.length > 0) {
+            let userslist = '<table class="table table-striped">\n' +
+              '                      <tbody>\n';
+            for (const user of list) {
+              userslist += '                        <tr>\n' +
+                '                          <td>\n' +
+                '                            <div >\n' +
+                // tslint:disable-next-line:max-line-length
+                '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/userProfile/' + user.id + '\' >' + user.getFullName() + '</a></small></h2>\n' +
+                '                            </div>\n' +
+                '                          </td>\n' +
+                '                        </tr>\n';
 
+            }
+            userslist += '                      </tbody>\n' +
+              '                    </table>';
+
+            return userslist;
           }
-          userslist += '                      </tbody>\n' +
-            '                    </table>';
+          return noBakers;
 
-          return userslist;
-        }
-        return 'You do not have bakers yet ';
-
-      },
-      size: 'large',
-      centerVertical: true,
-    });
+        },
+        size: 'large',
+        centerVertical: true,
+      });
+    }
   }
   async showBaked() {
     const list: Project[] = this.baked;
+    let text;
+    let noBaked;
+    this.translator.get('user_profile.bakes').subscribe(perf => {
+      text = perf;
+    });
+    this.translator.get('user_profile.no_bakes').subscribe(perf => {
+      noBaked = perf;
+    });
+    if(text && noBaked){
     bootbox.alert({
-      title: '<h1><small class="text-muted">Projects</small></h1>',
+      title: '<h1><small class="text-muted">' + text + '</small></h1>',
       message() {
         if (list.length > 0) {
           let projectslist = '<table class="table table-striped">\n' +
@@ -179,12 +208,13 @@ export class UserProfileComponent implements OnInit {
 
           return projectslist;
         }
-        return 'You do not bake any project yet';
+        return noBaked;
 
       },
       size: 'large',
       centerVertical: true,
     });
+  }
   }
 
 }

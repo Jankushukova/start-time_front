@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../../models/user/user';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Project} from '../../models/project/project';
 import {SimpleAuthService} from '../auth.service';
 import {ProjectOrder} from '../../models/project/projectOrder';
@@ -11,6 +11,8 @@ import {ProjectImage} from '../../models/project/projectImage';
 import {ProjectQuestion} from '../../models/project/projectQuestion';
 import {Product} from '../../models/product/product';
 import {ProjectComment} from '../../models/project/projectComment';
+import {OrdersProduct} from "../../models/product/ordersProduct";
+import * as FileSaver from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,22 @@ import {ProjectComment} from '../../models/project/projectComment';
 export class ProjectService {
   mainUrl = environment.apiUrl + '/api/v1/project';
   customUrl = environment.apiUrl + '/api/v1/';
+  private comments = new BehaviorSubject([]);
+  comments$ = this.comments.asObservable();
+  private questions = new BehaviorSubject([]);
+  questions$ = this.questions.asObservable();
+  private projects = new BehaviorSubject([]);
+  projects$ = this.projects.asObservable();
 
+  changeComments(data: ProjectComment[]) {
+    this.comments.next(data);
+  }
+  changeQuestions(data: ProjectQuestion[]) {
+    this.questions.next(data);
+  }
+  changeProjects(data: Project[]) {
+    this.projects.next(data);
+  }
   constructor(public http: HttpClient,
               public authService: SimpleAuthService
               ) { }
@@ -62,12 +79,42 @@ export class ProjectService {
       map(data => data.map(entryData => new Project().deserialize(entryData)))
     );
   }
-  // +
+
   public getProjectsOfUser(userId: number, perPageCount: number, pageNumber: number): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.customUrl}user/projects`, {
       // @ts-ignore
       params: {
         id: userId,
+        perPage: perPageCount,
+        page: pageNumber
+      }
+    });
+  }
+  // +
+  public getActiveProjectsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.customUrl}user/projects/active`, {
+      // @ts-ignore
+      params: {
+        perPage: perPageCount,
+        page: pageNumber
+      }
+    });
+  }
+  // +
+  public getUnActiveProjectsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.customUrl}user/projects/unactive`, {
+      // @ts-ignore
+      params: {
+        perPage: perPageCount,
+        page: pageNumber
+      }
+    });
+  }
+  // +
+  public getFinishedProjectsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.customUrl}user/projects/finished`, {
+      // @ts-ignore
+      params: {
         perPage: perPageCount,
         page: pageNumber
       }
@@ -91,10 +138,45 @@ export class ProjectService {
       map(data => data.map(entryData => new Project().deserialize(entryData)))
     );
   }
+  // +
+  public filterProjects(attributeName: string, text: string, perPageCount: number, pageCount: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}/filter`, {
+      // @ts-ignore
+      params: {
+        searchText: text,
+        attribute: attributeName,
+        perPage: perPageCount,
+        page: pageCount
+      }
+    });
+  }
+  // +
+  public filterProjectOrders(attributeName: string, text: string, perPageCount: number, pageCount: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.mainUrl}/bakers/filter`, {
+      // @ts-ignore
+      params: {
+        searchText: text,
+        attribute: attributeName,
+        perPage: perPageCount,
+        page: pageCount
+      }
+    });
+  }
 
   // +
+  public getBakersOfBank(bankId: number, perPageCount: number, pageCount: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.mainUrl}/bakers/bank`, {
+      // @ts-ignore
+      params: {
+        id: bankId,
+        perPage: perPageCount,
+        page: pageCount
+      }
+    });
+  }
+  // +
   public getAllProjects(perPageCount: number, pageNumber: number): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.mainUrl}`, {
+    return this.http.get<Project[]>(`${this.mainUrl}/all`, {
       // @ts-ignore
       params: {
         perPage: perPageCount,
@@ -122,9 +204,14 @@ export class ProjectService {
     );
   }
   // +
-  public createProjectQuestion(comment: ProjectQuestion): Observable<ProjectQuestion> {
-    return this.http.post<ProjectQuestion>(`${this.mainUrl}/questions`, comment).pipe(
+  public createProjectQuestion(question: ProjectQuestion): Observable<ProjectQuestion> {
+    return this.http.post<ProjectQuestion>(`${this.mainUrl}/questions`, question).pipe(
       map(data => new ProjectQuestion().deserialize(data)));
+  }
+
+  // +
+  public updateProjectQuestion(id: number, question: ProjectQuestion): Observable<any> {
+    return this.http.put<ProjectQuestion>(`${this.mainUrl}/questions/${id}`, question);
   }
 
   // +
@@ -137,24 +224,49 @@ export class ProjectService {
   public create(project: Project): Observable<Project> {
     return this.http.post<Project>(this.mainUrl, project);
   }
-
   // +
   public addView(id: number): Observable<any> {
     return this.http.post<any>(`${this.mainUrl}/view/add`, {project_id: id});
   }
-// +
+
+  // +
+  public downloadExcel(): Observable<any> {
+    // @ts-ignore
+    return this.http.post<any>(`${this.mainUrl}/order/download/excel`, {}, {responseType: 'arraybuffer'});
+      // .toPromise()
+      // .then(response => this.saveAsBlob(response));
+  }
+  // +
   public findById(id: number): Observable<Project> {
     return this.http.get<Project>(`${this.mainUrl}/${id}`).pipe(
       map(data => {
           return new Project().deserialize(data); }));
   }
   // +
+  public findProjectUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.mainUrl}/user/${id}`).pipe(
+      map(data => {
+        return new User().deserialize(data); }));
+  }
+  // +
   public update(id: number, project: Project): Observable<Project> {
     return this.http.put<Project>(`${this.mainUrl}/${id}`, project);
+  }
+  // +
+  public changeActiveState(project: Project, state): Observable<any> {
+    return this.http.put<Project>(`${this.mainUrl}/change/state`,{id: project.id, state: state});
   }
 // +
   public deleteById(id: number) {
     return this.http.delete(`${this.mainUrl}/${id}`);
   }
+  // private saveAsBlob(data: any) {
+  //   const blob = new Blob([data._body],
+  //     { type: 'application/vnd.ms-excel' });
+  //   const file = new File([blob], 'report.xls',
+  //     { type: 'application/vnd.ms-excel' });
+  //
+  //   FileSaver.saveAs(file);
+  // }
 
 }

@@ -1,0 +1,107 @@
+<app-spinner filterBy="product/"></app-spinner>
+
+<mat-dialog-content style="background: #fafbfe;">
+  <ng-container *ngIf="product">
+    <div class="row justify-content-center ">
+
+      <div class="col-md-12 ">
+        <form [formGroup]="productForm" >
+
+          <div class="form-row justify-content-center ">
+            <div class="col-md-12 grid-margin ">
+              <div class="card">
+                <div class="card-body p-2">
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+
+                      <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-definition">Title on eng</span>
+                    </div>
+                    <input required formControlName="title_eng" placeholder="Title on english" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-definition">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 grid-margin ">
+              <div class="card">
+                <div class="card-body p-2">
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+
+                      <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-definitio">Название на русском</span>
+                    </div>
+                    <input required formControlName="title_rus" placeholder="Название на русском" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-definitio">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 grid-margin ">
+              <div class="card">
+                <div class="card-body p-2">
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+
+                      <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-definiti">Аты қазақша</span>
+                    </div>
+                    <input required formControlName="title_kz" placeholder="Аты қазақша" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-definiti">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 grid-margin ">
+              <div class="text-right">
+                <button [matMenuTriggerFor]="addLang" mat-icon-button  matTooltip="{{'create.description_add_info' | translate}}"
+                        aria-label="Button that displays a tooltip when focused or hovered over">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <mat-menu #addLang="matMenu" xPosition="before">
+                  <button mat-menu-item (click)="addDescription('rus')">Русский</button>
+                  <button mat-menu-item (click)="addDescription('eng')">English</button>
+                  <button mat-menu-item (click)="addDescription('kz')">Қазақша</button>
+                </mat-menu>
+              </div>
+              <div class="card">
+                <div class="card-body p-2">
+                  <mat-form-field *ngFor="let lang of descriptionLangs;index as i" class="w-100" >
+                    <mat-label>{{(lang=='eng')?'Brief description of the product':(lang=='rus')?'Краткое описание продукта':'Тауардың қысқа сипаттамасы'}}</mat-label>
+                    <textarea [required]="i==0" formControlName="{{'description_' + lang}}" matInput
+                    ></textarea>
+                    <button *ngIf="i > 0" (click)="removeDescription(i)" matSuffix mat-icon-button  matTooltip="{{'create.description_remove_info' | translate}}"
+                            aria-label="Button that displays a tooltip when focused or hovered over">
+                      <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                  </mat-form-field>
+
+                </div></div></div>
+            <div class="col-md-12 grid-margin stretch-card ">
+              <div class="card">
+                <div class="card-body p-2">
+                  <div class="input-group  ">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-def">{{'project.product.cost' | translate}}</span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="cost" aria-label="Name" aria-describedby="inputGroup-sizing-def">
+                  </div>
+                </div></div></div>
+
+            <div class="col-md-12 grid-margin stretch-card ">
+              <div class="card">
+                <div class="card-body p-2">
+                  <mat-form-field class="w-100">
+                    <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="{{'project.product.upload_img'|translate}}" multiple></ngx-mat-file-input>
+                    <mat-icon matSuffix>image</mat-icon>
+                  </mat-form-field>
+                </div></div></div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn w-25 btn-lg bg-sss text-light" type="submit" mat-dialog-close (click)="onSubmitProductForm()">Save</button>
+</mat-dialog-actions>

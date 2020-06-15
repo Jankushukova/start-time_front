@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../../../../services/user/user.service';
 import {SimpleAuthService} from '../../../../../../services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-question',
@@ -14,9 +15,11 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class AuthQuestionComponent implements OnInit {
   authorized = false;
-  project: Project;
+  @Input() project: Project;
   questions: ProjectQuestion[] = [];
   questionForm: FormGroup;
+  isOwnerOfProject = false;
+
 
 
   constructor(
@@ -26,14 +29,24 @@ export class AuthQuestionComponent implements OnInit {
     private authService: SimpleAuthService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
+    private translator: TranslateService
 
 
   ) {
   }
 
   ngOnInit(): void {
+
+    this.projectService.questions$.subscribe(perf => this.questions = perf);
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
+    });
+    if (this.authorized) {
+      this.isOwnerOfProject = this.project.owner.id === this.userService.getUser().id;
+    }
+    this.projectService.getQuestionsOfProject(this.project.id).subscribe(perf => {
+      this.questions = perf;
+      this.projectService.changeQuestions(this.questions);
     });
     this.initQuestionForms();
   }
@@ -42,13 +55,6 @@ export class AuthQuestionComponent implements OnInit {
       question: ['', [Validators.required]],
     });
   }
-  someFunction(data) {
-    this.project = data;
-    this.projectService.getQuestionsOfProject(this.project.id).subscribe(perf => {
-      this.questions = perf;
-    });
-  }
-
   addQuestion() {
     if (this.authorized) {
       const question: ProjectQuestion = this.questionForm.getRawValue();
@@ -58,9 +64,13 @@ export class AuthQuestionComponent implements OnInit {
         this.questions = [...this.questions, perf];
         this.questions.sort().reverse();
         this.questionForm.reset();
+        this.projectService.changeQuestions(this.questions);
+
       });
     } else {
-      this.openSnackBar('Only authorized users can ask question', 'Close', 'style-warn');
+      this.translator.get('project.question.warning').subscribe(perf => {
+        this.openSnackBar(perf, 'Close', 'style-warn');
+      });
     }
   }
   openSnackBar(message: string, action: string, style: string) {

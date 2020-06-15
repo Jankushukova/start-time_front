@@ -6,6 +6,13 @@ import {ProjectLike} from '../../../../models/project/projectLike';
 import {UserService} from '../../../../services/user/user.service';
 import {LikeService} from '../../../../services/like.service';
 import {User} from '../../../../models/user/user';
+import {FormControl} from '@angular/forms';
+import {Product} from "../../../../models/product/product";
+import {AuthProductDetailsComponent} from "../../shop/product-details/auth-product-details.component";
+import {MatDialog} from "@angular/material/dialog";
+import {EditUnactiveProjectComponent} from "./edit-unactive-project/edit-unactive-project.component";
+import {TranslateService} from "@ngx-translate/core";
+import {AddProductToFinishedProjectComponent} from "./add-product-to-finished-project/add-product-to-finished-project.component";
 
 @Component({
   selector: 'app-projects',
@@ -13,37 +20,76 @@ import {User} from '../../../../models/user/user';
   styleUrls: ['./user-projects.component.css']
 })
 export class UserProjectsComponent implements OnInit {
-  projects: Project[];
-  page = 1;
+  selected = new FormControl(0);
+  activeProjects: Project[];
+  unactiveProjects: Project[];
+  finishedProjects: Project[];
+  activeProjectpage = 1;
+  unactiveProjectpage = 1;
+  finishedProjectpage = 1;
   perPageCount = 5;
-  totalProjectsCount: number;
-  progress = 0;
-  safeURL;
+  totalActiveProjectsCount: number;
+  totalUnActiveProjectsCount: number;
+  totalFinishedProjectsCount: number;
   userId = 0;
+  translate;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService,
     private userService: UserService,
-    private likeService: LikeService
+    private likeService: LikeService,
+    private dialog: MatDialog,
+    private translator: TranslateService
 
   ) { }
   ngOnInit(): void {
-    this.userId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-
-    this.changeProjects();
+    this.translate = this.translator;
+    this.userId = this.userService.getUser().id;
+    if (parseInt(this.route.snapshot.queryParamMap.get('unactive'), 10) === 1) {
+      this.changeUnActiveProjects();
+      this.selected.setValue(1);
+    } else {
+      this.changeActiveProjects();
+    }
   }
-  changeProjects() {
-    this.projects = null;
-    this.projectService.getProjectsOfUser(this.userId, this.perPageCount, this.page ).subscribe((perf: any) => {
-      this.totalProjectsCount = perf.total;
-      this.projects = perf.data.map(data => new Project().deserialize(data));
-      console.log(this.projects);
+  changeActiveProjects() {
+    this.activeProjects = null;
+    this.projectService.getActiveProjectsOfUser(this.perPageCount, this.activeProjectpage ).subscribe((perf: any) => {
+      this.totalActiveProjectsCount = perf.total;
+      this.activeProjects = perf.data.map(data => new Project().deserialize(data));
+      console.log(this.activeProjects);
     });
   }
-  changePage(event) {
-    this.page = event;
-    this.changeProjects();
+  changeUnActiveProjects() {
+    this.unactiveProjects = null;
+    this.projectService.getUnActiveProjectsOfUser(this.perPageCount, this.unactiveProjectpage ).subscribe((perf: any) => {
+      this.totalUnActiveProjectsCount = perf.total;
+      this.unactiveProjects = perf.data.map(data => new Project().deserialize(data));
+      console.log(this.unactiveProjects);
+    });
+  }
+  changeFinishedProjects() {
+    console.log('fini');
+    this.finishedProjects = null;
+    this.projectService.getFinishedProjectsOfUser(this.perPageCount, this.finishedProjectpage ).subscribe((perf: any) => {
+      this.totalFinishedProjectsCount = perf.total;
+      this.finishedProjects = perf.data.map(data => new Project().deserialize(data));
+      console.log(this.finishedProjects);
+    });
+  }
+  changePageFinishedProjects(event) {
+    this.finishedProjectpage = event;
+    this.changeFinishedProjects();
+  }
+  changePageActiveProjects(event) {
+    this.activeProjectpage = event;
+    this.changeActiveProjects();
+  }
+
+  changePageUnActiveProjects(event) {
+    this.unactiveProjectpage = event;
+    this.changeUnActiveProjects();
   }
 
   like(project: Project) {
@@ -68,34 +114,29 @@ export class UserProjectsComponent implements OnInit {
     });
   }
 
-  async showBakers(project: Project) {
-    const list: User[] = project.bakers;
-    bootbox.alert({
-      title: '<p class=\'display-5\'>Bakers of project</p>',
-      message() {
-        if (list.length > 0) {
-          let bakerslist = '<table class="table table-striped">\n' +
-            '                      <tbody>\n';
-          for (const baker of list) {
-            bakerslist += '                        <tr>\n' +
-              '                          <td>\n' +
-              '                            <div >\n' +
-              '      <p class=\'display-5\'><a style=\'color:inherit\' href=\'/user/userProfile/' + baker.id + '\' >' + baker.firstname + ' ' + baker.lastname + '</a></p>\n' +
-              '                            </div>\n' +
-              '                          </td>\n' +
-              '                        </tr>\n';
-
-          }
-          bakerslist += '                      </tbody>\n' +
-            '                    </table>';
-
-          return bakerslist;
-        }
-        return 'Nobody baked this project ';
-
+  changed(event) {
+    if (event === 0) {
+      this.changeActiveProjects();
+    } else if (event === 1) {
+      this.changeUnActiveProjects();
+    } else {
+      this.changeFinishedProjects();
+    }
+  }
+  editUnActiveProject(project: Project) {
+    const dialogRef = this.dialog.open(EditUnactiveProjectComponent, {
+      data: {
+        projectId: project.id,
       },
-      size: 'large',
-      centerVertical: true,
+      width: '60%'
+    });
+  }
+  AddProduct(project: Project) {
+    const dialogRef = this.dialog.open(AddProductToFinishedProjectComponent, {
+      data: {
+        projectId: project.id,
+      },
+      width: '60%'
     });
   }
 

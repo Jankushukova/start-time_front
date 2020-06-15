@@ -1,50 +1,155 @@
-<app-spinner filterBy="user/projects"></app-spinner>
 
-<ng-container *ngIf="projects"></ng-container>
-<div class="row justify-content-center mt-md-5 mb-md-5">
-  <div *ngFor="let project of projects" class="col-md-2 stretch-card grid-margin ">
-    <div class="card  shadow" >
-      <ng-container *ngIf="project.images">
+<mat-tab-group mat-align-tabs="end" [selectedIndex]="selected.value"
+               (selectedIndexChange)="changed($event)">
+  <mat-tab label="{{'user_profile.active' | translate}}" >
+    <app-spinner filterBy="active"></app-spinner>
 
-        <img class="card-img-top m-auto" *ngIf="project.images[0]" [src]="project.images[0].image" width="100%" height="150px" alt="Card image cap">
-      </ng-container>
+    <ng-container *ngIf="activeProjects">
+      <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
+        <div *ngFor="let project of activeProjects" class="col-md-2 stretch-card grid-margin ">
+          <div class="card  shadow" >
+            <ng-container *ngIf="project.images">
 
-      <img class="card-img-top m-auto" *ngIf="!project.images[0]" src="../../../../../assets/images/32_0.png" width="100%" height="150px" alt="Card image cap">
-      <div class="card-body">
-        <h6 class="card-title text-center"><a [routerLink]="['/user/project/details', project.id]" >{{project.title_rus}}</a></h6>
-        <hr/>
-        <div class="row">
-          <div class="col d-flex ">
-            <button mat-icon-button aria-label="Example icon button with an eye icon">
+              <img class="card-img-top m-auto" *ngIf="project.images[0]" [src]="project.images[0].image" width="100%" height="150px" alt="Card image cap">
+            </ng-container>
+
+            <img class="card-img-top m-auto" *ngIf="!project.images[0]" src="../../../../../assets/images/32_0.png" width="100%" height="150px" alt="Card image cap">
+            <div class="card-body">
+              <h6 class="card-title text-center"><a [routerLink]="['/project/details', project.id]" >
+                {{(translate.currentLang=='rus')?project.title_rus:(translate.currentLang=='eng')?project.title_eng:project.title_kz}}</a></h6>
+              <hr/>
+              <div class="row">
+                <div class="col d-flex ">
+                  <button mat-icon-button aria-label="Example icon button with an eye icon">
 
 
-              <mat-icon>remove_red_eye</mat-icon>
-              <span>{{project.views}}</span>
-            </button>
+                    <mat-icon>remove_red_eye</mat-icon>
+                    <span>{{project.views}}</span>
+                  </button>
+                </div>
+                <div class="col d-flex ">
+                  <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                    <mat-icon *ngIf="!project.liked" (click)="like(project)">favorite_border</mat-icon>
+                    <mat-icon *ngIf="project.liked" (click)="unlike(project)">favorite</mat-icon>
+                    <span>{{project.likes.length}}</span>
+                  </button>
+
+                </div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-secondary" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+
+            </div>
           </div>
-          <div class="col d-flex ">
-            <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
-              <mat-icon *ngIf="!project.liked" (click)="like(project)">favorite_border</mat-icon>
-              <mat-icon *ngIf="project.liked" (click)="unlike(project)">favorite</mat-icon>
-              <span>{{project.likes.length}}</span>
-            </button>
 
-          </div>
         </div>
-        <div class="progress">
-          <div class="progress-bar bg-secondary" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
+
+
 
       </div>
-    </div>
+      <div>
+        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageActiveProjects($event)" [ellipses]="true"  [collectionSize]="totalActiveProjectsCount" maxSize="5" [(page)]="activeProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
-  </div>
+      </div>
+    </ng-container>
+
+  </mat-tab>
+  <mat-tab label="{{'user_profile.unactive' | translate}}">
+    <app-spinner filterBy="unactive"></app-spinner>
+
+    <ng-container *ngIf="unactiveProjects">
+      <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
+        <div *ngFor="let project of unactiveProjects" class="col-md-2 stretch-card grid-margin ">
+          <div class="card  shadow" >
+            <ng-container *ngIf="project.images">
+
+              <img class="card-img-top m-auto" *ngIf="project.images[0]" [src]="project.images[0].image" width="100%" height="150px" alt="Card image cap">
+            </ng-container>
+
+            <img class="card-img-top m-auto" *ngIf="!project.images[0]" src="../../../../../assets/images/32_0.png" width="100%" height="150px" alt="Card image cap">
+            <div class="card-body">
+              <h6 class="card-title text-center"><a  >
+                {{(translate.currentLang=='rus')?project.title_rus:(translate.currentLang=='eng')?project.title_eng:project.title_kz}}
+              </a></h6>
+              <hr/>
+              <div class="row">
+                <div class="col d-flex ">
+                  <span class="text-danger">{{'user_profile.unactive' | translate}}</span>
+                </div>
+                <div class="col d-flex ">
+                  <button mat-icon-button aria-label="Example icon button with an eye icon" class="ml-auto" (click)="editUnActiveProject(project)">
+
+
+                    <mat-icon>border_color</mat-icon>
+                    <span></span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
 
 
 
-</div>
+      </div>
+      <div>
+        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageUnActiveProjects($event)" [ellipses]="true"  [collectionSize]="totalUnActiveProjectsCount" maxSize="5" [(page)]="unactiveProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
-<div>
-  <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalProjectsCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+      </div>
+    </ng-container>
 
-</div>
+
+  </mat-tab>
+  <mat-tab label="{{'user_profile.finished' | translate}}">
+    <app-spinner filterBy="finished"></app-spinner>
+
+    <ng-container *ngIf="finishedProjects">
+      <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
+        <div *ngFor="let project of finishedProjects" class="col-md-2 stretch-card grid-margin ">
+          <div class="card  shadow" >
+            <ng-container *ngIf="project.images">
+
+              <img class="card-img-top m-auto" *ngIf="project.images[0]" [src]="project.images[0].image" width="100%" height="150px" alt="Card image cap">
+            </ng-container>
+
+            <img class="card-img-top m-auto" *ngIf="!project.images[0]" src="../../../../../assets/images/32_0.png" width="100%" height="150px" alt="Card image cap">
+            <div class="card-body">
+              <h6 class="card-title text-center"><a  >
+                {{(translate.currentLang=='rus')?project.title_rus:(translate.currentLang=='eng')?project.title_eng:project.title_kz}}
+              </a></h6>
+              <hr/>
+              <div class="row">
+                <div class="col d-flex ">
+                  <span class="text-success">{{'user_profile.finished' | translate}}</span>
+                </div>
+                <div class="col d-flex ">
+                  <button matTooltip="{{'project.product.create_info'|translate}}" mat-icon-button aria-label="Example icon button with an eye icon" class="ml-auto" (click)="AddProduct(project)">
+
+                    <i class="fas fa-plus"></i>
+
+                    <i class="fas fa-gifts fa-lg"></i>
+                    <span></span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+      <div>
+        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageFinishedProjects($event)" [ellipses]="true"  [collectionSize]="totalFinishedProjectsCount" maxSize="5" [(page)]="finishedProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+      </div>
+    </ng-container>
+
+
+  </mat-tab>
+</mat-tab-group>

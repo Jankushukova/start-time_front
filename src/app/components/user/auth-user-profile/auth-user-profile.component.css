@@ -1,26 +1,55 @@
 .display-5 {
   font-size: 2.5rem;
   font-weight: 300;
-  line-height: 1.2;
+  line-height: .4;
 }
 .display-5 {
   font-size: 1.25rem;
+}
+.mob-button{
+  display: none;
+}
+.desc-button{
+  display: block;
 }
 
 @media (max-width: 991px) {
   .display-5 {
     font-size: 1rem;
   }
+  span{
+    font-size: 2.3vw;
+  }
+  .mob-button{
+    display: block;
+  }
+  .desc-button{
+    display: none;
+  }
 }
-.options-image{
-  height:80px;
-  width: auto;
-}
+
 .profile-image{
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .bg-start-time{
   background-color: #009E74;
+}
+.info-card{
+  height: 33.3%;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #009E74 !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #009E74 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #009E74 !important;;
 }

@@ -23,9 +23,4 @@ export class AuthInformationComponent implements OnInit {
     this.num = element;
   }
 
-
-  onActivate(componentReference) {
-      componentReference.someFunction(this.project);
-  }
-
 }

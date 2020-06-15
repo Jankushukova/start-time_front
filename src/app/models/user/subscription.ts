@@ -6,6 +6,8 @@ import {User} from './user';
 export class Subscription implements Deserializable {
   id: number;
   email: string;
+  created_at: string;
+  active: number;
 
   deserialize(input: any): this {
     return Object.assign(this, input);

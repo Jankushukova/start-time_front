@@ -6,6 +6,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {OrderProductsService} from '../../../../services/product/order-products.service';
 import {OrdersProduct} from '../../../../models/product/ordersProduct';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-product-details',
@@ -16,20 +17,18 @@ export class AuthProductDetailsComponent implements OnInit {
   product: Product;
   count = 1;
   sum = 0;
+  translate;
+  unactive = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
     private productService: ProductService,
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
-    private orderProductsService: OrderProductsService
+    private orderProductsService: OrderProductsService,
+    private translator: TranslateService
   ) {
-    productService.findById(data.productId).subscribe(perf => {
-     this.product = perf;
-     this.productService.addView(this.product.id);
-     this.sum = +this.product.cost;
-     console.log(typeof  this.product.cost);
-   });
+
   }
 
   slideConfig = {
@@ -41,6 +40,14 @@ export class AuthProductDetailsComponent implements OnInit {
     infinite: false
   };
   ngOnInit(): void {
+    this.unactive = this.data.UnActive;
+    this.productService.findById(this.data.productId).subscribe(perf => {
+      this.product = new Product().deserialize(perf);
+      this.productService.addView(this.product.id);
+      this.sum = +this.product.cost;
+      console.log(typeof  this.product.cost);
+    });
+    this.translate = this.translator;
   }
 
   intoTheBasket() {
@@ -63,7 +70,9 @@ export class AuthProductDetailsComponent implements OnInit {
     }
     console.log(products);
     this.orderProductsService.changeData(products);
-    this.openSnackBar( this.count + ' ' + this.product.title + ' added to basket', 'Close', 'style-success');
+    this.translator.get('shop.add').subscribe(perf => {
+      this.openSnackBar(  perf, 'Close', 'style-success');
+    });
 
   }
   changeCount(remove) {

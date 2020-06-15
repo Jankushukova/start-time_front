@@ -8,6 +8,7 @@ import {UserService} from '../services/user/user.service';
 import {Router} from '@angular/router';
 import {HttpStateService} from '../services/HttpStateService.service';
 import {HttpProgressState} from '../enum/http-progress-state.enum';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -16,7 +17,9 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private authService: SimpleAuthService,
               private userService: UserService,
               private router: Router,
-              private httpStateService: HttpStateService
+              private httpStateService: HttpStateService,
+              // tslint:disable-next-line:variable-name
+              private _snackBar: MatSnackBar
   ) {
   }
 
@@ -25,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (this.authService.checkAvailability()) {
       request = request.clone({
         setHeaders: {
-          Authorization: environment.tokenPrefix + this.authService.getToken()
+          Authorization: environment.tokenPrefix + this.authService.getToken(),
         }
       });
     }
@@ -38,6 +41,8 @@ export class TokenInterceptor implements HttpInterceptor {
         retry(1),
         catchError((error: HttpErrorResponse) => {
           if ( error.status === 401 ) {
+            this.openSnackBar('', 'Close', 'style-error');
+
             this.userService.logout();
           }
           return throwError(error);
@@ -48,5 +53,13 @@ export class TokenInterceptor implements HttpInterceptor {
             state: HttpProgressState.end
           });
     }));
+  }
+
+  openSnackBar(message: string, action: string, style: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+      panelClass: style,
+      horizontalPosition: 'right',
+    });
   }
 }
