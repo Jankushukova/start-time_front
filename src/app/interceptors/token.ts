@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {HttpStateService} from '../services/HttpStateService.service';
 import {HttpProgressState} from '../enum/http-progress-state.enum';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -17,6 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private authService: SimpleAuthService,
               private userService: UserService,
               private router: Router,
+              private translator: TranslateService,
               private httpStateService: HttpStateService,
               // tslint:disable-next-line:variable-name
               private _snackBar: MatSnackBar
@@ -41,7 +43,9 @@ export class TokenInterceptor implements HttpInterceptor {
         retry(1),
         catchError((error: HttpErrorResponse) => {
           if ( error.status === 401 ) {
-            this.openSnackBar('', 'Close', 'style-error');
+            this.translator.get('login_error').subscribe(perf => {
+              this.openSnackBar(perf, 'Close', 'style-error');
+            });
 
             this.userService.logout();
           }
@@ -62,4 +66,5 @@ export class TokenInterceptor implements HttpInterceptor {
       horizontalPosition: 'right',
     });
   }
+
 }

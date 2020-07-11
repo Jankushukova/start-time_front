@@ -16,16 +16,17 @@ export class Project implements Deserializable{
   content_eng: string;
   content_kz: string;
   content_rus: string;
+  created_at: string;
   video: string;
-  goal: number;
-  gathered: number;
+  goal: string;
+  gathered: string;
   active: number;
   backers: number;
   // tslint:disable-next-line:variable-name
   owner_id: number;
   // tslint:disable-next-line:variable-name
   category_id: number;
-  category: ProjectCategory;
+  category: any;
   views: number;
   liked: boolean;
   owner: User;
@@ -33,11 +34,12 @@ export class Project implements Deserializable{
   likes: any[];
   bakers: User[];
   gifts: Gift[];
+  main: boolean;
 
   deserialize(input: any): this {
     Object.assign(this, input);
     if (input.user) this.owner = new User().deserialize((input.user));
-    if(input.category) this.category = new ProjectCategory().deserialize(input.category);
+    // if(input.category) this.category = new ProjectCategory().deserialize(input.category);
     if(input.gifts) this.gifts = input.gifts.map( res => new Gift().deserialize(res));
     return this;
 

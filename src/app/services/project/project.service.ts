@@ -26,7 +26,12 @@ export class ProjectService {
   questions$ = this.questions.asObservable();
   private projects = new BehaviorSubject([]);
   projects$ = this.projects.asObservable();
+  private activeProjects = new BehaviorSubject([]);
+  activeProjects$ = this.activeProjects.asObservable();
 
+  changeActiveProjects(data: Project[]) {
+    this.activeProjects.next(data);
+  }
   changeComments(data: ProjectComment[]) {
     this.comments.next(data);
   }
@@ -52,6 +57,10 @@ export class ProjectService {
   // +
   public getStatisticsBackers(): Observable<number> {
     return this.http.get<number>(`${this.customUrl}statistics/project/bakers`);
+  }
+  // +
+  public getStatisticsUsers(): Observable<number> {
+    return this.http.get<number>(`${this.customUrl}statistics/users`);
   }
 
 
@@ -101,6 +110,10 @@ export class ProjectService {
     });
   }
   // +
+  public getActiveProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}/active`);
+  }
+  // +
   public getUnActiveProjectsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.customUrl}user/projects/unactive`, {
       // @ts-ignore
@@ -139,8 +152,26 @@ export class ProjectService {
     );
   }
   // +
+  public getPopularProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}s/popular`).pipe(
+      map(data => data.map(entryData => new Project().deserialize(entryData)))
+    );
+  }
+  // +
   public filterProjects(attributeName: string, text: string, perPageCount: number, pageCount: number): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.mainUrl}/filter`, {
+      // @ts-ignore
+      params: {
+        searchText: text,
+        attribute: attributeName,
+        perPage: perPageCount,
+        page: pageCount
+      }
+    });
+  }
+  // +
+  public filterProjectsByName(attributeName: string, text: string, perPageCount: number, pageCount: number): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}/filter/name`, {
       // @ts-ignore
       params: {
         searchText: text,
@@ -183,6 +214,12 @@ export class ProjectService {
         page: pageNumber
       }
     });
+  }
+  // +
+  public getProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}s/all`).pipe(
+      map(data => data.map(entryData => new Project().deserialize(entryData)))
+    );
   }
 
 
@@ -228,11 +265,15 @@ export class ProjectService {
   public addView(id: number): Observable<any> {
     return this.http.post<any>(`${this.mainUrl}/view/add`, {project_id: id});
   }
+// +
+  public editPopular(id: number): Observable<any> {
+    return this.http.post<any>(`${this.mainUrl}/edit/popular`, {project_id: id});
+  }
 
   // +
-  public downloadExcel(): Observable<any> {
+  public downloadExcel(project): Observable<any> {
     // @ts-ignore
-    return this.http.post<any>(`${this.mainUrl}/order/download/excel`, {}, {responseType: 'arraybuffer'});
+    return this.http.post<any>(`${this.mainUrl}/order/download/excel`, { id: project}, {responseType: 'arraybuffer'});
       // .toPromise()
       // .then(response => this.saveAsBlob(response));
   }
@@ -255,6 +296,10 @@ export class ProjectService {
   // +
   public changeActiveState(project: Project, state): Observable<any> {
     return this.http.put<Project>(`${this.mainUrl}/change/state`,{id: project.id, state: state});
+  }
+  // +
+  public changeOrderStatus(orderId): Observable<any> {
+    return this.http.put<any>(`${this.mainUrl}/order/change/state`, {id: orderId});
   }
 // +
   public deleteById(id: number) {

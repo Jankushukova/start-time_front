@@ -10,6 +10,7 @@ import {SimpleAuthService} from '../auth.service';
 import {Router} from '@angular/router';
 import {SocialUser} from 'angularx-social-login';
 import {Project} from '../../models/project/project';
+import {CommentLike} from "../../models/commentLike";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,13 @@ export class UserService {
   registerUrl = environment.apiUrl + '/api/v1/register';
   private users = new BehaviorSubject([]);
   users$ = this.users.asObservable();
+  private partners = new BehaviorSubject([]);
+  partners$ = this.partners.asObservable();
   changeUsers(data: User[]) {
     this.users.next(data);
+  }
+  changePartners(data: any[]) {
+    this.partners.next(data);
   }
   constructor(public http: HttpClient,
               private authService: SimpleAuthService,
@@ -91,9 +97,7 @@ export class UserService {
     return false;
   }
   public checkRoleUrl() {
-    console.log('here');
     if (this.getUser()) {
-      console.log('if');
       if ( this.isAdmin()) {
         return '/admin';
       } else if (this.isAuthorized()) {
@@ -128,13 +132,16 @@ export class UserService {
     return this.http.delete(`${this.mainUrl}/${id}`);
   }
 
-
-  public getPartners(): Observable<User[]> {
-    return this.http.get<User[]>( `${this.mainUrl }/partners`).pipe(
-      // tslint:disable-next-line:no-shadowed-variable
-      map(data => data.map( data => new User().deserialize(data)))
-    );
+  // +
+  public createPartner(partner: any): Observable<any> {
+    return this.http.post<any>(this.mainUrl + '/partner', partner);
   }
+
+  // +
+  public deletePartner(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.mainUrl}/partner/${id}`);
+  }
+
 
   public getAll(perPageCount: number, pageCount: number): Observable<User[]> {
     return this.http.get<User[]>( `${this.mainUrl }/all`,
@@ -145,6 +152,9 @@ export class UserService {
           page: pageCount
         }
       });
+  }
+  public getAllPartners(): Observable<any[]> {
+    return this.http.get<any[]>( `${this.mainUrl }/partner/all`);
   }
   // +
   public getRecommendationsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {

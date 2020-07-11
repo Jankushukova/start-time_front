@@ -1,206 +1,496 @@
 <app-spinner filterBy="project/"></app-spinner>
-<ng-container *ngIf="mostPopularProjects && mostPopularProducts">
-<div class="row justify-content-center">
-  <div class="col-md-6 col-lg-6 col-sm-8 col-8 grid-margin stretch-card">
-    <div class="card shadow-lg ">
-      <div class="card-body p-0">
-        <div id="carouselExampleIndicators" class="carousel slide rounded" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner rounded-lg ">
-            <div class="carousel-item h-100" *ngIf="mostPopularProjects[0]">
-              <div class="carousel-img-wrap hover-cursor h-100" [routerLink]="['/project/details',mostPopularProjects[0].id]">
-                <ng-container *ngIf="mostPopularProjects[0].images[0]">
+<ng-container *ngIf="mostPopularProjects && mostPopularProducts" >
+  <div class="row justify-content-center mt-md-5 pr-3 pl-3 ">
 
-                <img class="d-block w-100 hover-cursor" style="max-width: 100%; max-height: 90%"   [src]="mostPopularProjects[0].images[0].image"  alt="Second slide">
-                </ng-container>
-                <ng-container *ngIf="!mostPopularProjects[0].images[0]">
-                  <img class="d-block w-100 hover-cursor" style="max-width: 100%; max-height: 90%"  src="../../../../assets/images/images.png"  alt="First slide">
-                </ng-container>
+  <div class="col-md-12 col-lg-12 col-sm-12 col-12 p-0  ">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active h-100">
+              <div class="row justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+                  <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[0].images[0].image" alt="First slide">
+                </div>
+                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                  <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
+                    <div class="h-50 overflow-auto p-md-2">
 
-                <div class="text-dark text-center  d-md-block">
+                        <h3 class="display-4 mb-0 text-dark">
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[0].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[0].title_eng:mostPopularProjects[0].title_kz}}</h3>
+                        <p class="text-right mb-0">{{ progress(mostPopularProjects[0]) + '%'}}</p>
+                        <div class="progress mb-md-3 " >
+                          <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[0])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[0].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[0].description_eng:mostPopularProjects[0].description_kz}}
 
-                  <h3 class="display-4 text-dark">
-                    {{(translate.currentLang === 'rus') ? mostPopularProjects[0].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[0].title_eng:mostPopularProjects[0].title_kz}}</h3>
+                        </p>
+                                         </div>
+                    <div class="h-50 w-100">
+                      <div class="row justify-content-center h-50 m-0 w-100">
+                        <div class="col-10 p-0" >
+                          <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[0].active!=2">
+                            {{daysLeft(mostPopularProjects[0])}}
+                          </h3>
+                            <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[0].active!=2">
+                              {{'project.days_left' | translate}}
+                            </p>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[0].active==2">
+                            {{'project.end' | translate}}
+                          </p>
+                          <hr class="m-0"/>
+                        </div>
+
+
+                      </div>
+                      <div class="text-left mt-md-4 h-50 row">
+                        <div class="col-md-7 col-12 text-center">
+                          <h3 class=" display m-0"><span class="color-sss">₸{{inLocale(mostPopularProjects[0].goal)}}</span></h3>
+
+                        </div>
+                        <div class="col-md-5 col-12 text-center">
+                          <button class="btn p-md-2 p-1 p-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[0].id]" > {{'project.more' | translate}}</button>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                  </div>
 
                 </div>
+
               </div>
+
             </div>
-            <div class="carousel-item active h-100" *ngIf="mostPopularProjects[1]">
-              <div class="carousel-img-wrap h-100 hover-cursor" [routerLink]="['/project/details',mostPopularProjects[1].id]">
-                <ng-container *ngIf="mostPopularProjects[1].images[0]">
-                  <img class="d-block w-100 hover-cursor" style="max-width: 100%; max-height: 90%"  [src]="mostPopularProjects[1].images[0].image"  alt="First slide">
-                </ng-container>
-                <ng-container *ngIf="!mostPopularProjects[1].images[0]">
-                  <img class="d-block w-100 hover-cursor" style="max-width: 100%; max-height: 90%"  src="../../../../assets/images/images.png"  alt="First slide">
-                </ng-container>
+            <div class="carousel-item h-100">
+              <div class="row justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+                  <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[1].images[0].image" alt="First slide">
+                </div>
+                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                  <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
+                    <div class="h-50 overflow-auto p-md-2">
 
-                <div class="text-dark text-center d-md-block">
+                        <h3 class="display-4 mb-0 text-dark">
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[1].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[1].title_eng:mostPopularProjects[1].title_kz}}</h3>
+                        <p class="text-right mb-0">{{ progress(mostPopularProjects[1]) + '%'}}</p>
+                        <div class="progress mb-md-3 " >
+                          <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[1])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[1].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[1].description_eng:mostPopularProjects[1].description_kz}}
 
-                  <h3 class="display-4 text-dark">
-                    {{(translate.currentLang === 'rus') ? mostPopularProjects[1].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[1].title_eng:mostPopularProjects[1].title_kz}}</h3>
+                        </p>
+                                         </div>
+                    <div class="h-50 w-100">
+                      <div class="row justify-content-center h-50 m-0 w-100">
+                        <div class="col-10 p-0" >
+                          <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[1].active!=2">
+                            {{daysLeft(mostPopularProjects[1])}}
+                          </h3>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[1].active!=2">
+                            {{'project.days_left' | translate}}
+                          </p>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[1].active==2">
+                            {{'project.end' | translate}}
+                          </p>
+                          <hr class="m-0"/>
+                        </div>
+
+
+                      </div>
+                      <div class="text-left mt-md-4 h-50 row">
+                        <div class="col-md-7 col-12 text-center">
+                          <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[1].goal)}}</span></h3>
+
+                        </div>
+                        <div class="col-md-5 col-12 text-center">
+                          <button class="btn p-md-2 p-1 p-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[1].id]" > {{'project.more' | translate}}</button>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                  </div>
 
                 </div>
+
               </div>
 
             </div>
-            <div class="carousel-item h-100"*ngIf="mostPopularProjects[2]" >
-              <div class="carousel-img-wrap h-100 hover-cursor" [routerLink]="['/project/details',mostPopularProjects[2].id]">
-                <ng-container *ngIf="mostPopularProjects[2].images[0]">
+            <div class="carousel-item h-100">
+              <div class="row justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+                  <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[2].images[0].image" alt="First slide">
+                </div>
+                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                  <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
+                    <div class="h-50 overflow-auto p-md-2">
 
-              <img class="d-block w-100" style="max-width: 100%; max-height: 90%"  [src]="mostPopularProjects[2].images[0].image"  alt="Third slide">
-                </ng-container>
-                <ng-container *ngIf="!mostPopularProjects[2].images[0]">
-                  <img class="d-block w-100 hover-cursor" style="max-width: 100%; max-height: 90%"  src="../../../../assets/images/images.png"  alt="First slide">
-                </ng-container>
-                <div class="text-dark text-center  d-md-block">
+                        <h3 class="display-4 mb-0 text-dark">
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[2].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[2].title_eng:mostPopularProjects[2].title_kz}}</h3>
+                        <p class="text-right mb-0">{{ progress(mostPopularProjects[2]) + '%'}}</p>
+                        <div class="progress mb-md-3 " >
+                          <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[2])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[2].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[2].description_eng:mostPopularProjects[2].description_kz}}
 
-                  <h3 class="display-4 text-dark">
-                    {{(translate.currentLang === 'rus') ? mostPopularProjects[2].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[2].title_eng:mostPopularProjects[2].title_kz}}</h3>
+                        </p>
+                                         </div>
+                    <div class="h-50 w-100">
+                      <div class="row justify-content-center h-50 m-0 w-100">
+                        <div class="col-10 p-0" >
+                          <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[2].active!=2">
+                            {{daysLeft(mostPopularProjects[2])}}
+                          </h3>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[2].active!=2">
+                            {{'project.days_left' | translate}}
+                          </p>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[2].active==2">
+                            {{'project.end' | translate}}
+                          </p>
+                          <hr class="m-0"/>
+                        </div>
+
+
+                      </div>
+                      <div class="text-left mt-md-4 h-50 row">
+                        <div class="col-md-7 col-12 text-center">
+                          <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[2].goal)}}</span></h3>
+
+                        </div>
+                        <div class="col-md-5 col-12 text-center">
+                          <button class="btn p-md-2 p-1 p-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[2].id]" > {{'project.more' | translate}}</button>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                  </div>
 
                 </div>
+
               </div>
+
+            </div>
+            <div class="carousel-item h-100">
+              <div class="row justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+                  <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[3].images[0].image" alt="First slide">
+                </div>
+                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                  <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
+                    <div class="h-50 overflow-auto p-md-2">
+
+                        <h3 class="display-4 mb-0 text-dark">
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[3].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[3].title_eng:mostPopularProjects[3].title_kz}}</h3>
+                        <p class="text-right mb-0">{{ progress(mostPopularProjects[3]) + '%'}}</p>
+                        <div class="progress mb-md-3 " >
+                          <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[3])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[3].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[3].description_eng:mostPopularProjects[3].description_kz}}
+
+                        </p>
+                                         </div>
+                    <div class="h-50 w-100">
+                      <div class="row justify-content-center h-50 m-0 w-100">
+                        <div class="col-10 p-0" >
+                          <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[3].active!=2">
+                            {{daysLeft(mostPopularProjects[3])}}
+                          </h3>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[3].active!=2">
+                            {{'project.days_left' | translate}}
+                          </p>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[3].active==2">
+                            {{'project.end' | translate}}
+                          </p>
+                          <hr class="m-0"/>
+                        </div>
+
+
+                      </div>
+                      <div class="text-left mt-md-4 h-50 row">
+                        <div class="col-md-7 col-12 text-center">
+                          <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[3].goal)}}</span></h3>
+
+                        </div>
+                        <div class="col-md-5 col-12 text-center">
+                          <button class="btn p-md-2 p-1 p-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[3].id]" > {{'project.more' | translate}}</button>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="carousel-item h-100">
+              <div class="row justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+                  <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[4].images[0].image" alt="First slide">
+                </div>
+                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                  <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
+                    <div class="h-50 overflow-auto p-md-2">
+
+                        <h3 class="display-4 mb-0 text-dark">
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[4].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[4].title_eng:mostPopularProjects[4].title_kz}}</h3>
+                        <p class="text-right mb-0">{{ progress(mostPopularProjects[4]) + '%'}}</p>
+                        <div class="progress mb-md-3 " >
+                          <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[4])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>
+                          {{(translate.currentLang === 'rus') ? mostPopularProjects[4].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[4].description_eng:mostPopularProjects[4].description_kz}}
+
+                        </p>
+                                         </div>
+                    <div class="h-50 w-100">
+                      <div class="row justify-content-center h-50 m-0 w-100">
+                        <div class="col-10 p-0" >
+                          <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[4].active!=2">
+                            {{daysLeft(mostPopularProjects[4])}}
+                          </h3>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[4].active!=2">
+                            {{'project.days_left' | translate}}
+                          </p>
+                          <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[4].active==2">
+                            {{'project.end' | translate}}
+                          </p>
+                          <hr class="m-0"/>
+                        </div>
+
+
+                      </div>
+                      <div class="text-left mt-md-4 h-50 row">
+                        <div class="col-md-7 col-12 text-center">
+                          <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[4].goal)}}</span></h3>
+
+                        </div>
+                        <div class="col-md-5 col-12 text-center">
+                          <button class="btn p-md-2 p-1 p-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[4].id]" > {{'project.more' | translate}}</button>
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">{{'back' | translate}}</span>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span  aria-hidden="true" class="color-sss">
+              <i class="fas fa-chevron-left popular-icon"></i>
+            </span>
+            <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">{{'next' | translate}}</span>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span  aria-hidden="true" class="color-sss">
+              <i class="fas fa-chevron-right popular-icon"></i>
+            </span>
+            <span class="sr-only">Next</span>
           </a>
-        </div>      </div>
-    </div>
+        </div>
+
   </div>
-  <div class="col-md-3 col-lg-3 col-sm-4 col-4 d-flex align-items-stretch">
-    <div class="row w-100">
-      <div class=" col-sm-12 mb-3 stretch-card  paddingDiv" >
+  <div class="col-10 mt-md-5">
+    <hr/>
+  </div>
+  <div class="col-md-12 col-lg-12 col-sm-12  col-12 text-center">
+    <button class="bg-start-time btn  display-4 mt-3 p-md-4" routerLink="/create" >{{'main.start' | translate}}</button>
 
-        <div class="card rounded shadow-lg ">
-          <div class="card-body p-0" *ngIf="mostPopularProjects[3]" [routerLink]="['/project/details',mostPopularProjects[3].id]">
+  </div>
+  <div class="col-10 mt-md-5">
+    <hr/>
 
-            <div class="little-img-wrap">
-              <ng-container *ngIf="mostPopularProjects[3].images[0]">
+  </div>
+    <div class=" col-md-12 col-sm-11 col-lg-12  col-11 mt-md-5 mt-2">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex align-items-end flex-wrap m-auto">
+          <div class="mr-md-3 mr-xl-5">
+            <h2 class="display text-center color-sss">{{'main.project_help' | translate}}</h2>
+          </div>
+        </div>
 
-
-              <img class="rounded" [src]="mostPopularProjects[3].images[0].image" style="max-height: 100%; max-width: 100%" alt="Forth project"/>
+      </div>
+    </div>
+  <div class="col-md-12 col-lg-12 col-sm-12 col-12 mb-2  text-right" >
+    <ngx-slick-carousel  class="carousel " #slickModal="slick-carousel" [config]="slideConfig1" >
+      <div ngxSlickItem *ngFor="let project of projects" class="slide ">
+        <div class="comp card m-1 m-md-3 border project-card stretch-card">
+          <div class="card-body p-0 p-md-3 h-100">
+            <div class="paddingDiv h-50"  >
+              <ng-container *ngIf="project.images">
+                <img class="m-auto"  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" alt="Card image cap">
               </ng-container>
-
+              <img class="card-img-top m-auto" *ngIf="!project.images[0]" style="max-width: 100%; max-height: 100%" src="../../../../assets/images/32_0.png"  alt="Card image cap">
 
             </div>
-            <div class="text-dark text-center  d-md-block">
-              <h6 class="display-4">
-                {{(translate.currentLang === 'rus') ? mostPopularProjects[3].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[3].title_eng:mostPopularProjects[3].title_kz}}</h6>
+
+            <div class=" h-25 overflow-auto">
+              <div class="media-body text-md-left text-center text-sm-center">
+                <p class="card-title text-center"><a [routerLink]="['/project/details', project.id]" >
+                  {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></p>
+
+              </div>
             </div>
+            <div class="h-25">
+              <div>
+                <hr class="m-md-1 m-0"/>
+                <p class="text-muted h-25 overflow-hidden m-0 mb-md-1" >{{'author' | translate}}: <a style="color: inherit" [routerLink]="['/userProfile',project.owner.id]"> {{project.owner.fullname}}</a></p>
+              </div>
+
+              <div class="row w-100 mb-1">
+                <div class="col-9 text-left pr-0 display-5">
+                  ₸{{(project.gathered).toLocaleString()}}
+                </div>
+                <div class="col-3 color-sss p-0 display-5">{{progress(project) + '%'}}</div>
+
+              </div>
+              <div class=" progress">
+                <div class="progress-bar" [ngClass]="(progress(project) >= 100) ? 'bg-danger' : 'bg-sss'" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+
+              </div>
+             </div>
           </div>
+
         </div>
-
-      </div>
-      <div  class="col-sm-12 grid-margin stretch-card  paddingDiv">
-
-        <div class="card  rounded shadow-lg">
-          <div class="card-body p-0" *ngIf="mostPopularProjects[4]" [routerLink]="['/project/details',mostPopularProjects[4].id]">
-            <div class="little-img-wrap">
-              <ng-container *ngIf="mostPopularProjects[4].images[0]">
-
-              <img class="rounded" [src]="mostPopularProjects[4].images[0].image" style="max-height: 100%; max-width: 100%" alt="Fifth project" />
+        <div class="mob card p-1 m-md-3 border project-card stretch-card">
+          <div class="card-body p-0 p-md-3 h-100">
+            <div class="paddingDiv h-25"  >
+              <ng-container *ngIf="project.images">
+                <img class="m-auto"  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" >
               </ng-container>
+              <img class="card-img-top m-auto" *ngIf="!project.images[0]" style="max-width: 100%; max-height: 100%" src="../../../../assets/images/32_0.png"  >
 
             </div>
-            <div class="text-dark text-center  d-md-block">
-              <h6 class="display-4">
-                {{(translate.currentLang === 'rus') ? mostPopularProjects[4].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[4].title_eng:mostPopularProjects[4].title_kz}}</h6>
+
+            <div class=" h-25 overflow-auto">
+              <div class="media-body text-md-left text-center text-sm-center">
+                <p class="card-title text-center"><a [routerLink]="['/project/details', project.id]" >
+                  {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></p>
+
+              </div>
             </div>
+            <div class="h-25">
+              <hr class="m-md-1 m-0 mt-1 h-25"/>
+              <p class="text-muted h-50 overflow-hidden m-0 mb-md-1" >{{'author' | translate}}: <a style="color: inherit" [routerLink]="['/userProfile',project.owner.id]"> {{project.owner.fullname}}</a></p>
+
+            </div>
+            <div class="h-25">
+
+              <div class="row w-100 m-0 mb-1 ">
+                <div class="col-8 text-left p-0 display-5">
+                  ₸{{(project.gathered).toLocaleString()}}
+                </div>
+                <div class="col-4 color-sss p-0 display-5">{{progress(project) + '%'}}</div>
+
+              </div>
+              <div class=" progress">
+                <div class="progress-bar" [ngClass]="(progress(project) >= 100) ? 'bg-danger' : 'bg-sss'" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+
+              </div>
+             </div>
           </div>
 
         </div>
+
       </div>
-    </div>
+
+    </ngx-slick-carousel>
+    <button class="bg-start-time btn mt-md-4 mt-3 mr-md-5" routerLink="/projects" >{{'allProjects'|translate}}</button>
+
+
   </div>
-
-
-
-  <div class="col-md-6 col-lg-6 col-sm-8 col-8 grid-margin stretch-card">
-    <div class="card  shadow-lg p-0">
-      <div class="card-body p-0">
-<!--          <h2 class="display-5">Start Time поддерживает</h2>-->
-        <div class="row  pb-md-5 p-md-2 p-1">
-          <div class="project-card col-md-3 col-lg-4 col-sm-4 col-4 text-center  ">
-                <img style="max-width: 100%;max-height: 100%"  src="../../../../assets/images/31_0.png">
-                <p>{{'main.charity' | translate}}</p>
-          </div>
-          <div class="project-card col-md-3 col-lg-4 col-sm-4 col-4 text-center">
-
-                <img style="max-width: 100%;max-height: 100%"  src="../../../../assets/images/15_0.png" >
-
-                <p>{{'main.social' | translate}}</p>
-          </div>
-          <div class="project-card col-md-3 col-lg-4 col-sm-4 col-4 text-center">
-                <img style="max-width: 100%;max-height: 100%"  src="../../../../assets/images/5_0.png" >
-            <p>{{'main.commercial'|translate}}</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <div class="col-md-3 col-lg-3 col-sm-4  col-4 d-flex align-items-stretch">
-    <div class="row w-100 justify-content-center">
-      <div class=" col-sm-11 grid-margin stretch-card bg-start-time shadow-lg" style="border-radius: 10px">
-        <div class="card align-self-center border-0 bg-start-time hover-cursor p-0 ">
-
-          <div class="card-body text-center p-0">
-        <h5 routerLink="/create" class="display ">{{'main.start' | translate}}</h5>
-          </div></div>
-      </div>
-    </div>
+  <div class="col-10">
+    <hr/>
 
   </div>
 </div>
 
-  <div class="row justify-content-center">
 
-  <div class="col-md-2 col-lg-2 col-sm-2 col-3 mt-md-5 grid-margin stretch-card">
+
+  <div class="row justify-content-center pr-2 pl-2">
+
+  <div class="col-md-3 col-lg-3 col-sm-3  pr-md-3  pl-md-3 pl-1 pr-1 col-3 mt-md-5 stretch-card">
     <div class="card  border-0 shadow-lg ">
 
-      <div class="card-body p-1 p-md-3">
-        <h1 class="text-center display counter-count">{{projectNum}}</h1>
-        <p class="text-center text-muted">{{'main.projects' | translate}}</p>
-        <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 95%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="card-body p-0 p-md-3 stretch-card">
+        <div class="align-self-center m-auto">
+          <h1 class="text-center m-0 display counter-count color-sss">{{projectNum}}</h1>
+          <p class="text-center text-muted m-0 pp">{{'main.projects' | translate}}</p>
+
         </div>
+
 
       </div>
     </div>
   </div>
-  <div class="col-md-2 col-lg-2 col-sm-2 col-3 mt-md-5 grid-margin stretch-card">
+  <div class="col-md-3 col-lg-3 col-sm-3 pr-md-3 pl-1 pr-1 col-3 mt-md-5 stretch-card">
     <div class="card border-0 shadow-lg ">
 
-      <div class="card-body p-1 p-md-3">
-        <h1 class="text-center display counter-count">{{sucProjNum}}</h1>
-        <p class="text-muted text-center">{{'main.startups' | translate}}</p>
-        <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 55%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="card-body p-0 p-md-3 stretch-card">
+        <div class="align-self-center m-auto">
+          <h1 class="text-center m-0 display counter-count color-sss">{{sucProjNum}}</h1>
+          <p class="text-muted text-center m-0 pp">{{'main.startups' | translate}}</p>
+
         </div>
+
       </div>
     </div>
   </div>
-  <div class="col-md-2 col-lg-2 col-sm-2 col-3  mt-md-5 grid-margin stretch-card">
+  <div class="col-md-3 col-lg-3 col-sm-3 pr-md-3 pl-1 pr-1 col-3  mt-md-5 stretch-card">
     <div class="card border-0 shadow-lg ">
 
-      <div class="card-body p-1 p-md-3">
-        <h1 class="text-center display counter-count">{{projectBakNum}}</h1>
-        <p class="text-center text-muted">{{'main.bakes' | translate}}</p>
-        <div class="progress">
-          <div class="progress-bar bg-success" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="card-body p-0 p-md-3 stretch-card">
+        <div class="align-self-center m-auto ">
+          <div class="d-flex">
+            <h1 class="text-center m-0 display align-self-center counter-count color-sss ">₸{{(projectBakNum/1000000).toFixed(2)}}</h1>
+            <span class="align-self-center ml-md-1 color-sss sp mt-md-2 mt-1">{{'mln'|translate}}</span>
+          </div>
+
+          <p class="text-center text-muted pp">{{'main.bakes' | translate}}</p>
+
         </div>
+
       </div>
     </div>
   </div>
+    <div class="col-md-3 col-lg-3 col-sm-3  pr-md-3 col-3 pl-1 pr-1 mt-md-5 stretch-card">
+      <div class="card border-0 shadow-lg ">
+
+        <div class="card-body p-0 p-md-3  stretch-card">
+          <div class="align-self-center m-auto">
+            <h1 class="text-center m-0 display counter-count color-sss">{{(userNum).toLocaleString()}}</h1>
+            <p class="text-center text-muted pp">{{'main.users' | translate}}</p>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-10 mt-md-5">
+      <hr/>
+
+    </div>
   <div class=" col-md-9 col-sm-11 col-lg-9  col-11 mt-md-5 mt-2">
     <div class="d-flex justify-content-between flex-wrap">
       <div class="d-flex align-items-end flex-wrap">
@@ -211,98 +501,32 @@
       </div>
     </div>
   </div>
-
-  <div class=" col-md-11 col-lg-11 col-sm-11 col-11  mt-md-2 grid-margin">
-
+  <div class=" col-md-11 col-lg-11 col-sm-11 col-11  mt-md-2 text-center">
   <ngx-slick-carousel style="background-color: #fafbfe" class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-
     <div ngxSlickItem *ngFor="let partner of partners" class="slide">
       <div class="card m-1 m-md-3 border">
         <div class="card-body p-0 p-md-3">
           <div class="paddingDiv"  >
-            <img [src]="[partner.image]" alt="" width="100%">
-            <div class="media">
-              <div class="media-body">
-                <p class="card-text text-center">{{partner.getFullName()}}</p>
-              </div>
-
-            </div>
+            <a target="_blank" [href]="partner.url">
+            <img [src]="[partner.image]" alt="" style="max-width: 100%">
+            </a>
           </div>
-
-
         </div>
       </div>
-
     </div>
-
   </ngx-slick-carousel>
+    <hr class="mt-md-5"/>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class=" col-md-9 col-sm-11 col-lg-9 col-11 mt-md-5 ">
-    <div class="d-flex justify-content-between flex-wrap">
-      <div class="d-flex align-items-end flex-wrap">
-        <div class="mr-md-3 mr-xl-5">
-          <h2 class="display">Q-Shop</h2>
-        </div>
-
-      </div>
+    <div class="col-md-12 col-lg-12 col-sm-12  col-12 mb-4 ">
+      <button class="comp bg-start-time btn mt-md-4 mt-3 m-auto display w-25 mb-md-2" routerLink="/shop" >Q-Shop</button>
+      <button class="mob bg-start-time btn mt-md-4 mt-3 m-auto display w-50 mb-md-2" routerLink="/shop" >Q-Shop</button>
     </div>
-  </div>
-
-
-  <div class=" col-sm-11 mt-md-2 grid-margin">
-    <div class="row justify-content-center">
-      <div class="col-md-2 col-3 col-lg-2 col-sm-2 h-100 grid-margin stretch-card" *ngFor="let product of mostPopularProducts">
-        <div class="card m-1 m-md-3 border">
-          <div class="card-body p-0 p-md-3">
-            <div class="paddingDiv"  >
-              <img *ngIf="product.images[0]" [src]="[product.images[0].url]" alt="" width="100%">
-              <img *ngIf="!product.images[0]" src="../../../../assets/images/5_0.png" alt="" width="100%">
-              <div class="media">
-                <div class="media-body text-md-left text-center text-sm-center">
-                  <button type="button" class="btn btn-sm bg-start-time text-light" (click)="openDialog(product)">See</button>
-                </div>
-
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="col-md-6 col-lg-6 col-sm-6 col-7 grid-margin stretch-card mt-md-5">
+    <div class="col-md-6 col-lg-6 col-sm-6 col-12 grid-margin stretch-card ">
     <div class="card ">
-      <div class="card-body p-3 ">
+      <div class="card-body p-md-3 p-1 ">
         <p >{{'main.follow' | translate}}</p>
         <form [formGroup]="subscribeForm">
-        <div class="form-group">
+        <div class="form-group m-1">
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">@</span>
@@ -319,8 +543,5 @@
       </div>
     </div>
   </div>
-</div>
-
-
-
+  </div>
 </ng-container>

@@ -1,11 +1,10 @@
-<app-spinner filterBy="bakers/all"></app-spinner>
-<app-spinner filterBy="excel"></app-spinner>
+
 <ng-container>
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Projects bakers</h4>
+      <div class="card-body p-2 p-md-4">
+        <h4 class="card-title">Вклады Проектов</h4>
         <p class="text-warning">{{message}}</p>
         <div class="row">
             <div class="col-md-6 col-12">
@@ -13,19 +12,18 @@
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <button [matMenuTriggerFor]="chooseFilter" class="btn bg-sss text-white">
-                      Choose filter
+                      Выбрать фильтр
                     </button>
                     <mat-menu #chooseFilter="matMenu">
-                      <button mat-menu-item [matMenuTriggerFor]="owner">User</button>
-                      <button mat-menu-item (click)="changeFilter('title_rus')">Project name</button>
-                      <button mat-menu-item (click)="changeFilter('sum')">Price</button>
-                      <button mat-menu-item (click)="changeFilter('created_at')">Date</button>
+                      <button mat-menu-item [matMenuTriggerFor]="owner">Пользователь</button>
+                      <button mat-menu-item (click)="changeFilter('title_rus')">Название Проекта</button>
+                      <button mat-menu-item (click)="changeFilter('sum')">Сумма</button>
+                      <button mat-menu-item (click)="changeFilter('created_at')">Дата</button>
                     </mat-menu>
                     <mat-menu #owner="matMenu">
-                      <button mat-menu-item (click)="changeFilter('firstname')">firstname</button>
-                      <button mat-menu-item (click)="changeFilter('lastname')">lastname</button>
-                      <button mat-menu-item (click)="changeFilter('email')">email</button>
-                      <button mat-menu-item (click)="changeFilter('phone_number')">phone</button>
+                      <button mat-menu-item (click)="changeFilter('fullname')">Имя</button>
+                      <button mat-menu-item (click)="changeFilter('email')">Почта</button>
+                      <button mat-menu-item (click)="changeFilter('phone_number')">Телефон</button>
                     </mat-menu>
                   </div>
                   <input [(ngModel)]="text" #input id="input" type="text" class="form-control" aria-label="Text input with dropdown button">
@@ -35,7 +33,7 @@
           <div class="col-md-3 col-6">
             <div class="btn-group">
               <button [matMenuTriggerFor]="chooseBank" class="btn bg-sss text-white">
-                Choose Bank
+                Выбрать Банк
               </button>
               <mat-menu #chooseBank="matMenu">
                 <button mat-menu-item (click)="filterByBank(1)">Epay</button>
@@ -45,66 +43,61 @@
             </div>
           </div>
           <div class="col-md-3 text-right col-6">
-            <button (click)="downloadExcel()" type="button" class="btn btn-inverse-danger btn-icon">
-              <i class="mdi mdi-download"></i>
-            </button>
             <button (click)="removeFilters()" type="button" class="btn btn-danger btn-rounded btn-icon" matTooltip="Убрать фильтры">
               <i class="mdi mdi-delete"></i>
             </button>
           </div>
 
         </div>
+        <app-spinner filterBy="bakers/all"></app-spinner>
+        <app-spinner filterBy="excel"></app-spinner>
+        <app-spinner filterBy="filter"></app-spinner>
+        <table class="table table-hover table-responsive-sm table-responsive-xl" *ngIf="bakeInformation">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Почта</th>
+            <th scope="col">Телефон</th>
+            <th scope="col">Проект</th>
+            <th scope="col">Банк</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Вознаграждение</th>
+            <th scope="col">Статус</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let bake of bakeInformation;index as i">
+            <td>{{i + 1}}</td>
+            <td scope="row">
+              <a *ngIf="bake.order.user" style="color:inherit" target="_blank" class="paddingDiv" [routerLink]="['/userProfile',bake.order.user_id]">{{bake.order.user.fullname}}</a>
+              <p *ngIf="!bake.order.user">{{bake.order.fullname}}</p>
+            </td>
+            <td>
+              <p *ngIf="bake.order.user">{{bake.order.user.email}}</p>
+              <p *ngIf="!bake.order.user">{{bake.order.email}}</p>
+            </td>
+            <td >
+              <p *ngIf="bake.order.user">{{bake.order.user.phone_number}}</p>
+              <p *ngIf="!bake.order.user">{{bake.order.phone_number}}</p>
+            </td>
+            <td><a style="color:inherit" target="_blank" [routerLink]="['/project/details', bake.order.project.id]">
+              {{bake.order.project.title_rus}}
+            </a></td>
+            <td>{{bake.bank.name}}</td>
+            <td>{{bake.sum}}</td>
+            <td>{{bake.created_at}}</td>
+            <td>
+              <p *ngIf="bake.order.gift">{{ bake.order.gift.description }}</p>
+              <p *ngIf="!bake.order.gift">Вознаграждения нет</p>
+            </td>
+            <td> <button class="btn btn-light" (click)="changeStatus(bake.order)">{{bake.order.confirmed}}</button></td>
 
-        <div class="table-responsive table-hover">
-          <div id="recent-purchases-listing_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table id="recent-purchases-listing" class="table dataTable no-footer" role="grid">
-            <thead>
-            <tr role="row">
-              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 105.4px;">User</th>
-              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 105.4px;">Email</th>
-              <th class="sorting_asc" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 80.4px;">Phone</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Status report: activate to sort column ascending" style="width: 139px;">Project</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 93.4px;">Bank</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 50.4px;">Price</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending" style="width: 67px;">Date</th>
-              <th class="sorting" tabindex="0" aria-controls="recent-purchases-listing" rowspan="1" colspan="1" aria-label="Gross amount: activate to sort column ascending" style="width: 103.8px;">Gift</th>
-            </tr>
-            </thead>
-            <tbody>
+          </tr>
+          </tbody>
+        </table>
 
-
-
-
-
-
-
-
-            <tr role="row" class="odd" *ngFor="let bake of bakeInformation">
-              <td class="sorting_1">
-                <a *ngIf="bake.order.user" style="color:inherit" target="_blank" class="paddingDiv" [routerLink]="['/userProfile',bake.order.user_id]">{{bake.order.first_name + ' ' + bake.order.last_name}}</a>
-                <p *ngIf="!bake.order.user">{{bake.order.firstname}} {{bake.order.lastname}}</p>
-              </td>
-              <td>
-                <p *ngIf="bake.order.email">{{bake.order.email}}</p>
-                <p *ngIf="!bake.order.email">User didn't provide email</p>
-              </td>
-              <td >
-                <p *ngIf="bake.order.phone_number">{{bake.order.phone_number}}</p>
-                <p *ngIf="!bake.order.phone_number">User didn't provide phone</p>
-              </td>
-              <td><a style="color:inherit" target="_blank" [routerLink]="['/project/details', bake.order.project.id]">
-                {{bake.order.project.title_rus}}
-              </a></td>
-              <td>{{bake.bank.name}}</td>
-              <td>{{bake.sum}}</td>
-              <td>{{bake.created_at}}</td>
-              <td>
-                <p *ngIf="bake.order.gift">{{ bake.order.gift.description }}</p>
-                <p *ngIf="!bake.order.gift">No gifts provided</p>
-              </td>
-            </tr>
-        </tbody>
-          </table></div></div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"></div></div></div>
-        </div>
       </div>
     </div>
   </div>

@@ -34,7 +34,6 @@ import { AdminProjectsComponent } from './components/admin/admin-projects/admin-
 import { AdminShopComponent } from './components/admin/admin-shop/admin-shop.component';
 import { AdminSubscribesComponent } from './components/admin/admin-subscribes/admin-subscribes.component';
 import { AdminPartnersComponent } from './components/admin/admin-partners/admin-partners.component';
-import { AdminFilesComponent } from './components/admin/admin-files/admin-files.component';
 import { AdminUsersComponent } from './components/admin/admin-users/admin-users.component';
 import { AdminOrdersComponent } from './components/admin/admin-shop/admin-orders/admin-orders.component';
 import { AdminProjectCategoriesComponent } from './components/admin/admin-projects/admin-project-categories/admin-project-categories.component';
@@ -106,6 +105,11 @@ import { AddProductToFinishedProjectComponent } from './components/user/profile/
 import { ProductsComponent } from './components/user/profile/products/products.component';
 import { EditProductComponent } from './components/admin/admin-shop/edit-product/edit-product.component';
 import { ProductsViewComponent } from './components/admin/admin-shop/admin-orders/products-view/products-view.component';
+import { AddPopularComponent } from './components/admin/admin-main/add-popular/add-popular.component';
+import { CreatePartnerComponent } from './components/admin/admin-partners/create-partner/create-partner.component';
+import { ProjectBakersComponent } from './components/user/category/details/information/project-bakers/project-bakers.component';
+import { ProjectsComponent } from './components/user/projects/projects.component';
+import { KaspiResultComponent } from './components/user/category/details/bake-project/kaspi-result/kaspi-result.component';
 const routes: Routes = [
   {path: '', component: UserComponent,
     children: [
@@ -119,6 +123,7 @@ const routes: Routes = [
       {path: 'help', component: AuthHelpComponent},
       {path: 'about', component: AuthAboutComponent},
       {path: 'shop', component: AuthShopComponent},
+      {path: 'projects', component: ProjectsComponent},
       {path: 'category/:id', component: AuthCategoryComponent},
       {path: 'project/details/:id', component: AuthDetailsComponent,
         children: [
@@ -156,14 +161,15 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent,
     children: [
       {path: '', redirectTo: 'projects', pathMatch: 'full'},
+      {path: 'main', component: AdminMainComponent},
       {path: 'projects', component: AdminProjectsComponent},
       {path: 'shop', component: AdminShopComponent},
       {path: 'subscribes', component: AdminSubscribesComponent},
       {path: 'partners', component: AdminPartnersComponent},
       {path: 'users', component: AdminUsersComponent},
       {path: 'news', component: AdminNewsComponent},
-      {path: 'files', component: AdminFilesComponent},
       {path: 'project/bakes', component: AdminBakesComponent},
+      {path: 'project/edit/:id', component: ProjectEditComponent},
       {path: 'project/category', component: AdminProjectCategoriesComponent},
       {path: 'shop/orders', component: AdminOrdersComponent},
     ]
@@ -171,6 +177,7 @@ const routes: Routes = [
   {path: 'start-time/moderator', component: ModeratorLoginComponent},
   // {path: '', redirectTo: 'start', pathMatch: 'full'},
   {path: 'verify-email', component: EmailConfirmationComponent},
+  {path: 'result', component: KaspiResultComponent},
 
 ];
 
@@ -234,7 +241,6 @@ export function provideConfig() {
     AdminShopComponent,
     AdminSubscribesComponent,
     AdminPartnersComponent,
-    AdminFilesComponent,
     AdminUsersComponent,
     AdminOrdersComponent,
     AdminProjectCategoriesComponent,
@@ -268,6 +274,11 @@ export function provideConfig() {
     ProductsComponent,
     EditProductComponent,
     ProductsViewComponent,
+    AddPopularComponent,
+    CreatePartnerComponent,
+    ProjectBakersComponent,
+    ProjectsComponent,
+    KaspiResultComponent,
   ],
     imports: [
         BrowserModule,

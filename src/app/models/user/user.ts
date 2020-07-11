@@ -27,6 +27,8 @@ export class User implements Deserializable {
   bakedCount: any;
   projectsCount: any;
   recommendationCount: any;
+  sum: any;
+  project: any;
   deserialize(input: any): this {
     Object.assign(this, input);
     this.role = new Role().deserialize(input.role_id);

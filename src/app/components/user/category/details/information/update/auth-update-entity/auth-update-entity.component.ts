@@ -29,7 +29,6 @@ export class AuthUpdateEntityComponent implements OnInit {
     this.updateService.changeUpdates(updates);
     this.updateService.removeUpdate(false);
     this.updateService.deleteById(this.update.id).subscribe(perf => {
-      console.log(perf);
     });
   }
 }

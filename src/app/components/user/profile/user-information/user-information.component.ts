@@ -35,7 +35,6 @@ export class UserInformationComponent implements OnInit {
 
   }
   edit() {
-    console.log('edit');
     this.update = true;
 
     this.userForm.controls.firstname.enable();
@@ -56,7 +55,6 @@ export class UserInformationComponent implements OnInit {
     this.checkForm();
     const user: User = this.userForm.getRawValue();
     this.userService.update(user).subscribe(perf => {
-      console.log(perf);
     });
 
   }

@@ -8726,6 +8726,7 @@ blockquote {
 b,
 strong {
   font-weight: bolder;
+  color: dimgray;
 }
 
 small {
@@ -19304,12 +19305,12 @@ code {
 }
 
 .btn-google {
-  background: #dc4a38;
+  background: #fb3958;
   color: #ffffff;
 }
 
 .btn-google:hover, .btn-google:focus {
-  background: #bf3322;
+  background: #D7314D;
   color: #ffffff;
 }
 
@@ -19319,19 +19320,19 @@ code {
 }
 
 .btn-google.btn-social-icon-text i {
-  background: #dc4a38;
+  background: #fb3958;
   padding: .75rem;
   display: inline-block;
   margin-right: 1.5rem;
 }
 
 .btn-outline-google {
-  border: 1px solid #dc4a38;
-  color: #dc4a38;
+  border: 1px solid #fb3958;
+  color: #fb3958;
 }
 
 .btn-outline-google:hover {
-  background: #dc4a38;
+  background: #D7314D;
   color: #ffffff;
 }
 
@@ -21364,7 +21365,7 @@ dl li {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #000;
+  /*background: #000;*/
   margin-top: 15px;
 }
 
@@ -21396,7 +21397,7 @@ dl li {
   .sidebar-offcanvas {
     position: fixed;
     max-height: calc(100vh - 60px);
-    top: 120px;
+    top: 140px;
     bottom: 0;
     overflow: auto;
     right: -257px;

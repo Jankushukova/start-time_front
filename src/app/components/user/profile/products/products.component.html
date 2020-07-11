@@ -46,7 +46,7 @@
 
       </div>
       <div>
-        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageActiveProducts($event)" [ellipses]="true"  [collectionSize]="totalActiveProductCount" maxSize="5" [(page)]="activeProductpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-end pagination-sm" (pageChange)="changePageActiveProducts($event)" [ellipses]="true"  [collectionSize]="totalActiveProductCount" maxSize="5" [(page)]="activeProductpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
       </div>
     </ng-container>
@@ -92,7 +92,7 @@
 
       </div>
       <div>
-        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageUnActiveProducts($event)" [ellipses]="true"  [collectionSize]="totalUnActiveProductCount" maxSize="5" [(page)]="unactiveProductpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-end pagination-sm" (pageChange)="changePageUnActiveProducts($event)" [ellipses]="true"  [collectionSize]="totalUnActiveProductCount" maxSize="5" [(page)]="unactiveProductpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
       </div>
     </ng-container>

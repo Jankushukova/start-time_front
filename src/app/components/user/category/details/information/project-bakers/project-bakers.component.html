@@ -1,0 +1,19 @@
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">User</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let baker of bakers; index as i">
+    <th scope="row">{{i + 1}}</th>
+    <td><a [routerLink]="['/userProfile',baker.id]">{{baker.fullname}}</a></td>
+  </tr>
+  </tbody>
+</table>
+  </div>
+</div>

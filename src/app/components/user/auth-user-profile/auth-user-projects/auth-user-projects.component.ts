@@ -30,7 +30,6 @@ export class AuthUserProjectsComponent implements OnInit {
     this.projects = null;
     this.projectService.getProjectsOfUser(this.user.id, this.perPageCount, this.page ).subscribe((perf: any) => {
       this.totalProjectsCount = perf.total;
-      console.log(this.totalProjectsCount);
       this.projects = perf.data.map(data => new Project().deserialize(data));
     });
   }

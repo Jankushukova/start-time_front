@@ -42,7 +42,6 @@ export class AdminSubscribesComponent implements OnInit, AfterViewInit {
 
   changeActiveStatus(subscriber: Subscription) {
     this.subscriberService.changeActiveStatus(subscriber).subscribe(perf => {
-      console.log(perf);
       (subscriber.active === 0) ? subscriber.active = 1 : subscriber.active = 0;
 
     });

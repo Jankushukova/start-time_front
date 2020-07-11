@@ -4,8 +4,8 @@
 <ng-container *ngIf="user && user.projects && user.followers">
 
 <div class=" container-fluid  mb-md-5">
-  <div class="row justify-content-center p-md-5">
-    <div class="col-md-10">
+  <div class="row justify-content-center p-md-5 p-2">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-body p-2 ">
           <div class="row justify-content-end ">
@@ -13,8 +13,7 @@
 
             <div class="col-md-10 col-8">
               <div class="text-right mt-2">
-                <span class="display-5">{{user.firstname}}</span>
-                <p class="display-5">{{user.lastname}}</p>
+                <span class="display-5">{{user.fullname}}</span>
               </div>
               <hr/>
               <div class="row">
@@ -32,24 +31,26 @@
                 </div>
                 <div class="col-md-2 col-4 p-0 text-center info-card hover-cursor" routerLink="information">
                     <img style="max-width: 100%; max-height: 100%" class="options-image" src="../../../../assets/images/15_0.png">
-                    <h5 class="display-5"><span class="text-muted">{{'user_profile.info' | translate}}</span></h5>
+                    <h5 class="display-5"><span></span></h5>
+                  <span class="text-muted">{{'user_profile.info' | translate}}</span>
+
                 </div>
 
 
               </div>
 
             </div>
-            <div class="col-md-2 col-4 pt-5  ">
+            <div class="col-md-2 col-4 pt-5 p-0 ">
               <img *ngIf="!user.image" class="profile-image" src="../../../../assets/images/11_0.png"   >
               <img *ngIf="user.image" class="profile-image" [src]="user.image"   >
               <div class="desc-button">
-                <button *ngIf="!following" type="button" class="btn btn-lg bg-start-time text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
-                <button *ngIf="following" type="button" class="btn btn-lg bg-light" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
+                <button *ngIf="!following" type="button" class="btn p-3 btn-lg bg-start-time text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
+                <button *ngIf="following" type="button" class="btn p-3 btn-lg bg-light" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
 
               </div>
               <div class="mob-button">
-                <button *ngIf="!following" type="button" class="btn btn-sm bg-start-time text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
-                <button *ngIf="following" type="button" class="btn btn-sm bg-light" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
+                <button *ngIf="!following" type="button" style="font-size: 0.5rem" class="btn btn-sm bg-start-time p-1 text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
+                <button *ngIf="following" style="font-size: 0.5rem" type="button" class="btn btn-sm bg-light p-1" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
 
               </div>
             </div>

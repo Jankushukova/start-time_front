@@ -1,0 +1,64 @@
+<p class="display-4 ml-2">{{'allProjects'|translate}}</p>
+<app-spinner filterBy="project/all"></app-spinner>
+
+<ng-container *ngIf="projects">
+  <div class="container-fluid mb-md-5 p-1">
+    <div class="row justify-content-center mt-md-5 ">
+      <div *ngFor="let project of projects" class="col-md-3 grid-margin stretch-card">
+        <div class="card  shadow" >
+          <div class="card-img-top project-img m-auto  ">
+
+            <ng-container *ngIf="project.images">
+              <img class="align-self-center"  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" alt="Card image cap">
+            </ng-container>
+            <img class="card-img-top  align-self-center" *ngIf="!project.images[0]" src="../../../../assets/images/32_0.png"  style="max-width: 100%; max-height: 100%"   alt="Card image cap">
+          </div><div class="card-body p-3 h-50">
+          <div class="h-50 ">
+            <h6 class="card-title text-center h-50 overflow-auto"><a [routerLink]="['/project/details', project.id]" >
+              {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></h6>
+            <hr/>
+            <p class="text-muted h-25 overflow-auto" >{{'author' | translate}}: <a style="color: inherit" [routerLink]="['/userProfile',project.owner.id]"> {{project.owner.fullname}}</a></p>
+          </div>
+          <div class="h-25">
+            <div class="row">
+              <div class="col d-flex ">
+                <button mat-icon-button aria-label="Example icon button with an eye icon">
+                  <mat-icon>remove_red_eye</mat-icon>
+                  <span>{{project.views}}</span>
+                </button>
+              </div>
+              <div class="col d-flex ">
+                <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                  <mat-icon *ngIf="!project.liked" (click)="like(project)">favorite_border</mat-icon>
+                  <mat-icon *ngIf="project.liked" (click)="unlike(project)">favorite</mat-icon>
+                  <span>{{project.likes.length}}</span>
+                </button>
+
+              </div>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="row mt-2 h-25">
+            <div class="col-7">
+              <h4 class="text-start-time"><span class="text-muted">{{'project.gathered' | translate}}:</span> ₸{{(project.gathered).toLocaleString()}}</h4>
+            </div>
+            <div class="col-5 p-0">
+              <h4 *ngIf="project.active!=2" class="text-muted text-center">{{daysLeft(project)}} <span >{{'project.days' | translate}}</span></h4>
+              <h6 class="text-muted text-center" *ngIf="project.active==2"><span>{{'project.end' | translate}}</span></h6>
+
+            </div>
+          </div>
+
+        </div>
+        </div>
+
+      </div>
+    </div>
+    <div>
+      <ngb-pagination class="d-flex justify-content-end pagination-sm" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalProjectsCount" maxSize="2" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+    </div>
+  </div>
+</ng-container>

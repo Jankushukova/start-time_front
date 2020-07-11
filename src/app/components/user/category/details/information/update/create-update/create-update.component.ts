@@ -33,7 +33,6 @@ export class CreateUpdateComponent implements OnInit {
     private translator: TranslateService
   ) {
     projectService.findById(data.projectId).subscribe(perf => {
-      console.log(perf);
       this.project = perf;
       this.updateForm.patchValue({
         project_id: this.project.id,
@@ -59,7 +58,6 @@ export class CreateUpdateComponent implements OnInit {
     this.updateForm.addControl('title_' + this.currentLang, this.builder.control('', Validators.required));
   }
   addDescription(language) {
-    console.log(language);
     if (!this.descriptionLangs.includes(language)) {
       this.updateForm.addControl('description_' + language, this.builder.control('', Validators.required));
       this.descriptionLangs.push(language);
@@ -89,7 +87,6 @@ export class CreateUpdateComponent implements OnInit {
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
       this.images.append('image' + ( i + 1), image.image);
-      console.log(this.images);
     }
 
   }
@@ -97,12 +94,9 @@ export class CreateUpdateComponent implements OnInit {
 
     const update: Update = this.updateForm.getRawValue();
     this.updateService.create(update).subscribe((perf: any) => {
-      console.log(perf);
       this.images.append('update_id', perf.id);
       this.updateService.createUpdateImages(this.images).subscribe((res: any) => {
-        console.log(res);
         update.images = res.map(data => new UpdateImage().deserialize(data));
-        console.log(update.images);
         let updates: Update[] = [];
         this.updateService.updates$.subscribe(perf2 => updates = perf2);
         updates.push(update);

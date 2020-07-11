@@ -79,14 +79,12 @@ export class AuthCommentEntityComponent implements OnInit {
 
   deleteComment() {
     this.commentService.deleteByIdProjectComment(this.comment.id).subscribe(perf => {
-      console.log('deleted');
     });
     let comments: ProjectComment[] = [];
     this.projectService.comments$.subscribe(perf => comments = perf);
     comments = comments.filter(data => {
       return data.id !== this.comment.id;
     });
-    console.log(comments);
     this.projectService.changeComments(comments);
   }
 }

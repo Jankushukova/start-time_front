@@ -49,7 +49,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
   changeOrders() {
     this.orders = null;
     this.productOrderService.getAllOrders(this.perPageCount, this.page ).subscribe((perf: any) => {
-      console.log(this.orders);
       this.mapOrders(perf);
     });
   }
@@ -66,7 +65,6 @@ export class AdminOrdersComponent implements OnInit, AfterViewInit {
     }
   }
   openDialog(order: ProductOrder) {
-    console.log(order);
     const dialogRef = this.dialog.open(ProductsViewComponent, {
       data: {
         orderId: order.id,

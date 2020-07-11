@@ -63,7 +63,6 @@ export class AdminShopComponent implements OnInit, AfterViewInit {
   changeState(product: Product) {
     (product.active === 1) ? product.active = 0 : product.active = 1;
     this.productService.changeState(product.id).subscribe(perf => {
-      console.log('changed');
     });
   }
   openDialog(product: Product) {
@@ -83,17 +82,15 @@ export class AdminShopComponent implements OnInit, AfterViewInit {
     let searchText = this.input.nativeElement.value;
     if (status != null) {
       searchText = status;
-      console.log(status);
       this.bank = status;
       this.pattern = 'active';
     }
     if (this.pattern !== null) {
-      console.log(searchText);
       this.productService.filterProducts(this.pattern, searchText, this.perPageCount, this.page).subscribe((perf: any) => {
         this.mapProducts(perf);
       });
     } else {
-      this.message = 'please choose filter';
+      this.message = 'Пожалуйста, выберите фильтр';
     }
   }
   removeFilters() {

@@ -8,6 +8,7 @@ import {LikeService} from '../../../services/like.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SimpleAuthService} from '../../../services/auth.service';
 import {TranslateService} from "@ngx-translate/core";
+import {ProjectCategoryService} from "../../../services/project/project-category.service";
 
 @Component({
   selector: 'app-category',
@@ -23,10 +24,12 @@ export class AuthCategoryComponent implements OnInit {
   totalProjectsCount: number;
   newLike: ProjectLike;
   translate;
+  category;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService,
+    private categoryService: ProjectCategoryService,
     private userService: UserService,
     private authService: SimpleAuthService,
     private likeService: LikeService,
@@ -44,6 +47,8 @@ export class AuthCategoryComponent implements OnInit {
     this.route.paramMap.subscribe( paramMap => {
       this.categoryId = parseInt(paramMap.get('id'), 10);
       this.changeProjects();
+      this.categoryService.findById(this.categoryId).subscribe(perf => this.category = perf);
+
     });
   }
   changeProjects() {
@@ -92,5 +97,13 @@ export class AuthCategoryComponent implements OnInit {
       panelClass: style,
       horizontalPosition: 'right',
     });
+  }
+  daysLeft(project: Project) {
+    const deadline = project.deadline;
+    const d1 = new Date(deadline);
+    const d2 = new Date();
+    const dif = d1.getTime() - d2.getTime();
+    const days = dif / (1000 * 3600 * 24);
+    return Math.ceil(days);
   }
 }

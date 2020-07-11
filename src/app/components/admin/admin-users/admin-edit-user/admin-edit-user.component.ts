@@ -47,7 +47,6 @@ export class AdminEditUserComponent implements OnInit {
       });
       users = users.map( data => {
         if (data.id === this.user.id) {
-          console.log('equeal');
           data = this.user;
         }
         return data;

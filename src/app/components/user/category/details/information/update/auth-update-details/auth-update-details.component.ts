@@ -36,7 +36,6 @@ export class AuthUpdateDetailsComponent implements OnInit {
     this.translate = this.translator;
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.updateService.findById(id).subscribe(perf => {
-      console.log(perf);
       this.update = perf;
     });
   }

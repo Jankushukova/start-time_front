@@ -9,7 +9,6 @@ import {PaymentType} from "../../../../models/paymentType";
 import {TranslateService} from "@ngx-translate/core";
 import {fromEvent} from "rxjs";
 import {debounceTime, distinctUntilChanged, filter, tap} from "rxjs/operators";
-import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-admin-bakes',
   templateUrl: './admin-bakes.component.html',
@@ -26,7 +25,7 @@ export class AdminBakesComponent implements OnInit, AfterViewInit {
   text = '';
   message = '';
   excel = [];
-  isBank: boolean = false;
+  isBank = false;
   constructor(
     private projectService: ProjectService,
     private translator: TranslateService
@@ -55,7 +54,6 @@ export class AdminBakesComponent implements OnInit, AfterViewInit {
     this.bakeInformation = null;
     this.projectService.getAllBakers(this.perPageCount, this.page ).subscribe((perf: any) => {
       this.assignProjectData(perf);
-      console.log(this.bakeInformation);
     });
   }
   changePage(event) {
@@ -72,6 +70,7 @@ export class AdminBakesComponent implements OnInit, AfterViewInit {
     this.isBank = false;
   }
   filterByBank(id: number) {
+    this.bakeInformation = null;
     this.page = 1;
     this.isBank = true;
     this.pattern = id;
@@ -87,14 +86,6 @@ export class AdminBakesComponent implements OnInit, AfterViewInit {
       return data;
     });
   }
-  downloadExcel() {
-    this.projectService.downloadExcel().subscribe(perf => {
-      console.log('downloaded');
-      console.log(perf);
-      const blob = new Blob([perf], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-      FileSaver.saveAs(blob, 'start-time-bakers.xlsx');
-    });
-  }
   removeFilters() {
     this.pattern = null;
     this.text = '';
@@ -102,13 +93,19 @@ export class AdminBakesComponent implements OnInit, AfterViewInit {
     this.changeBakers();
   }
   filterProjects(searchText) {
-    if (this.pattern !== '' && !this.isBank) {
+    this.bakeInformation = null;
+    if (this.pattern !== '' && this.pattern && !this.isBank) {
       this.message = '';
       this.projectService.filterProjectOrders(this.pattern, searchText, this.perPageCount, this.page).subscribe((perf: any) => {
         this.assignProjectData(perf);
       });
     } else {
-      this.message = 'please choose filter';
+      this.message = 'Пожалуйста, выберите фильтр';
     }
+  }
+  changeStatus(order) {
+    this.projectService.changeOrderStatus(order.id).subscribe(perf => {
+      (order.confirmed) ? order.confirmed = 0 : order.confirmed = 1;
+    });
   }
 }

@@ -1,0 +1,22 @@
+
+<app-spinner filterBy="active"></app-spinner>
+<mat-dialog-content>
+  {{message}}
+<table class="table table-hover table-responsive-sm table-responsive-xl">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Название</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let project of projects;index as i">
+    <th scope="row">
+      <mat-checkbox [disabled]="this.count > 4 && !project.main" (change)="changed($event, project)" [checked]="project.main" class="example-margin" ></mat-checkbox></th>
+    <td>
+      {{project.title_rus}}
+    </td>
+  </tr>
+  </tbody>
+</table>
+</mat-dialog-content>

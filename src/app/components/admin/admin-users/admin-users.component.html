@@ -2,14 +2,14 @@
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Users</h4>
+      <div class="card-body p-2 p-md-4">
+        <h4 class="card-title">Пользователи</h4>
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text bg-sss text-white">Search by name</span>
+                  <span class="input-group-text bg-sss text-white">Искать по имени</span>
                 </div>
                 <input [(ngModel)]="inputText" #input id="input"  type="text" class="form-control" aria-label="Text input with dropdown button">
 
@@ -27,26 +27,25 @@
             <thead>
             <tr>
               <th>
-                User
               </th>
               <th>
-                Name
+                Пользователь
               </th>
               <th>
-                email
+                Почта
               </th>
               <th>
-                Phone number
+                Номер телефона
               </th>
               <th>
-                Projects
+                Проекты
               </th>
               <th>
                 <i class="mdi mdi-account-key "></i>
-                Access type
+                Уровень доступа
               </th>
               <th>
-                Action
+                Действие
               </th>
             </tr>
             </thead>
@@ -54,7 +53,8 @@
             <tr *ngFor="let user of users">
               <td class="py-1" >
                 <a  target="_blank" >
-                  <img src="../../../../assets/images/11_0.png" alt="image">
+                  <img *ngIf="!user.image" src="../../../../assets/images/11_0.png" alt="image">
+                  <img *ngIf="user.image" [src]="user.image" alt="image">
 
                 </a>
               </td>
@@ -66,14 +66,13 @@
                   {{user.projects.length}}</a>
               </td>
               <td>
-                <button [matMenuTriggerFor]="changeQuestion" mat-icon-button  matTooltip="Change Role"
+                <button [matMenuTriggerFor]="changeQuestion" mat-icon-button  matTooltip="Поменять Роль"
                 >
-                  {{user.role.name}}
+                  {{(user.role===1) ? 'Модератор' : 'Пользователь'}}
                 </button>
                 <mat-menu #changeQuestion="matMenu" xPosition="before">
-                  <button mat-menu-item (click)="changeRole(user, 2)">Director</button>
-                  <button mat-menu-item (click)="changeRole(user, 1)">Admin</button>
-                  <button mat-menu-item (click)="changeRole(user, 4)">Authorized</button>
+                  <button mat-menu-item (click)="changeRole(user, 1)">Модератор</button>
+                  <button mat-menu-item (click)="changeRole(user, 4)">Пользователь</button>
                 </mat-menu>
               </td>
               <td >

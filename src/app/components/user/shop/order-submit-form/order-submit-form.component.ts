@@ -108,7 +108,6 @@ export class OrderSubmitFormComponent implements OnInit {
     const widget = new cp.CloudPayments();
     this.orderProductsService.create(order, this.orderProducts).subscribe(perf => {
       order.id = perf.id;
-      console.log(order);
       widget.charge({ // options
           publicId: environment.cloudPaymentsPublicId,  // id из личного кабинета
           description: productName, // назначение
@@ -127,7 +126,6 @@ export class OrderSubmitFormComponent implements OnInit {
 
         },
         (reason, options) => { // fail
-          console.log('failure');
         });
     });
   }

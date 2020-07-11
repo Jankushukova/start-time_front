@@ -1,0 +1,31 @@
+<app-spinner filterBy="project/"></app-spinner>
+
+<mat-dialog-content style="background: #fafbfe;">
+  <div class="row justify-content-center ">
+
+
+    <div class="col-md-12 ">
+        <div class="form-row justify-content-center ">
+          <div class="col-md-12 grid-margin stretch-card ">
+
+            <div class="card">
+              <div class="card-body p-2 p-md-4">
+                <mat-form-field class="w-100">
+                  <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="Upload Images" ></ngx-mat-file-input>
+                  <mat-icon matSuffix>image</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="example-full-width w-100">
+                  <mat-label>Ссылка на сайт</mat-label>
+                  <input matInput [(ngModel)]="url" value="Sushi">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn w-25 btn-lg bg-sss text-light" type="submit" mat-dialog-close (click)="onSubmit()" >Сохранить</button>
+</mat-dialog-actions>

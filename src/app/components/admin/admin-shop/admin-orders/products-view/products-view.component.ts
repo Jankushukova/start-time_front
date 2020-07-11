@@ -22,7 +22,6 @@ export class ProductsViewComponent implements OnInit {
   ngOnInit(): void {
     this.productOrderService.findById(this.data.orderId).subscribe((perf:any) => {
       this.order = perf.map(data => new OrdersProduct().deserialize(data));
-      console.log(this.order);
     });
   }
   openDialog(product: Product) {

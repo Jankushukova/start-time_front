@@ -12,6 +12,7 @@ import {AuthProductDetailsComponent} from "../../shop/product-details/auth-produ
 import {MatDialog} from "@angular/material/dialog";
 import {BakeProjectComponent} from "./bake-project/bake-project.component";
 import {TranslateService} from "@ngx-translate/core";
+import {UserService} from "../../../../services/user/user.service";
 
 @Component({
   selector: 'app-details',
@@ -23,10 +24,13 @@ export class AuthDetailsComponent implements OnInit {
   progress = 0;
   safeURL;
   translate;
+  mobile = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService,
+    private userService: UserService,
     public dialog: MatDialog,
     private sanitizer: DomSanitizer,
     private translator: TranslateService
@@ -36,6 +40,14 @@ export class AuthDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.translate = this.translator;
     this.projectInit();
+    $(document).ready(() => {
+      const ua = navigator.userAgent;
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+    });
   }
   projectInit() {
     const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -46,7 +58,7 @@ export class AuthDetailsComponent implements OnInit {
       try {
       } catch (e) {
       }
-      this.progress = (this.project.gathered / this.project.goal) * 100;
+      this.progress = Math.ceil(( parseInt(this.project.gathered, 10) /  parseInt(this.project.goal, 10))  * 100 );
     });
   }
   openDialog() {
@@ -54,10 +66,20 @@ export class AuthDetailsComponent implements OnInit {
       data: {
         projectId: this.project.id,
       },
-      width: '60%'
+      width: (this.mobile) ? '100%' : '60%'
     });
   }
   videoURL() {
+    if (this.project.video.includes('youtu.be')) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(this.project.video.replace('youtu.be', 'youtube.com/embed'));
+    }
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.project.video.replace('watch?v=', 'embed/'));
+  }
+  inLocale(sum) {
+    return parseInt(sum, 10).toLocaleString();
+  }
+  editFormat(date) {
+    const d1 = date.split('/');
+    return d1[1] + '-' + d1[0] + '-' + d1[2];
   }
 }

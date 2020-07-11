@@ -45,7 +45,6 @@ export class AuthProductDetailsComponent implements OnInit {
       this.product = new Product().deserialize(perf);
       this.productService.addView(this.product.id);
       this.sum = +this.product.cost;
-      console.log(typeof  this.product.cost);
     });
     this.translate = this.translator;
   }
@@ -68,7 +67,6 @@ export class AuthProductDetailsComponent implements OnInit {
       order.sum = this.sum;
       products.push(order);
     }
-    console.log(products);
     this.orderProductsService.changeData(products);
     this.translator.get('shop.add').subscribe(perf => {
       this.openSnackBar(  perf, 'Close', 'style-success');

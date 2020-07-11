@@ -21,14 +21,14 @@ export class FollowerService {
 //+
   public getFollowersOfUser(id: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.customUrl }followers/${id}`).pipe(
-      map(data => data.map(data => new User().deserialize(data)))
+      map(data => data.map(dataentry => new User().deserialize(dataentry)))
     );
   }
 
 //+
   public getFollowedOfUser(id: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.customUrl}followings/${id}`).pipe(
-      map(data => data.map(data => new User().deserialize(data)))
+      map(data => data.map(dataentry => new User().deserialize(dataentry)))
     );
   }
 

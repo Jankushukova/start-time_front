@@ -7,7 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {FollowerService} from '../../../services/user/follower.service';
 import {Follower} from '../../../models/user/follower';
 import {SimpleAuthService} from '../../../services/auth.service';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth-user-profile',
@@ -33,12 +33,11 @@ export class AuthUserProfileComponent implements OnInit {
   }
   ngOnInit(): void {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    this.userInit();
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
     });
-    this.userInit();
-
-    if (this.authorized) {
+    if (this.authorized && !this.userService.isAdmin()) {
       if (this.id === this.userService.getUser().id) {this.router.navigateByUrl('/home'); }
       this.following = this.user.followers.filter(user => user.id === this.userService.getUser().id).length !== 0;
     }
@@ -108,7 +107,6 @@ export class AuthUserProfileComponent implements OnInit {
         });
       } else {
         this.followerService.deleteById(this.user.id).subscribe( perf => {
-          console.log(perf);
           this.user.followers = this.user.followers.filter(user => user.id !== this.userService.getUser().id);
           this.following = false;
         });

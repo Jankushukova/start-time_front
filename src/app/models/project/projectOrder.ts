@@ -8,6 +8,7 @@ export class ProjectOrder implements Deserializable{
   id: number;
   first_name: string;
   last_name: string;
+  fullname: string;
   phone_number: string;
   email: string;
   sum: number;

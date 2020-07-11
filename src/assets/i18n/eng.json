@@ -52,7 +52,7 @@
     "1": "What is crowdfunding?",
     "20": "Crowdfunding",
     "21": "What is crowdfunding?",
-    "22": "Crowdfunding (from the English crowdfunding) is a way of collective financing of projects in which money for creating a product comes from consumers (investors). Crowdfunding allows you to study the audience and evaluate the value of the idea.",
+    "22": "Crowdfunding is a way of collective financing of projects in which money for creating a product comes from consumers (investors). Crowdfunding allows you to study the audience and evaluate the value of the idea.",
     "2": "Starttime.kz is a service that helps authors of interesting ideas find funds to implement their ideas through collective support. Starttime can be a social, commercial, or charitable idea. You can create a project, raise funds for the implementation of ideas or support talent by going through a simple registration. Applications are submitted by organizations and personally.",
     "3": "Starttime Features",
     "4": "Starttime brings together the copyright holders (authors of the idea), the results of their work and contributors (fans, interested parties). In addition to supporting and promoting interesting copyright ideas. Starttime offers investors a unique product.",
@@ -168,8 +168,17 @@
     "biography": "Biography"
   },
   "project": {
+    "end": "Fees are completed",
+    "of": "of",
     "goal": "goal",
-    "deadline": "deadline",
+    "by": "by",
+    "days_left": "Days before the end of fees",
+    "more": "More",
+    "gathered": "gathered",
+    "left": "left",
+    "days": "days",
+    "deadline": "Deadline",
+    "start": "Started",
     "bakers": "bakers",
     "comments": "comments",
     "questions": "questions",
@@ -178,7 +187,13 @@
     "bake": {
       "action": "bake",
       "fill_info": "Please fill out form below",
-      "info_sum": "You can choose gifted sum,  or provide your own",
+
+      "info_sum": "Select a reward",
+      "info_custom_sum": "If you want to transfer the amount for free, enter your amount and go next..",
+      "info_data": "Укажите контактные данные и перейдите далее..",
+      "info_payment_service": "Select a payment instrument",
+      "info_payment": "Thank you, and now we will proceed to payment",
+
       "gifted_sum": "Gifted sum",
       "gifted_sum_choose": "Choose one of the gifted sum ",
       "custom_sum": "Custom sum",
@@ -250,12 +265,12 @@
     "content": "Content of the project",
     "deadline": "Choose deadline",
     "sum": "how much money is necessary",
-    "images": "Images",
+    "images": "Image. Project's cover",
     "images_info": "Add images of project",
     "video": "Video",
     "video_info": "Add your YouTube video",
     "reward": "Reward, this field is not mandatory",
-    "reward_sum_description": "Add description of the gift",
+    "reward_description": "Add description of the gift",
     "reward_sum": "Sum for which will be given gift",
     "reward_table_sum": "Sum",
     "reward_table_description": "Description",
@@ -266,18 +281,21 @@
     "no_contact_info_title": "Message"
   },
   "main": {
+    "search": "Search by Project",
     "subscribe_success": "Successfully subscribed",
     "subscribe_error": "Some error occurred",
     "charity": "Social projects",
     "social": "Social projects",
     "commercial": "Commercial projects",
     "start": "Start project!",
-    "projects": "Projects",
-    "startups": "Startups",
+    "projects": "Submit applications",
+    "startups": "Finished Projects",
     "bakes": "Bakes",
     "partners": "Our partners",
     "follow": "Subscribe to the news",
-    "subscribe": "Subscribe"
+    "subscribe": "Subscribe",
+    "users": "Users",
+    "project_help": "Projects that need your support"
 
 
   },
@@ -313,6 +331,34 @@
     "25": "BIN 180240039641",
     "26": "Legal address G.ALMATY, MEDEUS DISTRICT, MICRO-DISTRICT SAMAL-2, 111"
   },
-  "login_error": "Please login again to continue"
+  "login_error": "Please login again to continue",
+  "logout": "logout",
+  "home": "My Cabinet",
+  "rights": "All rights reserved",
+  "made": "Hand-crafted and made with",
+  "see": "See",
+  "order": "Add to basket",
+  "sum": "All",
+  "empty": "Your basket is empty!",
+  "in_basket": "Products in basket",
+  "count": "Count",
+  "summ": "Sum",
+  "name": "Name",
+  "user": "User",
+  "bakers": "Bakers",
+  "categories": "All Categories",
+  "support": "Support",
+  "more": "More On Start-Time",
+  "about2": "About",
+  "allProjects": "All Projects",
+  "mln": "mln",
+  "createProject": "Create Project",
+  "messageProject": "Please, authorize firstly!",
+  "payment": {
+    "failure": "Transaction failed!",
+    "success": "The transaction was successful!"
+  }
+
+
 
 }

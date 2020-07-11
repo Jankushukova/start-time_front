@@ -2,8 +2,8 @@
 <div class="row" >
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Projects list</h4>
+      <div class="card-body p-2 p-md-4">
+        <h4 class="card-title">Проекты</h4>
         <p class="text-warning">{{message}}</p>
         <div class="row">
           <div class="col-md-6">
@@ -11,19 +11,24 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                   <button [matMenuTriggerFor]="chooseFilter" class="btn bg-sss text-white">
-                    Choose filter
+                    Выбрать фильтр
                   </button>
                   <mat-menu #chooseFilter="matMenu">
-                    <button mat-menu-item (click)="changeFilter('owner')">User</button>
-                    <button mat-menu-item (click)="changeFilter('title_' + trans.currentLang)">Project name</button>
-                    <button mat-menu-item (click)="changeFilter('active')">Status</button>
-                    <button mat-menu-item (click)="changeFilter('gathered')">Gathered</button>
-                    <button mat-menu-item (click)="changeFilter('deadline')">Deadline</button>
-                    <button mat-menu-item (click)="changeFilter('goal')">Goal</button>
-                    <button mat-menu-item [matMenuTriggerFor]="categories">Category</button>
+                    <button mat-menu-item (click)="changeFilter('owner', null)">Пользователь</button>
+                    <button mat-menu-item (click)="changeFilter('title_' + trans.currentLang, null)">Название проекта</button>
+                    <button mat-menu-item [matMenuTriggerFor]="status">Статус</button>
+                    <button mat-menu-item (click)="changeFilter('gathered', null)">Собрано</button>
+                    <button mat-menu-item (click)="changeFilter('deadline', null)">Конец Сборов</button>
+                    <button mat-menu-item (click)="changeFilter('goal', null)">Цель</button>
+                    <button mat-menu-item [matMenuTriggerFor]="categories">Категория</button>
                   </mat-menu>
                   <mat-menu #categories="matMenu">
                     <button mat-menu-item (click)="filterCategory(category.id)" *ngFor="let category of allCategory">{{category.name_rus}}</button>
+                  </mat-menu>
+                  <mat-menu #status="matMenu">
+                    <button mat-menu-item (click)="changeFilter('active', 1)" >Активные</button>
+                    <button mat-menu-item (click)="changeFilter('active', 0)" >Неактивные</button>
+                    <button mat-menu-item (click)="changeFilter('active', 2)" >Завершенные</button>
                   </mat-menu>
                 </div>
                 <input [(ngModel)]="inputText" #input id="input"  type="text" class="form-control" aria-label="Text input with dropdown button">
@@ -46,34 +51,34 @@
             <tr>
               <th>#</th>
               <th>
-                User
+                Пользователь
               </th>
               <th>
-                Project name
+                Название Проекта
               </th>
               <th>
-                Progress
+                Прогресс
               </th>
               <th>
-                Goal
+                Цель
               </th>
               <th>
-                Gathered
+                Собрано
               </th>
               <th>
-                Deadline
+                Конец Сборов
               </th>
               <th>
-                Active
+                Статус
               </th>
-              <th>Action</th>
+              <th>Действие</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let project of projects ; index as i">
               <td>{{i + 1}}</td>
               <td class="py-1" >
-                {{project.owner.getFullName()}}
+                <a [routerLink]="['/userProfile',project.owner.id]">{{project.owner.getFullName()}}</a>
               </td>
               <td >
                 <a  target="_blank" [routerLink]="['/project/details', project.id]">
@@ -97,19 +102,25 @@
                 {{project.deadline}}
               </td>
               <td class="text-success">
-                <button [matMenuTriggerFor]="state" class="btn bg-sss text-white">
-                  {{(project.active == 0) ? 'Un Active' : (project.active === 1) ? 'Active' : 'Finished'}}
+                <button [matMenuTriggerFor]="state" class="btn text-white" [ngClass]="project.active===1 ? 'bg-sss' : (project.active === 0)?'bg-danger' : 'bg-dark'">
+                  {{(project.active == 0) ? 'Неактивен' : (project.active === 1) ? 'Активен' : 'Закончен'}}
                 </button>
                 <mat-menu #state="matMenu">
-                  <button mat-menu-item (click)="changeActiveState(project, 0)">Un Active</button>
-                  <button mat-menu-item (click)="changeActiveState(project, 1)">Active</button>
-                  <button mat-menu-item (click)="changeActiveState(project, 2)">Finished</button>
+                  <button mat-menu-item (click)="changeActiveState(project, 1)">Активен</button>
+                  <button mat-menu-item (click)="changeActiveState(project, 0)">Не Активен</button>
+                  <button mat-menu-item (click)="changeActiveState(project, 2)">Завершен</button>
                 </mat-menu>
               </td>
               <td >
-                <button (click)="openDialog(project)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                <button [routerLink]="['/admin/project/edit', project.id]" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
 
-                <i class="fas fa-edit mr-3" ></i></button>
+                <i class="fas fa-edit " ></i></button>
+                <button (click)="deleteProject(project, i)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+
+                  <i class="fas fa-trash " ></i></button>
+                <button (click)="downloadExcel(project)" *ngIf="project.active!=0" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                  <i class="fas fa-download fa-2x"></i>
+                </button>
 
               </td>
             </tr>

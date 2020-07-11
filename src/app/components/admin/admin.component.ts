@@ -23,7 +23,6 @@ export class AdminComponent implements OnInit {
       this.router.navigateByUrl('/');
     } else {
       this.privelegedUser = this.userService.getUser();
-      console.log(this.authService.getToken());
       this.langInit();
     }
   }

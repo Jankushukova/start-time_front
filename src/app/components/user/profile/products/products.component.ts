@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {Project} from "../../../../models/project/project";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ProjectService} from "../../../../services/project/project.service";
 import {UserService} from "../../../../services/user/user.service";
 import {LikeService} from "../../../../services/like.service";
 import {MatDialog} from "@angular/material/dialog";
 import {TranslateService} from "@ngx-translate/core";
-import {ProjectLike} from "../../../../models/project/projectLike";
-import {EditUnactiveProjectComponent} from "../projects/edit-unactive-project/edit-unactive-project.component";
-import {AddProductToFinishedProjectComponent} from "../projects/add-product-to-finished-project/add-product-to-finished-project.component";
 import {Product} from "../../../../models/product/product";
 import {ProductService} from "../../../../services/product/product.service";
 import {ProductLike} from "../../../../models/product/productLike";
@@ -56,7 +51,6 @@ export class ProductsComponent implements OnInit {
     this.productService.getActiveProductsOfUser(this.perPageCount, this.activeProductpage ).subscribe((perf: any) => {
       this.totalActiveProductCount = perf.total;
       this.activeProducts = perf.data.map(data => new Product().deserialize(data));
-      console.log(this.activeProducts);
     });
   }
   changeUnActiveProducts() {
@@ -64,7 +58,6 @@ export class ProductsComponent implements OnInit {
     this.productService.getUnActiveProductsOfUser(this.perPageCount, this.unactiveProductpage ).subscribe((perf: any) => {
       this.totalUnActiveProductCount = perf.total;
       this.unactiveProducts = perf.data.map(data => new Product().deserialize(data));
-      console.log(this.unactiveProducts);
     });
   }
   changePageActiveProducts(event) {
@@ -116,7 +109,6 @@ export class ProductsComponent implements OnInit {
   deleteUnActiveProduct(product: Product, i) {
     this.unactiveProducts.splice(i, 1);
     this.productService.deleteById(product.id).subscribe(perf => {
-      console.log('deleted');
     });
   }
 }

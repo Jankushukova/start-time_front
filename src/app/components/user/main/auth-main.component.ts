@@ -37,20 +37,25 @@ export class AuthMainComponent implements OnInit {
   mostPopularProjects: Project[] = null;
   mostPopularProducts: Product[] = null;
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
-  partners: User[] = [];
+  partners: any[] = [];
   projectNum = 0;
   sucProjNum = 0;
   projectBakNum = 0;
+  userNum = 0;
   subscribeForm: FormGroup;
   translate;
-
+  mobile = false;
+  projects: Project[] = [];
+  page = 1;
   slideConfig = {
     slidesToShow: 5,
     slidesToScroll: 1,
-    nextArrow: '<div class=\'nav-btn next-slide\'></div>',
-    prevArrow: '<div class=\'nav-btn prev-slide\'></div>',
-    dots: true,
-    infinite: false
+    infinite: true
+  };
+  slideConfig1 = {
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    infinite: true,
   };
 
 
@@ -63,14 +68,29 @@ export class AuthMainComponent implements OnInit {
     this.getPartners();
     this.getStatistics();
     this.initSubscribeForm();
+    $(document).ready(() => {
+      const ua = navigator.userAgent;
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+    });
+    this.changeProjects();
   }
 
+  changeProjects() {
+    this.projectService.getAllProjects(20, this.page).subscribe((perf: any) => {
+      this.projects = perf.data.map(data => new Project().deserialize(data));
+
+    });
+  }
   initSubscribeForm() {
     this.subscribeForm = this.builder.group({
       email: ['', [Validators.required]], });
   }
   getPartners() {
-    this.userService.getPartners().subscribe(perf => {
+    this.userService.getAllPartners().subscribe(perf => {
       this.partners = perf;
     });
   }
@@ -94,12 +114,17 @@ export class AuthMainComponent implements OnInit {
     this.projectService.getStatisticsBackers().subscribe(perf => {
       this.projectBakNum = perf;
     });
+    this.projectService.getStatisticsUsers().subscribe(perf => {
+      this.userNum = perf;
+    });
   }
   next() {
     this.slickModal.slickNext();
+    console.log('next');
   }
   prev() {
     this.slickModal.slickPrev();
+    console.log('prev');
   }
   onSubmit() {
     const subscription: Subscription = this.subscribeForm.getRawValue();
@@ -126,7 +151,22 @@ export class AuthMainComponent implements OnInit {
       data: {
         productId: product.id,
       },
-      width: '60%'
+      width: (this.mobile) ? '100%' : '60%'
     });
   }
+  daysLeft(project: Project) {
+    const deadline = project.deadline;
+    const d1 = new Date(deadline);
+    const d2 = new Date();
+    const dif = d1.getTime() - d2.getTime();
+    const days = dif / (1000 * 3600 * 24);
+    return Math.ceil(days);
+  }
+  progress(project: Project) {
+    return Math.ceil(( parseInt(project.gathered, 10) /  parseInt(project.goal, 10))  * 100 );
+  }
+  inLocale(sum) {
+    return parseInt(sum, 10).toLocaleString();
+  }
+
 }

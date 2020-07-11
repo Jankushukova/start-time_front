@@ -7,25 +7,25 @@
 
       <div class="col-md-10 grid-margin stretch-card">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body p-2 p-md-4">
 
             <form [formGroup]="userForm" class="forms-sample">
               <div class="form-group row">
                 <mat-form-field class="example-full-width w-100">
-                  <mat-label>Firtname</mat-label>
+                  <mat-label>Имя</mat-label>
                   <input matInput formControlName="firstname" >
                 </mat-form-field>
 
               </div>
               <div class="form-group row ">
                 <mat-form-field class="example-full-width w-100">
-                  <mat-label>Lastname</mat-label>
+                  <mat-label>Фамилия</mat-label>
                   <input matInput formControlName="lastname" >
                 </mat-form-field>
               </div>
               <div class="form-group row">
                 <mat-form-field class="example-full-width w-100">
-                  <mat-label>Telephone</mat-label>
+                  <mat-label>Телефон</mat-label>
                   <span matPrefix>+7 &nbsp;</span>
                   <input formControlName="phone_number" type="tel" matInput placeholder="777-77-77">
                   <mat-icon matSuffix>mode_edit</mat-icon>
@@ -42,6 +42,6 @@
 </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button class="btn w-25 btn-lg bg-sss text-light" mat-dialog-close (click)="onSubmit()">Save</button>
+  <button class="btn w-25 btn-lg bg-sss text-light" mat-dialog-close (click)="onSubmit()">Сохранить</button>
 
 </mat-dialog-actions>

@@ -1,8 +1,11 @@
-<ng-container *ngIf="authorized">
-<div class="row justify-content-center ">
+<app-spinner filterBy="project"></app-spinner>
+
+<ng-container *ngIf="authorized && !loading">
+
+  <div class="row justify-content-center mt-md-3">
 
 
-    <div class="col-md-10 ">
+    <div class="col-md-12 ">
       <form [formGroup]="projectForm" >
 
   <div class="form-row justify-content-center ">
@@ -33,22 +36,21 @@
             <input required [formControlName]="'title_' + lang" [placeholder]="(lang==='eng') ? 'Project name' : (lang==='rus') ? 'Название проекта' : 'Проекттың аты'" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-definition">
           </div>
         </div></div></div>
-
-
-    <div class="col-md-10 grid-margin stretch-card ">
+    <div class="col-md-10 grid-margin ">
+      <div class="text-right">
+        <button [matMenuTriggerFor]="addLang" mat-icon-button  matTooltip="{{'create.description_add_info' | translate}}"
+                aria-label="Button that displays a tooltip when focused or hovered over">
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-menu #addLang="matMenu" xPosition="before">
+          <button mat-menu-item (click)="addDescription('rus')">Русский</button>
+          <button mat-menu-item (click)="addDescription('eng')">English</button>
+          <button mat-menu-item (click)="addDescription('kz')">Қазақша</button>
+        </mat-menu>
+      </div>
       <div class="card">
         <div class="card-body">
-          <div class="text-right">
-            <button [matMenuTriggerFor]="addLang" mat-icon-button  matTooltip="{{'create.description_add_info' | translate}}"
-                    aria-label="Button that displays a tooltip when focused or hovered over">
-              <mat-icon>add</mat-icon>
-            </button>
-            <mat-menu #addLang="matMenu" xPosition="before">
-              <button mat-menu-item (click)="addDescription('rus')">Русский</button>
-              <button mat-menu-item (click)="addDescription('eng')">English</button>
-              <button mat-menu-item (click)="addDescription('kz')">Қазақша</button>
-            </mat-menu>
-            </div>
+
             <mat-form-field *ngFor="let lang of descriptionLangs;index as i" class="w-100" >
               <mat-label>{{(lang=='eng')?'Brief description of the project':(lang=='rus')?'Краткое описание проекта':'Проекттың қысқа сипаттамасы'}}</mat-label>
               <textarea [required]="i==0" formControlName="{{'description_' + lang}}" matInput
@@ -83,26 +85,31 @@
             </div>
         </div></div></div>
 
-    <div class="col-md-10 grid-margin stretch-card ">
+    <div class="col-md-10 grid-margin">
+      <div class="text-right">
+        <button [matMenuTriggerFor]="addLangContent" mat-icon-button  matTooltip="{{'create.content_add_info' | translate}}"
+                aria-label="Button that displays a tooltip when focused or hovered over">
+          <mat-icon>add</mat-icon>
+        </button>
+        <mat-menu #addLangContent="matMenu" xPosition="before">
+          <button mat-menu-item (click)="addContent('rus')">Русский</button>
+          <button mat-menu-item (click)="addContent('eng')">English</button>
+          <button mat-menu-item (click)="addContent('kz')">Қазақша</button>
+        </mat-menu>
+      </div>
       <div class="card">
         <div class="card-body">
-          <div class="text-right">
-            <button [matMenuTriggerFor]="addLangContent" mat-icon-button  matTooltip="{{'create.content_add_info' | translate}}"
-                    aria-label="Button that displays a tooltip when focused or hovered over">
-              <mat-icon>add</mat-icon>
-            </button>
-            <mat-menu #addLangContent="matMenu" xPosition="before">
-              <button mat-menu-item (click)="addContent('rus')">Русский</button>
-              <button mat-menu-item (click)="addContent('eng')">English</button>
-              <button mat-menu-item (click)="addContent('kz')">Қазақша</button>
-            </mat-menu>
-          </div>
+
           <p>Content</p>
           <div class="row justify-content-start mb-2" *ngFor="let lang of contentLangs; index as i">
           <editor class="col-11"  formControlName="{{'content_' + lang}}" [required]="i==0"
                   apiKey="sj3n4ofpyw6lj5xkfeaedah9jf36wvm5wtrge3i8acvowjuy"
             [init]="{
                    menubar: true,
+                   image_uploadtab: true,
+                   automatic_uploads: true,
+                   images_upload_url: back +  '/api/v1/project/create/image',
+                   language: (translate.currentLang === 'rus') ? 'ru' : (translate.currentLang === 'eng') ? 'en_CA':'kk',
                    plugins: [
                      'advlist autolink lists link image charmap print preview anchor ',
                      'searchreplace visualblocks code fullscreen',
@@ -145,19 +152,19 @@
       <div class="card">
         <div class="card-body">
               <p>{{'create.reward' |translate}}</p>
-          <form [formGroup]="rewardForm" (keydown)="addReward($event)">
+          <form [formGroup]="rewardForm" >
               <div class="form-row justify-content-center">
                 <mat-form-field class="w-50 pr-1" >
                   <mat-label>{{'create.reward_sum' | translate}}</mat-label>
                   <input formControlName="sum" matInput>
                 </mat-form-field>
                 <mat-form-field class="pl-1 w-50" >
-                  <mat-label>{{'create.reward_sum_description' | translate}}</mat-label>
+                  <mat-label>{{'create.reward_description' | translate}}</mat-label>
                   <input formControlName="description" matInput>
                 </mat-form-field>
-
-
               </div>
+            <button class="btn bg-sss text-light" [disabled]="!rewardForm.valid" (click)="addReward()">{{'save'|translate}}</button>
+
           </form>
 
               <div class="row justify-content-center">

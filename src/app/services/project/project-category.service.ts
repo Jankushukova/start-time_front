@@ -26,7 +26,7 @@ export class ProjectCategoryService {
     );
   }
 
-  public getAllCategories(perPageCount: number, pageNumber: number): Observable<ProjectCategory[]> {
+  public getAllCategories(perPageCount: number, pageNumber: number): Observable<any> {
     return this.http.get<ProjectCategory[]>(`${this.customUrl}/project/category/all`, {
       // @ts-ignore
       params: {

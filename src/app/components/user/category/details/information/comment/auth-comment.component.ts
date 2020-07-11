@@ -33,7 +33,6 @@ export class AuthCommentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.project);
     this.commentFormInit();
     this.projectService.comments$.subscribe(perf => this.comments = perf);
     this.commentService.getCommentsOfProject(this.project.id).subscribe(perf => {

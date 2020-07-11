@@ -1,12 +1,13 @@
 
 <div class="row justify-content-center">
-  <div class="col-md-10 grid-margin stretch-card">
+  <div class="col-md-12 grid-margin stretch-card">
     <mat-tab-group class="w-100">
 
       <mat-tab label="{{'project.description' |translate}}"> <app-description [project] = "project"></app-description></mat-tab>
       <mat-tab label="{{'project.comments' |translate}}"> <app-comment [project] = "project"></app-comment></mat-tab>
       <mat-tab label="{{'project.updates' |translate}}"><app-update [project] = "project"></app-update></mat-tab>
       <mat-tab label="{{'project.questions' |translate}}"> <app-question [project] = "project"></app-question></mat-tab>
+      <mat-tab label="{{'bakers' |translate}}"> <app-project-bakers [project] = "project"></app-project-bakers></mat-tab>
     </mat-tab-group>
   </div>
 </div>

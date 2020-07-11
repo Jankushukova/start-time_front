@@ -13,6 +13,10 @@ import {ProjectCategory} from "../../../models/project/projectCategory";
 import {ProjectCategoryService} from "../../../services/project/project-category.service";
 import {Translator} from "@angular/localize/src/tools/src/translate/translator";
 import {TranslateService} from "@ngx-translate/core";
+import * as FileSaver from 'file-saver';
+// @ts-ignore
+import bootbox = require('bootbox');
+
 @Component({
   selector: 'app-admin-projects',
   templateUrl: './admin-projects.component.html',
@@ -56,7 +60,6 @@ export class AdminProjectsComponent implements AfterViewInit, OnInit {
         distinctUntilChanged(),
         tap((text) => {
           const searchText = this.input.nativeElement.value;
-          console.log(searchText);
           this.page = 1;
           this.filterProjects(searchText);
         })
@@ -72,8 +75,6 @@ export class AdminProjectsComponent implements AfterViewInit, OnInit {
   }
   changePage(event) {
     this.page = event;
-    console.log(this.pattern);
-    console.log(this.isCategory);
     if (this.pattern !== null) {
       if (!this.isCategory) {
         this.filterProjects(this.inputText);
@@ -88,7 +89,6 @@ export class AdminProjectsComponent implements AfterViewInit, OnInit {
   changeActiveState(project: Project, state) {
     project.active = state;
     this.projectService.changeActiveState(project, state).subscribe((perf: any) => {
-      console.log(perf);
     });
   }
   openDialog(project: Project) {
@@ -96,12 +96,15 @@ export class AdminProjectsComponent implements AfterViewInit, OnInit {
       data: {
         projectId: project.id,
       },
-      width: '60%'
+      width: '90%'
     });
   }
-  changeFilter(option) {
+  changeFilter(option, text) {
     this.isCategory = false;
     this.pattern = option;
+    if (text !== null) {
+      this.filterProjects(text);
+    }
   }
   filterCategory(option) {
     this.projects = null;
@@ -129,7 +132,30 @@ export class AdminProjectsComponent implements AfterViewInit, OnInit {
       this.mapProjects(perf);
     });
   } else {
-    this.message = 'please choose filter';
+    this.message = 'Пожалуйста, выберите фильтр';
   }
+  }
+
+  deleteProject(project: Project, i) {
+    this.openB(project, i);
+  }
+  downloadExcel(project) {
+    this.projectService.downloadExcel(project.id).subscribe(perf => {
+      const blob = new Blob([perf], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+      FileSaver.saveAs(blob, 'start-time-bakers.xlsx');
+    });
+  }
+  openB(project, i) {
+    bootbox.confirm({
+      title: 'Сообщение',
+      message: 'Вы действительно хотите удалить проект?',
+      callback:  (result) => {
+        if (result) {
+          this.projectService.deleteById(project.id).subscribe(perf => {
+            this.projects.splice(i, 1);
+          });
+        }
+      }
+    });
   }
 }

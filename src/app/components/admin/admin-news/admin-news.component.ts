@@ -53,7 +53,6 @@ export class AdminNewsComponent implements OnInit {
 
   deleteNews(news: News) {
     this.newsService.deleteById(news.id).subscribe(perf => {
-      console.log('deleted');
     });
     let allNews: News[] = [];
     this.newsService.news$.subscribe(perf => allNews = perf);

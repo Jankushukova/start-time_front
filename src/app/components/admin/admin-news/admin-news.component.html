@@ -9,20 +9,20 @@
         <mat-icon>add</mat-icon>
       </button>
       <mat-menu #editNews="matMenu" xPosition="before">
-        <button mat-menu-item (click)="addNews()">Add News</button>
-        <button mat-menu-item (click)="configNews(true)">Delete News</button>
-        <button mat-menu-item (click)="configNews(false)">Edit News</button>
+        <button mat-menu-item (click)="addNews()">Добавить Новость</button>
+        <button mat-menu-item (click)="configNews(true)">Удалить Новость</button>
+        <button mat-menu-item (click)="configNews(false)">Редактировать Новость</button>
       </mat-menu>
     </div>
 
     <div class="row mt-md-5 justify-content-center ">
       <div *ngFor="let News of news" class="col-md-2 grid-margin  " >
         <div class="text-right" >
-          <button  *ngIf="DeleteNews" matSuffix mat-icon-button  matTooltip="Remove news"
+          <button  *ngIf="DeleteNews" matSuffix mat-icon-button  matTooltip="Удалить"
                     aria-label="Button that displays a tooltip when focused or hovered over" (click)="deleteNews(News)">
             <mat-icon>remove_circle_outline</mat-icon>
           </button>
-          <button  *ngIf="EditNews" matSuffix mat-icon-button  matTooltip="Edit news"
+          <button  *ngIf="EditNews" matSuffix mat-icon-button  matTooltip="Изменить"
                    aria-label="Button that displays a tooltip when focused or hovered over" (click)="updateNews(News)">
             <mat-icon>edit</mat-icon>
           </button>
@@ -35,7 +35,7 @@
           <img class="card-img-top m-auto" *ngIf="(News.images.length===0)" src="../../../../assets/images/2_0.png" width="100%" height="150px" alt="Card image cap">
 
 
-          <div class="card-body">
+          <div class="card-body p-2 p-md-4">
             <h6 class="card-title text-center" ><a style="color: inherit" [routerLink]="['/newsDetail',News.id]">{{News.title}}</a></h6>
             <p class="card-text text-center">{{News.description}}</p>
             <hr/>

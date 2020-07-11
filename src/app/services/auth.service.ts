@@ -5,6 +5,7 @@ import {Route, Router} from '@angular/router';
 // @ts-ignore
 import bootbox = require('bootbox');
 import {OrdersProduct} from "../models/product/ordersProduct";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class SimpleAuthService {
     this.authorized.next(data);
   }
   constructor(
-    private router: Router
+    private router: Router,
+    private translator: TranslateService
   ) { }
   handle(token) {
     this.setToken(token);
@@ -59,9 +61,13 @@ export class SimpleAuthService {
     return true;
   }
   async show() {
+    let t = '';
+    let m = '';
+    this.translator.get('createProject').subscribe(perf => t = perf);
+    this.translator.get('messageProject').subscribe(perf => m = perf);
     bootbox.alert({
-      title: 'Baking gifts',
-      message: 'Please authorize firstly!',
+      title: t,
+      message: m,
       size: 'large',
       centerVertical: true,
     });

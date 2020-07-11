@@ -29,7 +29,6 @@ export class AuthNewsEntityComponent implements OnInit {
     this.translate = this.translator;
     this.authService.authorized$.subscribe(perf => {
       this.authorized = perf;
-      console.log(perf);
     });
   }
   like() {

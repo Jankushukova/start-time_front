@@ -22,6 +22,7 @@ export class AuthShopComponent implements OnInit {
   perPageCount = 12;
   totalProductsCount: number;
   translate;
+  mobile = false;
   constructor(
     private productService: ProductService,
     private userService: UserService,
@@ -37,6 +38,14 @@ export class AuthShopComponent implements OnInit {
     this.translate = this.translator;
     this.authorized = this.authService.loggedIn(false);
     this.changeProducts();
+    $(document).ready(() => {
+      const ua = navigator.userAgent;
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+    });
   }
 
   changeProducts() {
@@ -83,11 +92,12 @@ export class AuthShopComponent implements OnInit {
   }
 
   openDialog(product: Product) {
+
     const dialogRef = this.dialog.open(AuthProductDetailsComponent, {
       data: {
         productId: product.id,
       },
-      width: '60%'
+      width: (this.mobile) ? '100%' : '60%'
     });
   }
 

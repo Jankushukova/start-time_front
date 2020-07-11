@@ -15,6 +15,7 @@ export class Update implements Deserializable {
   project_id: number;
   project: Project;
   images: UpdateImage[];
+  created_at: string;
 
   deserialize(input: any): this {
     Object.assign(this, input);

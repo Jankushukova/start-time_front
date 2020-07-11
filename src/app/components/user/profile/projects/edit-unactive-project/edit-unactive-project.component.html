@@ -127,7 +127,7 @@
                 <div class="card-body p-2">
                   <mat-form-field class="w-100">
                     <ngx-mat-file-input  (change)="ImageAddedEvent($event)"  multiple></ngx-mat-file-input>
-                    <mat-icon matSuffix>{{'create.images' |translate}}</mat-icon>
+                    <mat-icon matSuffix>insert_photo</mat-icon>
                   </mat-form-field>
                 </div></div></div>
 
@@ -209,6 +209,6 @@
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button class="btn w-25 btn-lg bg-sss text-light" mat-dialog-close (click)="onSubmitProjectForm()">{{'save'|translate}}</button>
+  <button class="btn btn-lg bg-sss text-light" mat-dialog-close (click)="onSubmitProjectForm()">{{'save'|translate}}</button>
 
 </mat-dialog-actions>

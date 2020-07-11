@@ -6,8 +6,8 @@
 
 
   <div class="row justify-content-center w-100">
-    <div class="col-md-6 col-6  ">
-      <div class="card">
+    <div class="col-md-6 col-5  ">
+      <div class="card border-0">
         <div class="card-body p-1">
               <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
@@ -24,21 +24,23 @@
       </div>
 
     </div>
-    <div class="col-md-6 col-6">
+    <div class="col-md-6 col-7">
       <div class="row justify-content-center" >
-        <div class="col-md-6 text-right border-right">
+        <div class="col-md-6 col-6 text-right border-right">
           <div>
-          <h2 class="display-5"> Sum: <span>{{sum}}tg</span></h2>
+          <h2 class="display-5"> {{'sum'|translate}}: ₸<span>{{sum}}</span></h2>
           </div>
           <div class="d-flex" *ngIf="!unactive">
             <span class="ml-auto">
-            <i (click)="changeCount(true)" class="fas fa-chevron-left"></i>
+              <a class="hover-cursor" (click)="changeCount(true)">
+            <i  class="fas fa-chevron-left"></i>
+              </a>
             {{count}}
-            <i (click)="changeCount(false)" class="fas fa-chevron-right"></i>
+            <a class="hover-cursor" (click)="changeCount(false)"><i class="fas fa-chevron-right"></i></a>
           </span>
           </div>
         </div>
-        <div *ngIf="!unactive" class="col-md-6 "> <button class="btn btn-outline-dark btn-sm ml-2 mt-2" mat-dialog-close  (click)="intoTheBasket()">Order</button></div>
+        <div *ngIf="!unactive" class="col-md-6 col-6 "> <button class="btn btn-outline-dark btn-sm ml-2 mt-2" mat-dialog-close  (click)="intoTheBasket()">{{'order' | translate}}</button></div>
       </div>
     </div>
 
@@ -54,8 +56,8 @@
               {{(translate.currentLang=='eng')?product.title_eng:(translate.currentLang=='rus')?product.title_rus:product.title_kz}}</h3>
             <hr/>
             <p [routerLink]="['/userProfile',product.user.id]" class="paddingDiv">{{'author'|translate}}: {{product.user.fullname}}</p>
-            <p>
-              {{(translate.currentLang=='eng')?product.description_eng:(translate.currentLang=='rus')?product.description_rus:product.description_kz}}</p>
+            <p [innerHTML]="(translate.currentLang=='eng')?product.description_eng:(translate.currentLang=='rus')?product.description_rus:product.description_kz" >
+              </p>
           </div>
         </div>
 

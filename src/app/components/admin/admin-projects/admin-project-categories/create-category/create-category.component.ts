@@ -23,8 +23,7 @@ export class CreateCategoryComponent implements OnInit {
     if ( this.data.categoryId) {
       this.projectCategoryService.findById(this.data.categoryId).subscribe(perf => {
         this.category = perf;
-        console.log(this.category);
-        this.assignOldValues()
+        this.assignOldValues();
       });
     }
     this.initCategoryForm();
@@ -47,14 +46,12 @@ export class CreateCategoryComponent implements OnInit {
     if (!this.category) {
       let category: ProjectCategory = this.categoryForm.getRawValue();
       this.projectCategoryService.create(category).subscribe(perf => {
-        console.log(perf);
         category = new ProjectCategory().deserialize(perf);
         category.projects = [];
         let categories: ProjectCategory[] = [];
         this.projectCategoryService.categories$.subscribe(res => categories = res);
         categories.push(category);
         this.projectCategoryService.changeCategories(categories);
-        console.log(categories);
       });
     } else {
       this.category.name_rus = this.categoryForm.controls.name_rus.value;
@@ -75,6 +72,5 @@ export class CreateCategoryComponent implements OnInit {
         });
     }
 
-    console.log('create category');
   }
 }

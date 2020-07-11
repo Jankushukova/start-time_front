@@ -57,7 +57,6 @@ export class AuthUserProjectEntityComponent implements OnInit {
   unlike() {
     if (this.authorized) {
       this.likeService.deleteByIdProjectLike(this.project.id).subscribe(perf => {
-        console.log(perf);
         // @ts-ignore
         this.project.likes = this.project.likes.filter(like => like.id !== perf.id);
         this.project.liked = false;
@@ -74,5 +73,8 @@ export class AuthUserProjectEntityComponent implements OnInit {
       panelClass: style,
       horizontalPosition: 'right',
     });
+  }
+  progress(project: Project) {
+    return Math.ceil(( parseInt(project.gathered, 10) /  parseInt(project.goal, 10))  * 100 );
   }
 }

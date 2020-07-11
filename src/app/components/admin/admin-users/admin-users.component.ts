@@ -38,7 +38,6 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap((text) => {
           const searchText = this.input.nativeElement.value;
-          console.log(searchText);
           this.page = 1;
           this.filterUsers(searchText);
         })
@@ -67,15 +66,12 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       this.userService.adminUpdate(user).subscribe(perf => {
         user = new User().deserialize(perf);
       });
-      console.log(user);
-      console.log(this.users);
       this.users = this.users.map(data => {
         if (data.id === user.id) {
           return user;
         }
         return data;
       });
-      console.log(this.users);
       this.userService.changeUsers(this.users);
     }
   }

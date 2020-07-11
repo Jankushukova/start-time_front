@@ -10,7 +10,7 @@
 
 @media (max-width: 991px) {
   .display-5 {
-    font-size: 0.6rem;
+    font-size: 0.8785rem;
   }
 }
 ::ng-deep .mat-focused .mat-form-field-label {

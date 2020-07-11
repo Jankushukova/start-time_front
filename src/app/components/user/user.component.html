@@ -1,37 +1,22 @@
 
 
-  <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-    <div class="navbar-brand-wrapper d-flex justify-content-center" style="background: #fafbfe;">
-      <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
-        <a class="navbar-brand brand-logo"><img src="../../../assets/images/30_0.png" alt="logo"></a>
-        <a class="navbar-brand brand-logo-mini" ><img src="../../../../assets/images/30_0.png" alt="logo"></a>
+  <nav class="navbar col-lg-12 col-md-12 col-sm-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="navbar-brand-wrapper d-flex justify-content-center" style="height: 35px">
+      <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100 mt-md-1">
+        <mat-form-field class="example-full-width mb-md-1 comp">
+          <input #input id="input" [(ngModel)]="inputText" matInput placeholder="{{'main.search' | translate}}" >
+        </mat-form-field>
       </div>
     </div>
-    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end" style="background: #fafbfe;">
-      <ul class="navbar-nav mr-lg-4 w-100">
-        <li class="nav-item  d-none d-lg-block ">
-          <a class="nav-link" routerLink="/main">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item  d-none d-lg-block">
-          <a class="nav-link" routerLink="/news">{{'navigation.news' | translate}} </a>
-        </li>
-        <li class="nav-item  d-none d-lg-block ">
-          <a class="nav-link" routerLink="/contact">{{'navigation.contact' | translate}} </a>
-        </li>
-        <li class="nav-item  d-none d-lg-block ">
-          <a class="nav-link " routerLink="/about">{{'navigation.about' | translate}} </a>
-        </li>
-        <li class="nav-item  d-none d-lg-block ">
-          <a class="nav-link " routerLink="/help">{{'navigation.help' | translate}} </a>
-        </li>
-        <li class="nav-item  d-none d-lg-block ">
-          <a class="nav-link " routerLink="/shop">Q-Shop</a>
-        </li>
+    <div class="navbar-menu-wrapper d-flex justify-content-center" style="height: 35px">
+      <ul class="navbar-nav ">
+
+
       </ul>
-      <ul class="navbar-nav navbar-nav-right">
+      <ul class="navbar-nav navbar-nav-right mt-md-2">
 
         <li class="nav-item dropdown mr-0">
-          <i class="fas fa-language"></i>
+          {{translate.currentLang}}
           <mat-select   class="lang" #langSelect (selectionChange)="this.translate.use(langSelect.value)">
             <mat-option
               *ngFor="let lang of translate.getLangs()"
@@ -43,41 +28,35 @@
         </li>
         <ng-container *ngIf="authorized && user">
 
-          <li class="nav-item dropdown mr-0 ">
-            <a  routerLink="/create" class="nav-link d-flex justify-content-center align-items-center">
-              <i class="fas fa-home fa-plus fa-lg"></i>
-            </a>
-          </li>
-          <li class="nav-item dropdown mr-0">
-            <a class="nav-link d-flex justify-content-center align-items-center"routerLink="/home" ><i class="fas fa-home fa-lg" ></i></a>
-          </li>
-<!--          <li class="nav-item ">-->
-<!--            &lt;!&ndash;          <a mat-icon-button matBadge="8" matBadgeSize="small" matBadgeColor="warn">&ndash;&gt;-->
-<!--            <mat-icon [matMenuTriggerFor]="beforeMenu" style="cursor: pointer" matBadge="9" matBadgeSize="small" matBadgeColor="warn">notifications</mat-icon>-->
-<!--            <mat-menu #beforeMenu="matMenu" xPosition="before">-->
-<!--              <button mat-menu-item>Item 1</button>-->
-<!--              <button mat-menu-item>Item 2</button>-->
-<!--            </mat-menu>-->
-<!--            &lt;!&ndash;          </a>&ndash;&gt;-->
+          <!--          <li class="nav-item ">-->
+          <!--            &lt;!&ndash;          <a mat-icon-button matBadge="8" matBadgeSize="small" matBadgeColor="warn">&ndash;&gt;-->
+          <!--            <mat-icon [matMenuTriggerFor]="beforeMenu" style="cursor: pointer" matBadge="9" matBadgeSize="small" matBadgeColor="warn">notifications</mat-icon>-->
+          <!--            <mat-menu #beforeMenu="matMenu" xPosition="before">-->
+          <!--              <button mat-menu-item>Item 1</button>-->
+          <!--              <button mat-menu-item>Item 2</button>-->
+          <!--            </mat-menu>-->
+          <!--            &lt;!&ndash;          </a>&ndash;&gt;-->
 
-<!--          </li>-->
+          <!--          </li>-->
           <li class="nav-item mr-0">
 
             <a routerLink="/order/product"  matBadge="{{productCount}}" matBadgeSize="small" matBadgeColor="warn"> <i class="fas fa-shopping-cart fa-lg"></i></a>
           </li>
           <li class="nav-item nav-profile dropdown mr-0">
             <a [matMenuTriggerFor]="logout" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+
               <img *ngIf="!user.image" src="../../../assets/images/11_0.png" alt="profile">
               <img *ngIf="user.image" [src]="user.image" alt="profile">
-              <span class="nav-profile-name">{{user.firstname}}</span>
+              <span class="nav-profile-name">{{user.fullname}}</span>
             </a>
             <mat-menu #logout="matMenu" xPosition="before">
-              <button mat-menu-item (click)="Logout()"> <i class="mdi mdi-logout text-primary"></i>
-                Logout</button>
-              <button mat-menu-item routerLink="/home/information"> <i class="mdi mdi-settings text-primary"></i>
-                Settings
+              <button mat-menu-item (click)="Logout()"> <i class="mdi mdi-logout"></i>
+                {{'logout'|translate}}
+              </button>
+              <button mat-menu-item routerLink="/home"> <i class="fas fa-user-cog"></i>
+                {{'home'|translate}}
 
-                </button>
+              </button>
             </mat-menu>
 
           </li>
@@ -102,24 +81,43 @@
         <span class="mdi mdi-menu"></span>
       </button>
     </div>
-<!--    <div class="navbar-brand-wrapper d-flex justify-content-center">-->
-<!--      <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100 border-0">-->
+    <div class="navbar-menu-wrapper shadow-lg d-flex align-items-center justify-content-center  w-100" style="background: #fafbfe;">
+      <ul class="navbar-nav mr-lg-4 ">
+        <li class="nav-item  d-lg-block text-center">
+          <a routerLink="/main" class="nav-link"><img  src="../../../assets/images/logot.png" class="logo"></a>
+        </li>
+      </ul>
 
-<!--      </div>-->
-<!--    </div>-->
+    </div>
 
-    <div class="navbar-menu-wrapper justify-content-center w-100">
-      <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
-                           (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
-        <div ngxSlickItem *ngFor="let category of categories" class="slide ">
-          <div class="w-auto">
-                  <span >
-                              <a  class="a nav-link border-right text-center" [routerLink]="['/category', category.id]">
-                                {{(translate.currentLang=='rus') ? category.name_rus : (translate.currentLang === 'eng') ? category.name_eng : category.name_kz }} <span class="sr-only">(current)</span></a>
-                    </span>
-          </div>
-        </div>
-      </ngx-slick-carousel>
+    <div class="navbar-menu-wrapper d-flex justify-content-center w-100" style="height: 40px">
+      <ul class="navbar-nav w-25" >
+
+      </ul>
+      <ul class="navbar-nav w-25 pr-md-4" >
+        <li class="nav-item  d-none d-lg-block w-100 h-100 m-0 p-0 text-center " *ngFor="let category of categories1" >
+          <a  class="a nav-link text-center w-100 h-100 m-0 p-0 " [routerLink]="['/category', category.id]">
+            <img style="max-width: 100%; max-height: 100%" [src]="getImage(category.id)"></a>
+        </li>
+      </ul>
+      <ul class=" w-25 h-100 comp justify-content-end" >
+        <button class="color-sss" mat-button [matMenuTriggerFor]="cat">{{'categories'|translate}}</button>
+        <mat-menu #cat="matMenu">
+          <button  mat-menu-item [routerLink]="['/category', category.id]" *ngFor="let category of categories">
+            {{(translate.currentLang=='rus') ? category.name_rus : (translate.currentLang === 'eng') ? category.name_eng : category.name_kz }}
+          </button>
+        </mat-menu>
+      </ul>
+      <ul class=" h-100 mob  justify-content-end" >
+        <button class="color-sss" mat-button [matMenuTriggerFor]="cat">{{'categories'|translate}}</button>
+        <mat-menu #cat="matMenu">
+          <button  mat-menu-item [routerLink]="['/category', category.id]" *ngFor="let category of categories">
+            {{(translate.currentLang=='rus') ? category.name_rus : (translate.currentLang === 'eng') ? category.name_eng : category.name_kz }}
+          </button>
+        </mat-menu>
+      </ul>
+
+
     </div>
   </nav>
 
@@ -152,21 +150,22 @@
     <nav    class="sidebar sidebar-offcanvas" id="sidebar">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link al"  routerLink="/main">Главная <span class="sr-only">(current)</span></a>
+          <a class="nav-link al"  routerLink="/main">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link al" id="s1" routerLink="/news">Новости</a>
+          <a class="nav-link al" id="s1" routerLink="/news">{{'navigation.news' | translate}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/contact">Связаться с нами</a>
+          <a class="nav-link " routerLink="/contact">{{'navigation.contact' | translate}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " routerLink="/about">О нас</a>
+          <a class="nav-link " routerLink="/about">{{'navigation.about'|translate}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " routerLink="/help">Помощь</a>
+          <a class="nav-link " routerLink="/help">{{'navigation.help' | translate}}</a>
         </li>
         <li class="nav-item">
+
           <a class="nav-link " routerLink="/shop">Q-Shop</a>
         </li>
 
@@ -174,14 +173,104 @@
     </nav>
 
     <div class="main-panel">
-      <div class="content-wrapper">
+      <div class="content-wrapper p-0 bg-image" >
+        <div class="row justify-content-center mt-2" >
+          <div class="col-lg-7 p-0 col-8 mb-4 mt-4  pt-2 rounded-lg shadow-lg" style="background-color: #fafbfe">
+            <ng-container *ngIf="!searchProject">
 
-        <router-outlet></router-outlet>
+              <router-outlet></router-outlet>
+            </ng-container>
+            <ng-container *ngIf="searchProject">
+              <app-spinner filterBy="project/filter"></app-spinner>
+
+              <div class="container-fluid mb-md-5">
+                <div class="row justify-content-center mt-md-5 ">
+                  <div *ngFor="let project of projects" class="col-md-3 grid-margin stretch-card">
+                    <div class="card  shadow" >
+                      <div class="card-img-top m-auto">
+
+                        <ng-container *ngIf="project.images">
+                          <img  *ngIf="project.images[0]" [src]="project.images[0].image" width="100%" height="150px" alt="Card image cap">
+                        </ng-container>
+                        <img class="card-img-top m-auto" *ngIf="!project.images[0]" src="../../../../assets/images/32_0.png" width="100%" height="150px" alt="Card image cap">
+                      </div><div class="card-body">
+                      <h6 class="card-title text-center"><a (click)="searchProject = false" [routerLink]="['/project/details', project.id]" >
+                        {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></h6>
+                      <hr/>
+                      <p class="text-muted " >{{'project.by' | translate}}: <a style="color: inherit" [routerLink]="['/userProfile',project.owner.id]"> {{project.owner.fullname}}</a></p>
+
+                      <div class="row">
+                        <div class="col d-flex ">
+                          <button mat-icon-button aria-label="Example icon button with an eye icon">
+                            <mat-icon>remove_red_eye</mat-icon>
+                            <span>{{project.views}}</span>
+                          </button>
+                        </div>
+                        <div class="col d-flex ">
+                          <button mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                            <mat-icon *ngIf="!project.liked" (click)="like(project)">favorite_border</mat-icon>
+                            <mat-icon *ngIf="project.liked" (click)="unlike(project)">favorite</mat-icon>
+                            <span>{{project.likes.length}}</span>
+                          </button>
+
+                        </div>
+                      </div>
+                      <div class="progress">
+                        <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <div class="row mt-2">
+                        <div class="col-7">
+                          <h4 class="text-start-time"><span class="text-muted">{{'project.gathered' | translate}}:</span> ₸{{project.gathered}}</h4>
+                        </div>
+                        <div class="col-5">
+                          <h4 class="text-muted text-center" *ngIf="project.active!=2">{{daysLeft(project)}} <span >{{'project.days' | translate}}</span></h4>
+                          <h6 class="text-muted text-center" *ngIf="project.active==2"><span>{{'project.end' | translate}}</span></h6>
+
+                        </div>
+                      </div>
+
+                    </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div>
+                </div>
+              </div>
+            </ng-container>
+            <ul class="nav comp justify-content-around p-md-3" style="background-color: #ffffff;border-top: 1px solid #DCDEDD">
+              <li class="nav-item">
+                <a class="nav-link a" style="border-right: 1px solid #DCDEDD"  routerLink="/main">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link a"  routerLink="/news">{{'navigation.news' | translate}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link a" style="border-right: 1px solid #DCDEDD;border-left: 1px solid #DCDEDD" routerLink="/contact">{{'navigation.contact' | translate}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link a"  routerLink="/about">{{'navigation.about'|translate}}</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link a" style="border-right: 1px solid #DCDEDD;border-left: 1px solid #DCDEDD" routerLink="/help">{{'navigation.help' | translate}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link a" routerLink="/shop">Q-Shop</a>
+              </li>
+
+            </ul>
+
+          </div>
+        </div>
+
       </div>
       <footer class="footer">
         <div class="d-sm-flex justify-content-center justify-content-sm-between">
-          <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Start time © {{getDate()}}. All rights reserved.</span>
-          <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with <i class="mdi mdi-heart text-danger"></i></span>
+          <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Start time © {{getDate()}}. {{'rights' | translate}}.</span>
+          <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+            <button type="button" class="btn btn-social-icon btn-facebook"><a target="_blank" href="https://www.facebook.com/1521304248106911/" style="color:inherit"><i class="mdi mdi-facebook"></i></a></button>
+            <button type="button" class="btn btn-social-icon btn-google ml-md-2 ml-2"><a href="https://instagram.com/starttime.kz?igshid=9245e87xtp35" style="color:inherit" target="_blank"><i class="mdi mdi-instagram"></i></a></button></span>
         </div>
       </footer>
       <!-- partial -->

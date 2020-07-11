@@ -9,7 +9,6 @@ export class ProductImage implements Deserializable {
   product: Product;
 
   deserialize(input: any): this {
-    console.log(input);
     this.url = input.image;
     return Object.assign(this, input);
   }

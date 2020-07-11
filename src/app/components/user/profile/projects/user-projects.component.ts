@@ -5,10 +5,7 @@ import {Project} from '../../../../models/project/project';
 import {ProjectLike} from '../../../../models/project/projectLike';
 import {UserService} from '../../../../services/user/user.service';
 import {LikeService} from '../../../../services/like.service';
-import {User} from '../../../../models/user/user';
 import {FormControl} from '@angular/forms';
-import {Product} from "../../../../models/product/product";
-import {AuthProductDetailsComponent} from "../../shop/product-details/auth-product-details.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditUnactiveProjectComponent} from "./edit-unactive-project/edit-unactive-project.component";
 import {TranslateService} from "@ngx-translate/core";
@@ -58,7 +55,6 @@ export class UserProjectsComponent implements OnInit {
     this.projectService.getActiveProjectsOfUser(this.perPageCount, this.activeProjectpage ).subscribe((perf: any) => {
       this.totalActiveProjectsCount = perf.total;
       this.activeProjects = perf.data.map(data => new Project().deserialize(data));
-      console.log(this.activeProjects);
     });
   }
   changeUnActiveProjects() {
@@ -66,16 +62,13 @@ export class UserProjectsComponent implements OnInit {
     this.projectService.getUnActiveProjectsOfUser(this.perPageCount, this.unactiveProjectpage ).subscribe((perf: any) => {
       this.totalUnActiveProjectsCount = perf.total;
       this.unactiveProjects = perf.data.map(data => new Project().deserialize(data));
-      console.log(this.unactiveProjects);
     });
   }
   changeFinishedProjects() {
-    console.log('fini');
     this.finishedProjects = null;
     this.projectService.getFinishedProjectsOfUser(this.perPageCount, this.finishedProjectpage ).subscribe((perf: any) => {
       this.totalFinishedProjectsCount = perf.total;
       this.finishedProjects = perf.data.map(data => new Project().deserialize(data));
-      console.log(this.finishedProjects);
     });
   }
   changePageFinishedProjects(event) {

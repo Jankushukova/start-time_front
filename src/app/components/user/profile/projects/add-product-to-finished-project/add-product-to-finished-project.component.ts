@@ -41,7 +41,6 @@ export class AddProductToFinishedProjectComponent implements OnInit {
     this.initProductForm();
     this.bindLangs();
     this.projectService.findById(this.data.projectId).subscribe(perf => {
-      console.log(perf);
       this.project = perf;
       this.productForm.patchValue({
         project_id: this.project.id,
@@ -66,7 +65,6 @@ export class AddProductToFinishedProjectComponent implements OnInit {
     this.productForm.addControl('description_' + this.currentLang, this.builder.control('', Validators.required));
   }
   addDescription(language) {
-    console.log(language);
     if (!this.descriptionLangs.includes(language)) {
       this.productForm.addControl('description_' + language, this.builder.control('', Validators.required));
       this.descriptionLangs.push(language);
@@ -85,20 +83,15 @@ export class AddProductToFinishedProjectComponent implements OnInit {
       const image: ProductImage = new ProductImage();
       image.url = files[i];
       this.images.append('image' + ( i + 1), image.url);
-      console.log(this.images);
     }
 
   }
   onSubmitProductForm() {
 
     const product: Product = this.productForm.getRawValue();
-    console.log(product);
     this.productService.create(product).subscribe((perf: any) => {
-      console.log(perf);
       this.images.append('product_id', perf.id);
       this.productService.createProductImages(this.images).subscribe((res: any) => {
-        console.log(res);
-        console.log(product.images);
         this.translator.get('project.product.created_success').subscribe(perf2 => {
           this.openSnackBar(perf2, 'Close', 'style-success');
         });

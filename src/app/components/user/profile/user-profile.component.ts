@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   authorized = false;
   followers: User[] = [];
   followed: User[] = [];
-  bakers: User[] = [];
+  bakers: any[] = [];
   baked: Project[] = [];
   constructor(
     private userService: UserService,
@@ -139,7 +139,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
   async showBakers() {
-    const list: User[] = this.bakers;
+    const list: any[] = this.bakers;
     let text;
     this.translator.get('user_profile.bakers').subscribe(perf => text = perf);
     let noBakers;
@@ -156,7 +156,19 @@ export class UserProfileComponent implements OnInit {
                 '                          <td>\n' +
                 '                            <div >\n' +
                 // tslint:disable-next-line:max-line-length
-                '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/userProfile/' + user.id + '\' >' + user.getFullName() + '</a></small></h2>\n' +
+                '      <h2 ><small class="text-muted"><a style=\'color:inherit\' \>' + ((user.fullname) ? user.fullname : user.firstname + ' ' + user.lastname) + '</a></small></h2>\n' +
+                '                            </div>\n' +
+                '                          </td>\n' +
+                '<td>\n' +
+              '                            <div >\n' +
+              // tslint:disable-next-line:max-line-length
+              '      <h2 ><small class="text-muted"><a style=\'color:inherit\'  >' + user.payment.sum + '</a></small></h2>\n' +
+              '                            </div>\n' +
+              '                          </td>\n' +
+                '<td>\n' +
+                '                            <div >\n' +
+                // tslint:disable-next-line:max-line-length
+                '      <h2 ><small class="text-muted"><a style=\'color:inherit\'  >' + user.project.title_rus + '</a></small></h2>\n' +
                 '                            </div>\n' +
                 '                          </td>\n' +
                 '                        </tr>\n';
@@ -185,7 +197,7 @@ export class UserProfileComponent implements OnInit {
     this.translator.get('user_profile.no_bakes').subscribe(perf => {
       noBaked = perf;
     });
-    if(text && noBaked){
+    if(text && noBaked) {
     bootbox.alert({
       title: '<h1><small class="text-muted">' + text + '</small></h1>',
       message() {

@@ -58,12 +58,14 @@ export class LoginComponent implements OnInit {
     this.userService.login(user).subscribe(perf => {
       this.handleSuccessResponse(perf);
     }, error => {
+      this.loading = false;
       if (error.status === 400) {
-        this.loading = false;
         this.translate.get('authorization.login.invalid_credentials')
           .subscribe(perf => {
             this.answer = perf;
           });
+      } else {
+        alert('internal server error');
       }
     });
   }
@@ -77,10 +79,8 @@ export class LoginComponent implements OnInit {
     });
     }
     handleSuccessResponse(perf: any) {
-      console.log(perf);
       this.authService.handle(perf.token);
       this.userService.setUser(perf.user);
-      console.log(this.userService.getUser());
       this.authService.changeAuthorized(true);
       this.router.navigateByUrl('/');
     }

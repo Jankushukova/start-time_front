@@ -49,7 +49,7 @@
 
       </div>
       <div>
-        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageActiveProjects($event)" [ellipses]="true"  [collectionSize]="totalActiveProjectsCount" maxSize="5" [(page)]="activeProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-end pagination-sm" (pageChange)="changePageActiveProjects($event)" [ellipses]="true"  [collectionSize]="totalActiveProjectsCount" maxSize="5" [(page)]="activeProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
       </div>
     </ng-container>
@@ -96,7 +96,7 @@
 
       </div>
       <div>
-        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageUnActiveProjects($event)" [ellipses]="true"  [collectionSize]="totalUnActiveProjectsCount" maxSize="5" [(page)]="unactiveProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-end pagination-sm" (pageChange)="changePageUnActiveProjects($event)" [ellipses]="true"  [collectionSize]="totalUnActiveProjectsCount" maxSize="5" [(page)]="unactiveProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
       </div>
     </ng-container>
@@ -145,7 +145,7 @@
 
       </div>
       <div>
-        <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePageFinishedProjects($event)" [ellipses]="true"  [collectionSize]="totalFinishedProjectsCount" maxSize="5" [(page)]="finishedProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-end pagination-sm" (pageChange)="changePageFinishedProjects($event)" [ellipses]="true"  [collectionSize]="totalFinishedProjectsCount" maxSize="5" [(page)]="finishedProjectpage" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
       </div>
     </ng-container>

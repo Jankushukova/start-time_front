@@ -19,6 +19,7 @@ import {GiftService} from '../../../../services/project/gift.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import {SimpleAuthService} from '../../../../services/auth.service';
 import {ProjectImage} from '../../../../models/project/projectImage';
+import {environment} from "../../../../../environments/environment.prod";
 
 
 
@@ -66,8 +67,10 @@ export class ProjectEditComponent implements OnInit {
   titleLangs = ['rus' , 'eng', 'kz'];
   descriptionLang = [];
   contentLangs = [];
+  back = environment.apiUrl;
+  loading = false;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
     private projectService: ProjectService,
     // tslint:disable-next-line:variable-name
@@ -84,7 +87,7 @@ export class ProjectEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.loggedIn(true);
-    this.projectService.findById(this.data.projectId).subscribe(perf => {
+    this.projectService.findById(parseInt(this.route.snapshot.paramMap.get('id'))).subscribe(perf => {
       this.project = perf;
       this.bindOldProjectValues();
       this.rewardFormInit();
@@ -154,7 +157,6 @@ export class ProjectEditComponent implements OnInit {
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
       this.images.append('image' + ( i + 1 + this.project.images.length), image.image);
-      console.log(this.images);
     }
 
   }
@@ -185,6 +187,7 @@ export class ProjectEditComponent implements OnInit {
     this.contentLangs.splice(i, 1);
   }
   onSubmitProjectForm() {
+    this.loading = true;
     this.projectForm.patchValue({
       category_id: this.categoryControl.value,
       owner_id: this.project.owner_id,
@@ -200,6 +203,8 @@ export class ProjectEditComponent implements OnInit {
       this.projectService.createProjectImages(this.images).subscribe( perf2 => {
           this.giftService.update(this.project.gifts).subscribe(perf3 => {
             this.addChangedProjectToList();
+            this.loading = false;
+            this.router.navigateByUrl('/admin/projects');
             this.openSnackBar('Projects successfully changed', 'Close', 'style-success');
           }, error1 => {
             this.openSnackBar('Please fill all fields correctly', 'Close', 'style-error');

@@ -7,7 +7,7 @@ export class ProjectCategory implements Deserializable {
   name_rus: string;
   name_kz: string;
   name_eng: string;
-  projects: Project[];
+  projects: any[];
 
   deserialize(input: any): this {
     Object.assign(this, input);

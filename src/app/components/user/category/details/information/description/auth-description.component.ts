@@ -1,12 +1,14 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Project} from '../../../../../../models/project/project';
 import {SlickCarouselComponent} from 'ngx-slick-carousel';
 import {TranslateService} from "@ngx-translate/core";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-description',
   templateUrl: './auth-description.component.html',
-  styleUrls: ['./auth-description.component.css']
+  styleUrls: ['./auth-description.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AuthDescriptionComponent implements OnInit {
   @Input() project: Project;
@@ -23,11 +25,15 @@ export class AuthDescriptionComponent implements OnInit {
   };
 
   constructor(
-    private translator: TranslateService
+    private translator: TranslateService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
     this.translate = this.translator;
+  }
+  transformYourHtml(htmlTextWithStyle) {
+    return this.sanitizer.bypassSecurityTrustHtml(htmlTextWithStyle);
   }
 
 }

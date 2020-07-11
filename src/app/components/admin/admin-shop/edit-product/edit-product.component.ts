@@ -41,7 +41,6 @@ export class EditProductComponent implements OnInit {
     });
   }
   bindOldProjectValues() {
-    console.log(this.product);
     for (let i = 0; i < this.product.images.length; i++) {
       this.images.append('image' + ( i + 1), this.product.images[i].url);
     }
@@ -101,7 +100,6 @@ export class EditProductComponent implements OnInit {
       const image: ProductImage = new ProductImage();
       image.url = files[i];
       this.images.append('image' + ( i + 1 + this.product.images.length), image.url);
-      console.log(this.images);
     }
 
   }

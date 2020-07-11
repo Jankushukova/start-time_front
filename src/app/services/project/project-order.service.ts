@@ -21,9 +21,7 @@ export class ProjectOrderService {
 
 
   public getBakersOfUser(id: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.customUrl}/user/bakers/${id}`).pipe(
-      map(data => data.map(entryData => new User().deserialize(entryData)))
-    );
+    return this.http.get<User[]>(`${this.customUrl}/user/bakers/${id}`);
   }
 
   public getBakersOfProject(id: number): Observable<ProjectOrder[]> {
@@ -37,6 +35,14 @@ export class ProjectOrderService {
 
   public createEpay(order: ProjectOrder): Observable<any> {
     return this.http.post(this.mainUrl + '/epay/create', order, {responseType: 'json'});
+  }
+  public resultKaspi(Amount, ResultCode, OrderId ): Observable<any> {
+    return this.http.post(this.mainUrl + '/kaspi/result',
+      {
+        amount: Amount,
+        orderId: OrderId,
+        resultCode: ResultCode
+      });
   }
   public create(order: ProjectOrder): Observable<any> {
     return this.http.post(this.mainUrl + '/create', order, {responseType: 'json'});

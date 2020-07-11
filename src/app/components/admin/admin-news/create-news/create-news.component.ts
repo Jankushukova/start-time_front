@@ -39,7 +39,6 @@ export class CreateNewsComponent implements OnInit {
       description: this.news.description,
       content: this.news.content
     });
-    console.log(this.news);
     for (let i = 0; i < this.news.images.length; i++) {
       this.images.append('image' + ( i + 1), this.news.images[i].image);
     }
@@ -51,12 +50,10 @@ export class CreateNewsComponent implements OnInit {
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
       this.images.append('image' + ( i + 1 + ((this.news) ? this.news.images.length : 0)), image.image);
-      console.log(this.images);
     }
 
   }
   initNewsForm() {
-    console.log(this.news);
     this.newsForm = this.builder.group({
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -77,7 +74,6 @@ export class CreateNewsComponent implements OnInit {
         allNews.push(news);
         allNews.sort().reverse();
         this.newsService.changeNews(allNews);
-        console.log(allNews);
       });
     } else {
       this.news.title = this.newsForm.controls.title.value;
@@ -88,7 +84,6 @@ export class CreateNewsComponent implements OnInit {
         this.newsService.createNewsImages(this.images).subscribe((perf2: any) => {
           this.news.images = perf2.map( data => new NewsImage().deserialize(data));
         });
-        console.log(this.news);
         let allNews: News[] = [];
         this.newsService.news$.subscribe(res => {
           allNews = res;
@@ -99,12 +94,10 @@ export class CreateNewsComponent implements OnInit {
           }
           return data;
         });
-        console.log(allNews);
         this.newsService.changeNews(allNews);
         this.newsService.changeEditNews(false);
       });
     }
 
-    console.log('create category');
   }
 }

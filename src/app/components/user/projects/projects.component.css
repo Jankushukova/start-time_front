@@ -1,0 +1,12 @@
+.page-link{
+  padding: 0!important;
+}
+
+.project-img{
+  height: 25%;
+}
+@media screen and (max-width: 991px) {
+  .project-img{
+    height: auto;
+  }
+}

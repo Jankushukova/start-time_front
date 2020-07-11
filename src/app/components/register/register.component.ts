@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const user: User = this.registerForm.getRawValue();
-
+    user.fullname = user.firstname + ' ' + user.lastname;
     this.userService.register(user).subscribe(perf => {
         this.openDialog();
         this.router.navigateByUrl('/login');

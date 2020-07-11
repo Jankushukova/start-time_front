@@ -1,0 +1,14 @@
+.display {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+.display{
+  font-size: 1.875rem;
+}
+
+@media (max-width: 991px) {
+  .display {
+    font-size: 1rem;
+  }
+}

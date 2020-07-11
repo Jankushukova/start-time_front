@@ -10,15 +10,13 @@
     <div class="col-md-12">
 
 
-      <div class="row justify-content-end ">
+      <div class="row justify-content-end pr-0 ">
 
 
         <div class="col-md-10 col-9">
 
           <div class="text-right mt-2">
-            <h3 class="display-4">{{user.lastname}}</h3>
-
-            <h2 class="display-4">{{user.firstname}}</h2>
+            <h2 class="display-4">{{user.fullname}}</h2>
           </div>
           <hr/>
           <div class="row">
@@ -27,31 +25,31 @@
               <h5 class="display-5">{{user.projectsCount}}</h5>
              <span> {{'user_profile.projects' | translate}}</span>
             </div>
-            <div class="col-md-1 col-2 p-0 info-card text-center paddingDiv" (click)="showBaked()">
+            <div class="col-md-1 offset-lg-1 col-2 p-0 info-card text-center paddingDiv" (click)="showBaked()">
               <img style="max-width: 100%; max-height: 100% "  src="../../../../assets/images/21_0.png">
               <h5 class="display-5" >{{user.bakedCount}}</h5>
              <span>{{'user_profile.bakes' | translate}}</span>
             </div>
-            <div class="col-md-1 col-2 p-0 info-card text-center paddingDiv"(click)="showBakers()" >
+            <div class="col-md-1 offset-lg-1 col-2 p-0 info-card text-center paddingDiv"(click)="showBakers()" >
 
               <img style="max-width: 100%; max-height: 100% "   src="../../../../assets/images/6_0.png" >
               <h5 class="display-5" >{{user.bakersCount}}</h5>
               <span>{{'user_profile.bakers' | translate}}</span>
             </div>
-            <div class="col-md-1 col-2 p-0 info-card text-center paddingDiv"(click)="showFollowers()" >
+            <div class="col-md-1 offset-lg-1 col-2 p-0 info-card text-center paddingDiv"(click)="showFollowers()" >
 
               <img style="max-width: 100%; max-height: 100% "  src="../../../../assets/images/25_0.png" >
               <h5 class="display-5" >{{user.followersCount}}</h5>
               <span>{{'user_profile.followers' | translate}}</span>
             </div>
-            <div class="col-md-1 col-2 p-0 info-card text-center paddingDiv" (click)="showFollowed()" >
+            <div class="col-md-1 offset-lg-1 col-2 p-0 info-card text-center paddingDiv" (click)="showFollowed()" >
 
 
               <img style="max-width: 100%; max-height: 100% "  src="../../../../assets/images/25_0.png" >
               <h5   class="display-5">{{user.followedCount}}</h5>
              <span> {{'user_profile.following' | translate}}</span>
             </div>
-            <div class="col-md-1 col-2 p-0 info-card text-center paddingDiv"  [routerLink]="['recommendation']">
+            <div class="col-md-1 offset-lg-1 col-2 p-0 info-card text-center paddingDiv"  [routerLink]="['recommendation']">
 
 
               <img style="max-width: 100%; max-height: 100% "  src="../../../../assets/images/27_0.png" >
@@ -61,7 +59,7 @@
           </div>
 
         </div>
-        <div class="col-md-2 col-3 pt-5 pb-5 ">
+        <div class="col-md-2 col-3 pt-md-5 pb-md-5 pt-1 ">
           <img *ngIf="user.image" [src]="user.image"  style="max-width:100%;max-height:100%;" >
           <img *ngIf="!user.image" src="../../../../assets/images/11_0.png"   >
           <p class="text-center" [routerLink]="['products']"><i class="fas fa-store-alt fa-lg"></i></p>

@@ -34,10 +34,8 @@ export class AuthQuestionEntityComponent implements OnInit {
   }
   saveAnswer() {
     this.isAnswer = false;
-    console.log(this.answerControl.value);
     this.question.answer = this.answerControl.value;
     this.projectService.updateProjectQuestion(this.question.id, this.question).subscribe(perf => {
-      console.log(perf);
     });
 
   }
@@ -48,21 +46,17 @@ export class AuthQuestionEntityComponent implements OnInit {
 
   saveQuestion() {
     this.isQuestion = false;
-    console.log(this.questionControl.value);
     this.question.question = this.questionControl.value;
     this.projectService.updateProjectQuestion(this.question.id, this.question).subscribe(perf => {
-      console.log(perf);
     });
   }
   deleteQuestion() {
     this.projectService.deleteByIdProjectQuestion(this.question.id).subscribe((perf: any) => {
-      console.log(perf);
       let questions = [];
       this.projectService.questions$.subscribe(res => {
         questions = res;
       });
       questions = questions.filter((question: ProjectQuestion) => question.id !== this.question.id);
-      console.log(questions);
       this.projectService.changeQuestions(questions);
     });
   }

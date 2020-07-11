@@ -38,11 +38,12 @@ export class RecommendationComponent implements OnInit {
       this.totalProjectsCount = perf.total;
       this.projects = perf.data.map(data => new Project().deserialize(data));
       console.log(this.projects);
+      console.log(this.projects[0]);
+      console.log(this.projects[0].title_rus);
     });
   }
   changePage(event) {
     this.page = event;
-    console.log("fbsbfs");
     this.changeProjects();
   }
 

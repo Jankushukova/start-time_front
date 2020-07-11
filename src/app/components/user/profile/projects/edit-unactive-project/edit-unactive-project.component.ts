@@ -79,11 +79,9 @@ export class EditUnactiveProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.translate = this.translator;
-    console.log(this.descriptionLang);
     this.authService.loggedIn(true);
     this.projectService.findById(this.data.projectId).subscribe(perf => {
       this.project = perf;
-      console.log(this.project);
       this.bindOldProjectValues();
       this.rewardFormInit();
       this.getCategories();
@@ -93,7 +91,6 @@ export class EditUnactiveProjectComponent implements OnInit {
   bindOldProjectValues() {
     for (let i = 0; i < this.project.images.length; i++) {
       this.images.append('image' + ( i + 1), this.project.images[i].image);
-      console.log(this.project.images[i].image);
     }
 
     this.categoryControl = new FormControl(this.project.category_id, Validators.required);
@@ -153,7 +150,6 @@ export class EditUnactiveProjectComponent implements OnInit {
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
       this.images.append('image' + ( i + 1 + this.project.images.length), image.image);
-      console.log(this.images);
     }
 
   }
@@ -192,16 +188,11 @@ export class EditUnactiveProjectComponent implements OnInit {
     const project: Project = this.projectForm.getRawValue();
     const deadline = new Date(project.deadline);
     project.deadline = deadline.getFullYear() + '-' + (deadline.getMonth() + 1) + '-' + deadline.getDate();
-    console.log(project);
 
     this.projectService.update(this.project.id, project).subscribe(perf1 => {
       this.images.append('project_id', this.project.id.toString());
-      // for (const pair of this.images.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1]);
-      // }
       this.project.gifts.map(data => data.project_id = this.project.id);
       this.projectService.createProjectImages(this.images).subscribe( perf2 => {
-        console.log(this.project.gifts);
         this.giftService.update(this.project.gifts).subscribe(perf3 => {
           this.translator.get('create.success').subscribe(perf => {
             this.openSnackBar(perf, 'Close', 'style-success');

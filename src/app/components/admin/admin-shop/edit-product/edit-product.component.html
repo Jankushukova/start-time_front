@@ -10,7 +10,7 @@
           <div class="form-row justify-content-center ">
             <div class="col-md-12 grid-margin ">
               <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2 p-md-4">
                   <div class="input-group mt-3">
                     <div class="input-group-prepend">
 
@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-12 grid-margin ">
               <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2 p-md-4">
                   <div class="input-group mt-3">
                     <div class="input-group-prepend">
 
@@ -38,7 +38,7 @@
             </div>
             <div class="col-md-12 grid-margin ">
               <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2 p-md-4">
                   <div class="input-group mt-3">
                     <div class="input-group-prepend">
 
@@ -64,7 +64,7 @@
                 </mat-menu>
               </div>
               <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2 p-md-4">
                   <mat-form-field *ngFor="let lang of descriptionLangs;index as i" class="w-100" >
                     <mat-label>{{(lang=='eng')?'Brief description of the product':(lang=='rus')?'Краткое описание продукта':'Тауардың қысқа сипаттамасы'}}</mat-label>
                     <textarea [required]="i==0" formControlName="{{'description_' + lang}}" matInput
@@ -78,10 +78,10 @@
                 </div></div></div>
             <div class="col-md-12 grid-margin stretch-card ">
               <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2 p-md-4">
                   <div class="input-group  ">
                     <div class="input-group-prepend">
-                      <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-def">{{'project.product.cost' | translate}}</span>
+                      <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-def">Сумма</span>
                     </div>
                     <input type="text" class="form-control" formControlName="cost" aria-label="Name" aria-describedby="inputGroup-sizing-def">
                   </div>
@@ -89,9 +89,9 @@
 
             <div class="col-md-12 grid-margin stretch-card ">
               <div class="card">
-                <div class="card-body p-2">
+                <div class="card-body p-2 p-md-4">
                   <mat-form-field class="w-100">
-                    <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="{{'project.product.upload_img'|translate}}" multiple></ngx-mat-file-input>
+                    <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="Фотографии" multiple></ngx-mat-file-input>
                     <mat-icon matSuffix>image</mat-icon>
                   </mat-form-field>
                 </div></div></div>
@@ -103,5 +103,5 @@
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button class="btn w-25 btn-lg bg-sss text-light" type="submit" mat-dialog-close (click)="onSubmitProductForm()">Save</button>
+  <button class="btn w-25 btn-lg bg-sss text-light" type="submit" mat-dialog-close (click)="onSubmitProductForm()">Сохранить</button>
 </mat-dialog-actions>

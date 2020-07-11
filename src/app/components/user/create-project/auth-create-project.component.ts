@@ -20,6 +20,7 @@ import {GiftService} from '../../../services/project/gift.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 // @ts-ignore
 import bootbox = require('bootbox');
+import {environment} from "../../../../environments/environment.prod";
 
 
 
@@ -66,6 +67,7 @@ export class AuthCreateProjectComponent implements OnInit {
   currentLang: string;
   error = false ;
   date: any;
+  loading = false;
   titleLangs = ['rus' , 'eng', 'kz'];
   descriptionLangs = [];
   contentLangs = [];
@@ -74,6 +76,7 @@ export class AuthCreateProjectComponent implements OnInit {
   rewardsList: Gift[] = [];
   categoryControl = new FormControl('', Validators.required);
   translate;
+  back = environment.apiUrl;
   constructor(private userService: UserService,
               private router: Router,
               private builder: FormBuilder,
@@ -89,7 +92,6 @@ export class AuthCreateProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.translate = this.translator;
-    console.log(this.authService.loggedIn(true));
     this.authService.loggedIn(true);
     this.checkUserData();
     this.projectFormInit();
@@ -99,7 +101,6 @@ export class AuthCreateProjectComponent implements OnInit {
     // this.authorized = false;
   }
   checkUserData() {
-    console.log(this.userService.getUser().email);
     if (this.userService.getUser().email === '' || this.userService.getUser().email === null) {
         this.show();
         this.router.navigateByUrl('/main');
@@ -151,17 +152,13 @@ export class AuthCreateProjectComponent implements OnInit {
       const image: ProjectImage = new ProjectImage();
       image.image = files[i];
       this.images.append('image' + ( i + 1), image.image);
-      console.log(this.images);
     }
 
   }
-  addReward(event) {
-    if (event.keyCode === 13) {
+  addReward() {
       const gift: Gift = this.rewardForm.getRawValue();
       this.rewardsList.push(gift);
-      console.log(this.rewardsList);
       this.rewardForm.reset();
-    }
   }
   deleteReward(i) {
     this.rewardsList.splice(i, 1);
@@ -183,6 +180,7 @@ export class AuthCreateProjectComponent implements OnInit {
     this.contentLangs.splice(i, 1);
   }
   onSubmitProjectForm() {
+    this.loading = true;
     this.projectForm.patchValue({
       category_id: this.categoryControl.value,
       owner_id: this.userService.getUser().id,
@@ -191,8 +189,9 @@ export class AuthCreateProjectComponent implements OnInit {
     const project: Project = this.projectForm.getRawValue();
     const deadline = new Date(project.deadline);
     project.deadline = deadline.getFullYear() + '-' + (deadline.getMonth() + 1) + '-' + deadline.getDate();
-    console.log(project);
-
+    project.content_rus = project.content_rus.split(this.back).join('');
+    project.content_eng = project.content_eng.split(this.back).join('');
+    project.content_kz = project.content_kz.split(this.back).join('');
     this.projectService.create(project).subscribe(perf => {
       // assign project id to rewards list
       this.rewardsList = this.rewardsList.map( (gift) => {
@@ -201,29 +200,29 @@ export class AuthCreateProjectComponent implements OnInit {
       });
       this.images.append('project_id', perf.id.toString());
 
-      // tslint:disable-next-line:no-shadowed-variable
-      this.projectService.createProjectImages(this.images).subscribe( perf => {
+      this.projectService.createProjectImages(this.images).subscribe( perf4 => {
           // creates project rewards
-          // tslint:disable-next-line:no-shadowed-variable
-          this.giftService.create(this.rewardsList).subscribe(perf => {
+          this.giftService.create(this.rewardsList).subscribe(perf5 => {
             this.translator.get('create.success').subscribe(perf2 => {
-              this.openSnackBar(perf2, 'Close', 'style-success');
+              this.loading = false;
+              this.openB(perf2);
             });
             this.router.navigate(['/home/projects'], {queryParams: {unactive: 1}});
           }, error1 => {
+            this.loading = false;
             this.translator.get('create.error').subscribe(perf2 => {
-              this.openSnackBar(perf2, 'Close', 'style-error');
+              this.openB(perf2);
             });
           });
         },
         error1 => {
+          this.loading = false;
           this.translator.get('create.error').subscribe(perf2 => {
-            this.openSnackBar(perf2, 'Close', 'style-error');
-          });        });
-
-
-
+            this.openB(perf2);
+          });
+      });
     }, error => {
+      this.loading = false;
       this.translator.get('create.error').subscribe(perf2 => {
         this.openSnackBar(perf2, 'Close', 'style-error');
       });
@@ -249,6 +248,14 @@ export class AuthCreateProjectComponent implements OnInit {
         centerVertical: true,
       });
     }
+  }
+  openB(text) {
+    let title;
+    this.translator.get('create.no_contact_info_title').subscribe(perf => title = perf);
+    bootbox.alert({
+      title: title,
+      message: text,
+    });
   }
 
 }

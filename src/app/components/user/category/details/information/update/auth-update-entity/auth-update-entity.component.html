@@ -10,6 +10,7 @@
 
     <img class="card-img-top m-auto" *ngIf="update.images[0]" [src]="update.images[0].image" width="100%" height="150px" alt="Card image cap">
   </ng-container>
+  {{update.images}}
   <img class="card-img-top m-auto" *ngIf="!update.images" src="../../../../../../../../assets/images/32_0.png" width="100%" height="150px" alt="Card image cap">
 
   <div class="card-body">
@@ -18,6 +19,7 @@
     <div class="text-center">
       <h5 class="card-title"><a [routerLink]="['/updates/details', update.id]">
         {{(translate.currentLang == 'rus') ? update.title_rus : (translate.currentLang == 'eng') ? update.title_eng : update.title_kz}}</a></h5>
+        {{update.created_at}}
     </div>
 
 

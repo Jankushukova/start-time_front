@@ -1,11 +1,11 @@
 
 
 
-<div class="row justify-content-center ">
+<div class="row justify-content-center pl-2 pr-2">
 
   <div class="col-md-10 ">
     <h2 *ngIf="!orderProducts.length" class="text-center">
-        <small class="text-muted">Your basket is empty!</small>
+        <small class="text-muted">{{'empty' | translate}}</small>
       </h2>
     <ng-container *ngIf="orderProducts.length">
     <form [formGroup]="orderProductForm">
@@ -13,18 +13,18 @@
       <div class="form-row justify-content-center ">
         <div class="col-md-10 grid-margin stretch-card ">
           <div class="card">
-            <div class="card-body">
-              <p>Products in basket</p>
+            <div class="card-body p-1">
+              <p>{{'in_basket'|translate}}</p>
 
               <div class="row justify-content-center">
-                <div class="col-md-9 grid-margin stretch-card ">
-                  <table class="table mt-md-3 ">
+                <div class="col-md-11 grid-margin stretch-card ">
+                  <table class="table table-responsive table-hover mt-md-3 ">
                     <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Count</th>
-                      <th scope="col">Sum</th>
+                      <th scope="col">{{'name'|translate}}</th>
+                      <th scope="col">{{'count'|translate}}</th>
+                      <th scope="col">{{'summ'|translate}}</th>
                       <th scope="col"></th>
                     </tr>
                     </thead>
@@ -32,11 +32,12 @@
                     <tr *ngFor="let product of orderProducts; index as i">
                       <th scope="row">{{i + 1}}</th>
                       <td>{{product.product.title}}</td>
-                      <td>  <button (click)="changeCount(true, product, i)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
+                      <td class="p-1">  <button (click)="changeCount(true, product, i)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
 
                         <mat-icon>keyboard_arrow_left</mat-icon>
                       </button>
-                        {{product.count}}
+                        <span>
+                        {{product.count}}</span>
                         <button (click)="changeCount(false, product, i)" mat-icon-button aria-label="Example icon button with a heart icon" class="ml-auto">
 
                           <mat-icon>keyboard_arrow_right</mat-icon>
@@ -68,7 +69,7 @@
                 </div>
 
               </div>
-              <h2 class="display-5 w-100 text-right"> Sum: <span>{{totalSum}}tg</span></h2>
+              <h2 class="display-5 w-100 text-right"> {{'sum'|translate}}: <span>{{totalSum}}tg</span></h2>
 
 
             </div></div></div>
@@ -76,42 +77,42 @@
             <div class="row justify-content-center">
               <div class="col-md-6 grid-margin stretch-card ">
                 <mat-form-field class="w-100" appearance="fill">
-                  <mat-label>Firstname</mat-label>
+                  <mat-label>{{'authorization.register.firstname'|translate}}</mat-label>
                   <input formControlName="first_name" matInput>
                 </mat-form-field>
               </div>
               <div class="col-md-6 grid-margin stretch-card ">
                 <mat-form-field class="w-100" appearance="fill">
-                  <mat-label>Lastname</mat-label>
+                  <mat-label>{{'authorization.register.lastname'|translate}}</mat-label>
                   <input formControlName="last_name" matInput>
                 </mat-form-field>
               </div>
               <div class="col-md-6 grid-margin stretch-card ">
                 <mat-form-field  class="w-100" appearance="fill">
-                  <mat-label>email</mat-label>
+                  <mat-label>{{'authorization.email'|translate}}</mat-label>
                   <input formControlName="email" matInput>
                 </mat-form-field>
               </div>
               <div class="col-md-6 grid-margin stretch-card ">
 
                 <mat-form-field   class="w-100" appearance="fill">
-                  <mat-label>email</mat-label>
+                  <mat-label>{{'authorization.register.phone'|translate}}</mat-label>
                   <input formControlName="phone_number" matInput>
                 </mat-form-field>
               </div>
             </div>
         </div>
         <mat-radio-group aria-label="Select an option" formControlName="type">
-          <mat-radio-button value="1"><img src="../../../../../assets/images/kaspi.png"></mat-radio-button>
+<!--          <mat-radio-button value="1"><img src="../../../../../assets/images/kaspi.png"></mat-radio-button>-->
           <mat-radio-button value="3" class="ml-2"><img src="../../../../../assets/images/cloudpayments.jpg"></mat-radio-button>
-          <mat-radio-button value="2" class="ml-2">Epay</mat-radio-button>
+<!--          <mat-radio-button value="2" class="ml-2">Epay</mat-radio-button>-->
 
         </mat-radio-group>
 
 
         <div class="col-md-10 grid-margin stretch-card ">
           <div class="text-right  w-100">
-            <button class="btn w-25 btn-lg bg-sss text-light" (click)="onSubmit()" [disabled]="!orderProductForm.valid">Save</button>
+            <button class="btn w-25 btn-lg bg-sss text-light" (click)="onSubmit()" [disabled]="!orderProductForm.valid">{{'save'|translate}}</button>
 
           </div>
         </div>
