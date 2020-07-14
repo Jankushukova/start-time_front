@@ -132,6 +132,14 @@ export class UserProjectsComponent implements OnInit {
       width: '60%'
     });
   }
+  daysLeft(project: Project) {
+    const deadline = project.deadline;
+    const d1 = new Date(deadline);
+    const d2 = new Date();
+    const dif = d1.getTime() - d2.getTime();
+    const days = dif / (1000 * 3600 * 24);
+    return Math.ceil(days);
+  }
 
 
 }

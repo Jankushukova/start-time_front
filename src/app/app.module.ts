@@ -151,6 +151,8 @@ const routes: Routes = [
           {path: 'projects', component: UserProjectsComponent},
           {path: 'products', component: ProductsComponent},
           {path: 'information', component: UserInformationComponent},
+          {path: 'edit/:id', component: EditUnactiveProjectComponent},
+
 
         ]
       },

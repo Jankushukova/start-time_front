@@ -103,7 +103,11 @@
                     <editor class="col-11"  formControlName="{{'content_' + lang}}" [required]="i==0"
                             apiKey="sj3n4ofpyw6lj5xkfeaedah9jf36wvm5wtrge3i8acvowjuy"
                             [init]="{
-                   menubar: true,
+                    menubar: true,
+                   image_uploadtab: true,
+                   automatic_uploads: true,
+                   images_upload_url: back +  '/api/v1/project/create/image',
+                   language: (translate.currentLang === 'rus') ? 'ru' : (translate.currentLang === 'eng') ? 'en_CA':'kk',
                    plugins: [
                      'advlist autolink lists link image charmap print preview anchor ',
                      'searchreplace visualblocks code fullscreen',
@@ -209,6 +213,6 @@
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button class="btn btn-lg bg-sss text-light" mat-dialog-close (click)="onSubmitProjectForm()">{{'save'|translate}}</button>
+  <button class="btn btn-lg bg-sss text-light"e (click)="onSubmitProjectForm()">{{'save'|translate}}</button>
 
 </mat-dialog-actions>

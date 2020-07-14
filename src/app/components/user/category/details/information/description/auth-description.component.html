@@ -9,20 +9,9 @@
         <h2 class="display-5">
           {{(translate.currentLang == 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng : project.title_kz}}</h2>
 
-        <p>
-          {{(translate.currentLang == 'rus') ? project.description_rus : (translate.currentLang == 'eng') ? project.description_eng : project.description_kz}}
-          </p>
         <div id="toAppend" class="mce-content-body"
           [innerHTML]="(translate.currentLang == 'rus') ? transformYourHtml(project.content_rus) : (translate.currentLang == 'eng') ? transformYourHtml(project.content_eng) : transformYourHtml(project.content_kz)"> </div>
-        <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
-          <div ngxSlickItem *ngFor="let image of project.images" class="slide ">
-            <img class="m-auto" src="{{image.image}}" alt="" style="max-width: 80%;max-height: 80%">
-
-
-          </div>
-
-        </ngx-slick-carousel>
       </div></div>
   </div>
 </div>

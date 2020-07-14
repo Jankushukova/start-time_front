@@ -31,4 +31,11 @@ export class AuthUpdateEntityComponent implements OnInit {
     this.updateService.deleteById(this.update.id).subscribe(perf => {
     });
   }
+  editFormat(date) {
+    let d1 = date.split(' ');
+    const day = d1[0];
+    const hours = d1[1];
+    d1 = day.split('-');
+    return d1[2] + '-' + d1[1] + '-' + d1[0] + ' ' + hours;
+  }
 }

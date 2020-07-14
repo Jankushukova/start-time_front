@@ -346,7 +346,14 @@
   "payment": {
     "failure": "Транзакция сәтсіз болды!",
     "success": "Транзакция сәтті өтті!"
-  }
+  },
+  "noupdates": "Жобада жаңартулар жоқ",
+  "noproject": "Жоба табылмады",
+  "noactiveprojects": "Белсенді жоба жоқ",
+  "nounactiveprojects": "Белсенді емес жоба жоқ",
+  "nounfinishedprojects": "Аяқталған жоба жоқ"
+
+
 
 
 

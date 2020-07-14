@@ -357,7 +357,13 @@
   "payment": {
     "failure": "Transaction failed!",
     "success": "The transaction was successful!"
-  }
+  },
+  "noupdates": "Project doesn't have updates",
+  "noproject": "Project doesn't found",
+  "noactiveprojects": "No active projects",
+  "nounactiveprojects": "No UnActive projects",
+  "nofinishedprojects": "No finished projects"
+
 
 
 

@@ -16,6 +16,7 @@ import {GiftService} from '../../../../../services/project/gift.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import {SimpleAuthService} from '../../../../../services/auth.service';
 import {ProjectImage} from '../../../../../models/project/projectImage';
+import {environment} from "../../../../../../environments/environment.prod";
 export const PICK_FORMATS = {
   parse: {dateInput: {month: 'long', year: 'numeric', day: 'numeric'}},
   display: {
@@ -61,8 +62,9 @@ export class EditUnactiveProjectComponent implements OnInit {
   descriptionLang = [];
   contentLangs = [];
   translate;
+  back = environment.apiUrl;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
     private projectService: ProjectService,
     // tslint:disable-next-line:variable-name
@@ -78,9 +80,14 @@ export class EditUnactiveProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.authorized$.subscribe(res => {
+      if(!res){
+        this.router.navigateByUrl('/main');
+      }
+    });
     this.translate = this.translator;
     this.authService.loggedIn(true);
-    this.projectService.findById(this.data.projectId).subscribe(perf => {
+    this.projectService.findById(parseInt(this.route.snapshot.paramMap.get('id'),10)).subscribe(perf => {
       this.project = perf;
       this.bindOldProjectValues();
       this.rewardFormInit();
@@ -194,6 +201,7 @@ export class EditUnactiveProjectComponent implements OnInit {
       this.project.gifts.map(data => data.project_id = this.project.id);
       this.projectService.createProjectImages(this.images).subscribe( perf2 => {
         this.giftService.update(this.project.gifts).subscribe(perf3 => {
+          this.router.navigateByUrl('/home/projects');
           this.translator.get('create.success').subscribe(perf => {
             this.openSnackBar(perf, 'Close', 'style-success');
           });

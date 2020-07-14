@@ -18,8 +18,8 @@ export class Project implements Deserializable{
   content_rus: string;
   created_at: string;
   video: string;
-  goal: string;
-  gathered: string;
+  goal: any;
+  gathered: any;
   active: number;
   backers: number;
   // tslint:disable-next-line:variable-name

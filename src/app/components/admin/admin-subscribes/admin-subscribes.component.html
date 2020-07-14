@@ -58,13 +58,11 @@
 
 
       </div>
+      <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalSubscribersCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
     </div>
   </div>
 
 </div>
 </ng-container>
-<div>
-  <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalSubscribersCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
-
-</div>
 

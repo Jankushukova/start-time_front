@@ -158,4 +158,8 @@ export class AdminProjectsComponent implements AfterViewInit, OnInit {
       }
     });
   }
+  editFormat(date) {
+    const d1 = date.split('/');
+    return d1[1] + '-' + d1[0] + '-' + d1[2];
+  }
 }

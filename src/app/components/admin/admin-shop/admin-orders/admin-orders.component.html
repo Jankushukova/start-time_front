@@ -71,11 +71,9 @@
           </tbody>
         </table>
       </div>
+      <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalOrdersCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
     </div>
   </div>
-
-</div>
-<div>
-  <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalOrdersCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
 </div>

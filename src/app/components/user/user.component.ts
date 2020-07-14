@@ -58,7 +58,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) {
     this.langInit();
   }
-
   langInit() {
     if (!this.translate.getLangs().includes('rus')) {
       this.translate.addLangs(['eng', 'rus', 'kz']);

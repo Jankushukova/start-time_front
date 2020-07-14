@@ -99,7 +99,7 @@
                 {{project.gathered}}
               </td>
               <td>
-                {{project.deadline}}
+                {{editFormat(project.deadline)}}
               </td>
               <td class="text-success">
                 <button [matMenuTriggerFor]="state" class="btn text-white" [ngClass]="project.active===1 ? 'bg-sss' : (project.active === 0)?'bg-danger' : 'bg-dark'">
@@ -128,11 +128,10 @@
           </table>
         </div>
       </div>
+      <ngb-pagination class="d-flex justify-content-end mr-md-2" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalProjectsCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
     </div>
   </div>
 </div>
 </ng-container>
-<div>
-  <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalProjectsCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
-</div>

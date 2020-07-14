@@ -19,7 +19,7 @@
     <div class="text-center">
       <h5 class="card-title"><a [routerLink]="['/updates/details', update.id]">
         {{(translate.currentLang == 'rus') ? update.title_rus : (translate.currentLang == 'eng') ? update.title_eng : update.title_kz}}</a></h5>
-        {{update.created_at}}
+        {{editFormat(update.created_at)}}
     </div>
 
 

@@ -40,12 +40,12 @@
               </div>
 
             </div>
-            <div class="col-md-2 col-4 pt-5 p-0 ">
+            <div class="col-md-2 col-4 pt-5 p-1 p-md-2  ">
               <img *ngIf="!user.image" class="profile-image" src="../../../../assets/images/11_0.png"   >
               <img *ngIf="user.image" class="profile-image" [src]="user.image"   >
               <div class="desc-button">
-                <button *ngIf="!following" type="button" class="btn p-3 btn-lg bg-start-time text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
-                <button *ngIf="following" type="button" class="btn p-3 btn-lg bg-light" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
+                <button *ngIf="!following" type="button" class="btn p-2 mt-md-1 btn-lg bg-start-time text-light" (click)="follow()">{{'user_profile.follow' | translate}}</button>
+                <button *ngIf="following" type="button" class="btn p-2 mt-md-1 btn-lg bg-light" (click)="follow()">{{'user_profile.unfollow' | translate}}</button>
 
               </div>
               <div class="mob-button">

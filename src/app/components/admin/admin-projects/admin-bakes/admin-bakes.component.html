@@ -1,7 +1,8 @@
 
 <ng-container>
 <div class="row">
-  <div class="col-lg-12 grid-margin stretch-card">
+  <div class="col-md-11 grid-margin stretch-card">
+
     <div class="card">
       <div class="card-body p-2 p-md-4">
         <h4 class="card-title">Вклады Проектов</h4>
@@ -52,7 +53,7 @@
         <app-spinner filterBy="bakers/all"></app-spinner>
         <app-spinner filterBy="excel"></app-spinner>
         <app-spinner filterBy="filter"></app-spinner>
-        <table class="table table-hover table-responsive-sm table-responsive-xl" *ngIf="bakeInformation">
+        <table class="table table-hover table-responsive table-responsive-sm table-responsive-xl" *ngIf="bakeInformation">
           <thead>
           <tr>
             <th scope="col">#</th>
@@ -87,7 +88,7 @@
             </a></td>
             <td>{{bake.bank.name}}</td>
             <td>{{bake.sum}}</td>
-            <td>{{bake.created_at}}</td>
+            <td>{{editFormat(bake.created_at)}}</td>
             <td>
               <p *ngIf="bake.order.gift">{{ bake.order.gift.description }}</p>
               <p *ngIf="!bake.order.gift">Вознаграждения нет</p>
@@ -97,13 +98,11 @@
           </tr>
           </tbody>
         </table>
-
       </div>
+      <ngb-pagination class="d-flex justify-content-end mr-md-2" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalBakersCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
     </div>
   </div>
-</div>
-</ng-container>
-<div>
-  <ngb-pagination class="d-flex justify-content-end" (pageChange)="changePage($event)" [ellipses]="true"  [collectionSize]="totalBakersCount" maxSize="5" [(page)]="page" [pageSize]="perPageCount" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
 </div>
+</ng-container>

@@ -74,7 +74,7 @@
           </div>
           <hr/>
         </div>
-        <button [disabled]="project.active === 2" class="btn bg-sss text-light w-100 " (click)="openDialog()"> {{'project.bake.action' | translate}}</button>
+        <button [disabled]="project.active === 2||project.active===0" class="btn bg-sss text-light w-100 " (click)="openDialog()"> {{'project.bake.action' | translate}}</button>
 
       </div>
 

@@ -40,6 +40,6 @@ export class AuthUpdateDetailsComponent implements OnInit {
     });
   }
   someFunction(data) {
-
   }
+
 }

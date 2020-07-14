@@ -14,7 +14,8 @@
               <img class="align-self-center"  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" alt="Card image cap">
             </ng-container>
             <img class="card-img-top  align-self-center" *ngIf="!project.images[0]" src="../../../../assets/images/32_0.png"  style="max-width: 100%; max-height: 100%"   alt="Card image cap">
-          </div><div class="card-body p-3 h-50">
+          </div>
+          <div class="card-body p-3 h-50">
           <div class="h-50 ">
             <h6 class="card-title text-center h-50 overflow-auto"><a [routerLink]="['/project/details', project.id]" >
               {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></h6>

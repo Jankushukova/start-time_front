@@ -12,3 +12,6 @@
   /*change color of underline when focused*/
   background-color: #009E74 !important;;
 }
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background-color: #009E74;
+}

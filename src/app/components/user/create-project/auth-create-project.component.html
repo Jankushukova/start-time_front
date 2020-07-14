@@ -102,7 +102,7 @@
 
           <p>Content</p>
           <div class="row justify-content-start mb-2" *ngFor="let lang of contentLangs; index as i">
-          <editor class="col-11"  formControlName="{{'content_' + lang}}" [required]="i==0"
+          <editor class="col-11 col-md-12"  formControlName="{{'content_' + lang}}" [required]="i==0"
                   apiKey="sj3n4ofpyw6lj5xkfeaedah9jf36wvm5wtrge3i8acvowjuy"
             [init]="{
                    menubar: true,

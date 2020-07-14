@@ -86,6 +86,10 @@ export class ProjectEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!this.userService.getUser() && !this.userService.isAdmin()){
+      this.router.navigateByUrl('/main');
+    }
+
     this.authService.loggedIn(true);
     this.projectService.findById(parseInt(this.route.snapshot.paramMap.get('id'))).subscribe(perf => {
       this.project = perf;

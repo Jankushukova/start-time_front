@@ -17,7 +17,7 @@
 
         <li class="nav-item dropdown mr-0">
           {{translate.currentLang}}
-          <mat-select   class="lang" #langSelect (selectionChange)="this.translate.use(langSelect.value)">
+          <mat-select [(value)]="translate.currentLang"   class="lang" #langSelect (selectionChange)="this.translate.use(langSelect.value)">
             <mat-option
               *ngFor="let lang of translate.getLangs()"
               [value]="lang"
@@ -185,7 +185,8 @@
 
               <div class="container-fluid mb-md-5">
                 <div class="row justify-content-center mt-md-5 ">
-                  <div *ngFor="let project of projects" class="col-md-3 grid-margin stretch-card">
+                  <ng-container *ngIf="projects.length>0">
+                    <div *ngFor="let project of projects" class="col-md-3 grid-margin stretch-card">
                     <div class="card  shadow" >
                       <div class="card-img-top m-auto">
 
@@ -233,6 +234,10 @@
                     </div>
 
                   </div>
+                  </ng-container>
+                  <ng-container *ngIf="projects.length==0">
+                    <p class="text-muted text-center">{{'noproject'|translate}}</p>
+                  </ng-container>
                 </div>
                 <div>
                 </div>

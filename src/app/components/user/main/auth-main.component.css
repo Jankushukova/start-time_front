@@ -194,12 +194,12 @@ h5, .h5 {
 }
 
 .prev-slide {
-  background: url(~assets/images/1.jpg) no-repeat scroll 0 0;
+  /*background: url(~assets/images/1.jpg) no-repeat scroll 0 0;*/
   left: -33px;
 }
 
 .next-slide {
-  background: url(~assets/images/1.jpg) no-repeat scroll -24px 0px;
+  /*background: url(~assets/images/1.jpg) no-repeat scroll -24px 0px;*/
   right: -33px;
 }
 
