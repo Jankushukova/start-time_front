@@ -17,6 +17,10 @@ import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import {SimpleAuthService} from '../../../../../services/auth.service';
 import {ProjectImage} from '../../../../../models/project/projectImage';
 import {environment} from "../../../../../../environments/environment.prod";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '@ckeditor/ckeditor5-build-classic/build/translations/el';
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
+
 export const PICK_FORMATS = {
   parse: {dateInput: {month: 'long', year: 'numeric', day: 'numeric'}},
   display: {
@@ -63,7 +67,18 @@ export class EditUnactiveProjectComponent implements OnInit {
   contentLangs = [];
   translate;
   back = environment.apiUrl;
-
+  public Editor = ClassicEditor;
+  config =
+    {
+      toolbar: ['selectAll', 'undo', 'redo', 'bold', 'italic', 'blockQuote', 'ckfinder', 'imageTextAlternative',  'heading', 'imageStyle:full', 'imageStyle:side', 'indent', 'outdent', 'link', 'numberedList', 'bulletedList', 'mediaEmbed', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'  ],
+      language: 'ru',
+      ckfinder: {
+        options: {
+          resourceType: 'Images'
+        },
+        uploadUrl:  this.back +  '/ckfinder/connector'
+      }
+    }
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -94,6 +109,13 @@ export class EditUnactiveProjectComponent implements OnInit {
       this.getCategories();
       this.projectFormInit();
     });
+  }
+  public onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+    );
+
   }
   bindOldProjectValues() {
     for (let i = 0; i < this.project.images.length; i++) {

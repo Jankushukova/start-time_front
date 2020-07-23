@@ -9,6 +9,10 @@ import {Update} from "../../../../../../../models/project/update";
 import {UpdateService} from "../../../../../../../services/project/update.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UpdateImage} from "../../../../../../../models/project/updateImage";
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '@ckeditor/ckeditor5-build-classic/build/translations/el';
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
+import {environment} from "../../../../../../../../environments/environment.prod";
 
 @Component({
   selector: 'app-create-update',
@@ -22,6 +26,20 @@ export class CreateUpdateComponent implements OnInit {
   descriptionLangs = [];
   currentLang = '';
   images: FormData = new FormData();
+  back = environment.apiUrl;
+
+  public Editor = ClassicEditor;
+  config =
+    {
+      toolbar: ['selectAll', 'undo', 'redo', 'bold', 'italic', 'blockQuote', 'ckfinder', 'imageTextAlternative',  'heading', 'imageStyle:full', 'imageStyle:side', 'indent', 'outdent', 'link', 'numberedList', 'bulletedList', 'mediaEmbed', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'  ],
+      language: (this.translator.currentLang=='eng')?'en-au':'ru',
+      ckfinder: {
+        options: {
+          resourceType: 'Images'
+        },
+        uploadUrl:  this.back +  '/ckfinder/connector'
+      }
+    }
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private projectService: ProjectService,
@@ -88,6 +106,13 @@ export class CreateUpdateComponent implements OnInit {
       image.image = files[i];
       this.images.append('image' + ( i + 1), image.image);
     }
+
+  }
+  public onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+    );
 
   }
   onSubmitUpdateForm() {

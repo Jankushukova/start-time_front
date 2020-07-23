@@ -37,7 +37,10 @@
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "./node_modules/bootbox/bootbox.js",
               "./node_modules/pusher-js/dist/web/pusher.min.js",
-              "./src/assets/js/cloud.js"
+              "./src/assets/js/cloud.js",
+              "./node_modules/@ckeditor/ckeditor5-build-classic/build/translations/ru.js",
+              "./node_modules/@ckeditor/ckeditor5-build-classic/build/translations/el.js",
+              "./node_modules/@ckeditor/ckeditor5-build-classic/build/translations/en-au.js"
 
             ]
           },

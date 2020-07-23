@@ -20,8 +20,8 @@ export class ProjectOrderService {
 
 
 
-  public getBakersOfUser(id: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.customUrl}/user/bakers/${id}`);
+  public getBakersOfUser(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.customUrl}/user/bakers/${id}`);
   }
 
   public getBakersOfProject(id: number): Observable<ProjectOrder[]> {

@@ -4,6 +4,7 @@
     "baseUrl": "src",
     "types": ["googlemaps"],
     "outDir": "./dist/out-tsc",
+    "allowJs": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

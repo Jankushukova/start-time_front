@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{'user_profile.bakes' | translate}}</h1>
+<div mat-dialog-content>
+  <ng-container *ngIf="bakes.length>0">
+    <table class="table table-striped">
+      <tbody>
+      <tr *ngFor="let bake of bakes; index as i">
+        <th scope="row">{{i + 1}}</th>
+        <td><h2><small class="text-muted"><a mat-dialog-close="" [routerLink]="['/project/details', bake.id]">
+          {{(translate.currentLang=='rus')?bake.title_rus:(translate.currentLang=='eng')?bake.title_eng:bake.title_kz}}
+        </a></small></h2></td>
+        <td>
+          <p class="text-muted">₸{{bake.sum}}</p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-container *ngIf="bakes.length==0">
+    {{'user_profile.no_bakes'|translate}}
+  </ng-container>
+
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>

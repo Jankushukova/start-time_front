@@ -86,6 +86,23 @@ export class UserComponent implements OnInit, AfterViewInit {
 
       }
     });
+    var _zero_kz_ = _zero_kz_ || [];
+    _zero_kz_.push(["id", 68212]);
+    // Цвет кнопки
+    _zero_kz_.push(["type", 1]);
+    // Проверять url каждые 200 мс, при изменении перегружать код счётчика
+    // _zero_kz_.push(["url_watcher", 200]);
+
+    (function () {
+      var a = document.getElementsByTagName("script")[0],
+        s = document.createElement("script");
+      s.type = "text/javascript";
+      s.async = true;
+      s.src = (document.location.protocol == "https:" ? "https:" : "http:")
+        + "//c.zero.kz/z.js";
+      a.parentNode.insertBefore(s, a);
+    })(); //-->
+
   }
   ngAfterViewInit() {
     fromEvent(this.input.nativeElement, 'keyup')
@@ -221,5 +238,8 @@ export class UserComponent implements OnInit, AfterViewInit {
     if ( n === 6) {
       return '../../../assets/images/44_0.png';
     }
+  }
+  toggle(){
+    console.log(document.getElementById('sidebar').style.display);
   }
 }

@@ -10,6 +10,11 @@ import {ProjectOrderService} from '../../../services/project/project-order.servi
 import {Router} from '@angular/router';
 import {SimpleAuthService} from '../../../services/auth.service';
 import {TranslateService} from "@ngx-translate/core";
+import {MatDialog} from "@angular/material/dialog";
+import {HomeFollowersComponent} from "./home-followers/home-followers.component";
+import {HomeFollowedComponent} from "./home-followed/home-followed.component";
+import {HomeBakersComponent} from "./home-bakers/home-bakers.component";
+import {HomeBakedComponent} from "./home-baked/home-baked.component";
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +36,8 @@ export class UserProfileComponent implements OnInit {
     private projectOrderService: ProjectOrderService,
     private authService: SimpleAuthService,
     private router: Router,
-    private translator: TranslateService
+    private translator: TranslateService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -41,22 +47,6 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.getProfileInformation().subscribe(perf => {
         this.user = perf;
-        // tslint:disable-next-line:no-shadowed-variable
-        this.followerService.getFollowersOfUser(this.user.id).subscribe(perf => {
-          this.followers = perf;
-        });
-        // tslint:disable-next-line:no-shadowed-variable
-        this.followerService.getFollowedOfUser(this.user.id).subscribe(perf => {
-          this.followed = perf;
-        });
-        // tslint:disable-next-line:no-shadowed-variable
-        this.projectOrderService.getBakersOfUser(this.user.id).subscribe(perf => {
-          this.bakers = perf;
-        });
-        // tslint:disable-next-line:no-shadowed-variable
-        this.projectService.getBakedProjectsOfUser(this.user.id).subscribe(perf => {
-          this.baked = perf;
-        });
       });
   }
   changeClass(element) {
@@ -65,168 +55,29 @@ export class UserProfileComponent implements OnInit {
 
 
   async showFollowers() {
-    const list: User[] = this.followers;
-    let text;
-    let noFollower;
-    this.translator.get('user_profile.followers').subscribe(perf => text = perf);
-    this.translator.get('user_profile.no_follower').subscribe(perf => noFollower = perf);
-    if (text && noFollower) {
-      bootbox.alert({
-        title: '<h1><small class="text-muted">' + text + '</small></h1>',
-        message: () => {
-          if (list.length > 0) {
-            let followerslist = '<table class=\"table table-striped\">\n' +
-              '                      <tbody>\n';
-            for (const follower of list) {
-              followerslist += '                        <tr>\n' +
-                '                          <td>\n' +
-                '                            <div >\n' +
-                // tslint:disable-next-line:max-line-length
-                '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/userProfile/' + follower.id + '\' >' + follower.getFullName() + '</a></small></h2>\n' +
-                '                            </div>\n' +
-                '                          </td>\n' +
-                '                        </tr>\n';
+    const dialogRef = this.dialog.open(HomeFollowersComponent, {
+      width: '60%',
+      data: {user: this.user.id}
+    });
 
-            }
-            followerslist += '                      </tbody>\n' +
-              '                    </table>';
-
-            return followerslist;
-          }
-          return noFollower;
-
-        },
-        size: 'large',
-        centerVertical: true,
-      });
-    }
   }
   async showFollowed() {
-    const list: User[] = this.followed;
-    let text;
-    let noFollowing;
-    this.translator.get('user_profile.following').subscribe(perf => text = perf);
-    this.translator.get('user_profile.no_following').subscribe(perf => noFollowing = perf);
-    if(text && noFollowing){
-    bootbox.alert({
-      title: '<h1><small class="text-muted">' + text + '</small></h1>',
-      message() {
-        if (list.length > 0) {
-          let followedlist = '<table class="table table-striped">\n' +
-            '                      <tbody>\n';
-          for (const followed of list) {
-            followedlist += '                        <tr>\n' +
-              '                          <td>\n' +
-              '                            <div >\n' +
-              // tslint:disable-next-line:max-line-length
-              '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/userProfile/' + followed.id + '\' >' + followed.getFullName() + '</a></small></h2>\n' +
-              '                            </div>\n' +
-              '                          </td>\n' +
-              '                        </tr>\n';
-
-          }
-          followedlist += '                      </tbody>\n' +
-            '                    </table>';
-
-          return followedlist;
-        }
-        return noFollowing;
-
-      },
-      size: 'large',
-      centerVertical: true,
+    const dialogRef = this.dialog.open(HomeFollowedComponent, {
+      width: '60%',
+      data: {user: this.user.id}
     });
-    }
   }
   async showBakers() {
-    const list: any[] = this.bakers;
-    let text;
-    this.translator.get('user_profile.bakers').subscribe(perf => text = perf);
-    let noBakers;
-    this.translator.get('user_profile.no_bakers').subscribe(perf => noBakers = perf);
-    if(text && noBakers) {
-      bootbox.alert({
-        title: '<h1><small class="text-muted">' + text + '</small></h1>',
-        message() {
-          if (list.length > 0) {
-            let userslist = '<table class="table table-striped">\n' +
-              '                      <tbody>\n';
-            for (const user of list) {
-              userslist += '                        <tr>\n' +
-                '                          <td>\n' +
-                '                            <div >\n' +
-                // tslint:disable-next-line:max-line-length
-                '      <h2 ><small class="text-muted"><a style=\'color:inherit\' \>' + ((user.fullname) ? user.fullname : user.firstname + ' ' + user.lastname) + '</a></small></h2>\n' +
-                '                            </div>\n' +
-                '                          </td>\n' +
-                '<td>\n' +
-              '                            <div >\n' +
-              // tslint:disable-next-line:max-line-length
-              '      <h2 ><small class="text-muted"><a style=\'color:inherit\'  >' + user.payment.sum + '</a></small></h2>\n' +
-              '                            </div>\n' +
-              '                          </td>\n' +
-                '<td>\n' +
-                '                            <div >\n' +
-                // tslint:disable-next-line:max-line-length
-                '      <h2 ><small class="text-muted"><a style=\'color:inherit\'  >' + user.project.title_rus + '</a></small></h2>\n' +
-                '                            </div>\n' +
-                '                          </td>\n' +
-                '                        </tr>\n';
-
-            }
-            userslist += '                      </tbody>\n' +
-              '                    </table>';
-
-            return userslist;
-          }
-          return noBakers;
-
-        },
-        size: 'large',
-        centerVertical: true,
-      });
-    }
+    const dialogRef = this.dialog.open(HomeBakersComponent, {
+      width: '60%',
+      data: {user: this.user.id}
+    });
   }
   async showBaked() {
-    const list: Project[] = this.baked;
-    let text;
-    let noBaked;
-    this.translator.get('user_profile.bakes').subscribe(perf => {
-      text = perf;
+    const dialogRef = this.dialog.open(HomeBakedComponent, {
+      width: '60%',
+      data: {user: this.user.id}
     });
-    this.translator.get('user_profile.no_bakes').subscribe(perf => {
-      noBaked = perf;
-    });
-    if(text && noBaked) {
-    bootbox.alert({
-      title: '<h1><small class="text-muted">' + text + '</small></h1>',
-      message() {
-        if (list.length > 0) {
-          let projectslist = '<table class="table table-striped">\n' +
-            '                      <tbody>\n';
-          for (const project of list) {
-            projectslist += '                        <tr>\n' +
-              '                          <td>\n' +
-              '                            <div >\n' +
-              // tslint:disable-next-line:max-line-length
-              '      <h2 ><small class="text-muted"><a style=\'color:inherit\' href=\'/user/project/details/' + project.id + '\' >' + project.title_rus + '</a></small></h2>\n' +
-              '                            </div>\n' +
-              '                          </td>\n' +
-              '                        </tr>\n';
-
-          }
-          projectslist += '                      </tbody>\n' +
-            '                    </table>';
-
-          return projectslist;
-        }
-        return noBaked;
-
-      },
-      size: 'large',
-      centerVertical: true,
-    });
-  }
   }
 
 }

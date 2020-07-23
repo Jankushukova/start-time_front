@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>{{'user_profile.bakers' | translate}}</h1>
+<div mat-dialog-content>
+  <app-spinner filterBy="/bakers"></app-spinner>
+  <ng-container *ngIf="bakers">
+
+  <ng-container *ngIf="bakers.length>0">
+    <table class="table table-striped">
+      <tbody>
+      <tr *ngFor="let baker of bakers; index as i">
+        <th scope="row">{{i + 1}}</th>
+        <td><h2><small class="text-muted"><a [routerLink]="['/userProfile',baker.id]">
+          {{baker.fullname}}
+        </a></small></h2></td>
+        <td>
+          <p class="text-muted">
+            <a [routerLink]="['/project/details', baker.id]">
+              {{(translate.currentLang=='rus')?baker.title_rus:(translate.currentLang=='eng')?baker.title_eng:baker.title_kz}}
+            </a>
+          </p>
+        </td>
+        <td>
+          <p class="text-muted">
+            ₸{{baker.sum}}
+
+          </p>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+  <ng-container *ngIf="bakers.length==0">
+    {{'user_profile.no_bakers'|translate}}
+  </ng-container>
+  </ng-container>
+
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>

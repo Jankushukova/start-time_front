@@ -103,11 +103,11 @@
               </td>
               <td class="text-success">
                 <button [matMenuTriggerFor]="state" class="btn text-white" [ngClass]="project.active===1 ? 'bg-sss' : (project.active === 0)?'bg-danger' : 'bg-dark'">
-                  {{(project.active == 0) ? 'Неактивен' : (project.active === 1) ? 'Активен' : 'Закончен'}}
+                  {{(project.active == 0) ? 'Неактивен' : (project.active === 1) ? 'Активен' : 'Завершен'}}
                 </button>
                 <mat-menu #state="matMenu">
                   <button mat-menu-item (click)="changeActiveState(project, 1)">Активен</button>
-                  <button mat-menu-item (click)="changeActiveState(project, 0)">Не Активен</button>
+                  <button mat-menu-item (click)="changeActiveState(project, 0)">Неактивен</button>
                   <button mat-menu-item (click)="changeActiveState(project, 2)">Завершен</button>
                 </mat-menu>
               </td>

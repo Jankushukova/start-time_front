@@ -12,3 +12,32 @@
   /*change color of underline when focused*/
   background-color: #009E74 !important;;
 }
+.project-img{
+  height: 25%;
+}
+.display-5 {
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.display-5 {
+  font-size: 1rem;
+}
+@media screen and (max-width: 991px) {
+  .project-img{
+    height: auto;
+  }
+  .project-card {
+    height: 150px;
+  }
+  .display-5 {
+    font-size: 0.4rem;
+  }
+}
+@media (min-width: 992px) {
+  .project-card {
+    height: 300px;
+  }
+}
+

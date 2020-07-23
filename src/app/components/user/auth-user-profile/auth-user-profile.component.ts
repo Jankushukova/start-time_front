@@ -8,6 +8,9 @@ import {FollowerService} from '../../../services/user/follower.service';
 import {Follower} from '../../../models/user/follower';
 import {SimpleAuthService} from '../../../services/auth.service';
 import {TranslateService} from '@ngx-translate/core';
+import {HomeFollowersComponent} from "../profile/home-followers/home-followers.component";
+import {MatDialog} from "@angular/material/dialog";
+import {UserFollowersComponent} from "./user-followers/user-followers.component";
 
 @Component({
   selector: 'app-auth-user-profile',
@@ -28,7 +31,8 @@ export class AuthUserProfileComponent implements OnInit {
     // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
     private followerService: FollowerService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private dialog: MatDialog
   ) {
   }
   ngOnInit(): void {
@@ -55,41 +59,11 @@ export class AuthUserProfileComponent implements OnInit {
 
 
   async showFollowers(followers: User[]) {
-    let text;
-    let noFollower;
-    this.translate.get('user_profile.followers').subscribe(perf => text = perf);
-    this.translate.get('user_profile.no_follower_guest').subscribe(perf => noFollower = perf);
-    if (text && noFollower) {
-      bootbox.alert({
-        title: '<p class=\'display-5\'>' + text + '</p>',
-        message() {
-          if (followers.length > 0) {
-            let followerslist = '<table class="table table-striped">\n' +
-              '                      <tbody>\n';
-            for (const follower of followers) {
-              followerslist += '                        <tr>\n' +
-                '                          <td>\n' +
-                '                            <div >\n' +
-                // tslint:disable-next-line:max-line-length
-                '      <p class=\'display-5\'><a style=\'color:inherit\' href=\'/user/userProfile/' + follower.id + '\' >' + follower.firstname + ' ' + follower.lastname + '</a></p>\n' +
-                '                            </div>\n' +
-                '                          </td>\n' +
-                '                        </tr>\n';
+    const dialogRef = this.dialog.open(UserFollowersComponent, {
+      width: '60%',
+      data: {user: this.user.id}
+    });
 
-            }
-            followerslist += '                      </tbody>\n' +
-              '                    </table>';
-
-            return followerslist;
-          }
-          return noFollower;
-
-        },
-        size: 'large',
-        centerVertical: true,
-      });
-
-    }
   }
 
   follow() {

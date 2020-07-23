@@ -101,25 +101,12 @@
         <div class="card-body">
 
           <p>Content</p>
-          <div class="row justify-content-start mb-2" *ngFor="let lang of contentLangs; index as i">
-          <editor class="col-11 col-md-12"  formControlName="{{'content_' + lang}}" [required]="i==0"
-                  apiKey="sj3n4ofpyw6lj5xkfeaedah9jf36wvm5wtrge3i8acvowjuy"
-            [init]="{
-                   menubar: true,
-                   image_uploadtab: true,
-                   automatic_uploads: true,
-                   images_upload_url: back +  '/api/v1/project/create/image',
-                   language: (translate.currentLang === 'rus') ? 'ru' : (translate.currentLang === 'eng') ? 'en_CA':'kk',
-                   plugins: [
-                     'advlist autolink lists link image charmap print preview anchor ',
-                     'searchreplace visualblocks code fullscreen',
-                     'insertdatetime media table paste code help wordcount image'
-                   ],
-                   toolbar:
-                     'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat image | help'
-            }"
-                  initialValue="vdava"
-          ></editor>
+
+
+          <div class=" mb-2" *ngFor="let lang of contentLangs; index as i">
+            <ckeditor  formControlName="{{'content_' + lang}}" [editor]="Editor" (ready)="onReady($event)" id="editor" [required]="i==0"
+                      [config]="config"
+                      data="<p>Hello, world!</p>" ></ckeditor>
             <button class="col-1" *ngIf="i > 0" (click)="removeContent(i)" matSuffix mat-icon-button  matTooltip="{{'create.content_remove_info' | translate}}"
                     aria-label="Button that displays a tooltip when focused or hovered over">
               <mat-icon>remove_circle_outline</mat-icon>

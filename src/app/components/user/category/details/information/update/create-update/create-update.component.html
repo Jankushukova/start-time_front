@@ -55,20 +55,9 @@
                 <div class="card-body">
                   <p>Content</p>
                   <div class="row justify-content-start mb-2" *ngFor="let lang of descriptionLangs; index as i">
-                    <editor class="col-11"  formControlName="{{'description_' + lang}}" [required]="i==0"
-                            apiKey="sj3n4ofpyw6lj5xkfeaedah9jf36wvm5wtrge3i8acvowjuy"
-                            [init]="{
-                   menubar: true,
-                   plugins: [
-                     'advlist autolink lists link image charmap print preview anchor ',
-                     'searchreplace visualblocks code fullscreen',
-                     'insertdatetime media table paste code help wordcount image'
-                   ],
-                   toolbar:
-                     'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat image | help'
-                    }"
-                            initialValue="vdava"
-                    ></editor>
+                    <ckeditor  formControlName="{{'content_' + lang}}" [editor]="Editor" (ready)="onReady($event)" id="editor" [required]="i==0"
+                               [config]="config"
+                               data="<p>Hello, world!</p>" ></ckeditor>
                     <button class="col-1" *ngIf="i > 0" (click)="removeDescription(i)" matSuffix mat-icon-button  matTooltip="Remove content on this language"
                             aria-label="Button that displays a tooltip when focused or hovered over">
                       <mat-icon>remove_circle_outline</mat-icon>

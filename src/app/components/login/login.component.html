@@ -10,24 +10,13 @@
           <p class="card-description text-danger">
             {{answer}}
           </p>
-          <div class="form-group row">
-            <mat-form-field class="example-full-width w-100">
-              <input matInput formControlName="email" placeholder="{{'authorization.email' | translate}}">
-              <mat-error *ngIf="loginForm.hasError('email') && !loginForm.hasError('required')">
-                {{'authorization.email_error_invalid' | translate}}
-              </mat-error>
-              <mat-error *ngIf="loginForm.hasError('required')">
-                <strong>{{'authorization.email_error_required' | translate}}
-                </strong>
-              </mat-error>
-            </mat-form-field>
+          <div _ngcontent-xkd-c188="" class="form-group">
+            <input _ngcontent-xkd-c188="" formControlName="email" id="exampleInputEmail1"  placeholder="{{'authorization.email' | translate}}" class="form-control form-control-lg ng-dirty ng-valid ng-touched">
+          </div>
+          <div _ngcontent-xkd-c188="" class="form-group">
+            <input _ngcontent-xkd-c188="" type="password" formControlName="password" id="exampleInputPassword1" placeholder="{{'authorization.password' | translate}}" class="form-control form-control-lg ng-dirty ng-valid ng-touched">
           </div>
 
-          <div class="form-group row">
-            <mat-form-field class="w-100">
-              <input matInput type="password" placeholder="{{'authorization.password' | translate}}" formControlName="password" >
-            </mat-form-field>
-          </div>
           <div class="form-check form-check-flat form-check-primary">
             <div class="row">
               <div class="col">

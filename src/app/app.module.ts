@@ -110,6 +110,12 @@ import { CreatePartnerComponent } from './components/admin/admin-partners/create
 import { ProjectBakersComponent } from './components/user/category/details/information/project-bakers/project-bakers.component';
 import { ProjectsComponent } from './components/user/projects/projects.component';
 import { KaspiResultComponent } from './components/user/category/details/bake-project/kaspi-result/kaspi-result.component';
+import { HomeFollowersComponent } from './components/user/profile/home-followers/home-followers.component';
+import { HomeFollowedComponent } from './components/user/profile/home-followed/home-followed.component';
+import { HomeBakersComponent } from './components/user/profile/home-bakers/home-bakers.component';
+import { HomeBakedComponent } from './components/user/profile/home-baked/home-baked.component';
+import { UserFollowersComponent } from './components/user/auth-user-profile/user-followers/user-followers.component';
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 const routes: Routes = [
   {path: '', component: UserComponent,
     children: [
@@ -134,6 +140,7 @@ const routes: Routes = [
           {path: 'questions', component: AuthQuestionComponent},
         ]
       },
+
       {path: 'updates/details/:id', component: AuthUpdateDetailsComponent},
       {path: 'userProfile/:id', component: AuthUserProfileComponent,
         children: [
@@ -281,9 +288,15 @@ export function provideConfig() {
     ProjectBakersComponent,
     ProjectsComponent,
     KaspiResultComponent,
+    HomeFollowersComponent,
+    HomeFollowedComponent,
+    HomeBakersComponent,
+    HomeBakedComponent,
+    UserFollowersComponent,
   ],
     imports: [
         BrowserModule,
+      CKEditorModule,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyD5eN7n2C1-JjTOixhhBavbFJeAQAo5AyI'
       }),

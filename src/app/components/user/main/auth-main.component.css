@@ -60,7 +60,7 @@
   line-height: 1.2;
 }
 .display-4 {
-  font-size:1.875rem;
+  font-size:20px;
 }
 @media (max-width: 991px) {
   .display-4 {
@@ -131,7 +131,7 @@
 .slick-slider {
   width: 90%;
   margin: auto;
-  background: #fafbfe;
+  background: #f1f2f7;
 }
 
 .nav-btn {
@@ -176,7 +176,7 @@ h5, .h5 {
 .slick-slider {
   width: 90%;
   margin: auto;
-  background:#fafbfe;
+  background:#f1f2f7;
 }
 
 .nav-btn {

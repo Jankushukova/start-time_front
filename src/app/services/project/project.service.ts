@@ -83,10 +83,8 @@ export class ProjectService {
     });
   }
   // +
-  public getBakedProjectsOfUser(id: number): Observable<Project[]> {
-    return this.http.get<Project[]>( `${this.mainUrl }s/user/baked/${id}`).pipe(
-      map(data => data.map(entryData => new Project().deserialize(entryData)))
-    );
+  public getBakedProjectsOfUser(id: number): Observable<any[]> {
+    return this.http.get<Project[]>( `${this.mainUrl }s/user/baked/${id}`);
   }
 
   public getProjectsOfUser(userId: number, perPageCount: number, pageNumber: number): Observable<Project[]> {

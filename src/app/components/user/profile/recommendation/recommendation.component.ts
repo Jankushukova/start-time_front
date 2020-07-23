@@ -15,7 +15,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class RecommendationComponent implements OnInit {
   projects: Project[] = [];
   page = 1;
-  perPageCount = 5;
+  perPageCount = 4;
   totalProjectsCount: number;
   newLike: ProjectLike;
   translate;
@@ -37,9 +37,6 @@ export class RecommendationComponent implements OnInit {
     this.userService.getRecommendationsOfUser(this.perPageCount, this.page ).subscribe((perf: any) => {
       this.totalProjectsCount = perf.total;
       this.projects = perf.data.map(data => new Project().deserialize(data));
-      console.log(this.projects);
-      console.log(this.projects[0]);
-      console.log(this.projects[0].title_rus);
     });
   }
   changePage(event) {
@@ -67,5 +64,19 @@ export class RecommendationComponent implements OnInit {
 
 
     });
+  }
+  daysLeft(project: Project) {
+    const deadline = project.deadline;
+    const d1 = new Date(deadline);
+    const d2 = new Date();
+    const dif = d1.getTime() - d2.getTime();
+    const days = dif / (1000 * 3600 * 24);
+    return Math.ceil(days);
+  }
+  progress(project: Project) {
+    return Math.ceil(( parseInt(project.gathered, 10) /  parseInt(project.goal, 10))  * 100 );
+  }
+  inLocale(sum) {
+    return parseInt(sum, 10).toLocaleString();
   }
 }

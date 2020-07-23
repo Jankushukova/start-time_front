@@ -4,6 +4,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Project} from '../../../../models/project/project';
 import {ProjectService} from '../../../../services/project/project.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '@ckeditor/ckeditor5-build-classic/build/translations/el';
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
 
 // @ts-ignore
 import bootbox = require('bootbox');
@@ -69,6 +72,18 @@ export class ProjectEditComponent implements OnInit {
   contentLangs = [];
   back = environment.apiUrl;
   loading = false;
+  public Editor = ClassicEditor;
+  config =
+      {
+        toolbar: ['selectAll', 'undo', 'redo', 'bold', 'italic', 'blockQuote', 'ckfinder', 'imageTextAlternative',  'heading', 'imageStyle:full', 'imageStyle:side', 'indent', 'outdent', 'link', 'numberedList', 'bulletedList', 'mediaEmbed', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'  ],
+        language: 'ru',
+        ckfinder: {
+          options: {
+            resourceType: 'Images'
+          },
+          uploadUrl:  this.back +  '/ckfinder/connector'
+        }
+      }
 
   constructor(
     private route: ActivatedRoute,
@@ -98,6 +113,13 @@ export class ProjectEditComponent implements OnInit {
       this.getCategories();
       this.projectFormInit();
     });
+  }
+  public onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+    );
+
   }
   bindOldProjectValues() {
     for (let i = 0; i < this.project.images.length; i++) {

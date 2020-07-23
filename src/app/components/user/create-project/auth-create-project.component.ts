@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user/user.service';
 import {Router} from '@angular/router';
@@ -18,6 +18,10 @@ import {ProjectImage} from '../../../models/project/projectImage';
 import {Gift} from '../../../models/project/gift';
 import {GiftService} from '../../../services/project/gift.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '@ckeditor/ckeditor5-build-classic/build/translations/el';
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
+
 // @ts-ignore
 import bootbox = require('bootbox');
 import {environment} from "../../../../environments/environment.prod";
@@ -77,6 +81,19 @@ export class AuthCreateProjectComponent implements OnInit {
   categoryControl = new FormControl('', Validators.required);
   translate;
   back = environment.apiUrl;
+
+  public Editor = ClassicEditor;
+  config =
+      {
+        toolbar: ['selectAll', 'undo', 'redo', 'bold', 'italic', 'blockQuote', 'ckfinder', 'imageTextAlternative',  'heading', 'imageStyle:full', 'imageStyle:side', 'indent', 'outdent', 'link', 'numberedList', 'bulletedList', 'mediaEmbed', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'  ],
+        language: (this.translator.currentLang=='eng')?'en-au':'ru',
+        ckfinder: {
+          options: {
+            resourceType: 'Images'
+          },
+          uploadUrl:  this.back +  '/ckfinder/connector'
+        }
+      }
   constructor(private userService: UserService,
               private router: Router,
               private builder: FormBuilder,
@@ -100,6 +117,14 @@ export class AuthCreateProjectComponent implements OnInit {
     this.bindLanguage();
     // this.authorized = false;
   }
+  public onReady( editor ) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+    );
+
+  }
+
   checkUserData() {
     if (this.userService.getUser().email === '' || this.userService.getUser().email === null) {
         this.show();

@@ -41,7 +41,7 @@
     display: none;
   }
   .mob{
-    display: flex!;
+    display: flex!important;
   }
   .small{
     font-size: x-small;
@@ -97,8 +97,9 @@
   }
 }
 .bg-image{
-  background-image: url('assets/images/bg.jpg');
+  background-image: url('../../../assets/images/bg.jpg');
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
 }
+

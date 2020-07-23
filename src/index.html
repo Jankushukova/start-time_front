@@ -37,6 +37,15 @@
     cursor: pointer;
 
   }
+  .mob-nav{
+    display: none;
+  }
+  @media screen and (max-width: 500px) {
+    .mob-nav{
+      display: block;
+    }
+  }
+
 </style>
 <!--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
 
@@ -45,15 +54,23 @@
 
 <!--<script src="https://kit.fontawesome.com/711e110c71.js" crossorigin="anonymous"></script>-->
 <!--<script src="node_modules/bootbox/bootbox.js"></script>-->
-<body class="mat-typography">
+<body class="mat-typography ">
   <app-root></app-root>
-  <script src="assets/js/cloud.js"></script>
 
+<div>
+
+</div>
+  <!-- ZERO.kz -->
+
+
+
+
+  <!-- End ZERO.kz -->
 </body>
 <script src="assets/js/cloud.js"></script>
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script><script src="assets/vendors/base/vendor.bundle.base.js"></script>
 
-<script src="assets/vendors/base/vendor.bundle.base.js"></script>
-
+<!-- Plugin js for this page-->
 <!-- Plugin js for this page-->
 <script src="assets/fontawesome/js/all.min.js"></script>
 <script src="assets/bootbox/bootbox.all.min.js"></script>
@@ -74,5 +91,9 @@
 <!-- Custom js for this page-->
 <script src="assets/js/dashboard.js"></script>
 <script src="assets/js/data-table.js"></script>
+<script>
+  var today = new Date();
+  var date = today.getFullYear();
 
+</script>
 </html>

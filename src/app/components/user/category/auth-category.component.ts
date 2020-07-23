@@ -106,4 +106,10 @@ export class AuthCategoryComponent implements OnInit {
     const days = dif / (1000 * 3600 * 24);
     return Math.ceil(days);
   }
+  progress(project: Project) {
+    return Math.ceil(( parseInt(project.gathered, 10) /  parseInt(project.goal, 10))  * 100 );
+  }
+  inLocale(sum) {
+    return parseInt(sum, 10).toLocaleString();
+  }
 }

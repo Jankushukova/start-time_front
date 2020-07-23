@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>{{'user_profile.followers' | translate}}</h1>
+<div mat-dialog-content>
+  <ng-container *ngIf="followers.length>0">
+    <table class="table table-striped">
+      <tbody>
+      <tr *ngFor="let follower of followers; index as i">
+        <th scope="row">{{i + 1}}</th>
+        <td><h2><small class="text-muted"><a [routerLink]="['/userProfile',follower.id]">
+          {{follower.fullname}}
+        </a></small></h2></td>
+
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-container *ngIf="followers.length==0">
+    {{'user_profile.no_follower_guest'|translate}}
+  </ng-container>
+
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>
