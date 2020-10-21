@@ -1,6 +1,8 @@
-<ng-container *ngIf="code==-1">
+
+<app-spinner filterBy="kaspi"></app-spinner>
+<ng-container *ngIf="code==-1&&!loading">
   {{'payment.success'|translate}}
 </ng-container>
-<ng-container *ngIf="code!=-1">
+<ng-container *ngIf="code!=-1&&!loading">
   {{'payment.failure'| translate}}
 </ng-container>

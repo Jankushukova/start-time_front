@@ -76,7 +76,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let project of projects ; index as i">
-              <td>{{i + 1}}</td>
+              <td>{{project.id}}</td>
               <td class="py-1" >
                 <a [routerLink]="['/userProfile',project.owner.id]">{{project.owner.getFullName()}}</a>
               </td>

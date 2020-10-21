@@ -17,9 +17,10 @@
                     </button>
                     <mat-menu #chooseFilter="matMenu">
                       <button mat-menu-item [matMenuTriggerFor]="owner">Пользователь</button>
-                      <button mat-menu-item (click)="changeFilter('title_rus')">Название Проекта</button>
-                      <button mat-menu-item (click)="changeFilter('sum')">Сумма</button>
                       <button mat-menu-item (click)="changeFilter('created_at')">Дата</button>
+                      <button mat-menu-item (click)="changeFilter('id')">ID Заказа</button>
+                      <button mat-menu-item (click)="changeFilter('project_id')">ID Проекта</button>
+
                     </mat-menu>
                     <mat-menu #owner="matMenu">
                       <button mat-menu-item (click)="changeFilter('fullname')">Имя</button>
@@ -70,30 +71,30 @@
           </thead>
           <tbody>
           <tr *ngFor="let bake of bakeInformation;index as i">
-            <td>{{i + 1}}</td>
+            <td>{{bake.id}}</td>
             <td scope="row">
-              <a *ngIf="bake.order.user" style="color:inherit" target="_blank" class="paddingDiv" [routerLink]="['/userProfile',bake.order.user_id]">{{bake.order.user.fullname}}</a>
-              <p *ngIf="!bake.order.user">{{bake.order.fullname}}</p>
+              <a *ngIf="bake.user" style="color:inherit" target="_blank" class="paddingDiv" [routerLink]="['/userProfile',bake.user_id]">{{bake.user.fullname}}</a>
+              <p *ngIf="!bake.user">{{bake.fullname}}</p>
             </td>
             <td>
-              <p *ngIf="bake.order.user">{{bake.order.user.email}}</p>
-              <p *ngIf="!bake.order.user">{{bake.order.email}}</p>
+              <p *ngIf="bake.user">{{bake.user.email}}</p>
+              <p *ngIf="!bake.user">{{bake.email}}</p>
             </td>
             <td >
-              <p *ngIf="bake.order.user">{{bake.order.user.phone_number}}</p>
-              <p *ngIf="!bake.order.user">{{bake.order.phone_number}}</p>
+              <p *ngIf="bake.user">{{bake.user.phone_number}}</p>
+              <p *ngIf="!bake.user">{{bake.phone_number}}</p>
             </td>
-            <td><a style="color:inherit" target="_blank" [routerLink]="['/project/details', bake.order.project.id]">
-              {{bake.order.project.title_rus}}
+            <td><a style="color:inherit" target="_blank" [routerLink]="['/project/details', bake.project.id]">
+              {{bake.project.title_rus}}
             </a></td>
-            <td>{{bake.bank.name}}</td>
-            <td>{{bake.sum}}</td>
+              <td>{{(bake.payment) ? bake.payment.bank.name : ''}}</td>
+              <td>{{ (bake.payment) ? bake.payment.sum : ''}}</td>
             <td>{{editFormat(bake.created_at)}}</td>
             <td>
-              <p *ngIf="bake.order.gift">{{ bake.order.gift.description }}</p>
-              <p *ngIf="!bake.order.gift">Вознаграждения нет</p>
+              <p *ngIf="bake.gift">{{ bake.gift.description }}</p>
+              <p *ngIf="!bake.gift">Вознаграждения нет</p>
             </td>
-            <td> <button class="btn btn-light" (click)="changeStatus(bake.order)">{{bake.order.confirmed}}</button></td>
+            <td> <button class="btn btn-light" (click)="changeStatus(bake)">{{bake.confirmed}}</button></td>
 
           </tr>
           </tbody>

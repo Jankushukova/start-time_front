@@ -15,6 +15,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class KaspiResultComponent implements OnInit {
   code = 1;
+  loading = false;
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -37,6 +38,7 @@ export class KaspiResultComponent implements OnInit {
       const resultCode = params.ResultCode;
       this.code = resultCode;
       this.projectOrderService.resultKaspi(amount, resultCode, orderId).subscribe(perf => {
+        this.loading = true;
         if (this.code == -1) {
           this.translator.get('payment.success').subscribe(perf2 => {
             this.openB(perf2);

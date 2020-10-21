@@ -35,8 +35,6 @@ export class ProjectCategoryService {
       }
     });
   }
-
-
 // +
   public create(category: ProjectCategory): Observable<ProjectCategory> {
     return this.http.post<ProjectCategory>(this.customUrl + '/project/category/create', category);

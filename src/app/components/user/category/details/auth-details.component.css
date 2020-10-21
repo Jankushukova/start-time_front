@@ -9,6 +9,7 @@
   font-weight: 300;
   line-height: 1.2;
 }
+
 .info-mob{
   display: none;
 }
@@ -19,6 +20,9 @@
 @media (max-width: 991px) {
   .display-4 {
     font-size: 1.5rem;
+  }
+  .display-4 {
+    font-size: 1rem;
   }
   .info-desk{
     display: none;

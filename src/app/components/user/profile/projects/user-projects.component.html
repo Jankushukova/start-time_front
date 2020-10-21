@@ -7,10 +7,9 @@
     <ng-container *ngIf="activeProjects">
       <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
         <ng-container *ngIf="activeProjects.length > 0">
-          <div *ngFor="let project of activeProjects" class="col-md-3 stretch-card grid-margin ">
+          <div *ngFor="let project of activeProjects" class="col-md-4 stretch-card grid-margin ">
             <div class="card  shadow" >
               <ng-container *ngIf="project.images">
-
                 <img class="card-img-top m-auto  project-img" *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" alt="Card image cap">
               </ng-container>
 
@@ -78,7 +77,7 @@
 
     <ng-container *ngIf="unactiveProjects">
       <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
-        <div *ngFor="let project of unactiveProjects" class="col-md-3 stretch-card grid-margin ">
+        <div *ngFor="let project of unactiveProjects" class="col-md-4 stretch-card grid-margin ">
           <ng-container *ngIf="unactiveProjects.length>0">
             <div class="card  shadow" >
               <ng-container *ngIf="project.images">
@@ -136,7 +135,7 @@
       <div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
         <ng-container *ngIf="finishedProjects.length>0">
 
-        <div *ngFor="let project of finishedProjects" class="col-md-3 stretch-card grid-margin ">
+        <div *ngFor="let project of finishedProjects" class="col-md-4 stretch-card grid-margin ">
             <div class="card  shadow" >
               <ng-container *ngIf="project.images">
 

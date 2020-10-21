@@ -41,6 +41,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   categories: ProjectCategory[] = [];
   categories1: ProjectCategory[] = [];
   productCount = 0;
+  language ;
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
 
   constructor(
@@ -65,6 +66,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.translate.setDefaultLang('rus');
     const browserLang = this.translate.getBrowserLang();
     this.translate.use(browserLang.match(/en|rus/) ? browserLang : 'rus');
+    this.language = this.translate.currentLang;
   }
 
   ngOnInit(): void {
@@ -239,7 +241,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       return '../../../assets/images/44_0.png';
     }
   }
-  toggle(){
-    console.log(document.getElementById('sidebar').style.display);
+
+  changeLang(l){
+    this.translate.use(l);
+    this.language = l;
   }
 }

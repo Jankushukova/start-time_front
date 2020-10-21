@@ -1,11 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+/*@import '~ngx-sharebuttons/themes/default/default-theme.scss';*/
 .cdk-overlay-container {
   z-index: 9999 !important;
 }
 .mat-progress-spinner circle, .mat-spinner circle {
   stroke:  #009E74!important;
 }
-html, body { height: 100%; }
+html { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .style-success .mat-simple-snackbar-action  {
   color: white;
@@ -13,7 +14,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .style-success {
   color: white;
   background-color: #009E74;
-
 }
 .style-warn .mat-simple-snackbar-action  {
   color: white;
@@ -78,3 +78,42 @@ a{
   line-height: 1.2;
 }
 
+
+.sb-facebook{
+  color: #4267B2;
+}
+.sb-twitter{
+  color: #00acee;
+}
+.sb-whatsapp{
+  color: #25d366;
+}
+.sb-telegram{
+  color:#0088cc
+}
+.sb-vk{
+  color:#4C75A3;
+}
+.sb-circles-dark .sb-wrapper{
+  background: transparent;
+  min-width: unset;
+  height: unset;
+}
+.sb-wrapper {
+  font-family: Roboto,sans-serif;
+}
+
+.sb-wrapper {
+  cursor: pointer;
+  position: relative;
+  outline: 0;
+  border: none;
+  border-radius: 1px;
+  padding: 0;
+  line-height: 2.571em;
+  -webkit-print-color-adjust: exact;
+}
+
+.cdk-overlay-pane{
+  max-width: 95vw!important;
+}

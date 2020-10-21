@@ -54,18 +54,19 @@
           </div>
           <div class="row mt-3">
             <div class="col-4">
-              <h3 class="text-center"><span class="text-start-time">₸{{inLocale(project.gathered)}}</span></h3>
-              <h5 class="text-center" style="margin: 0"><span class="text-muted">{{'project.of' | translate}}</span></h5>
-              <h5 class="text-center"><span class="text-start-time">₸{{inLocale(project.goal)}}</span></h5>
+              <h3 class="text-center display-4"><span class="text-start-time">₸{{inLocale(project.gathered)}}</span></h3>
+              <p class="text-center text-muted m-0">{{'project.of' | translate}}</p>
+              <h3 class="text-center "><span class="text-start-time display-5">₸{{inLocale(project.goal)}}</span></h3>
             </div>
+
             <div class="col-4">
-              <h3 class="text-center"><span class="text-muted">{{project.backers}}</span></h3>
-              <h5 class="text-center"><span class="text-muted">{{'project.bakers' | translate}}</span></h5>
+              <h3 class="text-center display-4"><span class="text-muted">{{project.backers}}</span></h3>
+              <p class="text-center text-muted">{{'project.bakers' | translate}}</p>
             </div>
             <div class="col-4">
               <ng-container *ngIf="project.active!=2">
-                <h3 class="text-center"><span class="text-muted" style="font-size: 70%">{{'project.deadline' | translate}}</span></h3>
-                <h5 class="text-center"><span class="text-muted">{{editFormat(project.deadline)}}</span></h5>
+                <h3 class="text-center display-4 text-muted">{{editFormat(project.deadline)}}</h3>
+                <p class="text-center text-muted">{{'project.deadline' | translate}}</p>
               </ng-container>
               <ng-container *ngIf="project.active===2">
                 <h4 class="text-start-time text-center" ><span style="font-size: 70%">{{'project.end' | translate}}!</span></h4>

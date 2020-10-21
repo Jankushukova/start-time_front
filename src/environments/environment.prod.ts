@@ -1,12 +1,13 @@
 export const environment = {
-  production: true,
+  production: false,
   tokenPrefix: 'Bearer ',
-  apiUrl: 'https://api.start-time.kz',
+  apiUrl: 'https://back.smart-plaza.kz',
   tokenKey: 'token',
   pusher: {
     key: '171ff90acf88b95a905d',
     cluster: 'ap2',
   },
   facebookAppId: '273693090676071',
-  cloudPaymentsPublicId: 'pk_4e5e1047221849e70c2fc84ba62ee'
+
+  cloudPaymentsPublicId: 'pk_64fb8281513795a2e90874649a881'
 };

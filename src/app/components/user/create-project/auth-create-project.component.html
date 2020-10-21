@@ -101,11 +101,8 @@
         <div class="card-body">
 
           <p>Content</p>
-
-
           <div class=" mb-2" *ngFor="let lang of contentLangs; index as i">
-            <ckeditor  formControlName="{{'content_' + lang}}" [editor]="Editor" (ready)="onReady($event)" id="editor" [required]="i==0"
-                      [config]="config"
+            <ckeditor  formControlName="{{'content_' + lang}}" [editor]="Editor" [config]="config" (ready)="onReady($event)" id="editor" [required]="i==0"
                       data="<p>Hello, world!</p>" ></ckeditor>
             <button class="col-1" *ngIf="i > 0" (click)="removeContent(i)" matSuffix mat-icon-button  matTooltip="{{'create.content_remove_info' | translate}}"
                     aria-label="Button that displays a tooltip when focused or hovered over">
@@ -115,16 +112,39 @@
         </div></div></div>
 
 
-    <div class="col-md-5 grid-margin stretch-card ">
+    <div class="col-md-10 grid-margin stretch-card ">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body p-2">
           <mat-form-field class="w-100">
-            <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="{{'create.images'|translate}}"  multiple></ngx-mat-file-input>
+            <ngx-mat-file-input  (change)="fileChangeEvent($event)" placeholder="{{'create.images'|translate}}" ></ngx-mat-file-input>
             <mat-icon matSuffix></mat-icon>
           </mat-form-field>
-        </div></div></div>
+          <div class="row" style="margin-top: 5%;">
+            <div class="text-center col-md-7">
+              <h5>{{'crop'|translate}}</h5>
+              <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="4 / 3"
+                [resizeToWidth]="269"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady()"
+                (loadImageFailed)="loadImageFailed()"></image-cropper>
+            </div>
+            <div class="text-center col-md-5">
+              <h5>{{'preview'|translate}}</h5>
+              <img [src]="croppedImage" />
+            </div>
+          </div>
 
-    <div class="col-md-5 grid-margin stretch-card ">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-10 grid-margin stretch-card ">
       <div class="card">
         <div class="card-body">
           <mat-form-field class="example-full-width" class=" w-100">

@@ -33,7 +33,6 @@ export class AuthCategoryComponent implements OnInit {
     private userService: UserService,
     private authService: SimpleAuthService,
     private likeService: LikeService,
-    // tslint:disable-next-line:variable-name
     private _snackBar: MatSnackBar,
     private translator: TranslateService
   ) {

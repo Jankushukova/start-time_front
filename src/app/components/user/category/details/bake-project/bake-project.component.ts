@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../../../../services/product/product.service';
@@ -15,21 +15,26 @@ import {ProjectOrderService} from '../../../../../services/project/project-order
 import {TranslateService} from '@ngx-translate/core';
 import {Gift} from "../../../../../models/project/gift";
 import {environment} from "../../../../../../environments/environment";
+import {MatStepper} from "@angular/material/stepper";
 @Component({
   selector: 'app-bake-project',
   templateUrl: './bake-project.component.html',
   styleUrls: ['./bake-project.component.css']
 })
 export class BakeProjectComponent implements OnInit {
+
   project: Project;
-  infoForm: FormGroup;
-  customSumForm: FormGroup;
-  giftedSumForm: FormGroup;
   authorizedUser;
-  paymentType: FormGroup;
   gift: Gift = null;
-  kaspiOrderId;
-  kaspiSum;
+  firstname='';
+  lastname='';
+  phone_number='';
+  sum = 0;
+  paymentType=3;
+  pay = false;
+  order;
+  valid = false;
+  giftIndex;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
@@ -49,76 +54,23 @@ export class BakeProjectComponent implements OnInit {
   }
   ngOnInit(): void {
     this.authorizedUser = this.userService.getUser();
-    this.initBakeForm();
+    if(this.authorizedUser){
+      this.firstname = this.authorizedUser.firstname;
+      this.lastname = this.authorizedUser.lastname;
+      this.phone_number = this.authorizedUser.phone_number;
+    }
+
+
   }
-  initBakeForm() {
-    this.infoForm = this.builder.group({
-      email: [(this.authorizedUser) ? this.authorizedUser.email : '', [ Validators.required, Validators.email]],
-      firstname: [(this.authorizedUser) ? this.authorizedUser.firstname : '', Validators.required],
-      lastname: [(this.authorizedUser) ? this.authorizedUser.lastname : '', Validators.required],
-      phone_number: [(this.authorizedUser) ? this.authorizedUser.phone_number : '', Validators.required],
-    });
-    this.customSumForm = this.builder.group({
-      sum: ['', Validators.required],
-    });
-    this.giftedSumForm = this.builder.group({
-      sum: ['', Validators.required],
-    });
-    this.paymentType = this.builder.group({
-      type: ['', Validators.required],
-    });
-  }
+
+
   giftSelected(event) {
-    this.customSumForm.patchValue({
-      sum: this.project.gifts[event.value].sum
-    });
     this.gift = this.project.gifts[event.value];
-  }
-  onSubmit() {
-    const projectOrder: ProjectOrder = this.infoForm.getRawValue();
-    if ( this.infoForm.controls.paymentType.value === '3') {
-      this.orderCloudPayments(projectOrder);
-    } else if (this.infoForm.controls.paymentType.value === '1') {
-        this.projectOrderService.createEpay(projectOrder).subscribe(perf => {
-          window.location.href = perf.url;
-          this.translator.get('project.bake.redirect').subscribe(perf2 => {
-            this.openSnackBar(perf2, 'Close', 'style-success');
-          });
-        }, error => {
-          this.translator.get('project.bake.error').subscribe(perf2 => {
-            this.openSnackBar(perf2, 'Close', 'style-error');
-          });
-        });
-    } else if (this.infoForm.controls.paymentType.value === '2') {
-      this.projectOrderService.create(projectOrder).subscribe(perf => {
-        projectOrder.id = perf.id;
-        this.kaspiOrderId = perf.id;
-        this.kaspiSum = projectOrder.sum * 100;
-      });
-      }
-  }
-  manageInfoData() {
-    const customSum = this.customSumForm.controls.sum.value;
-    const giftedSum = this.giftedSumForm.controls.sum.value;
-    this.infoForm.addControl('project_id', this.builder.control(this.project.id));
-    this.infoForm.addControl('user_id', this.builder.control((this.authorizedUser) ? this.authorizedUser.id : ''));
-    this.infoForm.addControl('sum', this.builder.control( customSum));
-    this.infoForm.addControl('paymentType', this.builder.control(this.paymentType.controls.type.value));
-    this.infoForm.addControl('gift_id', this.builder.control((this.gift) ? this.gift.id : null));
-    if (this.project.gifts[giftedSum]) {
-      this.giftedSumForm.patchValue({
-        sum: this.project.gifts[giftedSum].sum
-      });
-    }
-    if (!this.hasGift()) {
-      this.infoForm.patchValue({
-        gift_id: null
-      });
-    }
+    this.sum = this.gift.sum;
   }
 
   hasGift() {
-    return this.customSumForm.controls.sum.value === this.giftedSumForm.controls.sum.value;
+    return (this.gift) ? this.sum === this.gift.sum : false;
   }
   openSnackBar(message: string, action: string, style: string) {
     this._snackBar.open(message, action, {
@@ -127,43 +79,47 @@ export class BakeProjectComponent implements OnInit {
       horizontalPosition: 'right',
     });
   }
-  orderCloudPayments(order: ProjectOrder) {
+  createOrder(){
+    const projectOrder: ProjectOrder = new ProjectOrder();
+    projectOrder.first_name = this.firstname;
+    projectOrder.last_name = this.lastname;
+    projectOrder.phone_number = this.phone_number;
+    projectOrder.paymentType = this.paymentType;
+    projectOrder.gift_id = (this.hasGift())?this.gift.id:null;
+    projectOrder.sum = this.sum;
+    projectOrder.project_id = this.project.id;
+    projectOrder.user_id = (this.authorizedUser)?this.authorizedUser.id:null;
+      this.projectOrderService.create(projectOrder).subscribe(perf => {
+        projectOrder.id = perf.id;
+        projectOrder.confirmed = perf.confirmed;
+        this.order = projectOrder;
+        this.CloudPayments();
+      });
+
+  }
+  CloudPayments() {
     const projectName = (this.translator.currentLang === 'rus') ? this.project.title_rus : (this.translator.currentLang === 'eng') ? this.project.title_eng : this.project.title_kz;
-    const giftName = (this.gift && this.hasGift()) ? this.gift.description : (this.translator.currentLang === 'rus') ? 'Вознаграждения нет' : (this.translator.currentLang === 'eng') ? 'No reward' : 'Сыйақы жоқ';
-    const amount = order.sum;
-    const email = order.email;
+    const giftName = (this.hasGift()) ? this.gift.description : (this.translator.currentLang === 'rus') ? 'Вознаграждения нет' : (this.translator.currentLang === 'eng') ? 'No reward' : 'Сыйақы жоқ';
+    const amount = this.order.sum;
     // @ts-ignore
     const widget = new cp.CloudPayments();
-    this.projectOrderService.create(order).subscribe(perf => {
-      order.id = perf.id;
-      order.confirmed = perf.confirmed;
       widget.charge({ // options
           publicId: environment.cloudPaymentsPublicId,  // id из личного кабинета
           description: projectName + ', ' + giftName, // назначение
           amount: amount, // сумма
           currency: 'KZT', // валюта
-          email: email,
-          invoiceId: order.id,
-          skin: 'modern', // дизайн виджета
+          invoiceId: this.order.id,
+          skin: 'classic', // дизайн виджета
           data: {
             myProp: 'myProp value' // произвольный набор параметров
           }
         },
         (options) => { // success
-          this.projectOrderService.cloudSuccess(order).subscribe(perf2 => {
+          this.projectOrderService.cloudSuccess(this.order).subscribe(perf2 => {
           });
 
         },
         (reason, options) => { // fail
         });
-    });
-  }
-  stepChanged(e) {
-   if (e.selectedIndex === 4) {
-     this.manageInfoData();
-     if (this.paymentType.controls.type.value === '2') {
-        this.onSubmit();
-     }
-   }
   }
 }

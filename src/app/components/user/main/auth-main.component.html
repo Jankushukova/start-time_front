@@ -6,49 +6,50 @@
           <div class="carousel-inner">
 
             <div class="carousel-item active h-100">
-              <div class="row justify-content-center h-100 w-100">
-                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+              <div class="row m-0 justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-50 col-12 col-sm-4 mt-md-auto mb-md-auto text-center stretch-card" >
                   <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[0].images[0].image" alt="First slide">
                 </div>
-                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                <div class="col-md-4 p-1 col-lg-4 h-50 col-sm-4 col-12  stretch-card w-100">
                   <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
-                    <div class=" overflow-hidden p-md-2" style="height: 57%">
+                    <div class=" overflow-hidden p-md-2" >
 
-                        <h3 class="display-4 mb-0 text-dark">
+                        <h3 style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden" class="display-4 mb-0 text-dark">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[0].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[0].title_eng:mostPopularProjects[0].title_kz}}</h3>
                         <p class="text-right mb-0">{{ progress(mostPopularProjects[0]) + '%'}}</p>
                         <div class="progress mb-md-3 " >
-                          <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[1])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                          <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[0])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p>
+                        <p style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[0].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[0].description_eng:mostPopularProjects[0].description_kz}}
 
                         </p>
                                          </div>
                     <div class="h-50 w-100">
-                      <div class="row justify-content-center h-50 m-0 w-100">
+                      <div  class="border-bottom-mob row justify-content-center m-0 w-100">
                         <div class="col-10 p-0" >
                           <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[0].active!=2">
                             {{daysLeft(mostPopularProjects[0])}}
                           </h3>
+
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[0].active!=2">
                             {{'project.days_left' | translate}}
                           </p>
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[0].active==2">
                             {{'project.end' | translate}}
                           </p>
-                          <hr class="m-0"/>
                         </div>
 
 
                       </div>
-                      <div class="text-left mt-md-4 h-50 row">
+
+                      <div class="text-left mt-md-3 h-50 row">
                         <div class="col-md-7 col-12 text-center">
                           <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[0].goal)}}</span></h3>
 
                         </div>
-                        <div class="col-md-5 col-12 text-center pt-md-2">
-                          <button class="btn  p-1 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[0].id]" > {{'project.more' | translate}}</button>
+                        <div class="col-md-5 col-12 text-center mt-3">
+                          <button class="btn p-2 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[0].id]" > {{'project.more' | translate}}</button>
 
                         </div>
 
@@ -63,50 +64,51 @@
               </div>
 
             </div>
-            <div class="carousel-item h-100">
-              <div class="row justify-content-center h-100 w-100">
-                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+            <div class="carousel-item  h-100">
+              <div class="row m-0 justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-50 col-12 col-sm-4 mt-md-auto mb-md-auto text-center stretch-card" >
                   <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[1].images[0].image" alt="First slide">
                 </div>
-                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                <div class="col-md-4 p-1 col-lg-4 h-50 col-sm-4 col-12  stretch-card w-100">
                   <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
-                    <div class=" overflow-hidden p-md-2" style="height: 57%">
+                    <div class=" overflow-hidden p-md-2" >
 
-                        <h3 class="display-4 mb-0 text-dark">
+                        <h3 style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden" class="display-4 mb-0 text-dark">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[1].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[1].title_eng:mostPopularProjects[1].title_kz}}</h3>
                         <p class="text-right mb-0">{{ progress(mostPopularProjects[1]) + '%'}}</p>
                         <div class="progress mb-md-3 " >
                           <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[1])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p>
+                        <p style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[1].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[1].description_eng:mostPopularProjects[1].description_kz}}
 
                         </p>
                                          </div>
                     <div class="h-50 w-100">
-                      <div class="row justify-content-center h-50 m-0 w-100">
+                      <div  class="border-bottom-mob row justify-content-center m-0 w-100">
                         <div class="col-10 p-0" >
                           <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[1].active!=2">
                             {{daysLeft(mostPopularProjects[1])}}
                           </h3>
+
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[1].active!=2">
                             {{'project.days_left' | translate}}
                           </p>
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[1].active==2">
                             {{'project.end' | translate}}
                           </p>
-                          <hr class="m-0"/>
                         </div>
 
 
                       </div>
-                      <div class="text-left mt-md-4 h-50 row">
+
+                      <div class="text-left mt-md-3 h-50 row">
                         <div class="col-md-7 col-12 text-center">
                           <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[1].goal)}}</span></h3>
 
                         </div>
-                        <div class="col-md-5 col-12 text-center pt-md-2">
-                          <button class="btn  p-1 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[1].id]" > {{'project.more' | translate}}</button>
+                        <div class="col-md-5 col-12 text-center mt-3">
+                          <button class="btn p-2 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[1].id]" > {{'project.more' | translate}}</button>
 
                         </div>
 
@@ -121,50 +123,51 @@
               </div>
 
             </div>
-            <div class="carousel-item h-100">
-              <div class="row justify-content-center h-100 w-100">
-                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+            <div class="carousel-item  h-100">
+              <div class="row m-0 justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-50 col-12 col-sm-4 mt-md-auto mb-md-auto text-center stretch-card" >
                   <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[2].images[0].image" alt="First slide">
                 </div>
-                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                <div class="col-md-4 p-1 col-lg-4 h-50 col-sm-4 col-12  stretch-card w-100">
                   <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
-                    <div class=" overflow-hidden p-md-2" style="height: 57%">
+                    <div class=" overflow-hidden p-md-2" >
 
-                        <h3 class="display-4 mb-0 text-dark">
+                        <h3 style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden" class="display-4 mb-0 text-dark">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[2].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[2].title_eng:mostPopularProjects[2].title_kz}}</h3>
                         <p class="text-right mb-0">{{ progress(mostPopularProjects[2]) + '%'}}</p>
                         <div class="progress mb-md-3 " >
                           <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[2])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p>
+                        <p style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[2].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[2].description_eng:mostPopularProjects[2].description_kz}}
 
                         </p>
                                          </div>
                     <div class="h-50 w-100">
-                      <div class="row justify-content-center h-50 m-0 w-100">
+                      <div  class="border-bottom-mob row justify-content-center m-0 w-100">
                         <div class="col-10 p-0" >
                           <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[2].active!=2">
                             {{daysLeft(mostPopularProjects[2])}}
                           </h3>
+
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[2].active!=2">
                             {{'project.days_left' | translate}}
                           </p>
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[2].active==2">
                             {{'project.end' | translate}}
                           </p>
-                          <hr class="m-0"/>
                         </div>
 
 
                       </div>
-                      <div class="text-left mt-md-4 h-50 row">
+
+                      <div class="text-left mt-md-3 h-50 row">
                         <div class="col-md-7 col-12 text-center">
                           <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[2].goal)}}</span></h3>
 
                         </div>
-                        <div class="col-md-5 col-12 text-center pt-md-2">
-                          <button class="btn  p-1 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[2].id]" > {{'project.more' | translate}}</button>
+                        <div class="col-md-5 col-12 text-center mt-3">
+                          <button class="btn p-2 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[2].id]" > {{'project.more' | translate}}</button>
 
                         </div>
 
@@ -179,50 +182,51 @@
               </div>
 
             </div>
-            <div class="carousel-item h-100">
-              <div class="row justify-content-center h-100 w-100">
-                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+            <div class="carousel-item  h-100">
+              <div class="row m-0 justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-50 col-12 col-sm-4 mt-md-auto mb-md-auto text-center stretch-card" >
                   <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[3].images[0].image" alt="First slide">
                 </div>
-                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                <div class="col-md-4 p-1 col-lg-4 h-50 col-sm-4 col-12  stretch-card w-100">
                   <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
-                    <div class=" overflow-hidden p-md-2" style="height: 57%">
+                    <div class=" overflow-hidden p-md-2" >
 
-                        <h3 class="display-4 mb-0 text-dark">
+                        <h3 class="display-4 mb-0 text-dark" style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[3].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[3].title_eng:mostPopularProjects[3].title_kz}}</h3>
                         <p class="text-right mb-0">{{ progress(mostPopularProjects[3]) + '%'}}</p>
                         <div class="progress mb-md-3 " >
                           <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[3])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p>
+                        <p style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[3].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[3].description_eng:mostPopularProjects[3].description_kz}}
 
                         </p>
                                          </div>
                     <div class="h-50 w-100">
-                      <div class="row justify-content-center h-50 m-0 w-100">
+                      <div  class="border-bottom-mob row justify-content-center m-0 w-100">
                         <div class="col-10 p-0" >
                           <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[3].active!=2">
                             {{daysLeft(mostPopularProjects[3])}}
                           </h3>
+
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[3].active!=2">
                             {{'project.days_left' | translate}}
                           </p>
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[3].active==2">
                             {{'project.end' | translate}}
                           </p>
-                          <hr class="m-0"/>
                         </div>
 
 
                       </div>
-                      <div class="text-left mt-md-4 h-50 row">
+
+                      <div class="text-left mt-md-3 h-50 row">
                         <div class="col-md-7 col-12 text-center">
                           <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[3].goal)}}</span></h3>
 
                         </div>
-                        <div class="col-md-5 col-12 text-center pt-md-2">
-                          <button class="btn  p-1 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[3].id]" > {{'project.more' | translate}}</button>
+                        <div class="col-md-5 col-12 text-center mt-3">
+                          <button class="btn p-2 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[3].id]" > {{'project.more' | translate}}</button>
 
                         </div>
 
@@ -237,50 +241,51 @@
               </div>
 
             </div>
-            <div class="carousel-item h-100">
-              <div class="row justify-content-center h-100 w-100">
-                <div class="col-md-5 p-0 col-lg-5 h-100 col-4 col-sm-4 text-center stretch-card" style="border-right: 1px solid #DCDEDD">
+            <div class="carousel-item  h-100">
+              <div class="row m-0 justify-content-center h-100 w-100">
+                <div class="col-md-5 p-0 col-lg-5 h-50 col-12 col-sm-4 mt-md-auto mb-md-auto text-center stretch-card" >
                   <img class="popular-image align-self-center m-auto" [src]="mostPopularProjects[4].images[0].image" alt="First slide">
                 </div>
-                <div class="col-md-4 p-1 col-lg-4 col-sm-4 col-5 w-100 h-100 stretch-card w-100">
+                <div class="col-md-4 p-1 col-lg-4 h-50 col-sm-4 col-12  stretch-card w-100">
                   <div class="text-dark text-center d-md-block align-self-center h-100 w-100">
-                    <div class="overflow-hidden p-md-2" style="height: 57%">
+                    <div class=" overflow-hidden p-md-2" >
 
-                        <h3 class="display-4 mb-0 text-dark">
+                        <h3 class="display-4 mb-0 text-dark" style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[4].title_rus : (translate.currentLang==='eng') ? mostPopularProjects[4].title_eng:mostPopularProjects[4].title_kz}}</h3>
                         <p class="text-right mb-0">{{ progress(mostPopularProjects[4]) + '%'}}</p>
                         <div class="progress mb-md-3 " >
                           <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: progress(mostPopularProjects[4])+ '%'}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <p>
+                        <p style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
                           {{(translate.currentLang === 'rus') ? mostPopularProjects[4].description_rus : (translate.currentLang==='eng') ? mostPopularProjects[4].description_eng:mostPopularProjects[4].description_kz}}
 
                         </p>
                                          </div>
                     <div class="h-50 w-100">
-                      <div class="row justify-content-center h-50 m-0 w-100">
+                      <div  class="border-bottom-mob row justify-content-center m-0 w-100">
                         <div class="col-10 p-0" >
                           <h3 class="display color-sss mb-0 popular-text"  *ngIf="mostPopularProjects[4].active!=2">
                             {{daysLeft(mostPopularProjects[4])}}
                           </h3>
+
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[4].active!=2">
                             {{'project.days_left' | translate}}
                           </p>
                           <p class="text-muted mb-md-3 mb-1" *ngIf="mostPopularProjects[4].active==2">
                             {{'project.end' | translate}}
                           </p>
-                          <hr class="m-0"/>
                         </div>
 
 
                       </div>
-                      <div class="text-left mt-md-4 h-50 row">
+
+                      <div class="text-left mt-md-3 h-50 row">
                         <div class="col-md-7 col-12 text-center">
                           <h3 class=" display m-0"><span class="color-sss">₸{{ inLocale(mostPopularProjects[4].goal)}}</span></h3>
 
                         </div>
-                        <div class="col-md-5 col-12 text-center pt-md-2">
-                          <button class="btn  p-1 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[4].id]" > {{'project.more' | translate}}</button>
+                        <div class="col-md-5 col-12 text-center mt-3">
+                          <button class="btn p-2 pl-md-3 pr-md-3 bg-sss text-light " [routerLink]="['/project/details', mostPopularProjects[4].id]" > {{'project.more' | translate}}</button>
 
                         </div>
 
@@ -296,13 +301,13 @@
 
             </div>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <a class="comp-flex carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span  aria-hidden="true" class="color-sss">
               <i class="fas fa-chevron-left popular-icon"></i>
             </span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <a class=" comp-flex carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
             <span  aria-hidden="true" class="color-sss">
               <i class="fas fa-chevron-right popular-icon"></i>
             </span>
@@ -315,10 +320,10 @@
     <hr/>
   </div>
   <div class="col-md-12 col-lg-12 col-sm-12  col-12 text-center">
-    <button class="bg-start-time btn  display-4 mt-3 p-md-4" routerLink="/create" >{{'main.start' | translate}}</button>
+    <button class="bg-start-time btn mt-md-2   display-4 p-md-4" routerLink="/create" >{{'main.start' | translate}}</button>
 
   </div>
-  <div class="col-10 mt-md-5">
+  <div class="col-10 mt-md-2">
     <hr/>
 
   </div>
@@ -335,7 +340,7 @@
   <div class="col-md-12 col-lg-12 col-sm-12 col-12 mb-2  text-right" >
     <ngx-slick-carousel  class="carousel " #slickModal="slick-carousel" [config]="slideConfig1" >
       <div ngxSlickItem *ngFor="let project of projects" class="slide ">
-        <div class="comp card m-1 m-md-3 border project-card stretch-card">
+        <div class="comp card m-1 m-md-3 border project-card  stretch-card">
           <div class="card-body p-0 p-md-3 h-100">
             <div class="paddingDiv h-50"  >
               <ng-container *ngIf="project.images">
@@ -345,9 +350,9 @@
 
             </div>
 
-            <div class=" h-25 overflow-auto">
+            <div class=" h-25">
               <div class="media-body text-md-left text-center text-sm-center">
-                <p class="card-title text-center"><a [routerLink]="['/project/details', project.id]" >
+                <p class="card-title text-center " style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden"><a [routerLink]="['/project/details', project.id]" >
                   {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></p>
 
               </div>
@@ -373,9 +378,9 @@
           </div>
 
         </div>
-        <div class="mob card p-1 m-md-3 border project-card stretch-card">
+        <div class="mob card p-1 m-md-3 m-2 border project-card stretch-card">
           <div class="card-body p-0 p-md-3 h-100">
-            <div class="paddingDiv h-25"  >
+            <div class="paddingDiv h-50"  >
               <ng-container *ngIf="project.images">
                 <img class="m-auto"  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" >
               </ng-container>
@@ -383,19 +388,19 @@
 
             </div>
 
-            <div class=" h-25 overflow-auto">
+            <div class="">
               <div class="media-body text-md-left text-center text-sm-center">
-                <p class="card-title text-center"><a [routerLink]="['/project/details', project.id]" >
+                <p class="card-title text-center mt-2" style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden"><a [routerLink]="['/project/details', project.id]" >
                   {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></p>
 
               </div>
             </div>
-            <div class="h-25">
-              <hr class="m-md-1 m-0 mt-1 h-25"/>
-              <p class="text-muted h-50 overflow-hidden m-0 mb-md-1" >{{'author' | translate}}: <a style="color: inherit" [routerLink]="['/userProfile',project.owner.id]"> {{project.owner.fullname}}</a></p>
+            <div>
+              <hr class="m-md-1 m-0 mt-1"/>
+              <p style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden" class="text-muted h-50 overflow-hidden m-0 mb-md-1" >{{'author' | translate}}: <a style="color: inherit" [routerLink]="['/userProfile',project.owner.id]"> {{project.owner.fullname}}</a></p>
 
             </div>
-            <div class="h-25">
+            <div class="">
 
               <div class="row w-100 m-0 mb-1 ">
                 <div class="col-8 text-left p-0 display-5">
@@ -430,10 +435,10 @@
 
   <div class="row justify-content-center pr-2 pl-2">
 
-  <div class="col-md-3 col-lg-3 col-sm-3  pr-md-3  pl-md-3 pl-1 pr-1 col-3 mt-md-5 stretch-card">
+  <div class="col-md-3 col-lg-3 col-sm-3  pr-md-3 grid-margin  pl-md-3  col-6 mt-md-5 stretch-card">
     <div class="card  border-0 shadow-lg ">
 
-      <div class="card-body p-0 p-md-3 stretch-card">
+      <div class="card-body p-md-3 stretch-card">
         <div class="align-self-center m-auto">
           <h1 class="text-center m-0 display counter-count color-sss">{{projectNum}}</h1>
           <p class="text-center text-muted m-0 pp">{{'main.projects' | translate}}</p>
@@ -444,10 +449,10 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-lg-3 col-sm-3 pr-md-3 pl-1 pr-1 col-3 mt-md-5 stretch-card">
+  <div class="col-md-3 col-lg-3 col-sm-3 pr-md-3 grid-margin  col-6 mt-md-5 stretch-card">
     <div class="card border-0 shadow-lg ">
 
-      <div class="card-body p-0 p-md-3 stretch-card">
+      <div class="card-body  p-md-3 stretch-card">
         <div class="align-self-center m-auto">
           <h1 class="text-center m-0 display counter-count color-sss">{{sucProjNum}}</h1>
           <p class="text-muted text-center m-0 pp">{{'main.startups' | translate}}</p>
@@ -457,14 +462,14 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3 col-lg-3 col-sm-3 pr-md-3 pl-1 pr-1 col-3  mt-md-5 stretch-card">
+  <div class="col-md-3 col-lg-3 col-sm-3 pr-md-3 grid-margin  col-6  mt-md-5 stretch-card">
     <div class="card border-0 shadow-lg ">
 
-      <div class="card-body p-0 p-md-3 stretch-card">
+      <div class="card-body  p-md-3 stretch-card">
         <div class="align-self-center m-auto ">
           <div class="d-flex">
             <h1 class="text-center m-0 display align-self-center counter-count color-sss ">₸{{(projectBakNum/1000000).toFixed(2)}}</h1>
-            <span class="align-self-center ml-md-1 color-sss sp mt-md-2 mt-1">{{'mln'|translate}}</span>
+            <span class="align-self-center ml-md-1 color-sss sp mt-md-2 mt-1 pp">{{'mln'|translate}}</span>
           </div>
 
           <p class="text-center text-muted pp">{{'main.bakes' | translate}}</p>
@@ -474,10 +479,10 @@
       </div>
     </div>
   </div>
-    <div class="col-md-3 col-lg-3 col-sm-3  pr-md-3 col-3 pl-1 pr-1 mt-md-5 stretch-card">
+    <div class="col-md-3 col-lg-3 col-sm-3 grid-margin  pr-md-3 col-6  mt-md-5 stretch-card">
       <div class="card border-0 shadow-lg ">
 
-        <div class="card-body p-0 p-md-3  stretch-card">
+        <div class="card-body  p-md-3  stretch-card">
           <div class="align-self-center m-auto">
             <h1 class="text-center m-0 display counter-count color-sss">{{(userNum).toLocaleString()}}</h1>
             <p class="text-center text-muted pp">{{'main.users' | translate}}</p>
@@ -524,7 +529,7 @@
     <div class="col-md-6 col-lg-6 col-sm-6 col-12 grid-margin stretch-card ">
     <div class="card ">
       <div class="card-body p-md-3 p-1 ">
-        <p >{{'main.follow' | translate}}</p>
+        <p style="font-size: 1rem!important;">{{'main.follow' | translate}}</p>
         <form [formGroup]="subscribeForm">
         <div class="form-group m-1">
           <div class="input-group">

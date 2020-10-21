@@ -8,18 +8,19 @@
   }
   .popular-image{
     max-width: 80%;
+    max-height: 100%;
   }
   .btn{
-    font-size: 0.575rem;
+    font-size: 1rem;
   }
   small{
     font-size: 0.475rem
   }
   p {
-    font-size: 0.4rem!important;
+    font-size: 0.9rem!important;
   }
   .pp{
-    font-size: 0.5rem!important;
+    font-size: 0.9rem!important;
 
   }
   .sp{
@@ -48,7 +49,7 @@
 
 @media (max-width: 991px) {
   .display {
-    font-size: 0.45rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -64,10 +65,7 @@
 }
 @media (max-width: 991px) {
   .display-4 {
-    font-size: 0.575rem;
-  }
-  .carousel-inner{
-    height: 120px;
+    font-size: 1rem;
   }
 }
 .display-5 {
@@ -81,7 +79,10 @@
 }
 @media (max-width: 991px) {
   .display-5 {
-    font-size: 0.4rem;
+    font-size: 0.7rem;
+  }
+  .comp-flex{
+    display: none;
   }
   .comp{
     display: none;
@@ -89,18 +90,31 @@
   .mob {
     display: block;
   }
+
   p{
-    font-size: 0.355rem;
+    font-size: 0.7rem;
     margin-bottom: .5rem;
-    line-height: 0.6rem;
+    line-height: 1rem;
   }
   .project-card {
-    height: 150px;
+    height: 170px;
+  }
+  .carousel-inner{
+    height: 400px;
   }
 }
 @media (min-width: 992px) {
   .comp{
     display: block;
+  }
+  .border-bottom-mob{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+  }
+  .carousel-inner{
+    height: 300px;
+  }
+  .comp-flex{
+    display: flex;
   }
   .mob {
     display: none;
@@ -110,8 +124,8 @@
     /*height: 500px;*/
   }
   .popular-image{
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 90%;
+    max-height: 150%;
   }
   .popular-text{
     font-size: 2.2rem;
@@ -122,9 +136,7 @@
   .popular-icon {
     font-size: 2.785rem;
   }
-  .carousel-inner{
-    height: 400px;
-  }
+
 }
 
 

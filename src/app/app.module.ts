@@ -116,6 +116,10 @@ import { HomeBakersComponent } from './components/user/profile/home-bakers/home-
 import { HomeBakedComponent } from './components/user/profile/home-baked/home-baked.component';
 import { UserFollowersComponent } from './components/user/auth-user-profile/user-followers/user-followers.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import {ShareIconsModule} from "ngx-sharebuttons/icons";
+import {ShareButtonsModule} from "ngx-sharebuttons/buttons";
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 const routes: Routes = [
   {path: '', component: UserComponent,
     children: [
@@ -140,7 +144,7 @@ const routes: Routes = [
           {path: 'questions', component: AuthQuestionComponent},
         ]
       },
-
+      {path: 'bake', component: BakeProjectComponent},
       {path: 'updates/details/:id', component: AuthUpdateDetailsComponent},
       {path: 'userProfile/:id', component: AuthUserProfileComponent,
         children: [
@@ -215,6 +219,7 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
+
     // unauthorized
     LoginComponent,
     RegisterComponent,
@@ -297,9 +302,12 @@ export function provideConfig() {
     imports: [
         BrowserModule,
       CKEditorModule,
+      ShareButtonsModule,
+      ShareIconsModule ,
       AgmCoreModule.forRoot({
         apiKey: 'AIzaSyD5eN7n2C1-JjTOixhhBavbFJeAQAo5AyI'
       }),
+      ImageCropperModule,
       GoogleMapsModule,
         AppRoutingModule,
         HttpClientModule,

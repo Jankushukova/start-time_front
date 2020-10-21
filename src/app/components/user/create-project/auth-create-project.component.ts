@@ -18,13 +18,14 @@ import {ProjectImage} from '../../../models/project/projectImage';
 import {Gift} from '../../../models/project/gift';
 import {GiftService} from '../../../services/project/gift.service';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import '@ckeditor/ckeditor5-build-classic/build/translations/el';
-import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
+import * as ClassicEditor from '../../../ckeditor/build/ckeditor';
+import '../../../ckeditor/build/translations/en-au';
+import '../../../ckeditor/build/translations/ru';
 
 // @ts-ignore
 import bootbox = require('bootbox');
 import {environment} from "../../../../environments/environment.prod";
+import {ImageCroppedEvent} from "ngx-image-cropper";
 
 
 
@@ -76,24 +77,20 @@ export class AuthCreateProjectComponent implements OnInit {
   descriptionLangs = [];
   contentLangs = [];
   categories: ProjectCategory[] = [];
-  images: FormData = new FormData();
+  images: FormData;
   rewardsList: Gift[] = [];
   categoryControl = new FormControl('', Validators.required);
   translate;
   back = environment.apiUrl;
-
   public Editor = ClassicEditor;
-  config =
-      {
-        toolbar: ['selectAll', 'undo', 'redo', 'bold', 'italic', 'blockQuote', 'ckfinder', 'imageTextAlternative',  'heading', 'imageStyle:full', 'imageStyle:side', 'indent', 'outdent', 'link', 'numberedList', 'bulletedList', 'mediaEmbed', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'  ],
-        language: (this.translator.currentLang=='eng')?'en-au':'ru',
-        ckfinder: {
-          options: {
-            resourceType: 'Images'
-          },
-          uploadUrl:  this.back +  '/ckfinder/connector'
-        }
-      }
+  config = {
+    language: (this.translator.currentLang=='rus')?'ru':'en-au',
+    simpleUpload: {
+      // The URL that the images are uploaded to.
+      uploadUrl: this.back + '/api/v1/project/create/image',
+
+    }
+  }
   constructor(private userService: UserService,
               private router: Router,
               private builder: FormBuilder,
@@ -115,6 +112,7 @@ export class AuthCreateProjectComponent implements OnInit {
     this.rewardFormInit();
     this.getCategories();
     this.bindLanguage();
+
     // this.authorized = false;
   }
   public onReady( editor ) {
@@ -170,14 +168,31 @@ export class AuthCreateProjectComponent implements OnInit {
       description: [ '', [Validators.required]]
     });
   }
-  ImageAddedEvent(fileInput: Event) {
-    // @ts-ignore
-    const files = fileInput.target.files;
-    for (let i = 0; i < files.length; i++) {
-      const image: ProjectImage = new ProjectImage();
-      image.image = files[i];
-      this.images.append('image' + ( i + 1), image.image);
-    }
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    this.ImageAddedEvent();
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
+  }
+  ImageAddedEvent() {
+    this.images = new FormData();
+    const image: ProjectImage = new ProjectImage();
+    image.image = this.croppedImage;
+    this.images.append('image', image.image);
 
   }
   addReward() {
@@ -214,9 +229,6 @@ export class AuthCreateProjectComponent implements OnInit {
     const project: Project = this.projectForm.getRawValue();
     const deadline = new Date(project.deadline);
     project.deadline = deadline.getFullYear() + '-' + (deadline.getMonth() + 1) + '-' + deadline.getDate();
-    project.content_rus = project.content_rus.split(this.back).join('');
-    project.content_eng = project.content_eng.split(this.back).join('');
-    project.content_kz = project.content_kz.split(this.back).join('');
     this.projectService.create(project).subscribe(perf => {
       // assign project id to rewards list
       this.rewardsList = this.rewardsList.map( (gift) => {
@@ -282,5 +294,6 @@ export class AuthCreateProjectComponent implements OnInit {
       message: text,
     });
   }
+
 
 }

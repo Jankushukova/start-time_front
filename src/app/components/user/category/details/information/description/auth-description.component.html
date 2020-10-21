@@ -7,13 +7,19 @@
     <div class="card">
       <div class="card-body p-2 p-md-4">
         <h2 class="display-5">
-          {{(translate.currentLang == 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng : project.title_kz}}</h2>
-
+          {{(translate.currentLang == 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng : project.title_kz}}
+        </h2>
         <div id="toAppend" class="mce-content-body"
           [innerHTML]="(translate.currentLang == 'rus') ? transformYourHtml(project.content_rus) : (translate.currentLang == 'eng') ? transformYourHtml(project.content_eng) : transformYourHtml(project.content_kz)"> </div>
-
-      </div></div>
+        <div id="fb-root"></div>
+        <share-buttons [theme]="'circles-dark'"
+                       [include]="['facebook','twitter','vk','telegram','whatsapp']"
+                       [show]="5"
+                       [title]="(translate.currentLang == 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng : project.title_kz"
+                       [description]="(translate.currentLang == 'rus') ? project.description_rus : (translate.currentLang == 'eng') ? project.description_eng : project.description_kz"
+                       [image]="project.images[0].image"
+                       [autoSetMeta]="true"
+        ></share-buttons>     </div>
   </div>
 </div>
-
-
+</div>

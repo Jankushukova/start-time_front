@@ -80,11 +80,8 @@ export class AdminBakesComponent implements OnInit, AfterViewInit {
   }
   assignProjectData(perf: any) {
     this.totalBakersCount = perf.total;
-    this.bakeInformation = perf.data.map((data): any => {
-      data.order = (new ProjectOrder()).deserialize(data.order);
-      data.bank = (new PaymentType()).deserialize(data.bank);
-      return data;
-    });
+    this.bakeInformation = perf.data;
+
   }
   removeFilters() {
     this.pattern = null;

@@ -56,6 +56,25 @@ export class AuthMainComponent implements OnInit {
     slidesToShow: 3,
     slidesToScroll: 3,
     infinite: true,
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 1,
+          arrows: false,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          arrows: false,
+        }
+      }
+    ]
   };
 
 

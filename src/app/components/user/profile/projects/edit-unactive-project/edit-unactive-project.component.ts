@@ -17,9 +17,10 @@ import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import {SimpleAuthService} from '../../../../../services/auth.service';
 import {ProjectImage} from '../../../../../models/project/projectImage';
 import {environment} from "../../../../../../environments/environment.prod";
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import '@ckeditor/ckeditor5-build-classic/build/translations/el';
-import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
+import * as ClassicEditor from '../../../../../ckeditor/build/ckeditor';
+import '../../../../../ckeditor/build/translations/en-au';
+import '../../../../../ckeditor/build/translations/ru';
+import {ImageCroppedEvent} from "ngx-image-cropper";
 
 export const PICK_FORMATS = {
   parse: {dateInput: {month: 'long', year: 'numeric', day: 'numeric'}},
@@ -68,17 +69,14 @@ export class EditUnactiveProjectComponent implements OnInit {
   translate;
   back = environment.apiUrl;
   public Editor = ClassicEditor;
-  config =
-    {
-      toolbar: ['selectAll', 'undo', 'redo', 'bold', 'italic', 'blockQuote', 'ckfinder', 'imageTextAlternative',  'heading', 'imageStyle:full', 'imageStyle:side', 'indent', 'outdent', 'link', 'numberedList', 'bulletedList', 'mediaEmbed', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'  ],
-      language: 'ru',
-      ckfinder: {
-        options: {
-          resourceType: 'Images'
-        },
-        uploadUrl:  this.back +  '/ckfinder/connector'
-      }
+  config = {
+    language: (this.translator.currentLang=='rus')?'ru':'en-au',
+    simpleUpload: {
+      // The URL that the images are uploaded to.
+      uploadUrl: this.back + '/api/v1/project/create/image',
+
     }
+  }
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -118,10 +116,6 @@ export class EditUnactiveProjectComponent implements OnInit {
 
   }
   bindOldProjectValues() {
-    for (let i = 0; i < this.project.images.length; i++) {
-      this.images.append('image' + ( i + 1), this.project.images[i].image);
-    }
-
     this.categoryControl = new FormControl(this.project.category_id, Validators.required);
     if (this.project.description_eng) {
       this.descriptionLang.push('eng');
@@ -172,14 +166,31 @@ export class EditUnactiveProjectComponent implements OnInit {
       description: [ '', [Validators.required]]
     });
   }
-  ImageAddedEvent(fileInput: Event) {
-    // @ts-ignore
-    const files = fileInput.target.files;
-    for (let i = 0; i < files.length; i++) {
-      const image: ProjectImage = new ProjectImage();
-      image.image = files[i];
-      this.images.append('image' + ( i + 1 + this.project.images.length), image.image);
-    }
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    this.ImageAddedEvent();
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  cropperReady() {
+    // cropper ready
+  }
+  loadImageFailed() {
+    // show message
+  }
+  ImageAddedEvent() {
+    this.images = new FormData();
+    const image: ProjectImage = new ProjectImage();
+    image.image = this.croppedImage;
+    this.images.append('image', image.image);
 
   }
   addReward(event) {

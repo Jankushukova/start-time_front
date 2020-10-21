@@ -9,9 +9,9 @@ import {Update} from "../../../../../../../models/project/update";
 import {UpdateService} from "../../../../../../../services/project/update.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UpdateImage} from "../../../../../../../models/project/updateImage";
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import '@ckeditor/ckeditor5-build-classic/build/translations/el';
-import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
+import * as ClassicEditor from '../../../../../../../ckeditor/build/ckeditor';
+import '../../../../../../../ckeditor/build/translations/en-au';
+import '../../../../../../../ckeditor/build/translations/ru';
 import {environment} from "../../../../../../../../environments/environment.prod";
 
 @Component({
@@ -29,17 +29,14 @@ export class CreateUpdateComponent implements OnInit {
   back = environment.apiUrl;
 
   public Editor = ClassicEditor;
-  config =
-    {
-      toolbar: ['selectAll', 'undo', 'redo', 'bold', 'italic', 'blockQuote', 'ckfinder', 'imageTextAlternative',  'heading', 'imageStyle:full', 'imageStyle:side', 'indent', 'outdent', 'link', 'numberedList', 'bulletedList', 'mediaEmbed', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells'  ],
-      language: (this.translator.currentLang=='eng')?'en-au':'ru',
-      ckfinder: {
-        options: {
-          resourceType: 'Images'
-        },
-        uploadUrl:  this.back +  '/ckfinder/connector'
-      }
+  config = {
+    language: (this.translator.currentLang=='rus')?'ru':'en-au',
+    simpleUpload: {
+      // The URL that the images are uploaded to.
+      uploadUrl: this.back + '/api/v1/project/create/image',
+
     }
+  }
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private projectService: ProjectService,

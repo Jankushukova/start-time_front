@@ -101,9 +101,10 @@
 
                   <p>Content</p>
                   <div class="row justify-content-start mb-2" *ngFor="let lang of contentLangs; index as i">
-                    <ckeditor  formControlName="{{'content_' + lang}}" [editor]="Editor" (ready)="onReady($event)" id="editor" [required]="i==0"
+                    <ckeditor class="w-100 m-2"  formControlName="{{'content_' + lang}}" [editor]="Editor" (ready)="onReady($event)" id="editor" [required]="i==0"
                                [config]="config"
-                               data="<p>Hello, world!</p>" ></ckeditor>                    <button class="col-1" *ngIf="i > 0" (click)="removeContent(i)" matSuffix mat-icon-button  matTooltip="Remove content on this language"
+                               data="<p>Hello, world!</p>" ></ckeditor>
+                    <button class="col-1" *ngIf="i > 0" (click)="removeContent(i)" matSuffix mat-icon-button  matTooltip="Remove content on this language"
                             aria-label="Button that displays a tooltip when focused or hovered over">
                       <mat-icon>remove_circle_outline</mat-icon>
                     </button>
@@ -111,16 +112,39 @@
                 </div></div></div>
 
 
-            <div class="col-md-6 grid-margin stretch-card ">
+            <div class="col-md-12 grid-margin stretch-card ">
               <div class="card">
-                <div class="card-body p-2 p-md-4">
+                <div class="card-body p-2">
                   <mat-form-field class="w-100">
-                    <ngx-mat-file-input  (change)="ImageAddedEvent($event)" placeholder="Upload Images" multiple></ngx-mat-file-input>
-                    <mat-icon matSuffix>image</mat-icon>
+                    <ngx-mat-file-input  (change)="fileChangeEvent($event)" placeholder="{{'create.images'|translate}}" ></ngx-mat-file-input>
+                    <mat-icon matSuffix></mat-icon>
                   </mat-form-field>
-                </div></div></div>
+                  <div class="row" style="margin-top: 5%;">
+                    <div class="text-center col-md-7">
+                      <h5>{{'crop'|translate}}</h5>
+                      <image-cropper
+                        [imageURL]="(project.images.length!=0)?project.images[0].image:''"
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="4 / 3"
+                        [resizeToWidth]="269"
+                        format="png"
+                        (imageCropped)="imageCropped($event)"
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady()"
+                        (loadImageFailed)="loadImageFailed()"></image-cropper>
+                    </div>
+                    <div class="text-center col-md-5">
+                      <h5>{{'preview'|translate}}</h5>
+                      <img [src]="croppedImage" />
+                    </div>
+                  </div>
 
-            <div class="col-md-6 grid-margin stretch-card ">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 grid-margin stretch-card ">
               <div class="card">
                 <div class="card-body p-2 p-md-4">
                   <mat-form-field class="example-full-width" class=" w-100">
