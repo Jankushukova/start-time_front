@@ -15,7 +15,7 @@ export class ProjectOrder implements Deserializable{
   viewed: number;
   project_id: number;
   project: Project;
-  user_id: User;
+  user_id: any;
   gift_id: number;
   gift: Gift;
   confirmed: number;

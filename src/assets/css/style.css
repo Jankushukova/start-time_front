@@ -11171,6 +11171,16 @@ fieldset:disabled a.btn {
   background-color: #4d83ff;
   border-color: #4d83ff;
 }
+.btn-outline-starttime {
+  color: #009E74;
+  border-color: #009E74;
+}
+
+.btn-outline-starttime:hover {
+  color: #009E74;
+  background-color: #f8f9fa;
+  border-color: #009E74;
+}
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(77, 131, 255, 0.5);

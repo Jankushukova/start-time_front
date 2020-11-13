@@ -370,7 +370,11 @@
   "preview": "Preview",
   "gift": "Gift",
   "no": "No",
-  "accept":" Confirm data"
+  "accept":" Confirm data",
+  "data": "Information about your bake",
+  "unpayedBake": "Bake without gift"
+
+
 
 
 

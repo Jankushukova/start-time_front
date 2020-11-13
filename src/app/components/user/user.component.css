@@ -47,11 +47,11 @@
     font-size: x-small;
   }
   .logo{
-    max-width: 50%
+    max-width: 20%
   }
 
 }
-@media (max-width: 800px) {
+@media (max-width: 840px) {
   .logo {
     max-width: 30%
   }

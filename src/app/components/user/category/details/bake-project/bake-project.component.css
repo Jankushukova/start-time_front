@@ -19,3 +19,17 @@
   visibility: visible !important;
   height: 100% !important;
 }
+.info-mob{
+  display: none;
+}
+.info-pc{
+  display: block;
+}
+@media (max-width: 991px) {
+  .info-mob{
+    display: block;
+  }
+  .info-pc{
+    display: none;
+  }
+}

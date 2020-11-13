@@ -24,17 +24,12 @@ import {MatStepper} from "@angular/material/stepper";
 export class BakeProjectComponent implements OnInit {
 
   project: Project;
-  authorizedUser;
   gift: Gift = null;
-  firstname='';
-  lastname='';
-  phone_number='';
+  user: User;
   sum = 0;
-  paymentType=3;
-  pay = false;
   order;
   valid = false;
-  giftIndex;
+  step = 1;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
@@ -53,20 +48,28 @@ export class BakeProjectComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.authorizedUser = this.userService.getUser();
-    if(this.authorizedUser){
-      this.firstname = this.authorizedUser.firstname;
-      this.lastname = this.authorizedUser.lastname;
-      this.phone_number = this.authorizedUser.phone_number;
+    let authorizedUser = this.userService.getUser();
+    if(authorizedUser){
+      this.user = authorizedUser;
+    }else{
+      this.user = new User();
     }
-
-
   }
 
+  changeStep(step){
+    this.step = step;
+  }
+  changeStepAndSum(step,gift){
+    this.step = step;
 
-  giftSelected(event) {
-    this.gift = this.project.gifts[event.value];
-    this.sum = this.gift.sum;
+    if(gift){
+      this.sum = gift.sum;
+      this.gift = gift;
+    }else{
+      this.sum = 0;
+      this.gift = null;
+    }
+
   }
 
   hasGift() {
@@ -81,26 +84,26 @@ export class BakeProjectComponent implements OnInit {
   }
   createOrder(){
     const projectOrder: ProjectOrder = new ProjectOrder();
-    projectOrder.first_name = this.firstname;
-    projectOrder.last_name = this.lastname;
-    projectOrder.phone_number = this.phone_number;
-    projectOrder.paymentType = this.paymentType;
+    projectOrder.first_name = this.user.firstname;
+    projectOrder.last_name = this.user.lastname;
+    projectOrder.phone_number = this.user.phone_number;
+    projectOrder.email = this.user.email;
+    projectOrder.paymentType = 3;
     projectOrder.gift_id = (this.hasGift())?this.gift.id:null;
     projectOrder.sum = this.sum;
     projectOrder.project_id = this.project.id;
-    projectOrder.user_id = (this.authorizedUser)?this.authorizedUser.id:null;
+    projectOrder.user_id = (this.user.id)?this.user.id:null;
       this.projectOrderService.create(projectOrder).subscribe(perf => {
         projectOrder.id = perf.id;
         projectOrder.confirmed = perf.confirmed;
-        this.order = projectOrder;
-        this.CloudPayments();
+        this.CloudPayments(projectOrder);
       });
 
   }
-  CloudPayments() {
+  CloudPayments(order) {
     const projectName = (this.translator.currentLang === 'rus') ? this.project.title_rus : (this.translator.currentLang === 'eng') ? this.project.title_eng : this.project.title_kz;
     const giftName = (this.hasGift()) ? this.gift.description : (this.translator.currentLang === 'rus') ? 'Вознаграждения нет' : (this.translator.currentLang === 'eng') ? 'No reward' : 'Сыйақы жоқ';
-    const amount = this.order.sum;
+    const amount = order.sum;
     // @ts-ignore
     const widget = new cp.CloudPayments();
       widget.charge({ // options
@@ -108,18 +111,20 @@ export class BakeProjectComponent implements OnInit {
           description: projectName + ', ' + giftName, // назначение
           amount: amount, // сумма
           currency: 'KZT', // валюта
-          invoiceId: this.order.id,
+          invoiceId: order.id,
           skin: 'classic', // дизайн виджета
           data: {
             myProp: 'myProp value' // произвольный набор параметров
           }
         },
         (options) => { // success
-          this.projectOrderService.cloudSuccess(this.order).subscribe(perf2 => {
+          this.projectOrderService.cloudSuccess(order).subscribe(perf2 => {
+
           });
 
         },
         (reason, options) => { // fail
+
         });
   }
 }
