@@ -65,7 +65,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     }
     this.translate.setDefaultLang('rus');
     const browserLang = this.translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|rus/) ? browserLang : 'rus');
+    this.translate.use(browserLang.match(/eng|rus/) ? browserLang : 'rus');
     this.language = this.translate.currentLang;
   }
 

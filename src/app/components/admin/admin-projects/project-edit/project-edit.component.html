@@ -159,23 +159,23 @@
               <div class="card">
                 <div class="card-body p-2 p-md-4">
                   <p>Reward</p>
-                  <form [formGroup]="rewardForm" (keydown)="addReward($event)">
+                  <form [formGroup]="rewardForm">
                     <div class="form-row justify-content-center">
-                      <div class="input-group mb-3 col-md-6 grid-margin stretch-card ">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text bg-sss text-white" id="inputGroup-sizing-d">Sum</span>
-                        </div>
-                        <input formControlName="sum" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing-d">
-                      </div>
-                      <div class="input-group mb-3 col-md-6 grid-margin stretch-card ">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text bg-sss text-white" id="inputGroup-sizing">Description</span>
-                        </div>
-                        <input  formControlName="description" type="text" class="form-control" aria-label="Name" aria-describedby="inputGroup-sizing">
-                      </div>
-
-
+                      <mat-form-field class="w-25 pr-1" >
+                        <mat-label>{{'create.reward_sum' | translate}}</mat-label>
+                        <input formControlName="sum" matInput>
+                      </mat-form-field>
+                      <mat-form-field class="pl-1 w-50" >
+                        <mat-label>{{'create.reward_description' | translate}}</mat-label>
+                        <input formControlName="description" matInput>
+                      </mat-form-field>
+                      <mat-form-field class="pl-1 w-25">
+                        <ngx-mat-file-input  (change)="onFileChanged($event)" placeholder="{{'giftImage'|translate}}" ></ngx-mat-file-input>
+                        <mat-icon matSuffix></mat-icon>
+                      </mat-form-field>
                     </div>
+                    <button class="btn bg-sss text-light" [disabled]="!rewardForm.valid" (click)="addReward()">{{'save'|translate}}</button>
+
                   </form>
 
                   <div class="row justify-content-center">

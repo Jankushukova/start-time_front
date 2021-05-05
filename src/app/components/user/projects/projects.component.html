@@ -1,6 +1,5 @@
 <p class="display-4 ml-2 text-center">{{'allProjects'|translate}}</p>
 <app-spinner filterBy="project/all"></app-spinner>
-
 <ng-container *ngIf="projects">
   <div class="container-fluid mb-md-5 p-1">
     <div class="row justify-content-center mt-md-5 ">
@@ -15,9 +14,9 @@
 
             </div>
 
-            <div class="overflow-auto  stretch-card" style="height: 15%">
-              <div class="media-body align-self-center text-md-left text-center text-sm-center p-2">
-                <p class="card-title  m-0 text-center"><a [routerLink]="['/project/details', project.id]" >
+            <div style="height: 15%" class="p-3">
+              <div class="media-body text-md-left text-center text-sm-center">
+                <p class="card-title text-center " style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden"><a [routerLink]="['/project/details', project.id]" >
                   {{(translate.currentLang === 'rus') ? project.title_rus : (translate.currentLang == 'eng') ? project.title_eng: project.title_kz}}</a></p>
 
               </div>

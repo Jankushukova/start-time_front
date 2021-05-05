@@ -212,6 +212,9 @@
       "error": "Error with the connection to server"
 
     },
+    "gift": {
+      "gift": "Gifts"
+    },
     "comment": {
       "text": "Leave a comment",
       "add": "Add",
@@ -295,7 +298,7 @@
     "follow": "Subscribe to the news",
     "subscribe": "Subscribe",
     "users": "Users",
-    "project_help": "Projects that need your support"
+    "project_help": "Previously posted projects"
 
 
   },
@@ -372,13 +375,10 @@
   "no": "No",
   "accept":" Confirm data",
   "data": "Information about your bake",
-  "unpayedBake": "Bake without gift"
-
-
-
-
-
-
+  "unpayedBake": "Bake without gift",
+  "search": "Search",
+  "giftImage": "Add Image",
+  "agreement": "Dear investors! We inform you that your contact information (phone number and email address) will be transferred to third parties and only after making the amount to the project, namely to the author of the project in order to further contact you to provide you with your prize. By making a transfer, you agree to this condition."
 
 
 }

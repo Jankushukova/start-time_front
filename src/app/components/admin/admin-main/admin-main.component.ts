@@ -15,7 +15,7 @@ import {AddPopularComponent} from "./add-popular/add-popular.component";
 export class AdminMainComponent implements OnInit {
   @ViewChild('slickModal') slickModal: SlickCarouselComponent;
   slideConfig = {
-    slidesToShow: 1,
+    slidesToShow: 5,
     slidesToScroll: 1,
     dots: true,
     nextArrow: '<div class=\'nav-btn next-slide\'> </div>',
@@ -76,6 +76,9 @@ export class AdminMainComponent implements OnInit {
     const dif = d1.getTime() - d2.getTime();
     const days = dif / (1000 * 3600 * 24);
     return Math.ceil(days);
+  }
+  progress(project: Project) {
+    return Math.ceil(( parseInt(project.gathered, 10) /  parseInt(project.goal, 10))  * 100 );
   }
   openDialog() {
     const dialogRef = this.dialog.open(AddPopularComponent, {

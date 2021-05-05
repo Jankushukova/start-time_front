@@ -11,6 +11,8 @@ export class Gift implements Deserializable{
   // tslint:disable-next-line:variable-name
   project_id: number;
   project: any;
+  image: string;
+
 
   deserialize(input: any): this {
     Object.assign(this, input);

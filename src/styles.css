@@ -117,3 +117,27 @@ a{
 .cdk-overlay-pane{
   max-width: 95vw!important;
 }
+
+.btn-starttime-light {
+  color: #212529;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.btn-starttime-light:hover {
+  color: #212529;
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}
+
+.btn-starttime-green {
+  color: #ffffff;
+  background-color: #009E74;
+  border-color: #009E74;
+}
+
+.btn-starttime-green:hover {
+  color: #ffffff;
+  background-color: #098967;
+  border-color: #049C74;
+}

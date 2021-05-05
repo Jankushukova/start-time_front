@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   tokenPrefix: 'Bearer ',
-  apiUrl: 'https://back.smart-plaza.kz',
+  apiUrl: 'https://api.start-time.kz',
   tokenKey: 'token',
   pusher: {
     key: '171ff90acf88b95a905d',

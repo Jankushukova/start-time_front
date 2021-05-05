@@ -84,8 +84,8 @@
               <p *ngIf="bake.user">{{bake.user.phone_number}}</p>
               <p *ngIf="!bake.user">{{bake.phone_number}}</p>
             </td>
-            <td><a style="color:inherit" target="_blank" [routerLink]="['/project/details', bake.project.id]">
-              {{bake.project.title_rus}}
+            <td><a style="color:inherit" target="_blank" [routerLink]="['/project/details', bake.project_id]">
+              {{bake.project_title}}
             </a></td>
               <td>{{(bake.payment) ? bake.payment.bank.name : ''}}</td>
               <td>{{ (bake.payment) ? bake.payment.sum : ''}}</td>

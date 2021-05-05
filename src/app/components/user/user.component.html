@@ -64,8 +64,10 @@
     </div>
     <div class="navbar-menu-wrapper shadow-lg d-flex align-items-center justify-content-center  w-100" style="background: #fafbfe;">
       <ul class="navbar-nav mr-lg-4 ">
-        <li class="nav-item  d-lg-block text-center">
-          <a routerLink="/main" class="nav-link"><img  src="../../../assets/images/logot.png" class="logo"></a>
+        <li class="nav-item  d-lg-block text-center row">
+          <a routerLink="/main" class="nav-link">
+            <i class="fas fa-home fa-lg mr-3"></i>
+            <img  src="../../../assets/images/logot.png" class="logo"></a>
         </li>
       </ul>
 
@@ -76,7 +78,7 @@
       <ul style="width: 10%"></ul>
       <ul class="navbar-nav "  style="width: 40%">
         <li class="nav-item  d-none d-lg-block w-100 h-100 m-0 p-0 text-center " *ngFor="let category of categories1" >
-          <a  class="a nav-link text-center w-100 h-100 m-0 p-0 " [routerLink]="['/category', category.id]">
+          <a  class="a nav-link text-center w-100 h-100 m-0 p-0 btn btn-starttime-light" [routerLink]="['/category', category.id]" ngbTooltip="{{(translate.currentLang=='rus') ? category.name_rus : (translate.currentLang === 'eng') ? category.name_eng : category.name_kz }}">
             <img class="h-100" style="max-width: 100%; max-height: 100%" [src]="getImage(category.id)"></a>
         </li>
       </ul>
@@ -158,7 +160,7 @@
           <div class="col-lg-7  col-11 mb-2 mt-5 pt-1  rounded-lg shadow-lg" style="background-color: #f1f2f7">
                 <mat-form-field style="width: 100%" appearance="none">
                   <input #input id="input"  [(ngModel)]="inputText" matInput placeholder="{{'main.search' | translate}}" >
-                  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="filterProjects(inputText)">
+                  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="filterProjects(inputText)"  ngbTooltip="{{'search' | translate}}">
                     <mat-icon matSuffix style="font-size: 28px">search</mat-icon>
                   </button>
                 </mat-form-field>
@@ -235,23 +237,23 @@
             </ng-container>
             <ul class="nav comp justify-content-around p-md-3" style="background-color: #ffffff;border-top: 1px solid #DCDEDD">
               <li class="nav-item">
-                <a class="nav-link a" style="border-right: 1px solid #DCDEDD"  routerLink="/main">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
+                <a class="nav-link a btn btn-starttime-light" style="border-right: 1px solid #DCDEDD" ngbTooltip="{{'navigation.main' | translate}}" routerLink="/main">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link a"  routerLink="/news">{{'navigation.news' | translate}}</a>
+                <a class="nav-link a btn btn-starttime-light"  routerLink="/news" ngbTooltip="{{'navigation.news' | translate}}">{{'navigation.news' | translate}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link a" style="border-right: 1px solid #DCDEDD;border-left: 1px solid #DCDEDD" routerLink="/contact">{{'navigation.contact' | translate}}</a>
+                <a class="nav-link a btn btn-starttime-light" style="border-right: 1px solid #DCDEDD;border-left: 1px solid #DCDEDD" routerLink="/contact" ngbTooltip="{{'navigation.contact' | translate}}">{{'navigation.contact' | translate}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link a"  routerLink="/about">{{'navigation.about'|translate}}</a>
+                <a class="nav-link a btn btn-starttime-light"  routerLink="/about" ngbTooltip="{{'navigation.about' | translate}}">{{'navigation.about'|translate}}</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link a" style="border-right: 1px solid #DCDEDD;border-left: 1px solid #DCDEDD" routerLink="/help">{{'navigation.help' | translate}}</a>
+                <a class="nav-link a btn btn-starttime-light" style="border-right: 1px solid #DCDEDD;border-left: 1px solid #DCDEDD" routerLink="/help" ngbTooltip="{{'navigation.help' | translate}}">{{'navigation.help' | translate}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link a" routerLink="/shop">Q-Shop</a>
+                <a class="nav-link a btn btn-starttime-light" routerLink="/shop" ngbTooltip="{{'Q-Shop' | translate}}">Q-Shop</a>
               </li>
 
             </ul>
@@ -262,19 +264,19 @@
           <div class="w-100 mob-nav">
             <ul style="list-style: none">
               <li class="nav-item">
-                <a class="nav-link al"  routerLink="/main">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
+                <a class="nav-link al btn btn-starttime-light"  routerLink="/main" ngbTooltip="{{'navigation.main' | translate}}">{{'navigation.main' | translate}} <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link al" routerLink="/news">{{'navigation.news' | translate}}</a>
+                <a class="nav-link al btn btn-starttime-light" routerLink="/news" ngbTooltip="{{'navigation.news' | translate}}">{{'navigation.news' | translate}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " routerLink="/contact">{{'navigation.contact' | translate}}</a>
+                <a class="nav-link btn btn-starttime-light" routerLink="/contact" ngbTooltip="{{'navigation.contact' | translate}}">{{'navigation.contact' | translate}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " routerLink="/about">{{'navigation.about'|translate}}</a>
+                <a class="nav-link btn btn-starttime-light" routerLink="/about"  ngbTooltip="{{'navigation.about' | translate}}">{{'navigation.about'|translate}}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link " routerLink="/help">{{'navigation.help' | translate}}</a>
+                <a class="nav-link btn btn-starttime-light" routerLink="/help"  ngbTooltip="{{'navigation.help' | translate}}">{{'navigation.help' | translate}}</a>
               </li>
 
             </ul>

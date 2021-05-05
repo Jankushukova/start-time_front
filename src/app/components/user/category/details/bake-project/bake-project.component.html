@@ -11,7 +11,7 @@
 
           <div class="row justify-content-center" *ngIf="step==1">
             <div class="col-10 card border-0  grid-margin">
-              <button (click)="changeStepAndSum(2, null)" class="btn text-light" style="background-color: rgba(0,177,130,1)">{{'unpayedBake'|translate}}</button>
+              <button (click)="changeStepAndSum(2, null)" class="btn text-light" style="background-color: rgba(0,177,130,1)" >{{'unpayedBake'|translate}}</button>
 
             </div>
 
@@ -62,8 +62,11 @@
               <h3 class="text-muted">
                 {{'gift'|translate}}:{{(hasGift())?gift.description:'no'|translate}}
               </h3>
+              <p class="text-muted"><mat-checkbox class="m-3" [(ngModel)]="checked"> </mat-checkbox>{{'agreement'|translate}}</p>
+
+
               <div class="text-right">
-                <button mat-dialog-close [disabled]="user.firstname==''|| user.lastname==''||user.phone_number==''|| user.firstname==null||user.lastname==null||user.phone_number==null||sum==0||sum==null||user.email==''||user.email==null" class="btn btn-start-time btn-lg ml-auto" (click)="createOrder()" >{{'accept' | translate}}</button>
+                <button mat-dialog-close [disabled]="(!checked)||user.firstname==''|| user.lastname==''||user.phone_number==''|| user.firstname==null||user.lastname==null||user.phone_number==null||sum==0||sum==null||user.email==''||user.email==null" class="btn btn-start-time btn-lg ml-auto" (click)="createOrder()" ngbTooltip="{{'accept'|translate}}">{{'accept' | translate}}</button>
 
               </div>
             </div>
@@ -71,7 +74,7 @@
           </div>
 
 
-    <div ><button class="btn btn-light" *ngIf="step!=1" (click)="changeStep((step==2)? 1 : 2)">{{'back' | translate}}</button></div>
+    <div ><button class="btn btn-light" *ngIf="step!=1" (click)="changeStep((step==2)? 1 : 2)" matTooltip="{{'back'|translate}}">{{'back' | translate}}</button></div>
 
   </mat-dialog-content>
 </ng-container>

@@ -62,7 +62,7 @@ import { AuthUpdateDetailsComponent } from './components/user/category/details/i
 import {MatListModule} from '@angular/material/list';
 import { AuthNewsEntityComponent } from './components/user/news/auth-news-entity/auth-news-entity.component';
 import { AuthNewsCommentComponent } from './components/user/news/news-details/auth-news-comment/auth-news-comment.component';
-import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -119,6 +119,7 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ShareIconsModule} from "ngx-sharebuttons/icons";
 import {ShareButtonsModule} from "ngx-sharebuttons/buttons";
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { GiftComponent } from './components/user/category/details/information/gift/gift.component';
 
 const routes: Routes = [
   {path: '', component: UserComponent,
@@ -298,62 +299,64 @@ export function provideConfig() {
     HomeBakersComponent,
     HomeBakedComponent,
     UserFollowersComponent,
+    GiftComponent,
   ],
-    imports: [
-        BrowserModule,
-      CKEditorModule,
-      ShareButtonsModule,
-      ShareIconsModule ,
-      AgmCoreModule.forRoot({
-        apiKey: 'AIzaSyD5eN7n2C1-JjTOixhhBavbFJeAQAo5AyI'
-      }),
-      ImageCropperModule,
-      GoogleMapsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        FormsModule,
-        RouterModule.forRoot(routes),
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatIconModule,
-        MaterialFileInputModule,
-        EditorModule,
-        OverlayModule,
-        MatSnackBarModule,
-        SlickCarouselModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatListModule,
-        NgbPaginationModule,
-        MatProgressSpinnerModule,
-        MatBadgeModule,
-        MatMenuModule,
-        MatCheckboxModule,
-        NgxMatIntlTelInputModule,
-        SocialLoginModule,
-        MatTooltipModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatButtonToggleModule,
-        MatRadioModule,
-        MatStepperModule,
-        MatTableModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatChipsModule
+  imports: [
+    BrowserModule,
+    CKEditorModule,
+    ShareButtonsModule,
+    ShareIconsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyD5eN7n2C1-JjTOixhhBavbFJeAQAo5AyI'
+    }),
+    ImageCropperModule,
+    GoogleMapsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    FormsModule,
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatIconModule,
+    MaterialFileInputModule,
+    EditorModule,
+    OverlayModule,
+    MatSnackBarModule,
+    SlickCarouselModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatListModule,
+    NgbPaginationModule,
+    MatProgressSpinnerModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    NgxMatIntlTelInputModule,
+    SocialLoginModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatButtonToggleModule,
+    MatRadioModule,
+    MatStepperModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatChipsModule,
+    NgbTooltipModule
 
-    ],
+  ],
   providers: [
     MatDatepickerModule,
     {

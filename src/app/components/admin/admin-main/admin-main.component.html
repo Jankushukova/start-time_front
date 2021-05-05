@@ -11,40 +11,84 @@
   </div>
 </div>
 
-<div class="row justify-content-center">
-  <div class="col-10">
+<div class="row justify-content-center mt-2">
+  <div class="col-12">
+    <app-spinner filterBy="/popular"></app-spinner>
+
     <ngx-slick-carousel  class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
 
       <div ngxSlickItem *ngFor="let project of projects" class="slide ">
-        <div class="card  m-1 m-md-3 border" >
-          <div class="card-img-top m-auto">
+        <div class="comp card m-1 m-md-3 border project-card  stretch-card">
+          <div class="card-body p-0 p-md-3 h-100">
+            <div class="paddingDiv h-50"  >
+              <ng-container *ngIf="project.images">
+                <img class="m-auto"  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" alt="Card image cap">
+              </ng-container>
+              <img class="card-img-top m-auto" *ngIf="!project.images" style="max-width: 100%; max-height: 100%" src="../../../../assets/images/32_0.png"  alt="Card image cap">
 
-            <ng-container *ngIf="project.images">
-              <img  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%"  alt="Card image cap">
-            </ng-container>
-            <img class="card-img-top m-auto" *ngIf="!project.images[0]" src="../../../../assets/images/32_0.png" style="max-width: 100%"  alt="Card image cap">
-          </div>
-          <div class="card-body p-0 p-md-3">
-            <h6 class="card-title text-center"><a [routerLink]="['/project/details', project.id]" >
-              {{project.title_rus}}</a></h6>
-            <hr/>
-            <p class="text-muted " >{{'project.by' | translate}}: <a style="color: inherit" [routerLink]="['/userProfile',project.owner.id]"> {{project.owner.fullname}}</a></p>
-
-            <div class="progress">
-              <div class="progress-bar bg-sss" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="row mt-2">
-              <div class="col-7">
-                <h4 class="text-start-time"><span class="text-muted">{{'project.gathered' | translate}}:</span> ₸{{project.gathered}}</h4>
-              </div>
-              <div class="col-5">
-                <h4 *ngIf="project.active!=2" class="text-muted text-center">{{daysLeft(project)}} <span >{{'project.days' | translate}}</span></h4>
-                <h6 class="text-muted text-center" *ngIf="project.active==2"><span>{{'project.end' | translate}}</span></h6>
+
+            <div class=" h-25">
+              <div class="media-body text-md-left text-center text-sm-center">
+                <p class="card-title text-center " style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden"><a [routerLink]="['/project/details', project.id]" >
+                  {{ project.title_rus}}</a></p>
 
               </div>
             </div>
+            <div class="h-25">
 
+              <div class="row w-100 mb-1">
+                <div class="col-9 text-left pr-0 display-5">
+                  ₸{{(project.gathered).toLocaleString()}}
+                </div>
+                <div class="col-3 color-sss p-0 display-5">{{progress(project) + '%'}}</div>
+
+              </div>
+              <div class=" progress">
+                <div class="progress-bar" [ngClass]="(progress(project) >= 100) ? 'bg-danger' : 'bg-sss'" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+
+              </div>
+            </div>
           </div>
+
+        </div>
+        <div class="mob card p-1 m-md-3 m-2 border project-card stretch-card">
+          <div class="card-body p-0 p-md-3 h-100">
+            <div class="paddingDiv h-50"  >
+              <ng-container *ngIf="project.images">
+                <img class="m-auto"  *ngIf="project.images[0]" [src]="project.images[0].image" style="max-width: 100%; max-height: 100%" >
+              </ng-container>
+              <img class="card-img-top m-auto" *ngIf="!project.images[0]" style="max-width: 100%; max-height: 100%" src="../../../../assets/images/32_0.png"  >
+
+            </div>
+
+            <div class="">
+              <div class="media-body text-md-left text-center text-sm-center">
+                <p class="card-title text-center mt-2" style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden"><a [routerLink]="['/project/details', project.id]" >
+                  {{ project.title_rus}}</a></p>
+
+              </div>
+            </div>
+            <div class="">
+
+              <div class="row w-100 m-0 mb-1 ">
+                <div class="col-8 text-left p-0 display-5">
+                  ₸{{(project.gathered).toLocaleString()}}
+                </div>
+                <div class="col-4 p-0" >
+                  <h4 *ngIf="project.active!=2" class="text-muted text-center">{{daysLeft(project)}} <span >{{'project.days' | translate}}</span></h4>
+                  <h6 class="text-muted text-center" *ngIf="project.active==2"><span>{{'project.end' | translate}}</span></h6>
+
+                </div>
+
+              </div>
+              <div class=" progress">
+                <div class="progress-bar" [ngClass]="(progress(project) >= 100) ? 'bg-danger' : 'bg-sss'" role="progressbar" [ngStyle]="{width: (project.gathered/project.goal)*100 + '%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>

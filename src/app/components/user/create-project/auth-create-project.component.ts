@@ -82,6 +82,7 @@ export class AuthCreateProjectComponent implements OnInit {
   categoryControl = new FormControl('', Validators.required);
   translate;
   back = environment.apiUrl;
+  giftImage;
   public Editor = ClassicEditor;
   config = {
     language: (this.translator.currentLang=='rus')?'ru':'en-au',
@@ -171,6 +172,16 @@ export class AuthCreateProjectComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
+  onFileChanged(event) {
+    const file = event;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const imgBase64Path = e.target.result;
+      this.giftImage = imgBase64Path;
+
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
@@ -197,6 +208,7 @@ export class AuthCreateProjectComponent implements OnInit {
   }
   addReward() {
       const gift: Gift = this.rewardForm.getRawValue();
+      gift.image = this.giftImage;
       this.rewardsList.push(gift);
       this.rewardForm.reset();
   }

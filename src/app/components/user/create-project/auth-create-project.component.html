@@ -38,7 +38,7 @@
         </div></div></div>
     <div class="col-md-10 grid-margin ">
       <div class="text-right">
-        <button [matMenuTriggerFor]="addLang" mat-icon-button  matTooltip="{{'create.description_add_info' | translate}}"
+        <button [matMenuTriggerFor]="addLang" mat-icon-button  ngbTooltip="{{'create.description_add_info' | translate}}"
                 aria-label="Button that displays a tooltip when focused or hovered over">
           <mat-icon>add</mat-icon>
         </button>
@@ -55,7 +55,7 @@
               <mat-label>{{(lang=='eng')?'Brief description of the project':(lang=='rus')?'Краткое описание проекта':'Проекттың қысқа сипаттамасы'}}</mat-label>
               <textarea [required]="i==0" formControlName="{{'description_' + lang}}" matInput
                         ></textarea>
-              <button *ngIf="i > 0" (click)="removeDescription(i)" matSuffix mat-icon-button  matTooltip="{{'create.description_remove_info' | translate}}"
+              <button *ngIf="i > 0" (click)="removeDescription(i)" matSuffix mat-icon-button  ngbTooltip="{{'create.description_remove_info' | translate}}"
                        aria-label="Button that displays a tooltip when focused or hovered over">
                 <mat-icon>remove_circle_outline</mat-icon>
               </button>
@@ -87,7 +87,7 @@
 
     <div class="col-md-10 grid-margin">
       <div class="text-right">
-        <button [matMenuTriggerFor]="addLangContent" mat-icon-button  matTooltip="{{'create.content_add_info' | translate}}"
+        <button [matMenuTriggerFor]="addLangContent" mat-icon-button  ngbTooltip="{{'create.content_add_info' | translate}}"
                 aria-label="Button that displays a tooltip when focused or hovered over">
           <mat-icon>add</mat-icon>
         </button>
@@ -104,7 +104,7 @@
           <div class=" mb-2" *ngFor="let lang of contentLangs; index as i">
             <ckeditor  formControlName="{{'content_' + lang}}" [editor]="Editor" [config]="config" (ready)="onReady($event)" id="editor" [required]="i==0"
                       data="<p>Hello, world!</p>" ></ckeditor>
-            <button class="col-1" *ngIf="i > 0" (click)="removeContent(i)" matSuffix mat-icon-button  matTooltip="{{'create.content_remove_info' | translate}}"
+            <button class="col-1" *ngIf="i > 0" (click)="removeContent(i)" matSuffix mat-icon-button  ngbTooltip="{{'create.content_remove_info' | translate}}"
                     aria-label="Button that displays a tooltip when focused or hovered over">
               <mat-icon>remove_circle_outline</mat-icon>
             </button>
@@ -161,13 +161,17 @@
               <p>{{'create.reward' |translate}}</p>
           <form [formGroup]="rewardForm" >
               <div class="form-row justify-content-center">
-                <mat-form-field class="w-50 pr-1" >
+                <mat-form-field class="w-25 pr-1" >
                   <mat-label>{{'create.reward_sum' | translate}}</mat-label>
                   <input formControlName="sum" matInput>
                 </mat-form-field>
                 <mat-form-field class="pl-1 w-50" >
                   <mat-label>{{'create.reward_description' | translate}}</mat-label>
                   <input formControlName="description" matInput>
+                </mat-form-field>
+                <mat-form-field class="pl-1 w-25">
+                  <ngx-mat-file-input  (change)="onFileChanged($event)" placeholder="{{'giftImage'|translate}}" ></ngx-mat-file-input>
+                  <mat-icon matSuffix></mat-icon>
                 </mat-form-field>
               </div>
             <button class="btn bg-sss text-light" [disabled]="!rewardForm.valid" (click)="addReward()">{{'save'|translate}}</button>
@@ -215,7 +219,7 @@
 
     <div class="col-md-10 grid-margin stretch-card ">
       <div class="text-right  w-100">
-        <button class="btn w-25 btn-lg bg-sss text-light"  (click)="onSubmitProjectForm()">{{'save'|translate}}</button>
+        <button class="btn w-25 btn-lg bg-sss text-light" ngbTooltip="{{'save' | translate}}" (click)="onSubmitProjectForm()">{{'save'|translate}}</button>
 
       </div>
     </div>

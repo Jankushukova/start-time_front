@@ -111,6 +111,11 @@ export class ProjectService {
   public getActiveProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.mainUrl}/active`);
   }
+
+  // +
+  public getLastProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.mainUrl}s/last`);
+  }
   // +
   public getUnActiveProjectsOfUser(perPageCount: number, pageNumber: number): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.customUrl}user/projects/unactive`, {

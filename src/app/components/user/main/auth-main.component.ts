@@ -13,6 +13,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthProductDetailsComponent} from '../shop/product-details/auth-product-details.component';
 import {MatDialog} from '@angular/material/dialog';
 import {TranslateService} from '@ngx-translate/core';
+import {ProjectLike} from "../../../models/project/projectLike";
 
 @Component({
   selector: 'app-main',
@@ -56,6 +57,7 @@ export class AuthMainComponent implements OnInit {
     slidesToShow: 3,
     slidesToScroll: 3,
     infinite: true,
+    arrows: false,
     responsive: [
       {
         breakpoint: 600,
@@ -99,8 +101,8 @@ export class AuthMainComponent implements OnInit {
   }
 
   changeProjects() {
-    this.projectService.getAllProjects(20, this.page).subscribe((perf: any) => {
-      this.projects = perf.data.map(data => new Project().deserialize(data));
+    this.projectService.getLastProjects().subscribe((perf: any) => {
+      this.projects = perf.map(data => new Project().deserialize(data));
 
     });
   }

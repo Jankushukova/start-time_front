@@ -73,6 +73,7 @@ export class ProjectEditComponent implements OnInit {
   contentLangs = [];
   back = environment.apiUrl;
   loading = false;
+  giftImage;
   public Editor = ClassicEditor;
   config = {
     language: 'ru',
@@ -173,6 +174,16 @@ export class ProjectEditComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
+  onFileChanged(event) {
+    const file = event;
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const imgBase64Path = e.target.result;
+      this.giftImage = imgBase64Path;
+
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
@@ -197,12 +208,11 @@ export class ProjectEditComponent implements OnInit {
     this.images.append('image', image.image);
 
   }
-  addReward(event) {
-    if (event.keyCode === 13) {
+  addReward() {
       const gift: Gift = this.rewardForm.getRawValue();
+      gift.image = this.giftImage;
       this.project.gifts.push(gift);
       this.rewardForm.reset();
-    }
   }
   deleteReward(i) {
     this.project.gifts.splice(i, 1);

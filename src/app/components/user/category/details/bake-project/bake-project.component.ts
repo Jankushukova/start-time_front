@@ -30,6 +30,7 @@ export class BakeProjectComponent implements OnInit {
   order;
   valid = false;
   step = 1;
+  checked = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,

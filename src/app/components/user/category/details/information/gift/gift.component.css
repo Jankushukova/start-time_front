@@ -1,0 +1,13 @@
+.info-mob{
+  display: none;
+}
+
+
+@media (max-width: 991px) {
+  .info-desk{
+    display: none;
+  }
+  .info-mob{
+    display: block;
+  }
+}

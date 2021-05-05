@@ -39,6 +39,7 @@ export class AuthDescriptionComponent implements OnInit {
 
   ngOnInit(): void {
     this.translate = this.translator;
+
     this.href = 'https://start-time.kz/project/details/'+ this.project.id +'/description';
     this.meta.updateTag(
       { name: 'url', content: 'https://start-time.kz/project/details/'+ this.project.id +'/description' },

@@ -18,7 +18,7 @@ export class AdminBakesComponent implements OnInit, AfterViewInit {
   @ViewChild('input') input: ElementRef;
   bakeInformation: any[] = [];
   page = 1;
-  perPageCount = 12;
+  perPageCount = 6;
   totalBakersCount: number;
   trans;
   pattern = null;

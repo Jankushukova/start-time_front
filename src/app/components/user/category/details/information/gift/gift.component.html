@@ -1,0 +1,55 @@
+<div class="row justify-content-center mt-md-5 mb-md-5 mt-3">
+  <div  class="col-md-10 col-11 grid-margin " *ngFor="let gift of project.gifts" >
+
+      <div class="row bg-light border rounded shadow-lg info-desk">
+        <div class="col-4 align-self-center p-0">
+          <ng-container *ngIf="gift.image">
+
+            <img class="card-img-top m-auto rounded" [src]="gift.image" style="max-height: 100%; max-width: 100%" alt="Card image cap">
+          </ng-container>
+          <img class="card-img-top m-auto rounded" *ngIf="!gift.image" src="../../../../../../../assets/images/gifts.jpg" style="max-height: 100%; max-width: 100%" alt="Card image cap">
+
+        </div>
+        <div class="col-8 border p-lg-2">
+          <div class="text-center">
+            <h3 class="card-title">
+              ₸{{inLocale(gift.sum)}}</h3>
+            <p class="text-muted"  >{{gift.description}}</p>
+          </div>
+
+      </div>
+    </div>
+    <div class="info-mob card m-1  border project-card stretch-card rounded">
+      <div class="card-body pb-2 p-0 h-100 shadow rounded">
+        <div class="paddingDiv text-center" style="height: 50%">
+          <ng-container *ngIf="gift.image">
+            <img class="="   [src]="gift.image" style="max-width: 100%; max-height: 100%" alt="Card image cap">
+          </ng-container>
+          <img class="card-img-top m-auto rounded" *ngIf="!gift.image" src="../../../../../../../assets/images/gifts.jpg" style="max-height: 100%; max-width: 100%" alt="Card image cap">
+
+        </div>
+
+        <div style="height: 15%" class="p-3">
+          <div class="media-body text-md-left text-center text-sm-center">
+            <p class="card-title text-center " style="text-overflow:ellipsis;white-space: nowrap;overflow: hidden">
+              ₸{{inLocale(gift.sum)}}</p>
+            <hr class="m-md-1 m-0"/>
+
+
+          </div>
+        </div>
+        <div class="pl-2 pr-2" style="height: 35%">
+          <div class="overflow-auto">
+            <p class="text-muted m-0 text-center" >{{gift.description}}</p>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
