@@ -70,7 +70,7 @@
     "sweetalert": "^2.1.2",
     "tinymce": "^5.2.1",
     "tslib": "^1.10.0",
-    "xlsx": "^0.16.2",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
